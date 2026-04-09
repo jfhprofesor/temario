@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temario de Física y Química</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="imagenes/2ESO/UD01.png">
+<style>
+:root { --bg:#080c10; --surface:#0e1318; --card:#131920; --border:rgba(255,255,255,0.06); --text:#e8edf2; --muted:#5a6677; --accent:#38bdf8; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'Outfit',sans-serif; min-height:100vh; overflow-x:hidden; }
+.bg-fx { position:fixed; inset:0; pointer-events:none; z-index:0; background:radial-gradient(ellipse 70% 40% at 15% 5%,rgba(56,189,248,0.07) 0%,transparent 55%),radial-gradient(ellipse 50% 35% at 85% 90%,rgba(99,102,241,0.06) 0%,transparent 55%); }
+header { position:relative; z-index:10; padding:2.5rem 2rem 1.5rem; border-bottom:1px solid var(--border); display:flex; flex-direction:column; align-items:center; gap:0.6rem; text-align:center; }
+.header-logo { font-family:'Syne',sans-serif; font-size:clamp(1.4rem,4vw,2.2rem); font-weight:800; line-height:1; letter-spacing:-0.03em; }
+.header-logo span { color:var(--accent); }
+.header-sub { color:var(--muted); font-size:0.82rem; font-weight:300; letter-spacing:0.08em; text-transform:uppercase; }
+.curso-tabs { position:relative; z-index:10; display:flex; gap:0.4rem; padding:1.2rem 1.5rem; overflow-x:auto; scrollbar-width:none; border-bottom:1px solid var(--border); flex-wrap:wrap; justify-content:center; }
+.curso-tabs::-webkit-scrollbar { display:none; }
+.curso-tab { flex-shrink:0; padding:0.5rem 1.1rem; border-radius:50px; border:1px solid var(--border); background:transparent; color:var(--muted); font-family:'Outfit',sans-serif; font-size:0.8rem; font-weight:500; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+.curso-tab:hover { color:var(--text); border-color:rgba(255,255,255,0.15); }
+.curso-tab.active { background:var(--accent); border-color:var(--accent); color:#000; font-weight:600; }
+main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px; margin:0 auto; }
+.curso-panel { display:none; }
+.curso-panel.active { display:block; animation:fadeUp 0.35s ease both; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+.curso-layout { display:flex; gap:0; align-items:flex-start; }
+.curso-sidebar { flex-shrink:0; width:110px; display:flex; flex-direction:column; align-items:center; gap:1rem; padding:0.5rem 1rem 0.5rem 0; border-right:1px solid var(--border); margin-right:1.5rem; }
+.sidebar-btn { display:flex; flex-direction:column; align-items:center; gap:0.4rem; text-decoration:none; padding:0.4rem; border-radius:10px; transition:background 0.2s; width:100%; }
+.sidebar-btn:hover { background:rgba(56,189,248,0.08); }
+.sidebar-btn img { width:64px; height:64px; object-fit:contain; border-radius:12px; border:1px solid var(--border); background:var(--card); padding:4px; }
+.sidebar-btn span { font-size:0.62rem; color:var(--muted); text-align:center; line-height:1.3; transition:color 0.2s; }
+.sidebar-btn:hover span { color:var(--accent); }
+.temas-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:1rem; flex:1; justify-items:center; justify-content:center; }
+.tema-btn { position:relative; background:none; border:none; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0.5rem; padding:0.5rem; animation:popIn 0.4s calc(var(--d,0)*0.05s) both; }
+@keyframes popIn { from{opacity:0;transform:scale(0.85) translateY(8px)} to{opacity:1;transform:scale(1) translateY(0)} }
+.tema-circle { width:110px; height:110px; border-radius:50%; overflow:hidden; border:2px solid var(--border); position:relative; transition:transform 0.25s cubic-bezier(.34,1.56,.64,1),border-color 0.2s,box-shadow 0.2s; background:var(--card); }
+.tema-circle img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease; }
+.tema-btn:hover .tema-circle { transform:scale(1.08) translateY(-3px); border-color:var(--accent); box-shadow:0 8px 30px -8px rgba(56,189,248,0.4); }
+.tema-btn:hover .tema-circle img { transform:scale(1.05); }
+.tema-num-label { font-family:'Syne',sans-serif; font-size:0.68rem; font-weight:700; color:var(--accent); letter-spacing:0.08em; text-align:center; }
+.tema-label { font-size:0.72rem; font-weight:500; color:var(--text); text-align:center; line-height:1.3; max-width:110px; transition:color 0.2s; }
+.tema-btn:hover .tema-label { color:var(--accent); }
+/* MODAL */
+.modal-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.82); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; padding:1.2rem; opacity:0; pointer-events:none; transition:opacity 0.25s; }
+.modal-overlay.open { opacity:1; pointer-events:all; }
+
+/* El modal es el contenedor de posicionamiento de todo */
+.modal { position:relative; background:var(--surface); border:1px solid rgba(255,255,255,0.08); border-radius:20px; width:100%; max-width:520px; overflow:hidden; display:flex; flex-direction:column; transform:scale(0.92) translateY(20px); transition:transform 0.3s cubic-bezier(.34,1.3,.64,1); box-shadow:0 40px 80px -20px rgba(0,0,0,0.7); }
+.modal-overlay.open .modal { transform:scale(1) translateY(0); }
+
+/* Imagen de fondo: ocupa la mitad superior del modal */
+.modal-bg-img { display:block; width:100%; height:200px; object-fit:cover; object-position:center; filter:brightness(0.65); flex-shrink:0; }
+
+/* Gradiente que oscurece la parte baja de la imagen para que el texto sea legible */
+.modal-bg-gradient { position:absolute; top:0; left:0; right:0; height:200px; background:linear-gradient(to bottom, transparent 40%, rgba(8,12,16,0.9) 100%); pointer-events:none; }
+
+/* Icono + nombre: pegados al fondo de la imagen, transparentes */
+.modal-hero-info { position:absolute; top:172px; left:0; right:0; z-index:3; display:flex; align-items:center; gap:0.9rem; padding:0 1.2rem; background:transparent; }
+.modal-icon-wrap { width:52px; height:52px; border-radius:50%; overflow:hidden; border:2px solid rgba(56,189,248,0.6); flex-shrink:0; }
+.modal-icon-wrap img { width:100%; height:100%; object-fit:cover; }
+.modal-title { font-family:'Syne',sans-serif; font-size:1rem; font-weight:700; line-height:1.25; text-shadow:0 1px 10px rgba(0,0,0,1); }
+.modal-curso-tag { font-size:0.68rem; color:var(--accent); font-weight:600; letter-spacing:0.05em; text-shadow:0 1px 8px rgba(0,0,0,1); }
+
+/* Botón cerrar */
+.modal-close { position:absolute; top:0.7rem; right:0.7rem; z-index:10; width:30px; height:30px; border-radius:50%; background:rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.18); color:var(--text); font-size:0.9rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s; }
+.modal-close:hover { background:rgba(255,255,255,0.15); }
+
+/* Panel botones: justo debajo de la imagen, con padding-top para que el icono solapado quede visible */
+.modal-links::-webkit-scrollbar { display:none; }
+.modal-links { overflow-y:auto; padding:1.8rem 1rem 1rem; display:flex; flex-direction:column; gap:0.45rem; scrollbar-width:none; }
+
+.modal-empty { text-align:center; padding:2rem; color:var(--muted); font-size:0.85rem; }
+.modal-empty span { display:block; font-size:2rem; margin-bottom:0.5rem; opacity:0.4; }
+.link-row { display:flex; align-items:center; gap:0.8rem; padding:0.7rem 0.9rem; border-radius:10px; text-decoration:none; color:var(--text); border:1px solid var(--border); background:var(--card); transition:all 0.18s; }
+.link-row:hover { border-color:var(--accent); background:rgba(56,189,248,0.07); transform:translateX(3px); }
+.link-row-icon { width:38px; height:38px; border-radius:8px; background:rgba(56,189,248,0.06); display:flex; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; }
+.link-row-icon img { width:32px; height:32px; object-fit:contain; }
+.link-row-text { flex:1; }
+.link-row-name { font-size:0.85rem; font-weight:500; line-height:1.3; }
+.link-row-type { font-size:0.68rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; }
+.link-row-arrow { color:var(--muted); font-size:0.8rem; transition:color 0.2s; }
+.link-row:hover .link-row-arrow { color:var(--accent); }
+
+
+/* ── MÓVIL ─────────────────────────────────────────── */
+@media(max-width:768px) {
+  header { padding:1.5rem 1rem 1rem; }
+  .curso-tabs { padding:0.8rem 0.8rem; gap:0.3rem; }
+  .curso-tab { font-size:0.72rem; padding:0.4rem 0.8rem; }
+  main { padding:1rem 0.8rem 3rem; }
+
+  /* Sidebar goes horizontal on top */
+  .curso-layout { flex-direction:column; gap:0.8rem; }
+  .curso-sidebar {
+    flex-direction:row;
+    width:100%;
+    border-right:none;
+    border-bottom:1px solid var(--border);
+    margin-right:0;
+    padding:0 0 0.8rem 0;
+    justify-content:center;
+    gap:1.5rem;
+  }
+  .sidebar-btn img { width:50px; height:50px; }
+  .sidebar-btn span { font-size:0.58rem; }
+
+  /* Grid 4 columnas en móvil, centrado */
+  .temas-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:0.6rem; }
+  .tema-btn { width:calc(25% - 0.5rem); min-width:70px; max-width:90px; }
+  .tema-circle { width:80px; height:80px; }
+  .tema-label { font-size:0.65rem; max-width:80px; }
+  .tema-num-label { font-size:0.6rem; }
+
+  /* Modal móvil */
+  .modal-overlay { padding:0.5rem; align-items:center; }
+  .modal { max-width:100%; }
+  .modal-bg-img { height:170px; }
+  .modal-bg-gradient { height:170px; }
+  .modal-hero-info { top:144px; padding:0 1rem; }
+  .modal-links { padding-top:1.6rem; }
+  .modal-icon-wrap { width:42px; height:42px; }
+  .modal-title { font-size:0.88rem; }
+  .link-row { padding:0.55rem 0.8rem; }
+}
+
+@media(max-width:400px) {
+  .temas-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:0.4rem; }
+  .tema-btn { width:calc(25% - 0.35rem); min-width:60px; max-width:80px; }
+  .tema-circle { width:70px; height:70px; }
+  .tema-label { font-size:0.6rem; max-width:70px; }
+}
+</style>
+</head>
+<body>
+<div class="bg-fx"></div>
+<header>
+  <div class="header-logo">Física <span>&</span> Química</div>
+  <div class="header-sub">Jacinto Javier Fernández Herrera</div>
+</header>
+<div class="curso-tabs">
+  <button class="curso-tab active" onclick="selectCurso('2eso',this)">2º ESO - Física y Química</button>
+  <button class="curso-tab" onclick="selectCurso('3eso',this)">3º ESO - Física y Química</button>
+  <button class="curso-tab" onclick="selectCurso('4eso',this)">4º ESO - Física y Química</button>
+  <button class="curso-tab" onclick="selectCurso('1bach',this)">1º Bachillerato - Física y Química</button>
+  <button class="curso-tab" onclick="selectCurso('2bachF',this)">2º Bachillerato - Física</button>
+  <button class="curso-tab" onclick="selectCurso('2bachQ',this)">2º Bachillerato - Química</button>
+</div>
+<main>
+  <div class="curso-panel active" id="panel-2eso"><div class="curso-layout">
+      <div class="curso-sidebar">
+        <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/IQDNwKbEt8woTIBvchGnKWwbAaf9xX5AA-sZJVdj7jtU5QI?resid=5E49627FE7EEC215!sc4a6c0cdccb74c28806f7211a7296c1b&ithint=file%2Cpptx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRE53S2JFdDh3b1RJQnZjaEduS1d3YkFhZjl4WDVBQS1zWkpWZGo3anRVNVFJ" target="_blank" rel="noopener">
+          <img src="imagenes/menu/Jornada_de_bienvenida.png" alt="Jornada de bienvenida">
+          <span>Jornada de bienvenida</span>
+        </a>
+        <a class="sidebar-btn" href="https://onedrive.live.com/?qt=allmyphotos&photosData=%2Fshare%2F5E49627FE7EEC215%21s3792c97e578a499ba19db4cd57331f2c%3Fithint%3Dvideo%26migratedtospo%3Dtrue&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s3792c97e578a499ba19db4cd57331f2c&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQi15WkkzaWxlYlNhR2R0TTFYTXg4c0FVcHU2akYxc0Q2b0taRHdyM2c0NnJj&v=photos" target="_blank" rel="noopener">
+          <img src="imagenes/menu/Video_temario.png" alt="Vídeo del temario">
+          <span>Vídeo del temario</span>
+        </a>
+      
+        <a class="sidebar-btn" href="javascript:void(0)" onclick="openJuegos('2eso')">
+          <img src="imagenes/menu/Juegos.png" alt="Juegos">
+          <span>Juegos</span>
+        </a>
+      </div>
+      <div class="temas-grid" id="grid-2eso"></div>
+    </div></div>
+  <div class="curso-panel" id="panel-3eso"><div class="curso-layout">
+      <div class="curso-sidebar">
+        <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/EYKrjsaUXZVOn-5ioB67Z6gB0D0lGEnYph2ZjDArksBaYw?resid=5E49627FE7EEC215!sc68eab825d944e959fee62a01ebb67a8&ithint=file%2Cpptx&e=K2Lt0h&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0VZS3Jqc2FVWFpWT24tNWlvQjY3WjZnQjBEMGxHRW5ZcGgyWmpEQXJrc0JhWXc_ZT1LMkx0MGg" target="_blank" rel="noopener">
+          <img src="imagenes/menu/Jornada_de_bienvenida.png" alt="Jornada de bienvenida">
+          <span>Jornada de bienvenida</span>
+        </a>
+        <a class="sidebar-btn" href="https://onedrive.live.com/?qt=allmyphotos&photosData=%2Fshare%2F5E49627FE7EEC215%21s167230d99a1842e39d2b38e411bfc221%3Fithint%3Dvideo%26e%3DdUtr0A%26migratedtospo%3Dtrue&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s167230d99a1842e39d2b38e411bfc221&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRFpNSElXR0pyalFwMHJPT1FSdjhJaEFTSjkwVTlnbTNHTVdRTEJnTXN3Y01VP2U9ZFV0cjBB&v=photos" target="_blank" rel="noopener">
+          <img src="imagenes/menu/Video_temario.png" alt="Vídeo del temario">
+          <span>Vídeo del temario</span>
+        </a>
+      
+        <a class="sidebar-btn" href="javascript:void(0)" onclick="openJuegos('3eso')">
+          <img src="imagenes/menu/Juegos.png" alt="Juegos">
+          <span>Juegos</span>
+        </a>
+      </div>
+      <div class="temas-grid" id="grid-3eso"></div>
+    </div></div>
+  <div class="curso-panel" id="panel-4eso"><div class="curso-layout">
+      <div class="curso-sidebar">
+        <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/EXWKS6ANV6FAu6nwyeMZk_gB2zT7ZxtHkCPQbNkUsh3fzQ?resid=5E49627FE7EEC215!sa04b8a75570d40a1bba9f0c9e31993f8&ithint=file%2Cpptx&e=kljQyY&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0VYV0tTNkFOVjZGQXU2bnd5ZU1aa19nQjJ6VDdaeHRIa0NQUWJOa1VzaDNmelE_ZT1rbGpReVk" target="_blank" rel="noopener">
+          <img src="imagenes/menu/Jornada_de_bienvenida.png" alt="Jornada de bienvenida">
+          <span>Jornada de bienvenida</span>
+        </a>
+        <a class="sidebar-btn" href="https://onedrive.live.com/?qt=allmyphotos&photosData=%2fshare%2f5E49627FE7EEC215!sca768d4c4bfc42fdae14fd70a60bef89%3fithint%3dvideo%26e%3dgfVVAg%26migratedtospo%3dtrue&cid=5E49627FE7EEC215&id=5E49627FE7EEC215!sca768d4c4bfc42fdae14fd70a60bef89&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQk1qWGJLX0V2OVFxNFVfWENtQy0tSkFYR1VoNW5rYmJocURVS1lFTDM3VFkwP2U9Z2ZWVkFn" target="_blank" rel="noopener">
+          <img src="imagenes/menu/Video_temario.png" alt="Vídeo del temario">
+          <span>Vídeo del temario</span>
+        </a>
+      </div>
+      <div class="temas-grid" id="grid-4eso"></div>
+    </div></div>
+  <div class="curso-panel" id="panel-1bach"><div class="curso-layout">
+      <div class="curso-sidebar">
+        <a class="sidebar-btn" href="https://onedrive.live.com/personal/5e49627fe7eec215/_layouts/15/Doc.aspx?sourcedoc=%7B4b92edb0-9c52-442d-856f-bc1d268939dc%7D&action=default&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQ3c3WkpMVXB3dFJJVnZ2QjBtaVRuY0FiYWg3QjdKLXZ3bDF6eUxXUS13Q00wP2U9N3ZDMTlY" target="_blank" rel="noopener">
+          <img src="imagenes/menu/Jornada_de_bienvenida.png" alt="Jornada de bienvenida">
+          <span>Jornada de bienvenida</span>
+        </a>
+        <a class="sidebar-btn" href="https://onedrive.live.com/?photosData=%2Fshare%2F5E49627FE7EEC215%21s5b882468916e4afc9c0a9eeb23669362%3Fithint%3Dvideo%26e%3DMVCegD%26migratedtospo%3Dtrue&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQm9KSWhiYnBIOFNwd0tudXNqWnBOaUFaQUNHUkg0MTYxbWZ5dnZ3RGc5YzhFP2U9TVZDZWdE&view=8" target="_blank" rel="noopener">
+          <img src="imagenes/menu/Video_temario.png" alt="Vídeo del temario">
+          <span>Vídeo del temario</span>
+        </a>
+      </div>
+      <div class="temas-grid" id="grid-1bach"></div>
+    </div></div>
+  <div class="curso-panel" id="panel-2bachF"><div class="curso-layout">
+      <div class="curso-sidebar">
+        <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/IQAce58YYDeVT7jckdGHleVtAf69-q1OuQbPVR591QhmIo0?resid=5E49627FE7EEC215!s189f7b1c37604f95b8dc91d18795e56d&ithint=file%2Cpptx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQWNlNThZWURlVlQ3amNrZEdIbGVWdEFmNjktcTFPdVFiUFZSNTkxUWhtSW8w" target="_blank" rel="noopener">
+          <img src="imagenes/menu/Jornada_de_bienvenida.png" alt="Jornada de bienvenida">
+          <span>Jornada de bienvenida</span>
+        </a>
+        <a class="sidebar-btn" href="https://onedrive.live.com/?qt=allmyphotos&photosData=%2Fshare%2F5E49627FE7EEC215%21sa4a2d53918ff4d22a98ff0032dc6b54a%3Fithint%3Dvideo%26migratedtospo%3Dtrue&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21sa4a2d53918ff4d22a98ff0032dc6b54a&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQTUxYUtrX3hnaVRhbVA4QU10eHJWS0FXczZIZjlGcUxKb3A2MUFNT3JfZHdr&v=photos" target="_blank" rel="noopener">
+          <img src="imagenes/menu/Video_temario.png" alt="Vídeo del temario">
+          <span>Vídeo del temario</span>
+        </a>
+      </div>
+      <div class="temas-grid" id="grid-2bachF"></div>
+    </div></div>
+  <div class="curso-panel" id="panel-2bachQ"><div class="curso-layout">
+      <div class="curso-sidebar">
+        <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/IQDVo0hqoIddRoCIBLsMol_2AetPORWqJbnAch3CSh_N7Xw?resid=5E49627FE7EEC215!s6a48a3d587a0465d808804bb0ca25ff6&ithint=file%2Cpptx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRFZvMGhxb0lkZFJvQ0lCTHNNb2xfMkFldFBPUldxSmJuQWNoM0NTaF9ON1h3" target="_blank" rel="noopener">
+          <img src="imagenes/menu/Jornada_de_bienvenida.png" alt="Jornada de bienvenida">
+          <span>Jornada de bienvenida</span>
+        </a>
+        <a class="sidebar-btn" href="https://onedrive.live.com/?qt=allmyphotos&photosData=%2Fshare%2F5E49627FE7EEC215%21s485a4e303e704771a3e5d52d05a64286%3Fithint%3Dvideo%26migratedtospo%3Dtrue&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s485a4e303e704771a3e5d52d05a64286&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQXdUbHBJY0Q1eFI2UGwxUzBGcGtLR0FmWnFBakNORnpyWFYwZzRUNEE3M3Ew&v=photos" target="_blank" rel="noopener">
+          <img src="imagenes/menu/Video_temario.png" alt="Vídeo del temario">
+          <span>Vídeo del temario</span>
+        </a>
+      </div>
+      <div class="temas-grid" id="grid-2bachQ"></div>
+    </div></div>
+</main>
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <img class="modal-bg-img" id="modal-bg" src="" alt="">
+    <div class="modal-bg-gradient"></div>
+    <div class="modal-hero-info">
+      <div class="modal-icon-wrap"><img id="modal-icon" src="" alt=""></div>
+      <div>
+        <div class="modal-curso-tag" id="modal-curso"></div>
+        <div class="modal-title" id="modal-name"></div>
+      </div>
+    </div>
+    <div class="modal-links" id="modal-links"></div>
+  </div>
+</div>
+<script>
+// ═══════════════════════════════════════════
+// ICONOS DE ENLACE — carpeta imagenes/menu/
+// ═══════════════════════════════════════════
+const ICONOS = {
+  online:        'imagenes/menu/Ver_apuntes_online.png',
+  presentacion_online: 'imagenes/menu/Video_temario.png',
+  pdf:           'imagenes/menu/Descargar_PDF.png',
+  google:        'imagenes/menu/Cuestionario_Google.png',
+  formulacion:   'imagenes/menu/Cuaderno_formulacion.png',
+  kahoot_grupo:  'imagenes/menu/Kahoot_Grupo.png',
+  kahoot_solo:   'imagenes/menu/Kahoot_Individual.png',
+  pasapalabra:    'imagenes/menu/Pasapalabra.png',
+  formulario:     'imagenes/menu/Formulario.png',
+};
+
+const JUEGOS = {
+  "2eso": [
+    { nombre:'Semana Cultural - Día Mundial de la Ciencia', enlaces:[
+      { label:'Kahoot en grupo', tipo:'kahoot_grupo', url:'https://play.kahoot.it/v2/?quizId=67b9fe53-3307-480a-aa55-c98b99f0e912' },
+      { label:'Kahoot en solitario', tipo:'kahoot_solo', url:'https://kahoot.it/solo?quizId=67b9fe53-3307-480a-aa55-c98b99f0e912&gameMode=nano' },
+    ]},
+    { nombre:'Día de Europa - La ciencia que nació en Europa', enlaces:[
+      { label:'Kahoot en grupo', tipo:'kahoot_grupo', url:'https://play.kahoot.it/v2/?quizId=3fbdb453-385e-422c-9ba7-e37d3718b3a3' },
+      { label:'Kahoot en solitario', tipo:'kahoot_solo', url:'https://kahoot.it/solo?quizId=3fbdb453-385e-422c-9ba7-e37d3718b3a3&gameMode=nano' },
+    ]},
+    { nombre:'Pasapalabra 1', enlaces:[
+      { label:'Ver Pasapalabra 1', tipo:'pasapalabra', url:'https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/IQDq8wi4uDdYSqJu4FqyvamaAbMcRLeI-6j1XsUP5fKICQA?resid=5E49627FE7EEC215!sb808f3ea37b84a58a26ee05ab2bda99a&ithint=file%2Cpptx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRHE4d2k0dURkWVNxSnU0RnF5dmFtYUFiTWNSTGVJLTZqMVhzVVA1ZktJQ1FB' },
+    ]},
+    { nombre:'Pasapalabra 2', enlaces:[
+      { label:'Ver Pasapalabra 2', tipo:'pasapalabra', url:'https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/IQDAgLXu_BM4ToLe4y5c9v5iAe8iSncLBknBAjej9LXphh4?resid=5E49627FE7EEC215!seeb580c013fc4e3882dee32e5cf6fe62&ithint=file%2Cpptx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRREFnTFh1X0JNNFRvTGU0eTVjOXY1aUFlOGlTbmNMQmtuQkFqZWo5TFhwaGg0' },
+    ]},
+  ],
+  "3eso": [
+    { nombre:'Semana Cultural (Bilingüe) - Recursos naturales', enlaces:[
+      { label:'Kahoot en grupo', tipo:'kahoot_grupo', url:'https://play.kahoot.it/v2/?quizId=adde3149-801e-4c9a-9767-2f3a6158eeae' },
+      { label:'Kahoot en solitario', tipo:'kahoot_solo', url:'https://kahoot.it/solo?quizId=adde3149-801e-4c9a-9767-2f3a6158eeae&gameMode=nano' },
+    ]},
+  ],
+};
+
+// ═══════════════════════════════════════════
+// DATOS
+// ═══════════════════════════════════════════
+const CURSOS = {
+
+  "2eso": { label:"2º ESO - Física y Química", temas:[
+    { nombre:"El método científico",        icono:"imagenes/2ESO/UD01.png", fondo:"imagenes/2ESO/UD01_-_El_método_científico.png", enlaces:[
+      { label:"Presentación online", tipo:"presentacion_online", url:"https://1drv.ms/p/c/5e49627fe7eec215/ERXC7ud_YkkggF4KCwAAAAABZHM1iA85X0jqZIeS4Ptd0w" },
+      { label:"Kahoot en grupo",    tipo:"kahoot_grupo", url:"https://play.kahoot.it/#/?quizId=ddf78bd7-baa9-476a-847d-310a3ed6691e" },
+      { label:"Kahoot en solitario",tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=ddf78bd7-baa9-476a-847d-310a3ed6691e&gameMode=nano" },
+    ]},
+    { nombre:"La materia",                  icono:"imagenes/2ESO/UD02.png", fondo:"imagenes/2ESO/UD02_-_La_materia.png", enlaces:[
+      { label:"Presentación online", tipo:"presentacion_online", url:"https://1drv.ms/p/c/5e49627fe7eec215/ERXC7ud_YkkggF4LCwAAAAABqyQnd9780Pkc2aIueyI98A" },
+      { label:"Kahoot en grupo",    tipo:"kahoot_grupo", url:"https://play.kahoot.it/#/?quizId=e34c6ad0-1434-472d-b3c1-01e7bd94b9f4" },
+      { label:"Kahoot en solitario",tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=e34c6ad0-1434-472d-b3c1-01e7bd94b9f4&gameMode=nano" },
+    ]},
+    { nombre:"Los estados de agregación",   icono:"imagenes/2ESO/UD03.png", fondo:"imagenes/2ESO/UD03_-_Los_estados_de_agregación.png", enlaces:[
+      { label:"Presentación online", tipo:"presentacion_online", url:"https://1drv.ms/p/c/5e49627fe7eec215/ERXC7ud_YkkggF4MCwAAAAABFJBwdJ_57V3x8yRZI8UQ-Q" },
+      { label:"Kahoot en grupo",    tipo:"kahoot_grupo", url:"https://play.kahoot.it/#/?quizId=039d60f8-808e-41c2-b574-f0eacf15cc03" },
+      { label:"Kahoot en solitario",tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=039d60f8-808e-41c2-b574-f0eacf15cc03&gameMode=nano" },
+    ]},
+    { nombre:"Las reacciones químicas",     icono:"imagenes/2ESO/UD04.png", fondo:"imagenes/2ESO/UD04_-_Las_reacciones_químicas.png", enlaces:[
+      { label:"Presentación online", tipo:"presentacion_online", url:"https://1drv.ms/p/c/5e49627fe7eec215/ERXC7ud_YkkggF4NCwAAAAABQYmpajT0CxlXAuZ73dxylA" },
+      { label:"Kahoot en grupo",    tipo:"kahoot_grupo", url:"https://play.kahoot.it/#/?quizId=7f91a71c-90fa-4d8e-bfc5-f132fe9ac26c" },
+      { label:"Kahoot en solitario",tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=7f91a71c-90fa-4d8e-bfc5-f132fe9ac26c&gameMode=nano" },
+    ]},
+    { nombre:"Las fuerzas y el movimiento", icono:"imagenes/2ESO/UD05.png", fondo:"imagenes/2ESO/UD05_-_Las_fuerzas_y_el_movimiento.png", enlaces:[
+      { label:"Presentación online", tipo:"presentacion_online", url:"https://1drv.ms/p/c/5e49627fe7eec215/ERXC7ud_YkkggF4OCwAAAAABxnZ5gDz49Tpr9LYSw5NsPQ" },
+      { label:"Kahoot en grupo",    tipo:"kahoot_grupo", url:"https://play.kahoot.it/#/?quizId=15df15da-b97b-4c03-88a4-783b1d9490a6" },
+      { label:"Kahoot en solitario",tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=15df15da-b97b-4c03-88a4-783b1d9490a6&gameMode=nano" },
+    ]},
+    { nombre:"La energía",                  icono:"imagenes/2ESO/UD06.png", fondo:"imagenes/2ESO/UD06_-_La_energía.png", enlaces:[
+      { label:"Presentación online", tipo:"presentacion_online", url:"https://1drv.ms/p/c/5e49627fe7eec215/ERXC7ud_YkkggF4RCwAAAAABZ_2hWOYKPOyV-EpH0ECNsA" },
+      { label:"Kahoot en grupo",    tipo:"kahoot_grupo", url:"https://play.kahoot.it/#/?quizId=a513b1bc-f4ce-4ce9-94c4-4ab2a33541b0" },
+      { label:"Kahoot en solitario",tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=a513b1bc-f4ce-4ce9-94c4-4ab2a33541b0&gameMode=nano" },
+    ]},
+    { nombre:"La energía térmica",          icono:"imagenes/2ESO/UD07.png", fondo:"imagenes/2ESO/UD07_-_La_energía_térmica.png", enlaces:[
+      { label:"Presentación online", tipo:"presentacion_online", url:"https://1drv.ms/p/c/5e49627fe7eec215/ERXC7ud_YkkggF4PCwAAAAAB-MoEE48qShfTsWPt0nlSPQ" },
+      { label:"Kahoot en grupo",    tipo:"kahoot_grupo", url:"https://play.kahoot.it/#/?quizId=1aa8dd2b-dadc-4ddb-aa9b-020af1606b2f" },
+      { label:"Kahoot en solitario",tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=1aa8dd2b-dadc-4ddb-aa9b-020af1606b2f&gameMode=nano" },
+    ]},
+    { nombre:"El sonido y la luz",          icono:"imagenes/2ESO/UD08.png", fondo:"imagenes/2ESO/UD08_-_El_sonido_y_la_luz.png", enlaces:[
+      { label:"Presentación online", tipo:"presentacion_online", url:"https://1drv.ms/p/c/5e49627fe7eec215/ERXC7ud_YkkggF4QCwAAAAABKEVdmS-ZkdCOlC4W5Nfy3Q" },
+      { label:"Kahoot en grupo",    tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=3fbdb453-385e-422c-9ba7-e37d3718b3a3" },
+      { label:"Kahoot en solitario",tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=3fbdb453-385e-422c-9ba7-e37d3718b3a3&gameMode=nano" },
+    ]},
+  ]},
+
+  "3eso": { label:"3º ESO - Física y Química", temas:[
+    { nombre:"Método científico",                   icono:"imagenes/3ESO/UD01.png", fondo:"imagenes/3ESO/UD01_-_Método_científico.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/ERurym9684hLveySW0eOPK4BJYqAMZi4c6pSTzawdvsIhQ?e=AQRomU" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQkxrNGhpM2g2ZFQ3cFhNZTZjc0lFR0FUQ0lQaHVSUUxuc09XYmI1RzBEUDBR&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s6288934b1ede4f9dba5731ee9cb08106&parId=5E49627FE7EEC215%21sc09c414909a1435e810243744d9c16c1&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSdfK7uM_oZEwHM6czNNvkPtLTe5hha8gqeqG4QBAOqK9egaNw/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=27224ca0-40f9-405a-a42a-c82a9f931dbf" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=27224ca0-40f9-405a-a42a-c82a9f931dbf&gameMode=nano" },
+    ]},
+    { nombre:"El átomo y la tabla periódica",       icono:"imagenes/3ESO/UD02.png", fondo:"imagenes/3ESO/UD02_-_El_átomo_y_la_tabla_periódica.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EcBmhM8wR9RLo92ha0l75AUBS240dCL4Lv9iNqACtGsx2g?e=w5TGtD" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQ2dVMWpQQzg5UlRJaXhJTE5xUnNFTUFVVl95VlFteUFuXzBzWElXcU5WU0xJ&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21scf5853a0cf0b4c5188b120b36a46c10c&parId=5E49627FE7EEC215%21sc09c414909a1435e810243744d9c16c1&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSearJteCmFxsdzGQ-OkVlYB3Dt2thbaz5mqWrdILmDzNHRRAA/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=39098528-17e6-4bfb-8825-ac6b40f8938c" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=39098528-17e6-4bfb-8825-ac6b40f8938c&gameMode=nano" },
+    ]},
+    { nombre:"Sistemas materiales",                 icono:"imagenes/3ESO/UD03.png", fondo:"imagenes/3ESO/UD03_-_Sistemas_materiales.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EaTN54yYK5pFraUhvaxrhpkBq6obJ5GCFcoP_hgyZrakNQ?e=CogGKX" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQV9kRkpzOV9pY1NKc0lUbS1mSXhVd0FZQ3J6TS1qb2tYeFhnYWVhTWc2RGJr&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s6c52743ff8f7489c9b084e6f9f231530&parId=5E49627FE7EEC215%21sc09c414909a1435e810243744d9c16c1&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSfoav7o-yRqbsWs6gsg3-o2-Uev1Wvh8UO1OSiZRTGILyAhlQ/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=5dcd9c42-6a35-476f-b564-b604f3b56cb6" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=5dcd9c42-6a35-476f-b564-b604f3b56cb6&gameMode=nano" },
+    ]},
+    { nombre:"Formulación inorgánica",              icono:"imagenes/3ESO/UD04.png", fondo:"imagenes/3ESO/UD04_-_Formulación_inorgánica.jpg", enlaces:[
+      { label:"Presentación online",    tipo:"online",      url:"https://1drv.ms/b/c/5e49627fe7eec215/EfLb61AqpNJOgv3xqNTAxBYBJPhAUjDjk4_y-uuYMaRj_w?e=lXQPw7" },
+      { label:"Cuestionario formulación",tipo:"formulacion", url:"https://sites.google.com/view/cuest-form-inorg/" },
+      { label:"Cuestionario Google",    tipo:"google",      url:"https://docs.google.com/forms/d/e/1FAIpQLSdnvzBaXKLrRSqBIvjUCi3-hxv2EZHO18NPRy8cqWXk6SV9NQ/viewform" },
+      { label:"Kahoot en grupo",        tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=21de7dbf-62f1-4fa0-8bc4-45ba8d7cb0d6" },
+      { label:"Kahoot en solitario",    tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=21de7dbf-62f1-4fa0-8bc4-45ba8d7cb0d6&gameMode=nano" },
+    ]},
+    { nombre:"Reacciones químicas",                 icono:"imagenes/3ESO/UD05.png", fondo:"imagenes/3ESO/UD05_-_Reacciones_químicas.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EYpSDRvz-gpIp88zTDZer3MBVB_hSJgUch_WgltUer--Lg?e=WqyPgs" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQWFZdDR4WlhpeFJLMkd6bXdnTW1VcEFjQjd2WlU0ZUNrLWtPWnNGQmE0Ukl3&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s31de621a786544b1ad86ce6c20326529&parId=5E49627FE7EEC215%21sc09c414909a1435e810243744d9c16c1&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSfVB8fftpUEp4hM51fQh-XpLdFzpWT_fIOrn2SbroZh3bObUw/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=0c454512-61a4-4f24-8d79-8568d6699932" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=0c454512-61a4-4f24-8d79-8568d6699932&gameMode=nano" },
+    ]},
+    { nombre:"Movimientos y fuerzas",               icono:"imagenes/3ESO/UD06.png", fondo:"imagenes/3ESO/UD06_-_Movimientos_y_fuerzas.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EWKDYP8-jjlAoqIw5S1Rlt0Bbvr90LofWwoOKHXl90jO5w?e=P7tDCj" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRGpMaEJNR0ZXWlE2TXFFRFVRSFVPVkFlSTd3XzNadWZUUFVkdng2UlUtX0NF&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s4c102ee355184399a32a1035101d4395&parId=5E49627FE7EEC215%21sc09c414909a1435e810243744d9c16c1&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSfL505eJ2YRTdov1gfyoMdCbzZOAiQhFFmuZ2Ae9AWtrSFn5A/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/?quizId=6f330229-ea98-4202-8dd9-74e2f2f5b045" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=6f330229-ea98-4202-8dd9-74e2f2f5b045&gameMode=nano" },
+    ]},
+    { nombre:"Gravedad, electricidad y magnetismo", icono:"imagenes/3ESO/UD07.png", fondo:"imagenes/3ESO/UD07_-_Gravedad__electricidad_y_magnetismo.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EVNgZ29CI8tEoJiAKaU03a0BWiI8Cd-9bQnkKB_IE6T46g?e=jiRLfC" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQzlUNm1Cdlp0NlRablVWYy1ZaTBKeUFjVTNNVWZ1d3p3WTB6bzJYNExWNE1J&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s81a94fbd9bbd4d7a99d455cf988b4272&parId=5E49627FE7EEC215%21sc09c414909a1435e810243744d9c16c1&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSeaPlLLpBAsQ_bS6WuY23GFAWUzQtGlPL_5l6O08Cv8HM6EUw/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/?quizId=fd713e87-24a3-409c-80a8-f64d59dc0ada" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=fd713e87-24a3-409c-80a8-f64d59dc0ada&gameMode=nano" },
+    ]},
+    { nombre:"Energía",                             icono:"imagenes/3ESO/UD08.png", fondo:"imagenes/3ESO/UD08_-_Energía.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/Ef_OIHQBKzNGms6P4kQw7OEBrB9YNPHmSFVXgOhxKiOHQw?e=GO3rlJ" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSeg36ooE-UUWPQ1v04QrBJ-Vbfh5hvj_e_-6yWHjWX1LB-DBA/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/?quizId=11ed8053-dfac-45bc-a409-544a848bca36" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo?quizId=adde3149-801e-4c9a-9767-2f3a6158eeae&gameMode=nano" },
+    ]},
+  ]},
+
+  "4eso": { label:"4º ESO - Física y Química", temas:[
+    { nombre:"Método científico",              icono:"imagenes/4ESO/UD01.png", fondo:"imagenes/4ESO/UD01_-_Método_científico.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/Ea1nDthNjGRNjb_geDzy8WABPMSrqrfrIqwAJNMF1PsJkw?e=X7knc2" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQjlWMlE0SkpJOVQ3MzQ4dThIRFhFbkFVZXRLY1dfWURGWHFmZ1FycTQ3Nl9n&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s3864577d92244f3dbdf8f2ef070d7127&parId=5E49627FE7EEC215%21s3d93976c770749d29c517ea4591aba88&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSdKZb7neSAgZqdr8fjzSOFXYq2iipmAvLyNKJrYwGLOtxIYvw/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/?quizId=fe7112f9-9267-4c01-825b-4a9db5f223d1" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=fe7112f9-9267-4c01-825b-4a9db5f223d1&gameMode=nano" },
+    ]},
+    { nombre:"El átomo y la tabla periódica",  icono:"imagenes/4ESO/UD02.png", fondo:"imagenes/4ESO/UD02_-_El_átomo_y_la_tabla_periódica.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EYF0XCA4Mz9NoY2RRjotT4YBB_1g8vcf7q1V19ybeOeJpw?e=NRqmcJ" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRGJkUGFBQ192MFRibW5EVmFDQlFQeUFWT3lFOTA5U1RDNkJuLVR1Ulp4WGMw&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s80f674dbfb0b4df4b9a70d56820503f2&parId=5E49627FE7EEC215%21s3d93976c770749d29c517ea4591aba88&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLScc2aJIk0C7tSHC4IYWFtp510Sogv6y-v0BngsR7KxZDcJOOg/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/#/?quizId=262659f9-539f-4c77-abd9-af9f2985e22e" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=262659f9-539f-4c77-abd9-af9f2985e22e&gameMode=nano" },
+    ]},
+    { nombre:"Enlace químico",                 icono:"imagenes/4ESO/UD03.png", fondo:"imagenes/4ESO/UD03_-_Enlace_químico.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EVlxrPqHoMNMgj0Yn7Bnsi8B7IXkyIbz_fFdXO5V0immRQ?e=FrhQnR" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLScQzDiBV7mhHUFUDdQF7JqWg1NF1r2-ka1Yk5bUQgH792_3HA/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/#/?quizId=673063a7-e660-4266-83b8-c7ba223e2a54" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=673063a7-e660-4266-83b8-c7ba223e2a54&gameMode=nano" },
+    ]},
+    { nombre:"Compuestos del carbono",         icono:"imagenes/4ESO/UD04.png", fondo:"imagenes/4ESO/UD04_-_Compuestos_del_carbono.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/ESc3FRREZ2NPjraS8NO3T38BzFiouL6rjBghWzZapeqXVQ?e=uO7sY5" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSfgwNEXCNh6FFvD80LxDSSz9hKlYQ4aaWj-zNy2O1VZ9ZbnvQ/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/*?quizId=e519edf6-01f1-43ac-b6bb-26c529308b23" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=e519edf6-01f1-43ac-b6bb-26c529308b23&gameMode=nano" },
+    ]},
+    { nombre:"Formulación inorgánica",         icono:"imagenes/4ESO/UD05.png", fondo:"imagenes/4ESO/UD05_-_Formulación_inorgánica.jpg", enlaces:[
+      { label:"Presentación online",     tipo:"online",      url:"https://1drv.ms/b/c/5e49627fe7eec215/EQEEsVM0ECZJqK9nCXYqtksBs2ybboq0fEXy00IcOD8B3g?e=9yXWh6" },
+      { label:"Cuestionario formulación",tipo:"formulacion", url:"https://sites.google.com/view/cuest-form-inorg/" },
+      { label:"Kahoot en grupo",         tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/?quizId=069e3cd8-837f-4115-9f08-768956bbe356" },
+      { label:"Kahoot en solitario",     tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=069e3cd8-837f-4115-9f08-768956bbe356&gameMode=nano" },
+    ]},
+    { nombre:"Reacciones químicas",            icono:"imagenes/4ESO/UD06.png", fondo:"imagenes/4ESO/UD06_-_Reacciones_químicas.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://onedrive.live.com/?id=5E49627FE7EEC215%21s0354274a1333440fa0deeba06d24507f&cid=5E49627FE7EEC215&redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQktKMVFETXhNUFJLRGU2NkJ0SkZCX0FlRUFERDNLckxCYmkzb3RzcDV6S0VJ&parId=5E49627FE7EEC215%21s294bdad391d14c9481d7578f51996b40&o=OneUp" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQlpoODFtbkF3NVJwNC12b2lfLVdSMEFlWEVqU2UxTGZNNUUxLTN4RmN5a3lV&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s66cd87590c9c46399e3ebe88bff96474&parId=5E49627FE7EEC215%21s3d93976c770749d29c517ea4591aba88&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSeMhQ2wP-dUbf7C8LBpNBkUgszWYd7Xl346zIgqmqJ5oC3Omg/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/#/?quizId=2edb4ded-30b7-4616-869a-6c78e6583838" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=2edb4ded-30b7-4616-869a-6c78e6583838&gameMode=nano" },
+    ]},
+    { nombre:"Reacciones químicas de interés", icono:"imagenes/4ESO/UD07.png", fondo:"imagenes/4ESO/UD07_-_Reacciones_químicas_de_interés.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EZRubu9_YpxJr9avjFDWzVkBv_887xQY1kj-0V0BO-JTKQ?e=3uOLsO" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQjFnaFpGcVd4TlJyRWI0NWk0X3lNM0FhY3NKcFdTTEtFWDBEaTJXbTVmVHE0&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s451682756ca9464db11be398b8ff2337&parId=5E49627FE7EEC215%21s3d93976c770749d29c517ea4591aba88&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSdpz4zMXVif_6I327EMA7P-Z8t7E0XSVNRzw6KPWqY2Yt0zwg/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/#/?quizId=1f760d8c-bc60-431a-920c-4e498e81f026" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=1f760d8c-bc60-431a-920c-4e498e81f026&gameMode=nano" },
+    ]},
+    { nombre:"Cinética",                       icono:"imagenes/4ESO/UD08.png", fondo:"imagenes/4ESO/UD08_-_Cinética.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EfuWk-gZWcFDt0DYJE03ImAB0ViFvLN4G6F4zDwAGn5tfQ?e=ofEPdv" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQkcxd2JuUXBBLVFySzRkQ29lUDZ2aUFWRnlOUmRkR2dTTUlLckE5LWZtLVM0&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21se706d7469042423eb2b8742a1e3fabe2&parId=5E49627FE7EEC215%21s3d93976c770749d29c517ea4591aba88&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLScCzBYjtkDxcQuHhrseTdRzxQy2eOOigohZRjyy0h_ik3hNJg/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/#/?quizId=00c1fb03-9ccd-4cfd-8245-a0554910ae0f" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=00c1fb03-9ccd-4cfd-8245-a0554910ae0f&gameMode=nano" },
+    ]},
+    { nombre:"Leyes de Newton",                icono:"imagenes/4ESO/UD09.png", fondo:"imagenes/4ESO/UD09_-_Leyes_de_Newton.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EYsICcyqEmxKgcXecLl_acwBsgdA3cGr1eNzyoXLjkqpag?e=R2m39a" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRGRQcjFoTVdIZ1FZTWhVNEhVZ2JFd0FVYXQ0YWFNeVVSLTNpWE1UcElOT3RB&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s61bd3edd613141e083215381d481b130&parId=5E49627FE7EEC215%21s3d93976c770749d29c517ea4591aba88&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSe3ZjBx5XcthaBqYmtXH1lv8pV5R5BJuDjL76gUIQfkmy3Pug/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/#/?quizId=32cea81e-721a-4f4f-948c-ced8ee7b0a38" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=32cea81e-721a-4f4f-948c-ced8ee7b0a38&gameMode=nano" },
+    ]},
+    { nombre:"Fuerzas en el Universo",         icono:"imagenes/4ESO/UD10.png", fondo:"imagenes/4ESO/UD10_-_Fuerzas_en_el_Universo.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EXen6v6Sc5hMtH05yNPEJQYBU88jUvr6H2lwIOY3Y-c1vQ?e=NofVq8" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQmdfc1FIVmx4dVJZWEZISU1zUnd2WkFZUmVacHFkdXgxMXF5REIwNjJvWTJz&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s07c4fe605c56456e85c51c832c470bd9&parId=5E49627FE7EEC215%21s3d93976c770749d29c517ea4591aba88&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSdNyRxsNlsBEb9j-SyZ4thpXHjFmT9ILvBygU2JIDuQzP9dJg/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/#/?quizId=9b09e178-a54e-4c4f-b9df-379fd5e71123" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=9b09e178-a54e-4c4f-b9df-379fd5e71123&gameMode=nano" },
+    ]},
+    { nombre:"Fuerzas en fluidos",             icono:"imagenes/4ESO/UD11.png", fondo:"imagenes/4ESO/UD11_-_Fuerzas_en_fluidos.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/Ec5BX7biF2lMg6MWsTi-ODUBngzNduc0H9C-eoqqjeZaiw?e=JaJtFz" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQUYzU0VManhZZ1Q1Zkk2NHFGS3E4REFYdXNIVWdGMmluYlR3REowQXhkYnNn&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s0b21dd05168f4f2097c8eb8a852aaf03&parId=5E49627FE7EEC215%21s3d93976c770749d29c517ea4591aba88&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSdqIgxbojpO8tuAMJP2lrfQX0MHJJAWawn1lRvBPE1Gara_MA/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/#/?quizId=df2d6c91-a842-4f70-ae5a-fc621fbb2930" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=df2d6c91-a842-4f70-ae5a-fc621fbb2930&gameMode=nano" },
+    ]},
+    { nombre:"Energía mecánica y trabajo",     icono:"imagenes/4ESO/UD12.png", fondo:"imagenes/4ESO/UD12_-_Energía_mecánica_y_trabajo.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EZ8fzUyFkXBOmiGIrzNnT8oBve5p7bKkiiROSXpSUqEuIQ?e=CwIk6Y" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQ2MwZlRFTndZZFQ2VDJoUGNaT0pQZ0FRNXEydGRUOTJJdVZ5d2QwMldiR3Zn&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21sc4f4d19c06374f1da4f684f7193893e0&parId=5E49627FE7EEC215%21s3d93976c770749d29c517ea4591aba88&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSf31Q3wGvltCKBSRUkteP1MNs9KoZcrwzvoc4RLTQxlLgDPiQ/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/#/?quizId=28ac3226-b10d-4b1d-b49c-5c112c608af8" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=28ac3226-b10d-4b1d-b49c-5c112c608af8&gameMode=nano" },
+    ]},
+    { nombre:"Energía térmica y calor",        icono:"imagenes/4ESO/UD13.png", fondo:"imagenes/4ESO/UD13_-_Energía_térmica_y_calor.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/Efr6zo1uN0BHnhszNUiZLlABoMtu9nGrXxqkkp-XRnKX-Q?e=aIijMb" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRG13Tk5MWEV0ZVRJR1ZfRVJiSjU5bkFXMEh2cnJUM2Z2NTYyR0d5d0FSVXNv&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s4bd3c0e64b5c4c5e8195fc445b279f67&parId=5E49627FE7EEC215%21s3d93976c770749d29c517ea4591aba88&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLScgm16fVYFhgDQNyrK81x3KWF34cLTTpSHmm6ProizKJKmO6w/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/?quizId=852d6dff-3251-40fa-9fe5-5a5be9578b18" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=852d6dff-3251-40fa-9fe5-5a5be9578b18&gameMode=nano" },
+    ]},
+  ]},
+
+  "1bach": { label:"1º Bachillerato - Física y Química", temas:[
+    { nombre:"Método científico", icono:"imagenes/1BACH/UD01.png", fondo:"imagenes/1BACH/UD01_-_Método_científico.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0Vaam5vRmpIa2JsRG1iTWgyQks1LUdZQnZxZ3R6amJZdGRDdFo4bWpzdm1EVmc%5FZT1CQ09PVlM&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s58a0e79891c743b999b321d812b9f866&parId=5E49627FE7EEC215%21sce87da85e83e4409aa7d803e7ffb10b8&o=OneUp" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRFo4UmJpQUlWS1Q2MkpLVW80TDA3T0FUY0FHVUV2VkYwdDlrWGwxMFo3cHVn&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21se216f1d985004f4aad89294a382f4ece&parId=5E49627FE7EEC215%21s9a281db4d51c4d44bf7f92af4a2ed480&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSeXe-iU0uprmBt2K3sOzbJPHCPQZlUEfI7RwoWbKsWVn7II-Q/viewform" },
+      { label:"Kahoot en grupo",    tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=a7283634-981b-462e-80c5-72871ddccb74" },
+      { label:"Kahoot en solitario",tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=a7283634-981b-462e-80c5-72871ddccb74&gameMode=nano" },
+    ]},
+    { nombre:"Formulación inorgánica", icono:"imagenes/1BACH/UD02.png", fondo:"imagenes/1BACH/UD02_-_Formulación_inorgánica.jpg", enlaces:[
+      { label:"Presentación online",     tipo:"online",      url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0VUOXExaDdrWjd4Qm5RbVY0cUhiXzJnQnJuWi1ELVN4SkRtNjRuTTlaay1HQnc%5FZT1uU2c1aFk&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s1ed66a3f67e441bc9d0995e2a1dbff68&parId=5E49627FE7EEC215%21sce87da85e83e4409aa7d803e7ffb10b8&o=OneUp" },
+      { label:"Cuestionario formulación",tipo:"formulacion", url:"https://sites.google.com/view/cuest-form-inorg/men%C3%BA-de-navegaci%C3%B3n" },
+      { label:"Kahoot en grupo",         tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=7e3ca6b4-c3c4-4370-8e8b-ea49fca07466" },
+      { label:"Kahoot en solitario",     tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=7e3ca6b4-c3c4-4370-8e8b-ea49fca07466&gameMode=nano" },
+    ]},
+    { nombre:"Formulación orgánica", icono:"imagenes/1BACH/UD03.png", fondo:"imagenes/1BACH/UD03_-_Formulación_orgánica.jpg", enlaces:[
+      { label:"Presentación online",     tipo:"online",      url:"https://1drv.ms/b/c/5e49627fe7eec215/EYmFQPfdx99Dism6krpkRR0BRr2uFn1zhyVVBTzJ9JrNpQ?e=NJBgPs" },
+      { label:"Cuestionario formulación",tipo:"formulacion", url:"https://sites.google.com/view/cuest-form-org/men%C3%BA-de-navegaci%C3%B3n" },
+      { label:"Kahoot en grupo",         tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=c5040bac-2e40-41a4-b798-6a5d6e93b68d" },
+      { label:"Kahoot en solitario",     tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=c5040bac-2e40-41a4-b798-6a5d6e93b68d&gameMode=nano" },
+    ]},
+    { nombre:"Estructura de la materia", icono:"imagenes/1BACH/UD04.png", fondo:"imagenes/1BACH/UD04_-_Estructura_de_la_materia.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQTRvZ3RfbGN5blM2NXpjN2F1eGRIb0FRbFIyUnFDTkUxSTFjZzJFWHNzUVk0&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s7f0ba238cc954ba7ae7373b6aec5d1e8&parId=5E49627FE7EEC215%21sce87da85e83e4409aa7d803e7ffb10b8&o=OneUp" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRE5IWHcwcE5fclJwbkVTbjhvWnRDU0FlWEtmSWQtMlNJZGZCNU9seWJiRHVV&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s347c1dcddfa446eb99c44a7f2866d092&parId=5E49627FE7EEC215%21s9a281db4d51c4d44bf7f92af4a2ed480&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSdidctnPpA-Xh5UOH9vpRKqM0Q_wETyb1Ezha7krNcpFZtysg/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=8ee2b558-6218-4850-8370-0a897b1973eb" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=8ee2b558-6218-4850-8370-0a897b1973eb&gameMode=nano" },
+    ]},
+    { nombre:"Gases y disoluciones", icono:"imagenes/1BACH/UD05.png", fondo:"imagenes/1BACH/UD05_-_Gases_y_disoluciones.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQjkwRXVHZ2VVN1E0ODhpaVJKQ3U5S0FiR1BCTlhkSUpBTmVkaXpLanBYZ1AwP2U9MDhTaGg4&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s864bd07de581433b8f3c8a24490aef4a&parId=5E49627FE7EEC215%21sce87da85e83e4409aa7d803e7ffb10b8&o=OneUp" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQW0tZUhWLVIzZ1RxeVYwYmRCbGFJVkFZT2hGUzVOYlBUNHhiMnRaYXZQbWg4&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21sd5e1f9261df94ee0ac95d1b74195a215&parId=5E49627FE7EEC215%21s9a281db4d51c4d44bf7f92af4a2ed480&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSedrpTEERAVMacyqnXN9gKVDyVftMvbb2M0GhrHGMTiZTX4xQ/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=306223a8-6df7-49dd-8804-e265c42b5e9d" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=306223a8-6df7-49dd-8804-e265c42b5e9d&gameMode=nano" },
+    ]},
+    { nombre:"Reacciones químicas", icono:"imagenes/1BACH/UD06.png", fondo:"imagenes/1BACH/UD06_-_Reacciones_químicas.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0VjVVdNZnZhV3h0SXBxdlRvMzZOdXRvQkpDY2x6QllwTkxDTkRsdENEdjMxWXc%5FZT0wZXU1aWQ&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21sfb3116c55bda481ba6abd3a37e8dbada&parId=5E49627FE7EEC215%21sce87da85e83e4409aa7d803e7ffb10b8&o=OneUp" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQzczRVVZeEZyZlJiUS1UTEk0ZjNSOUFTVHliOFFNd1l4YkRfVlp1bW5jckY0&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s1845dcbb5ac445dfb43e4cb2387f747d&parId=5E49627FE7EEC215%21s9a281db4d51c4d44bf7f92af4a2ed480&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSce9dr8NODx9yhelhxjW02VlY0qJoSUDNHj7Z-KIobFnMm3mQ/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=9411a722-0b80-4369-891d-b311d7b32af5" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=9411a722-0b80-4369-891d-b311d7b32af5&gameMode=nano" },
+    ]},
+    { nombre:"Termodinámica", icono:"imagenes/1BACH/UD07.png", fondo:"imagenes/1BACH/UD07_-_Termodinámica.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0VjTUplX3N3ejBCRWhXREdwOHFkWkdFQjlHcjNHZmRhTkE4a2ZaNXVKUTdDWGc%5FZT1WQ3JtODU&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21sfb7b09c3cf3044408560c6a7ca9d6461&parId=5E49627FE7EEC215%21sce87da85e83e4409aa7d803e7ffb10b8&o=OneUp" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQi1kTUdLdFJtelNwcXpFRUxOSkxvSEFXY2c2Y1RudXlFdXlxRGRGMFZfeWkw&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s8ac1747e19b54ab39ab31042cd24ba07&parId=5E49627FE7EEC215%21s9a281db4d51c4d44bf7f92af4a2ed480&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSf3fpSFuGqXNrm2u1bzyQHXcc3nmSKtqM_PHdh4Fl-Bp7XDnQ/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=4894e8a3-b0b2-4d6e-b811-d233a39daf8a" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=4894e8a3-b0b2-4d6e-b811-d233a39daf8a&gameMode=nano" },
+    ]},
+    { nombre:"Química del carbono", icono:"imagenes/1BACH/UD08.png", fondo:"imagenes/1BACH/UD08_-_Química_del_carbono.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0VaSUZ5aGlyWV9GRXBjS20wUHJNMjg4QmpQVk9QeVVRVExXSkwwbFM3UXZXNlE%5FZT1FQWhHbDI&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s18ca059263ab44f1a5c2a6d0faccdbcf&parId=5E49627FE7EEC215%21sce87da85e83e4409aa7d803e7ffb10b8&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSc7LW3-AmjzGxsMNJJHbm9lCvQVSkCGy139NTsFwq8Tg1fQtw/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=90bf388d-be05-4d5d-848c-c4dfe66d5825" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=90bf388d-be05-4d5d-848c-c4dfe66d5825&gameMode=nano" },
+    ]},
+    { nombre:"Cinética", icono:"imagenes/1BACH/UD09.png", fondo:"imagenes/1BACH/UD09_-_Cinética.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0VZT0tmdW50U01KTGwxX1d2Rk44ZWVvQjlGblFwNGFiUlp5c2I3UG40UTNOWWc%5FZT14WGZybEU&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21se97e8a8348ed4bc2975fd6bc537c79ea&parId=5E49627FE7EEC215%21sce87da85e83e4409aa7d803e7ffb10b8&o=OneUp" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRF9DVFlqZUVsWFJZVGhkR2xqLUh5MkFkTnBYVXA0Uzl6NFYwSS0wNG5FWkk4&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s233609ff4978455784e1746963f87cb6&parId=5E49627FE7EEC215%21s9a281db4d51c4d44bf7f92af4a2ed480&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSeFTiAX80OMP61oCtaBoQKTFCxoPbqZ5YKQ3wZlqEuUO-8ReA/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=2b4907f0-8c72-4bd7-ab3d-6e06db9eb135" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=2b4907f0-8c72-4bd7-ab3d-6e06db9eb135&gameMode=nano" },
+    ]},
+    { nombre:"Dinámica", icono:"imagenes/1BACH/UD10.png", fondo:"imagenes/1BACH/UD10_-_Dinámica.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0VlcG9HMF9YVlUxRHJISzdHaXpJSUNzQlZWZE5IcHd1NHMxdWNEZU5oVG80RVE%5FZT0xOHllblM&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s4f1b68ea55d7434dac72bb1a2cc8202b&parId=5E49627FE7EEC215%21sce87da85e83e4409aa7d803e7ffb10b8&o=OneUp" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRHdLUW5Ob2tDOFNKelFnSVZ5MjVsMkFZZ202b3huaDBPMUdLdkIwX3JVQnFB&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21scd0929f040a248bc9cd0808572db9976&parId=5E49627FE7EEC215%21s9a281db4d51c4d44bf7f92af4a2ed480&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSdbz7UDayDh4uwRfFWczMOTyArNsroUFs6VneWRZiIAk5eB2w/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=2d420ff6-586a-4642-8203-bcd28369e9b9" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=2d420ff6-586a-4642-8203-bcd28369e9b9&gameMode=nano" },
+    ]},
+    { nombre:"Gravedad y electrostática", icono:"imagenes/1BACH/UD11.png", fondo:"imagenes/1BACH/UD11_-_Gravedad_y_electrostática.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0VXbUFnaE1ydU1CTWlqZkpnOTl6T0x3QlpEZHVGb2RFb2x0Y2hOWDBfLWd4aWc%5FZT1RZGxIek4&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s13828069b82b4cc08a37c983df7338bc&parId=5E49627FE7EEC215%21sce87da85e83e4409aa7d803e7ffb10b8&o=OneUp" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQV9RcDMyWlFleVFZTlV4aXVIOHJyRkFYTjYtemN5ZU5mV2JoR0xXQVB4Vndj&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21sf69d423f076541b28354c62b87f2bac5&parId=5E49627FE7EEC215%21s9a281db4d51c4d44bf7f92af4a2ed480&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSfUD497hspoeF9D1cuMoObkFoyFm0ZCI6GEKTuxQ8R7g5mOhA/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=9d7da485-9d61-4409-a4c4-dc937a35bf03" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=9d7da485-9d61-4409-a4c4-dc937a35bf03&gameMode=nano" },
+    ]},
+    { nombre:"Energía mecánica", icono:"imagenes/1BACH/UD12.png", fondo:"imagenes/1BACH/UD12_-_Energía_mecánica.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0VkRmJxTTc5Nk5WSmhrejQyYlMtN1dNQkhWTEthNVdyaHhsLUNCSTVvODc4UWc%5FZT1FUWhxckw&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21scea85bd1e8fd49d5864cf8d9b4beed63&parId=5E49627FE7EEC215%21sce87da85e83e4409aa7d803e7ffb10b8&o=OneUp" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRFNNdUhXSGJISlQ2Rjg2U1pJcVowRUFYemUyODVmdDZjZWFHNUstcW1RbU9N&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21sd6e132d2b11d4fc9a17ce92648a99d04&parId=5E49627FE7EEC215%21s9a281db4d51c4d44bf7f92af4a2ed480&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLScS9-H8ER1wLLWNqGVvpQEmmuZEIq0XtzT_T0CBpd_IgKPM0w/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=eb11d62e-62f6-46df-9bdf-8123920ac543" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=eb11d62e-62f6-46df-9bdf-8123920ac543&gameMode=nano" },
+    ]},
+  ]},
+
+  "2bachF": { label:"2º Bachillerato - Física", temas:[
+    { nombre:"Método científico",           icono:"imagenes/2BACHF/UD01.png", fondo:"imagenes/2BACHF/UD01_-_Método_científico.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQ3E2NkwwM3J6UVM2TnJZTVVxNWIyaUFaT3RWaFRCNWNfNGVWRllPbzgyZVBr&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21sf4a2ebaabcde4bd0a36b60c52ae5bda2&parId=5E49627FE7EEC215%21s482b53a283c948a29d6458ac9242ea14&o=OneUp" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQUdaSWhwZTN1RVFaTmxnam1EREUtWUFYMURJN0hRbGtLZXNxcFp1emlvdXMw&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s698864067b7b418493658239830c4f98&parId=5E49627FE7EEC215%21sd19708fc25354e609e583e7b1a8d1311&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSdaCIwxtLnNXAq7p_AzEG-6pnantqhcu9UqRzHMOeLf5l8GFg/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=10bb6692-b36c-48d5-a353-84612a7032dc" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=10bb6692-b36c-48d5-a353-84612a7032dc&gameMode=nano" },
+    ]},
+    { nombre:"Campo gravitatorio",          icono:"imagenes/2BACHF/UD02.png", fondo:"imagenes/2BACHF/UD02_-_Campo_gravitatorio.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EVEcSp-rxnZFqE6MyTaxlHkB9foHR1NcHYIMSy6fPW-0Qg?e=jp8On9" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRHA2RmVyLWRJSFJwNnJMYWtQOUdDS0FhN2dBT3VsQ2RNcXl5Q3pmUXBjeDlv&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21sab57e8e9d2f946079eab2da90ff4608a&parId=5E49627FE7EEC215%21sd19708fc25354e609e583e7b1a8d1311&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSesNwLOWd4SXW0D8Rna-BAUnZXLywDOnR6NowxNkdYK1jXBfw/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=a0260fe3-9322-4894-b3b3-eca31e83ebd9" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=a0260fe3-9322-4894-b3b3-eca31e83ebd9&gameMode=nano" },
+    ]},
+    { nombre:"Campo eléctrico",             icono:"imagenes/2BACHF/UD03.png", fondo:"imagenes/2BACHF/UD03_-_Campo_eléctrico.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/ESngpu0e57dEifV2vt3p4JEBC03Ap59VdfBcmKtg70E8vA?e=jlszjc" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQk5SZUNXYTBNNVFxVDA3aWRITWRtNUFiS1hYRlNqQzE5UWVhdG9uUld1ZE9n&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s96e0454d436b4239a4f4ee274731d9b9&parId=5E49627FE7EEC215%21sd19708fc25354e609e583e7b1a8d1311&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSeLoXxEgZBSF-4oeHN-JpTIhtvFkvg3RsPTW6JaNA-1xVzPmw/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=a8691e45-985e-4768-8607-f5ebb3d007b6" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=a8691e45-985e-4768-8607-f5ebb3d007b6&gameMode=nano" },
+    ]},
+    { nombre:"Campo magnético",             icono:"imagenes/2BACHF/UD04.png", fondo:"imagenes/2BACHF/UD04_-_Campo_magnético.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EROBx-Vv0B9Lvg7sIco05ZMBcuhTKsLqEVlwsCz_yS21-w?e=vgeIxd" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQ0ZDay1jTHkwZ1NKQXpvVFd2ZjIxUUFXZF9wV2pmZF90b0tBXzdEY0pzUG5j&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s9c4f0a852d2f48209033a135af7f6d50&parId=5E49627FE7EEC215%21sd19708fc25354e609e583e7b1a8d1311&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSdyPvUrRdnA4da1RFC8NvootEi5F6wLgX2mV4U0gbOQwXq9Vw/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=66af51b6-3681-465d-9750-91eb29d4e405" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=66af51b6-3681-465d-9750-91eb29d4e405&gameMode=nano" },
+    ]},
+    { nombre:"Inducción electromagnética",  icono:"imagenes/2BACHF/UD05.png", fondo:"imagenes/2BACHF/UD05_-_Inducción_electromagnética.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQ0MyOUJjdGdHblNaT0JTU1d4dWY1Y0FXMzdoYy1PNEk4bEVOOVA3M1g4OUhrP2U9OGNJb1pP&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s5cd0db8201b649a793814925b1b9fe5c&parId=5E49627FE7EEC215%21s482b53a283c948a29d6458ac9242ea14&o=OneUp" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQ19jT0I1aU1OMFNZc3ZxeC1qUHI3SkFlX2dCdF9tbjZHX2ZodzBNWWpaSEw4&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s79e070bfc38849748b2fab1fa33ebec9&parId=5E49627FE7EEC215%21sd19708fc25354e609e583e7b1a8d1311&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSfOUj420NrmGfcJZU8G0ifXGnP86lYG-5jIRpl7LcXssetVHQ/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=f09dec56-8a20-4408-8cb6-5a5933c1742d" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=f09dec56-8a20-4408-8cb6-5a5933c1742d&gameMode=nano" },
+    ]},
+    { nombre:"Movimiento ondulatorio",      icono:"imagenes/2BACHF/UD06.png", fondo:"imagenes/2BACHF/UD06_-_Movimiento_ondulatorio.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/IQCbp-4KaM3cR6vPOfnSPTiUASE79tYmR_TPNRBoWnNzzfI?e=hA6zoG" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQUo0ZjlvakQ0aFFxeWdiNmduTjV2YUFTU3hCRmRVSG5PMmxiU1Z4SGdkdk1F&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s68ffe1093e8c4221aca06fa827379bda&parId=5E49627FE7EEC215%21sd19708fc25354e609e583e7b1a8d1311&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSefkYP0_ArCtlQXgSc3x71X6x8df98sI1kMVir7D3uJdhPrRw/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=c67d6754-f5c1-4b07-b22b-3e76566d2063" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=c67d6754-f5c1-4b07-b22b-3e76566d2063&gameMode=nano" },
+    ]},
+    { nombre:"Ondas sonoras",               icono:"imagenes/2BACHF/UD07.png", fondo:"imagenes/2BACHF/UD07_-_Ondas_sonoras.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EQa6NLxyLk1Kn80hbg4lMAkBW4EpallxIw35rSSG-rNxnw?e=l8QbS6" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQ2NrNUVvVkVaU1NxdW9seXl3dkNHS0FXNUFMVmxrYU9HOXRmMnNmUUE1QzhJ&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s2891939c46544a52aba8972cb0bc218a&parId=5E49627FE7EEC215%21sd19708fc25354e609e583e7b1a8d1311&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSfuDEwCqEtRPp7kp0wkvb72qhNEaWJRRPhiS0TuVqe8DbVdWQ/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=4af7f93e-76dc-44d1-a3ed-d17249afc696" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=4af7f93e-76dc-44d1-a3ed-d17249afc696&gameMode=nano" },
+    ]},
+    { nombre:"Ondas electromagnéticas",     icono:"imagenes/2BACHF/UD08.png", fondo:"imagenes/2BACHF/UD08_-_Ondas_electromagnéticas.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/ETiB3rS75LhNnjKXCg2O_QcBcQ4Gaf6zlJvjKP_-OiOThw?e=acpGTB" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQVFJcGxrQlBoelJZeTR2b0thZFEwb0FYbXFseTVRRmZFM09qUW9fMDdrdkIw&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s64992210f80445738cb8be829a750d28&parId=5E49627FE7EEC215%21sd19708fc25354e609e583e7b1a8d1311&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSeUFZokEGqnHl1p_RejxFH55MadS9DoBPmxR2OfaUKUFwM4ig/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=61592109-659a-450b-8718-d56b56e08700" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=61592109-659a-450b-8718-d56b56e08700&gameMode=nano" },
+    ]},
+    { nombre:"Óptica geométrica",           icono:"imagenes/2BACHF/UD09.png", fondo:"imagenes/2BACHF/UD09_-_Óptica_geométrica.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/IQC3eJHRs45sRq8t7eFO3gabAT-0Q3yMXz46mevqrN_KiKI" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQjN4ODBmS2I3NFJMVGwwQ2ZpWjIyb0FYZURXa3NyZWtQU051cjRPMFF1RDRB&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s1fcdc777be2944f8b4e5d027e2676da8&parId=5E49627FE7EEC215%21sd19708fc25354e609e583e7b1a8d1311&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSef-ECyhGQAwPESXa-so72uZsjpPrmPpfIjNuBrrKCRnhfumg/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=81e45137-c6af-447f-9451-a3045cc9c0ef" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=81e45137-c6af-447f-9451-a3045cc9c0ef&gameMode=nano" },
+    ]},
+    { nombre:"Teoría de la relatividad especial", icono:"imagenes/2BACHF/UD10.png", fondo:"imagenes/2BACHF/UD10_-_Teoría_de_la_relatividad_especial.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EWtOqKaz1NFIlmGTNgefbxEBXuWPuTQJLIwfKQjV2lO8Wg?e=4prcqk" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQlpWSV84WmxRMVNwcS1TT05kc2N0N0FUQS1RZzEzSEVXd2pHMjRQMnBxekhr&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21sfc8f545954664a359abe48e35db1cb7b&parId=5E49627FE7EEC215%21sd19708fc25354e609e583e7b1a8d1311&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLScSWHGRt1-QXJ1HdtZDo_Rf7Y93VEjWa2wVblij2kvDkRtOOg/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=8e1e6fdb-1dd3-411b-a383-784de563fc94" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=8e1e6fdb-1dd3-411b-a383-784de563fc94&gameMode=nano" },
+    ]},
+    { nombre:"Mecánica cuántica",           icono:"imagenes/2BACHF/UD11.png", fondo:"imagenes/2BACHF/UD11_-_Mecánica_cuántica.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EcV9lWENee5OuwxPAN5IalYBAyrCIC47YS3XzDib2o4-0A?e=AFRlmK" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQWJSSW9hZXpjOVFvbWh1SXBxa0JBOEFTVlFWcVVDU1VuRmVjQXdQTGZfOXJR&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s1a8a441b377b423d89a1b88a6a90103c&parId=5E49627FE7EEC215%21sd19708fc25354e609e583e7b1a8d1311&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLScks_smhoMtsnnW5d7U3112zaZxuI2jA7F7Q_07Io-2lXT8nQ/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=d2c3b643-8e37-45ae-9d66-5ce3b7ef8c88" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=d2c3b643-8e37-45ae-9d66-5ce3b7ef8c88&gameMode=nano" },
+    ]},
+    { nombre:"Física nuclear",              icono:"imagenes/2BACHF/UD12.png", fondo:"imagenes/2BACHF/UD12_-_Física_nuclear.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EUPO3WslOzJAiptQ7sp3NBcByyBL5gyr7wseqMKrdOufGA?e=7FN25W" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQTU2NV9hMEtuOFFhTWtfZHVhWUE4T0Fhdl9DdUI1WmVVQ3JMblhNR0dfbDNz&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21sda9feb39a9d041fca324fddb9a600f0e&parId=5E49627FE7EEC215%21sd19708fc25354e609e583e7b1a8d1311&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSdJI9ctmPW-Vg5LpKLZjh5erl71zMdk9gMaxBvfvSAAZsQhIw/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=b3d53384-dd88-4799-b804-643b7a18a58b" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=b3d53384-dd88-4799-b804-643b7a18a58b&gameMode=nano" },
+    ]},
+    { nombre:"Física de partículas",        icono:"imagenes/2BACHF/UD13.png", fondo:"imagenes/2BACHF/UD13_-_Física_de_partículas.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EWvldBr3NZNIpgzzrM9nA6ABkuldV1orGCNWNlt_wJyAdQ?e=VnyI2U" },
+    ]},
+  ]},
+
+  "2bachQ": { label:"2º Bachillerato - Química", temas:[
+    { nombre:"Método científico",               icono:"imagenes/2BACHQ/UD01.png", fondo:"imagenes/2BACHQ/UD01_-_Método_científico.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EfJSxz1h3phFrOrfj-4pFwQBjqFKXgEyKHT37aFKwv69bQ?e=DuXtfU" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRHlORXZHZFNfZFNhdFBfeENsTHBINUFhc3lRcklHYTFMc1hhcVBYSWNPampJ&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21sc64b34f22f7549ddab4fff10a52e91f9&parId=5E49627FE7EEC215%21se6eb9fbd0ded4782be297deb6689c2f7&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSe7Z5n7SftCmwTY1vpZH7aaSg5tEhPH_K_EI19TcVfbgvv0Xw/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=a195223a-f694-4719-b1a0-3a72f908d766" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=a195223a-f694-4719-b1a0-3a72f908d766&gameMode=nano" },
+    ]},
+    { nombre:"Formulación orgánica",            icono:"imagenes/2BACHQ/UD02.png", fondo:"imagenes/2BACHQ/UD02_-_Formulación_orgánica.jpg", enlaces:[
+      { label:"Presentación online",     tipo:"online",     url:"https://1drv.ms/b/c/5e49627fe7eec215/EciAubepJm5Fs9OYFkA0OosB1AxVpXrC0C2bBFxfQrl6SQ?e=0SR9Fk" },
+      { label:"Cuestionario formulación",tipo:"formulacion", url:"https://sites.google.com/view/cuest-form-org/" },
+      { label:"Kahoot en grupo",         tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=7d46341c-158a-4044-8723-5a610d1ff6f6" },
+      { label:"Kahoot en solitario",     tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=7d46341c-158a-4044-8723-5a610d1ff6f6&gameMode=nano" },
+    ]},
+    { nombre:"Isomería y reacciones orgánicas", icono:"imagenes/2BACHQ/UD03.png", fondo:"imagenes/2BACHQ/UD03_-_Isomería_y_reacciones_orgánicas.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EUpSg_IoVERDjLQgGIU1qdIBaurbBtUXnU1hdup4mtxorA?e=mVsmAJ" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSfEvxkuYb7OdsT23JOH-Qd3fcpqJdZ_Nbfe9KQ4XC2lxT2tlg/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=18f5f849-0f45-443a-a00b-8a1739685647" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=18f5f849-0f45-443a-a00b-8a1739685647&gameMode=nano" },
+    ]},
+    { nombre:"Cinética química",                icono:"imagenes/2BACHQ/UD04.png", fondo:"imagenes/2BACHQ/UD04_-_Cinética_química.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EWjp78q9etpPrkb2hNKq7csBjIregCFmv53_3HZPZ46Evg?e=VzF67d" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRE5mTHZUOExyOVNxc25LZzdrR0JFTEFYMi00eEZTS1VNdjh6bm9HODlRdEJv&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21sd3bb7ccdbaf04afdab272a0ee418110b&parId=5E49627FE7EEC215%21se6eb9fbd0ded4782be297deb6689c2f7&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSfmwUsoaHpROOJimwKt2Ry9g5sNmjqZ1hB9HPAR2QLjBysykg/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=b0045734-ccd9-47cc-934f-08512ee7f8e7" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=b0045734-ccd9-47cc-934f-08512ee7f8e7&gameMode=nano" },
+    ]},
+    { nombre:"Equilibrio químico",              icono:"imagenes/2BACHQ/UD05.png", fondo:"imagenes/2BACHQ/UD05_-_Equilibrio_químico.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EWNrVAwsnJpArZvl69OJ9v0B9hLkGnShW5KR59GOBOHfIA?e=JJByUr" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQ3FKS1hEVHlVNVE1azd0NFhtNW9PeUFhN25tenFBZXNwcW53SHVrdThRMEN3&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21sc3a524aa254f4339993bb785e6e683b2&parId=5E49627FE7EEC215%21se6eb9fbd0ded4782be297deb6689c2f7&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLScUR5B_b9gjSpgo6IVt902lNJZksT1o0xZHxI6ZLSQrkQ4CFg/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=10c088f2-1a36-4024-80de-681c35026b10" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=10c088f2-1a36-4024-80de-681c35026b10&gameMode=nano" },
+    ]},
+    { nombre:"Reacciones ácido-base",           icono:"imagenes/2BACHQ/UD06.png", fondo:"imagenes/2BACHQ/UD06_-_Reacciones_ácido-base.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/ERWP2DMEVKlBgzQ1Lg0WrVwBQgzK3gXs0zJBFy-nCcVvhg?e=HuqeZG" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQVYzREt1YnVFZlJiNFVPVkxIcl9lc0FZdU9hWHpyMjF5UERic3JLRWNaSTFz&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21sae32dc15e16e451fbe143952c7aff7ac&parId=5E49627FE7EEC215%21se6eb9fbd0ded4782be297deb6689c2f7&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSeI7PiUS3PbDxn29BOB3_GHFo8ETHk_014AW7BOWb92nBP-cg/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=408b46d4-e828-4a8d-b78f-b1cf81999dcd" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=408b46d4-e828-4a8d-b78f-b1cf81999dcd&gameMode=nano" },
+    ]},
+    { nombre:"Reacciones redox",                icono:"imagenes/2BACHQ/UD07.png", fondo:"imagenes/2BACHQ/UD07_-_Reacciones_redox.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EZvbPcPv1klMqGwx3NkiqtsBS2bjN6L9gt9BD6HZtUO4sw?e=nGKfvW" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQlBoeVlwN1NudVFvMXVFcUpWQzFRaUFYdF9Ja2ZkdTRLSUVTZGRreGRPMFpB&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s2926874f29ed42ee8d6e12a2550b5422&parId=5E49627FE7EEC215%21se6eb9fbd0ded4782be297deb6689c2f7&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSecF70L15fyaaoBl245SPec6_CMaf9tCJ7EQrdHtzLfoXcXcA/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=99d1beb1-fb6b-4c71-9387-449f5e4a29ca" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=99d1beb1-fb6b-4c71-9387-449f5e4a29ca&gameMode=nano" },
+    ]},
+    { nombre:"Estructura del átomo",            icono:"imagenes/2BACHQ/UD08.png", fondo:"imagenes/2BACHQ/UD08_-_Estructura_del_átomo.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/EbGRBAZYDRFLpdWx7YW983MB1ILAsRSaK6bvslpA9-wweQ?e=Us8PAW" },
+      { label:"Formulario", tipo:"formulario", url:"https://onedrive.live.com/?redeem=aHR0cHM6Ly8xZHJ2Lm1zL2IvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRHJJWUdpa1QtLVRKM2Jsei1VYktXYkFXbnRzdmZzdjgwSExJSE43alAxLWxZ&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21sa28121eb3f914cbe9ddb973f946ca59b&parId=5E49627FE7EEC215%21se6eb9fbd0ded4782be297deb6689c2f7&o=OneUp" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSe_D2d6kEQVY8Tc5Cwls3rY5zQi8qioQ_hHTjiB3JmPk2dx_g/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=a60a8093-89ac-40ed-bbe0-5b1b0957c9a1" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=a60a8093-89ac-40ed-bbe0-5b1b0957c9a1&gameMode=nano" },
+    ]},
+    { nombre:"Tabla periódica",                 icono:"imagenes/2BACHQ/UD09.png", fondo:"imagenes/2BACHQ/UD09_-_Tabla_periódica.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/ERZPZOuZXKFGgyz2PYvzpR4Bd5PDVYIJVMpgLo3RWqLEqA?e=ja1h6V" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSczHMGCMhgM533idtLEkP4yqFLvTt-AiC1V5ljeGeSrogOuVw/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/lobby?quizId=cd8f360c-64c8-4c2e-9954-dea33832adc0" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=cd8f360c-64c8-4c2e-9954-dea33832adc0&gameMode=nano" },
+    ]},
+    { nombre:"Enlace químico",                  icono:"imagenes/2BACHQ/UD10.png", fondo:"imagenes/2BACHQ/UD10_-_Enlace_químico.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/Eet6CuBmu4VDjy8U7PWUjRMBk1-wFPv-VhTw-mrVdcVfDw?e=ZbTde0" },
+      { label:"Cuestionario Google", tipo:"google", url:"https://docs.google.com/forms/d/e/1FAIpQLSch0oa1dfA3KGoNjmTAVqXq16IAuiB4p8f38pLum7aL1mPzUQ/viewform" },
+      { label:"Kahoot en grupo",     tipo:"kahoot_grupo", url:"https://play.kahoot.it/v2/intro?quizId=969d7dec-1790-46c6-a0cd-90c8ad21f82a" },
+      { label:"Kahoot en solitario", tipo:"kahoot_solo",  url:"https://kahoot.it/solo/?quizId=969d7dec-1790-46c6-a0cd-90c8ad21f82a&gameMode=nano" },
+    ]},
+    { nombre:"Moléculas orgánicas",             icono:"imagenes/2BACHQ/UD11.png", fondo:"imagenes/2BACHQ/UD11_-_Moléculas_orgánicas.jpg", enlaces:[
+      { label:"Ver apuntes online", tipo:"online", url:"https://1drv.ms/b/c/5e49627fe7eec215/Ebxt_NN9RD9IvlOB154EXuIBZ7kWHk-H1EkRSD-N2wR8nw?e=jtvRvL" },
+    ]},
+  ]},
+};
+
+// Subtítulos por tipo
+const SUBTITULOS = {
+  online:       'OneDrive',
+  presentacion_online: 'OneDrive',
+  pdf:          'OneDrive',
+  google:       'Google',
+  formulacion:  'Google',
+  kahoot_grupo: 'Kahoot!',
+  kahoot_solo:  'Kahoot!',
+  formulario:   'OneDrive',
+  pasapalabra:  'OneDrive',
+};
+
+
+function openJuegos(cursoId) {
+  const juegos = JUEGOS[cursoId] || [];
+  document.getElementById('modal-bg').src = 'imagenes/menu/Juegos_fondo.jpg';
+  document.getElementById('modal-icon').src = 'imagenes/menu/Juegos.png';
+  document.getElementById('modal-name').textContent = 'Juegos y actividades';
+  document.getElementById('modal-curso').textContent = document.querySelector('.curso-tab.active').textContent;
+  const linksEl = document.getElementById('modal-links');
+  linksEl.innerHTML = '';
+  if (!juegos.length) {
+    linksEl.innerHTML = '<div class="modal-empty"><span>🎮</span>Próximamente se añadirán juegos.</div>';
+  } else {
+    juegos.forEach(j => {
+      const section = document.createElement('div');
+      section.style.cssText = 'margin-bottom:0.8rem';
+      const title = document.createElement('div');
+      title.style.cssText = 'font-size:0.75rem;font-weight:600;color:var(--accent);margin-bottom:0.4rem;padding:0 0.2rem';
+      title.textContent = j.nombre;
+      section.appendChild(title);
+      j.enlaces.forEach(e => {
+        const a = document.createElement('a');
+        a.className = 'link-row';
+        a.href = e.url; a.target = '_blank'; a.rel = 'noopener';
+        const iconSrc = ICONOS[e.tipo] || '';
+        const sub = SUBTITULOS[e.tipo] || '';
+        a.innerHTML = `<div class="link-row-icon">${iconSrc ? '<img src="'+iconSrc+'" alt="'+e.tipo+'">' : '🎮'}</div><div class="link-row-text"><div class="link-row-name">${e.label}</div><div class="link-row-type">${sub}</div></div><div class="link-row-arrow">→</div>`;
+        section.appendChild(a);
+      });
+      linksEl.appendChild(section);
+    });
+  }
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function buildGrids() {
+  Object.entries(CURSOS).forEach(([id,curso]) => {
+    const grid = document.getElementById('grid-'+id);
+    if (!grid) return;
+    curso.temas.forEach((tema,i) => {
+      const btn = document.createElement('button');
+      btn.className = 'tema-btn';
+      btn.style.setProperty('--d',i);
+      btn.onclick = () => openModal(id,i);
+      btn.innerHTML = `<div class="tema-circle"><img src="${tema.icono}" alt="${tema.nombre}" onerror="this.style.display='none'"></div><div class="tema-num-label">Unidad ${i+1}</div><div class="tema-label">${tema.nombre}</div>`;
+      grid.appendChild(btn);
+    });
+  });
+}
+
+function openModal(cursoId, temaIdx) {
+  const curso = CURSOS[cursoId];
+  const tema = curso.temas[temaIdx];
+  document.getElementById('modal-bg').src = tema.fondo;
+  document.getElementById('modal-icon').src = tema.icono;
+  document.getElementById('modal-name').textContent = tema.nombre;
+  document.getElementById('modal-curso').textContent = curso.label;
+  const linksEl = document.getElementById('modal-links');
+  linksEl.innerHTML = '';
+  if (!tema.enlaces || tema.enlaces.length === 0) {
+    linksEl.innerHTML = `<div class="modal-empty"><span>🔗</span>Próximamente se añadirán recursos para este tema.</div>`;
+  } else {
+    tema.enlaces.forEach(e => {
+      const a = document.createElement('a');
+      a.className = 'link-row';
+      a.href = e.url; a.target = '_blank'; a.rel = 'noopener';
+      const iconSrc = ICONOS[e.tipo] || '';
+      const sub = SUBTITULOS[e.tipo] || '';
+      a.innerHTML = `
+        <div class="link-row-icon">${iconSrc ? `<img src="${iconSrc}" alt="${e.tipo}">` : '🔗'}</div>
+        <div class="link-row-text">
+          <div class="link-row-name">${e.label}</div>
+          <div class="link-row-type">${sub}</div>
+        </div>
+        <div class="link-row-arrow">→</div>`;
+      linksEl.appendChild(a);
+    });
+  }
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('modal') && !e.target.classList.contains('modal-close')) return;
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function selectCurso(id, btn) {
+  document.querySelectorAll('.curso-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.curso-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-'+id).classList.add('active');
+}
+
+document.addEventListener('keydown', e => { if(e.key==='Escape'){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';} });
+buildGrids();
+</script>
+</body>
+</html>
