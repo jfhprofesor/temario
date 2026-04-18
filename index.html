@@ -752,12 +752,25 @@ const SUBTITULOS = {
 
 function openJuegos(cursoId) {
   const juegos = JUEGOS[cursoId] || [];
-  document.getElementById('modal-bg').src = 'imagenes/menu/Juegos_fondo.jpg';
+  const linksEl = document.getElementById('modal-links');
+  
+  // MOSTRAR MODAL INMEDIATAMENTE
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  
+  // Actualizar fondo de forma no bloqueante
+  const bgImg = document.getElementById('modal-bg');
+  bgImg.style.transition = 'opacity 0.15s ease';
+  bgImg.style.opacity = '0.7';
+  bgImg.onload = () => { bgImg.style.opacity = '1'; };
+  bgImg.src = 'imagenes/menu/Juegos_fondo.jpg';
+  
   document.getElementById('modal-icon').src = 'imagenes/menu/Juegos.png';
   document.getElementById('modal-name').textContent = 'Juegos y actividades';
   document.getElementById('modal-curso').textContent = document.querySelector('.curso-tab.active').textContent;
-  const linksEl = document.getElementById('modal-links');
+  
   linksEl.innerHTML = '';
+  
   if (!juegos.length) {
     linksEl.innerHTML = '<div class="modal-empty"><span>🎮</span>Próximamente se añadirán juegos.</div>';
   } else {
@@ -774,14 +787,24 @@ function openJuegos(cursoId) {
         a.href = e.url; a.target = '_blank'; a.rel = 'noopener';
         const iconSrc = ICONOS[e.tipo] || '';
         const sub = SUBTITULOS[e.tipo] || '';
-        a.innerHTML = `<div class="link-row-icon">${iconSrc ? '<img src="'+iconSrc+'" alt="'+e.tipo+'">' : '🎮'}</div><div class="link-row-text"><div class="link-row-name">${e.label}</div><div class="link-row-type">${sub}</div></div><div class="link-row-arrow">→</div>`;
+        
+        if (iconSrc) {
+          const isLoaded = iconCache.has(iconSrc);
+          a.innerHTML = `<div class="link-row-icon"><img src="${iconSrc}" alt="${e.tipo}" style="opacity:${isLoaded ? '1' : '0.4'};transition:opacity 0.2s;"></div><div class="link-row-text"><div class="link-row-name">${e.label}</div><div class="link-row-type">${sub}</div></div><div class="link-row-arrow">→</div>`;
+          
+          if (!isLoaded) {
+            loadingQueue.push(iconSrc);
+            processImageQueue();
+          }
+        } else {
+          a.innerHTML = `<div class="link-row-icon">🎮</div><div class="link-row-text"><div class="link-row-name">${e.label}</div><div class="link-row-type">${sub}</div></div><div class="link-row-arrow">→</div>`;
+        }
+        
         section.appendChild(a);
       });
       linksEl.appendChild(section);
     });
   }
-  document.getElementById('modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
 }
 
 function buildGrids() {
@@ -799,36 +822,98 @@ function buildGrids() {
   });
 }
 
+// Cache para iconos ya cargados y sistema de precarga
+const iconCache = new Map();
+let loadingQueue = [];
+let isLoadingImages = false;
+
+function preloadImage(src) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(src);
+    img.onerror = () => resolve(null);
+    img.src = src;
+  });
+}
+
+function processImageQueue() {
+  if (isLoadingImages || loadingQueue.length === 0) return;
+  isLoadingImages = true;
+  
+  // Procesar máximo 3 imágenes en paralelo
+  loadingQueue.splice(0, 3).forEach(src => {
+    if (!iconCache.has(src)) {
+      preloadImage(src).then(result => {
+        if (result) iconCache.set(src, true);
+        isLoadingImages = false;
+        processImageQueue();
+      });
+    }
+  });
+}
+
 function openModal(cursoId, temaIdx) {
   const curso = CURSOS[cursoId];
   const tema = curso.temas[temaIdx];
-  document.getElementById('modal-bg').src = tema.fondo;
+  const linksEl = document.getElementById('modal-links');
+  
+  // MOSTRAR MODAL INMEDIATAMENTE (mejor UX)
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  
+  // Actualizar fondo con transición suave (no bloquea renderizado)
+  const bgImg = document.getElementById('modal-bg');
+  bgImg.style.transition = 'opacity 0.15s ease';
+  bgImg.style.opacity = '0.7';
+  bgImg.onload = () => { bgImg.style.opacity = '1'; };
+  bgImg.src = tema.fondo;
+  
   document.getElementById('modal-icon').src = tema.icono;
   document.getElementById('modal-name').textContent = tema.nombre;
   document.getElementById('modal-curso').textContent = curso.label;
-  const linksEl = document.getElementById('modal-links');
+  
   linksEl.innerHTML = '';
+  
   if (!tema.enlaces || tema.enlaces.length === 0) {
     linksEl.innerHTML = `<div class="modal-empty"><span>🔗</span>Próximamente se añadirán recursos para este tema.</div>`;
   } else {
+    // RENDERIZAR ENLACES INMEDIATAMENTE sin esperar iconos
     tema.enlaces.forEach(e => {
       const a = document.createElement('a');
       a.className = 'link-row';
       a.href = e.url; a.target = '_blank'; a.rel = 'noopener';
       const iconSrc = ICONOS[e.tipo] || '';
       const sub = SUBTITULOS[e.tipo] || '';
-      a.innerHTML = `
-        <div class="link-row-icon">${iconSrc ? `<img src="${iconSrc}" alt="${e.tipo}">` : '🔗'}</div>
-        <div class="link-row-text">
-          <div class="link-row-name">${e.label}</div>
-          <div class="link-row-type">${sub}</div>
-        </div>
-        <div class="link-row-arrow">→</div>`;
+      
+      if (iconSrc) {
+        // Renderizar con placeholder si icono no está en caché
+        const isLoaded = iconCache.has(iconSrc);
+        a.innerHTML = `
+          <div class="link-row-icon"><img src="${iconSrc}" alt="${e.tipo}" style="opacity:${isLoaded ? '1' : '0.4'}; transition:opacity 0.2s;"></div>
+          <div class="link-row-text">
+            <div class="link-row-name">${e.label}</div>
+            <div class="link-row-type">${sub}</div>
+          </div>
+          <div class="link-row-arrow">→</div>`;
+        
+        // Encolar para precarga en segundo plano
+        if (!isLoaded) {
+          loadingQueue.push(iconSrc);
+          processImageQueue();
+        }
+      } else {
+        a.innerHTML = `
+          <div class="link-row-icon">🔗</div>
+          <div class="link-row-text">
+            <div class="link-row-name">${e.label}</div>
+            <div class="link-row-type">${sub}</div>
+          </div>
+          <div class="link-row-arrow">→</div>`;
+      }
+      
       linksEl.appendChild(a);
     });
   }
-  document.getElementById('modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
 }
 
 function closeModal(e) {
@@ -845,7 +930,30 @@ function selectCurso(id, btn) {
 }
 
 document.addEventListener('keydown', e => { if(e.key==='Escape'){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';} });
+
+// Precarga inteligente de imágenes de fondo en background
+function preloadBackgroundImages() {
+  const bgImages = new Set();
+  Object.values(CURSOS).forEach(curso => {
+    curso.temas.forEach(tema => {
+      if (tema.fondo) bgImages.add(tema.fondo);
+    });
+  });
+  
+  // Agregar imágenes de menú
+  bgImages.add('imagenes/menu/Juegos_fondo.jpg');
+  
+  // Precarga en segundo plano (sin bloquear)
+  bgImages.forEach(src => {
+    setTimeout(() => {
+      const img = new Image();
+      img.src = src;
+    }, 100);
+  });
+}
+
 buildGrids();
+preloadBackgroundImages();
 </script>
 </body>
 </html>
