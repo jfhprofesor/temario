@@ -10,7 +10,7 @@
 :root { --bg:#080c10; --surface:#0e1318; --card:#131920; --border:rgba(255,255,255,0.06); --text:#e8edf2; --muted:#5a6677; --accent:#38bdf8; }
 * { margin:0; padding:0; box-sizing:border-box; }
 body { background:var(--bg); color:var(--text); font-family:'Outfit',sans-serif; min-height:100vh; overflow-x:hidden; }
-.bg-fx { position:fixed; inset:0; pointer-events:none; z-index:0; background:radial-gradient(ellipse 70% 40% at 15% 5%,rgba(56,189,248,0.07) 0%,transparent 55%),radial-gradient(ellipse 50% 35% at 85% 90%,rgba(99,102,241,0.06) 0%,transparent 55%); }
+.bg-fx { position:fixed; inset:0; pointer-events:none; z-index:0; background:rgba(56,189,248,0.03); }
 header { position:relative; z-index:10; padding:2.5rem 2rem 1.5rem; border-bottom:1px solid var(--border); display:flex; flex-direction:column; align-items:center; gap:0.6rem; text-align:center; }
 .header-logo { font-family:'Syne',sans-serif; font-size:clamp(1.4rem,4vw,2.2rem); font-weight:800; line-height:1; letter-spacing:-0.03em; }
 .header-logo span { color:var(--accent); }
@@ -33,16 +33,16 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
 .sidebar-btn:hover span { color:var(--accent); }
 .temas-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:1rem; flex:1; justify-items:center; justify-content:center; }
 .tema-btn { position:relative; background:none; border:none; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0.5rem; padding:0.5rem; animation:popIn 0.4s calc(var(--d,0)*0.05s) both; }
-@keyframes popIn { from{opacity:0;transform:scale(0.85) translateY(8px)} to{opacity:1;transform:scale(1) translateY(0)} }
-.tema-circle { width:110px; height:110px; border-radius:50%; overflow:hidden; border:2px solid var(--border); position:relative; transition:transform 0.25s cubic-bezier(.34,1.56,.64,1),border-color 0.2s,box-shadow 0.2s; background:var(--card); }
+@keyframes popIn { from{opacity:0} to{opacity:1} }
+.tema-circle { width:110px; height:110px; border-radius:50%; overflow:hidden; border:2px solid var(--border); position:relative; transition:none; background:var(--card); }
 .tema-circle img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease; }
-.tema-btn:hover .tema-circle { transform:scale(1.08) translateY(-3px); border-color:var(--accent); box-shadow:0 8px 30px -8px rgba(56,189,248,0.4); }
+.tema-btn:hover .tema-circle { transform:none; border-color:var(--accent); box-shadow:none; }
 .tema-btn:hover .tema-circle img { transform:scale(1.05); }
 .tema-num-label { font-family:'Syne',sans-serif; font-size:0.68rem; font-weight:700; color:var(--accent); letter-spacing:0.08em; text-align:center; }
 .tema-label { font-size:0.72rem; font-weight:500; color:var(--text); text-align:center; line-height:1.3; max-width:110px; transition:color 0.2s; }
 .tema-btn:hover .tema-label { color:var(--accent); }
 /* MODAL */
-.modal-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.82); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; padding:1.2rem; opacity:0; pointer-events:none; transition:opacity 0.25s; }
+.modal-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.82); display:flex; align-items:center; justify-content:center; padding:1.2rem; opacity:0; pointer-events:none; transition:opacity 0.25s; }
 .modal-overlay.open { opacity:1; pointer-events:all; }
 
 /* El modal es el contenedor de posicionamiento de todo */
@@ -857,42 +857,18 @@ function selectCurso(id, btn) {
 
 document.addEventListener('keydown', e => { if(e.key==='Escape'){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';} });
 
-// Precarga diferida: solo precargar cuando el usuario está inactivo
-let preloadTimer;
-function scheduleBackgroundPreload() {
-  if (preloadTimer) return;
-  
-  preloadTimer = setTimeout(() => {
-    const bgImages = new Set();
-    Object.values(CURSOS).forEach(curso => {
-      curso.temas.forEach(tema => {
-        if (tema.fondo) bgImages.add(tema.fondo);
-      });
-    });
-    
-    bgImages.add('imagenes/menu/Juegos_fondo.jpg');
-    
-    // Precarga secuencial (una cada 500ms) para no saturar
-    let delay = 0;
-    bgImages.forEach(src => {
-      setTimeout(() => {
-        const img = new Image();
-        img.src = src;
-      }, delay);
-      delay += 500;
-    });
-  }, 3000); // Esperar 3 segundos sin interacción
-}
-
-// Reiniciar timer si hay interacción del usuario
-document.addEventListener('mousemove', () => {
-  clearTimeout(preloadTimer);
-  preloadTimer = null;
-  scheduleBackgroundPreload();
-}, { once: true });
+// Precarga inteligente de iconos en background (después de 2 segundos)
+setTimeout(() => {
+  const iconos = Object.values(ICONOS).filter(url => typeof url === 'string' && url.startsWith('imagenes/'));
+  iconos.forEach((url, i) => {
+    setTimeout(() => {
+      const img = new Image();
+      img.src = url;
+    }, i * 300); // Espaciar las cargas 300ms
+  });
+}, 2000);
 
 buildGrids();
-scheduleBackgroundPreload();
 </script>
 </body>
 </html>
