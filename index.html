@@ -53,16 +53,23 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
 .objeto-nombre { font-size:0.72rem; font-weight:500; color:var(--text); text-align:center; line-height:1.3; max-width:110px; transition:color 0.2s; }
 .objeto-btn:hover .objeto-nombre { color:var(--accent); }
 /* PAGINACIÓN DE OBJETOS */
-.objetos-container { display:flex; gap:1.5rem; }
-.objetos-sidebar { flex-shrink:0; width:110px; display:flex; flex-direction:column; align-items:center; gap:1rem; padding:0.5rem 1rem 0.5rem 0; border-right:1px solid var(--border); }
-.pagination-info { font-size:0.75rem; color:var(--muted); text-align:center; font-weight:600; white-space:nowrap; }
-.pagination-buttons { display:flex; flex-direction:column; gap:0.4rem; width:100%; }
-.pagination-btn { flex:1; padding:0.5rem; border-radius:6px; border:1px solid var(--border); background:transparent; color:var(--text); font-size:0.72rem; font-weight:500; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; }
-.pagination-btn img { width:28px; height:28px; object-fit:contain; opacity:0.6; transition:opacity 0.2s; }
-.pagination-btn:hover:not(:disabled) img { opacity:1; }
-.pagination-btn:hover:not(:disabled) { border-color:var(--accent); background:rgba(56,189,248,0.08); }
-.pagination-btn:disabled { opacity:0.3; cursor:not-allowed; }
-.pagination-btn:disabled img { opacity:0.3; }
+.objetos-container { display:flex; gap:0; align-items:flex-start; }
+.objetos-sidebar { flex-shrink:0; width:110px; display:flex; flex-direction:column; align-items:center; gap:1rem; padding:0.5rem 1rem 0.5rem 0; border-right:1px solid var(--border); margin-right:1.5rem; }
+.pagination-info { font-size:0.75rem; color:var(--muted); text-align:center; font-weight:600; white-space:nowrap; line-height:1.3; }
+.pagination-btn { display:flex; flex-direction:column; align-items:center; gap:0.4rem; text-decoration:none; padding:0.4rem; border-radius:10px; transition:background 0.2s; width:100%; background:none; border:none; cursor:pointer; }
+.pagination-btn:hover { background:rgba(56,189,248,0.08); }
+.pagination-btn img { width:64px; height:64px; object-fit:contain; border-radius:12px; border:1px solid var(--border); background:var(--card); padding:4px; opacity:0.8; transition:opacity 0.2s; }
+.pagination-btn:hover img { opacity:1; }
+.pagination-btn:disabled { opacity:0.4; cursor:not-allowed; pointer-events:none; }
+.pagination-btn:disabled img { opacity:0.4; }
+.pagination-btn span { font-size:0.62rem; color:var(--muted); text-align:center; line-height:1.3; transition:color 0.2s; }
+.pagination-btn:hover span { color:var(--accent); }
+.objetos-grid-container { flex:1; }
+/* VÍDEO EN DETALLE */
+.objeto-detail-video { position:absolute; bottom:0.8rem; right:0.8rem; z-index:5; }
+.objeto-detail-video a { display:flex; align-items:center; gap:0.4rem; padding:0.5rem 0.8rem; background:rgba(56,189,248,0.2); border:1px solid var(--accent); border-radius:8px; color:var(--accent); text-decoration:none; font-size:0.75rem; font-weight:600; transition:all 0.2s; }
+.objeto-detail-video a:hover { background:rgba(56,189,248,0.4); }
+.objeto-detail-video img { width:18px; height:18px; object-fit:contain; }
 .objetos-grid-container { flex:1; }
 /* VISTA DETALLADA DE OBJETO */
 .objeto-detail-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.82); display:flex; align-items:center; justify-content:center; padding:1.2rem; opacity:0; pointer-events:none; transition:opacity 0.25s; }
@@ -87,6 +94,19 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
   .objeto-detail-side.realidad { flex:0 0 40%; }
   .objeto-detail-side.simulacion { flex:0 0 60%; }
   .objeto-detail-side.realidad .objeto-detail-img { border-right:none; border-bottom:1px solid var(--border); }
+}
+
+@media(max-width:768px) {
+  .objetos-container { flex-direction:column; gap:0.8rem; }
+  .objetos-sidebar { width:100%; flex-direction:row; border-right:none; border-bottom:1px solid var(--border); margin-right:0; padding:0 0 0.8rem 0; justify-content:center; gap:1.5rem; }
+  .pagination-info { width:100%; }
+  .pagination-btn img { width:50px; height:50px; }
+  .pagination-btn span { font-size:0.58rem; }
+  .objetos-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:0.6rem; }
+  .objeto-btn { width:calc(25% - 0.5rem); min-width:70px; max-width:90px; }
+  .objeto-circle { width:80px; height:80px; }
+  .objeto-nombre { font-size:0.65rem; max-width:80px; }
+  .objeto-tema { font-size:0.6rem; }
 }
 /* MODAL */
 .modal-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.82); display:flex; align-items:center; justify-content:center; padding:1.2rem; opacity:0; pointer-events:none; transition:opacity 0.25s; }
@@ -199,10 +219,14 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
     <div class="objetos-container">
       <div class="objetos-sidebar">
         <div class="pagination-info" id="pagination-info">Página 1 de 2</div>
-        <div class="pagination-buttons">
-          <button class="pagination-btn" id="btn-prev" onclick="objetosPrevPage()" title="Página anterior"><img src="imagenes/menu/Menu_anterior.png" alt="Anterior"></button>
-          <button class="pagination-btn" id="btn-next" onclick="objetosNextPage()" title="Página siguiente"><img src="imagenes/menu/Menu_siguiente.png" alt="Siguiente"></button>
-        </div>
+        <button class="pagination-btn" id="btn-prev" onclick="objetosPrevPage()" title="Página anterior">
+          <img src="imagenes/menu/Menu_anterior.png" alt="Anterior">
+          <span>Anterior</span>
+        </button>
+        <button class="pagination-btn" id="btn-next" onclick="objetosNextPage()" title="Página siguiente">
+          <img src="imagenes/menu/Menu_siguiente.png" alt="Siguiente">
+          <span>Siguiente</span>
+        </button>
       </div>
       <div class="objetos-grid-container">
         <div class="objetos-grid" id="grid-objetos"></div>
@@ -301,6 +325,7 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
 <div class="objeto-detail-overlay" id="objeto-detail-overlay" onclick="closeObjeto(event)">
   <div class="objeto-detail">
     <button class="objeto-detail-close" onclick="closeObjeto()">✕</button>
+    <div class="objeto-detail-video" id="objeto-detail-video"></div>
     <div class="objeto-detail-content">
       <div class="objeto-detail-side realidad">
         <div class="objeto-detail-title">Objeto en la realidad</div>
@@ -978,9 +1003,24 @@ function selectObjetos(btn) {
 function abrirObjetoDetalle(obj) {
   const imagenA = `objetos/${obj.tema}-${obj.objeto}-A.png`;
   const imagenB = `objetos/${obj.tema}-${obj.objeto}-B.png`;
+  const videoD = `objetos/${obj.tema}-${obj.objeto}-D.png`;
   
   document.getElementById('objeto-detail-img-a').src = imagenA;
   document.getElementById('objeto-detail-img-b').src = imagenB;
+  
+  // Detectar si existe vídeo
+  const videoContainer = document.getElementById('objeto-detail-video');
+  videoContainer.innerHTML = '';
+  
+  const img = new Image();
+  img.onerror = function() {
+    // El archivo -D no existe, no mostrar botón
+  };
+  img.onload = function() {
+    // El archivo -D existe, mostrar botón
+    videoContainer.innerHTML = `<a href="${videoD}" target="_blank" rel="noopener"><img src="imagenes/menu/Video_temario.png" alt="Ver vídeo"><span>Ver vídeo</span></a>`;
+  };
+  img.src = videoD;
   
   document.getElementById('objeto-detail-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -993,8 +1033,27 @@ function closeObjeto(e) {
 }
 
 function buildObjetosGrid() {
-  const OBJETOS_POR_PAGINA = 18;
   let paginaActual = 0;
+  let OBJETOS_POR_PAGINA = 18; // Default
+  
+  function calcularObjetosPorPagina() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const aspectRatio = width / height;
+    
+    if (width <= 768) {
+      // Móvil: 4 filas
+      OBJETOS_POR_PAGINA = 16; // 4 columnas x 4 filas
+    } else {
+      // Desktop: 3 filas
+      // Asumiendo ~130px de ancho por objeto + gap, y ~600px de contenedor útil
+      const columnas = Math.floor((width - 200) / 150); // 200px para sidebar
+      OBJETOS_POR_PAGINA = columnas * 3; // 3 filas
+      if (OBJETOS_POR_PAGINA < 9) OBJETOS_POR_PAGINA = 9;
+    }
+  }
+  
+  calcularObjetosPorPagina();
   
   function mostrarPagina() {
     const grid = document.getElementById('grid-objetos');
@@ -1034,6 +1093,15 @@ function buildObjetosGrid() {
       mostrarPagina();
     }
   };
+  
+  window.addEventListener('resize', () => {
+    const prevObjetos = OBJETOS_POR_PAGINA;
+    calcularObjetosPorPagina();
+    if (OBJETOS_POR_PAGINA !== prevObjetos) {
+      paginaActual = 0;
+      mostrarPagina();
+    }
+  });
   
   mostrarPagina();
 }
