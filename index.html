@@ -367,47 +367,40 @@ const ICONOS = {
 // ═══════════════════════════════════════════
 // OBJETOS EN CLASE
 // ═══════════════════════════════════════════
-const OBJETOS = [
-  { tema:"Campo gravitatorio", objeto:"Cuerpos celestes", icono:"objetos/Campo gravitatorio - Cuerpos celestes - A.png" },
-  { tema:"Cinética", objeto:"Fidget spinner", icono:"objetos/Cinética - Fidget spinner - A.png" },
-  { tema:"Cinética", objeto:"Peonza", icono:"objetos/Cinética - Peonza - A.png" },
-  { tema:"Dinámica", objeto:"Centro de gravedad", icono:"objetos/Dinámica - Centro de gravedad - A.png" },
-  { tema:"Energía", objeto:"Linterna con dinamo", icono:"objetos/Energía - Linterna con dinamo - A.png" },
-  { tema:"Energía", objeto:"Térmica a cinética", icono:"objetos/Energía - Térmica a cinética - A.png" },
-  { tema:"Energía térmica", objeto:"anillo termocrómico", icono:"objetos/Energía térmica - anillo termocrómico - A.png" },
-  { tema:"Formulación", objeto:"Modelo molecular básico", icono:"objetos/Formulación - Modelo molecular básico - A.png" },
-  { tema:"Formulación", objeto:"Modelo molecular experto", icono:"objetos/Formulación - Modelo molecular experto - A.png" },
-  { tema:"Física nuclear", objeto:"Fósil amonita", icono:"objetos/Física nuclear - Fósil amonita - A.png" },
-  { tema:"Física nuclear", objeto:"Fósil en ámbar", icono:"objetos/Física nuclear - Fósil en ámbar - A.png" },
-  { tema:"Instrumentos de laboratorio", objeto:"Pulverizadores", icono:"objetos/Instrumentos de laboratorio - Pulverizadores - A.png" },
-  { tema:"Instrumentos de laboratorio", objeto:"Termómetro-higrómetro", icono:"objetos/Instrumentos de laboratorio - Termómetro-higrómetro - A.png" },
-  { tema:"Instrumentos de medida", objeto:"Brújula con ventosa", icono:"objetos/Instrumentos de medida - Brújula con ventosa - A.png" },
-  { tema:"Instrumentos de medida", objeto:"Jeringa de plástico", icono:"objetos/Instrumentos de medida - Jeringa de plástico - A.png" },
-  { tema:"Laboratorio", objeto:"Kit cristalización", icono:"objetos/Laboratorio - Kit cristalización - A.png" },
-  { tema:"Magnetismo", objeto:"Imán y ferrita", icono:"objetos/Magnetismo - Imán y ferrita - A.png" },
-  { tema:"Magnetismo", objeto:"Peonza de levitación magnética", icono:"objetos/Magnetismo - Peonza de levitación magnética - A.png" },
-  { tema:"Método científico", objeto:"Pictogramas (Alcanfor)", icono:"objetos/Método científico - Pictogramas (Alcanfor) - A.png" },
-  { tema:"Método científico", objeto:"Pictogramas de seguridad", icono:"objetos/Método científico - Pictogramas de seguridad - A.png" },
-  { tema:"Metales", objeto:"Identificados", icono:"objetos/Metales - Identificados - A.png" },
-  { tema:"Metales", objeto:"Sin identificar", icono:"objetos/Metales - Sin identificar - A.png" },
-  { tema:"Óptica", objeto:"Caleidoscopio", icono:"objetos/Óptica - Caleidoscopio - A.png" },
-  { tema:"Óptica", objeto:"Creador de hologramas", icono:"objetos/Óptica - Creador de hologramas - A.png" },
-  { tema:"Óptica", objeto:"Cubo de fluorita", icono:"objetos/Óptica - Cubo de fluorita - A.png" },
-  { tema:"Óptica", objeto:"Cubo transparente", icono:"objetos/Óptica - Cubo transparente - A.png" },
-  { tema:"Óptica", objeto:"Linterna radiación UV", icono:"objetos/Óptica - Linterna radiación UV - A.png" },
-  { tema:"Óptica", objeto:"Medallones de dispersión", icono:"objetos/Óptica - Medallones de dispersión - A.png" },
-  { tema:"Óptica", objeto:"Microscopio portátil", icono:"objetos/Óptica - Microscopio portátil - A.png" },
-  { tema:"Óptica", objeto:"Prisma", icono:"objetos/Óptica - Prisma - A.png" },
-  { tema:"Óptica", objeto:"Puntero láser rojo", icono:"objetos/Óptica - Puntero láser rojo - A.png" },
-  { tema:"Propiedades de la materia", objeto:"Arena hidrófoba", icono:"objetos/Propiedades de la materia - Arena hidrófoba - A.png" },
-  { tema:"Propiedades de la materia", objeto:"Colorantes alimentarios", icono:"objetos/Propiedades de la materia - Colorantes alimentarios - A.png" },
-  { tema:"Reacciones ácido-base", objeto:"Papel pHmetro", icono:"objetos/Reacciones ácido-base - Papel pHmetro - A.png" },
-  { tema:"Reacciones químicas", objeto:"Piedras fluorescentes", icono:"objetos/Reacciones químicas - Piedras fluorescentes - A.png" },
-  { tema:"Reacciones químicas", objeto:"Sustancias fosforescentes", icono:"objetos/Reacciones químicas - Sustancias fosforescentes - A.png" },
-  { tema:"Reacciones químicas", objeto:"Tejidos naturales y sintéticos", icono:"objetos/Reacciones químicas - Tejidos naturales y sintéticos - A.png" },
-  { tema:"Sonido", objeto:"Armónica", icono:"objetos/Sonido - Armónica - A.png" },
-  { tema:"Sonido", objeto:"Diapasones 512 Hz y 256 Hz", icono:"objetos/Sonido - Diapasones 512 Hz y 256 Hz - A.png" },
-].sort((a,b) => a.tema.localeCompare(b.tema));
+// OBJETOS EN CLASE - Cargados dinámicamente desde objetos.json
+// ═══════════════════════════════════════════
+let OBJETOS = [];
+
+// Cargar objetos dinámicamente
+async function cargarObjetos() {
+  try {
+    const response = await fetch('objetos.json');
+    if (!response.ok) throw new Error('No se pudo cargar objetos.json');
+    OBJETOS = await response.json();
+    OBJETOS.sort((a, b) => a.tema.localeCompare(b.tema));
+    console.log(`✅ Cargados ${OBJETOS.length} objetos dinámicamente`);
+    inicializarUI();
+  } catch (error) {
+    console.error('Error cargando objetos:', error);
+    mostrarError('No se pudieron cargar los objetos. Asegúrate de que objetos.json existe.');
+  }
+}
+
+function mostrarError(mensaje) {
+  const panelObjetos = document.getElementById('panel-objetos');
+  if (panelObjetos) {
+    panelObjetos.innerHTML = `<div style="padding: 20px; color: red; background: #fee;">${mensaje}</div>`;
+  }
+}
+
+function inicializarUI() {
+  mostrarObjetos(1);
+  actualizarPaginacion();
+}
+
+// Cargar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', cargarObjetos);
+
 
 const JUEGOS = {
   "2eso": [
