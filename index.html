@@ -367,70 +367,62 @@ const ICONOS = {
 // ═══════════════════════════════════════════
 // OBJETOS EN CLASE
 // ═══════════════════════════════════════════
-// OBJETOS EN CLASE - Cargados dinámicamente desde objetos.json
+// OBJETOS EN CLASE
 // ═══════════════════════════════════════════
-let OBJETOS = [];
+const OBJETOS = [
+  { tema:"Campo gravitatorio", objeto:"Cuerpos celestes", icono:"imagenes/objetos/Campo gravitatorio - Cuerpos celestes - A.png" },
+  { tema:"Cinética", objeto:"Fidget spinner", icono:"imagenes/objetos/Cinética - Fidget spinner - A.png" },
+  { tema:"Cinética", objeto:"Peonza", icono:"imagenes/objetos/Cinética - Peonza - A.png" },
+  { tema:"Dinámica", objeto:"Centro de gravedad", icono:"imagenes/objetos/Dinámica - Centro de gravedad - A.png" },
+  { tema:"Energía", objeto:"Linterna con dinamo", icono:"imagenes/objetos/Energía - Linterna con dinamo - A.png" },
+  { tema:"Energía", objeto:"Térmica a cinética", icono:"imagenes/objetos/Energía - Térmica a cinética - A.png" },
+  { tema:"Energía térmica", objeto:"anillo termocrómico", icono:"imagenes/objetos/Energía térmica - anillo termocrómico - A.png" },
+  { tema:"Formulación", objeto:"Modelo molecular básico", icono:"imagenes/objetos/Formulación - Modelo molecular básico - A.png" },
+  { tema:"Formulación", objeto:"Modelo molecular experto", icono:"imagenes/objetos/Formulación - Modelo molecular experto - A.png" },
+  { tema:"Física nuclear", objeto:"Fósil amonita", icono:"imagenes/objetos/Física nuclear - Fósil amonita - A.png" },
+  { tema:"Física nuclear", objeto:"Fósil en ámbar", icono:"imagenes/objetos/Física nuclear - Fósil en ámbar - A.png" },
+  { tema:"Instrumentos de laboratorio", objeto:"Pulverizadores", icono:"imagenes/objetos/Instrumentos de laboratorio - Pulverizadores - A.png" },
+  { tema:"Instrumentos de laboratorio", objeto:"Termómetro-higrómetro", icono:"imagenes/objetos/Instrumentos de laboratorio - Termómetro-higrómetro - A.png" },
+  { tema:"Instrumentos de medida", objeto:"Brújula con ventosa", icono:"imagenes/objetos/Instrumentos de medida - Brújula con ventosa - A.png" },
+  { tema:"Instrumentos de medida", objeto:"Jeringa de plástico", icono:"imagenes/objetos/Instrumentos de medida - Jeringa de plástico - A.png" },
+  { tema:"Laboratorio", objeto:"Kit cristalización", icono:"imagenes/objetos/Laboratorio - Kit cristalización - A.png" },
+  { tema:"Magnetismo", objeto:"Imán y ferrita", icono:"imagenes/objetos/Magnetismo - Imán y ferrita - A.png" },
+  { tema:"Magnetismo", objeto:"Peonza de levitación magnética", icono:"imagenes/objetos/Magnetismo - Peonza de levitación magnética - A.png" },
+  { tema:"Metales", objeto:"Identificados", icono:"imagenes/objetos/Metales - Identificados - A.png" },
+  { tema:"Metales", objeto:"Sin identificar", icono:"imagenes/objetos/Metales - Sin identificar - A.png" },
+  { tema:"Método científico", objeto:"Pictogramas (Alcanfor)", icono:"imagenes/objetos/Método científico - Pictogramas (Alcanfor) - A.png" },
+  { tema:"Método científico", objeto:"Pictogramas de seguridad", icono:"imagenes/objetos/Método científico - Pictogramas de seguridad - A.png" },
+  { tema:"Propiedades de la materia", objeto:"Arena hidrófoba", icono:"imagenes/objetos/Propiedades de la materia - Arena hidrófoba - A.png" },
+  { tema:"Propiedades de la materia", objeto:"Colorantes alimentarios", icono:"imagenes/objetos/Propiedades de la materia - Colorantes alimentarios - A.png" },
+  { tema:"Reacciones químicas", objeto:"Piedras fluorescentes", icono:"imagenes/objetos/Reacciones químicas - Piedras fluorescentes - A.png" },
+  { tema:"Reacciones químicas", objeto:"Sustancias fosforescentes", icono:"imagenes/objetos/Reacciones químicas - Sustancias fosforescentes - A.png" },
+  { tema:"Reacciones químicas", objeto:"Tejidos naturales y sintéticos", icono:"imagenes/objetos/Reacciones químicas - Tejidos naturales y sintéticos - A.png" },
+  { tema:"Reacciones ácido-base", objeto:"Papel pHmetro", icono:"imagenes/objetos/Reacciones ácido-base - Papel pHmetro - A.png" },
+  { tema:"Sonido", objeto:"Armónica", icono:"imagenes/objetos/Sonido - Armónica - A.png" },
+  { tema:"Sonido", objeto:"Diapasones 512 Hz y 256 Hz", icono:"imagenes/objetos/Sonido - Diapasones 512 Hz y 256 Hz - A.png" },
+  { tema:"Óptica", objeto:"Caleidoscopio", icono:"imagenes/objetos/Óptica - Caleidoscopio - A.png" },
+  { tema:"Óptica", objeto:"Creador de hologramas", icono:"imagenes/objetos/Óptica - Creador de hologramas - A.png" },
+  { tema:"Óptica", objeto:"Cubo de fluorita", icono:"imagenes/objetos/Óptica - Cubo de fluorita - A.png" },
+  { tema:"Óptica", objeto:"Cubo transparente", icono:"imagenes/objetos/Óptica - Cubo transparente - A.png" },
+  { tema:"Óptica", objeto:"Linterna radiación UV", icono:"imagenes/objetos/Óptica - Linterna radiación UV - A.png" },
+  { tema:"Óptica", objeto:"Medallones de dispersión", icono:"imagenes/objetos/Óptica - Medallones de dispersión - A.png" },
+  { tema:"Óptica", objeto:"Microscopio portátil", icono:"imagenes/objetos/Óptica - Microscopio portátil - A.png" },
+  { tema:"Óptica", objeto:"Prisma", icono:"imagenes/objetos/Óptica - Prisma - A.png" },
+  { tema:"Óptica", objeto:"Puntero láser rojo", icono:"imagenes/objetos/Óptica - Puntero láser rojo - A.png" },
+].sort((a,b) => a.tema.localeCompare(b.tema));
 
-// Cargar objetos dinámicamente
-async function cargarObjetos() {
-  try {
-    const response = await fetch('objetos.json');
-    if (!response.ok) throw new Error('No se pudo cargar objetos.json');
-    OBJETOS = await response.json();
-    OBJETOS.sort((a, b) => a.tema.localeCompare(b.tema));
-    console.log(`✅ Cargados ${OBJETOS.length} objetos dinámicamente`);
-    inicializarUI();
-  } catch (error) {
-    console.error('Error cargando objetos:', error);
-    mostrarError('No se pudieron cargar los objetos. Asegúrate de que objetos.json existe.');
+// Inicializar cuando cargue el DOM
+document.addEventListener('DOMContentLoaded', () => {
+  if (OBJETOS.length === 0) {
+    const panelObjetos = document.getElementById('panel-objetos');
+    if (panelObjetos) {
+      panelObjetos.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">Agrega imágenes a la carpeta <strong>imagenes/objetos/</strong><br>Formato: <code>Tema - Objeto - A.png</code></div>';
+    }
+  } else {
+    mostrarObjetos(1);
+    actualizarPaginacion();
   }
-}
-
-function mostrarError(mensaje) {
-  const panelObjetos = document.getElementById('panel-objetos');
-  if (panelObjetos) {
-    panelObjetos.innerHTML = `<div style="padding: 20px; color: red; background: #fee;">${mensaje}</div>`;
-  }
-}
-
-function inicializarUI() {
-  mostrarObjetos(1);
-  actualizarPaginacion();
-}
-
-// Cargar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', cargarObjetos);
-
-
-const JUEGOS = {
-  "2eso": [
-    { nombre:'Semana Cultural - Día Mundial de la Ciencia', enlaces:[
-      { label:'Kahoot en grupo', tipo:'kahoot_grupo', url:'https://play.kahoot.it/v2/?quizId=67b9fe53-3307-480a-aa55-c98b99f0e912' },
-      { label:'Kahoot en solitario', tipo:'kahoot_solo', url:'https://kahoot.it/solo?quizId=67b9fe53-3307-480a-aa55-c98b99f0e912&gameMode=nano' },
-    ]},
-    { nombre:'Día de Europa - La ciencia que nació en Europa', enlaces:[
-      { label:'Kahoot en grupo', tipo:'kahoot_grupo', url:'https://play.kahoot.it/v2/?quizId=3fbdb453-385e-422c-9ba7-e37d3718b3a3' },
-      { label:'Kahoot en solitario', tipo:'kahoot_solo', url:'https://kahoot.it/solo?quizId=3fbdb453-385e-422c-9ba7-e37d3718b3a3&gameMode=nano' },
-    ]},
-    { nombre:'Pasapalabra 1', enlaces:[
-      { label:'Ver Pasapalabra 1', tipo:'pasapalabra', url:'https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/IQDq8wi4uDdYSqJu4FqyvamaAbMcRLeI-6j1XsUP5fKICQA?resid=5E49627FE7EEC215!sb808f3ea37b84a58a26ee05ab2bda99a&ithint=file%2Cpptx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRHE4d2k0dURkWVNxSnU0RnF5dmFtYUFiTWNSTGVJLTZqMVhzVVA1ZktJQ1FB' },
-    ]},
-    { nombre:'Pasapalabra 2', enlaces:[
-      { label:'Ver Pasapalabra 2', tipo:'pasapalabra', url:'https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/IQDAgLXu_BM4ToLe4y5c9v5iAe8iSncLBknBAjej9LXphh4?resid=5E49627FE7EEC215!seeb580c013fc4e3882dee32e5cf6fe62&ithint=file%2Cpptx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRREFnTFh1X0JNNFRvTGU0eTVjOXY1aUFlOGlTbmNMQmtuQkFqZWo5TFhwaGg0' },
-    ]},
-  ],
-  "3eso": [
-    { nombre:'Semana Cultural (Bilingüe) - Recursos naturales', enlaces:[
-      { label:'Kahoot en grupo', tipo:'kahoot_grupo', url:'https://play.kahoot.it/v2/?quizId=adde3149-801e-4c9a-9767-2f3a6158eeae' },
-      { label:'Kahoot en solitario', tipo:'kahoot_solo', url:'https://kahoot.it/solo?quizId=adde3149-801e-4c9a-9767-2f3a6158eeae&gameMode=nano' },
-    ]},
-  ],
-};
-
-// ═══════════════════════════════════════════
-// DATOS
-// ═══════════════════════════════════════════
-const CURSOS = {
+});
 
   "2eso": { label:"2º ESO - Física y Química", temas:[
     { nombre:"El método científico",        icono:"imagenes/2ESO/UD01.png", fondo:"imagenes/2ESO/UD01_-_El_método_científico.png", enlaces:[
