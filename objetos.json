@@ -1,0 +1,358 @@
+[
+  {
+    "tema": "Campo gravitatorio",
+    "objeto": "Cuerpos celestes",
+    "icono": "objetos/Campo gravitatorio - Cuerpos celestes - A.png",
+    "imagenes": [
+      "A",
+      "B",
+      "C"
+    ]
+  },
+  {
+    "tema": "Cinética",
+    "objeto": "Fidget spinner",
+    "icono": "objetos/Cinética - Fidget spinner - A.png",
+    "imagenes": [
+      "A",
+      "B",
+      "C"
+    ]
+  },
+  {
+    "tema": "Cinética",
+    "objeto": "Peonza",
+    "icono": "objetos/Cinética - Peonza - A.png",
+    "imagenes": [
+      "A",
+      "B",
+      "C"
+    ]
+  },
+  {
+    "tema": "Dinámica",
+    "objeto": "Centro de gravedad",
+    "icono": "objetos/Dinámica - Centro de gravedad - A.png",
+    "imagenes": [
+      "A",
+      "B",
+      "C"
+    ]
+  },
+  {
+    "tema": "Energía",
+    "objeto": "Linterna con dinamo",
+    "icono": "objetos/Energía - Linterna con dinamo - A.png",
+    "imagenes": [
+      "A",
+      "B",
+      "C"
+    ]
+  },
+  {
+    "tema": "Energía",
+    "objeto": "Térmica a cinética",
+    "icono": "objetos/Energía - Térmica a cinética - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Energía térmica",
+    "objeto": "anillo termocrómico",
+    "icono": "objetos/Energía térmica - anillo termocrómico - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Formulación",
+    "objeto": "Modelo molecular básico",
+    "icono": "objetos/Formulación - Modelo molecular básico - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Formulación",
+    "objeto": "Modelo molecular experto",
+    "icono": "objetos/Formulación - Modelo molecular experto - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Física nuclear",
+    "objeto": "Fósil amonita",
+    "icono": "objetos/Física nuclear - Fósil amonita - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Física nuclear",
+    "objeto": "Fósil en ámbar",
+    "icono": "objetos/Física nuclear - Fósil en ámbar - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Instrumentos de laboratorio",
+    "objeto": "Pulverizadores",
+    "icono": "objetos/Instrumentos de laboratorio - Pulverizadores - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Instrumentos de laboratorio",
+    "objeto": "Termómetro-higrómetro",
+    "icono": "objetos/Instrumentos de laboratorio - Termómetro-higrómetro - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Instrumentos de medida",
+    "objeto": "Brújula con ventosa",
+    "icono": "objetos/Instrumentos de medida - Brújula con ventosa - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Instrumentos de medida",
+    "objeto": "Jeringa de plástico",
+    "icono": "objetos/Instrumentos de medida - Jeringa de plástico - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Laboratorio",
+    "objeto": "Kit cristalización",
+    "icono": "objetos/Laboratorio - Kit cristalización - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Magnetismo",
+    "objeto": "Imán y ferrita",
+    "icono": "objetos/Magnetismo - Imán y ferrita - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Magnetismo",
+    "objeto": "Peonza de levitación magnética",
+    "icono": "objetos/Magnetismo - Peonza de levitación magnética - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Metales",
+    "objeto": "Identificados",
+    "icono": "objetos/Metales - Identificados - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Metales",
+    "objeto": "Sin identificar",
+    "icono": "objetos/Metales - Sin identificar - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Método científico",
+    "objeto": "Pictogramas (Alcanfor)",
+    "icono": "objetos/Método científico - Pictogramas (Alcanfor) - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Método científico",
+    "objeto": "Pictogramas de seguridad",
+    "icono": "objetos/Método científico - Pictogramas de seguridad - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Propiedades de la materia",
+    "objeto": "Arena hidrófoba",
+    "icono": "objetos/Propiedades de la materia - Arena hidrófoba - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Propiedades de la materia",
+    "objeto": "Colorantes alimentarios",
+    "icono": "objetos/Propiedades de la materia - Colorantes alimentarios - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Reacciones químicas",
+    "objeto": "Piedras fluorescentes",
+    "icono": "objetos/Reacciones químicas - Piedras fluorescentes - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Reacciones químicas",
+    "objeto": "Sustancias fosforescentes",
+    "icono": "objetos/Reacciones químicas - Sustancias fosforescentes - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Reacciones químicas",
+    "objeto": "Tejidos naturales y sintéticos",
+    "icono": "objetos/Reacciones químicas - Tejidos naturales y sintéticos - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Reacciones ácido-base",
+    "objeto": "Papel pHmetro",
+    "icono": "objetos/Reacciones ácido-base - Papel pHmetro - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Sonido",
+    "objeto": "Armónica",
+    "icono": "objetos/Sonido - Armónica - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Sonido",
+    "objeto": "Diapasones 512 Hz y 256 Hz",
+    "icono": "objetos/Sonido - Diapasones 512 Hz y 256 Hz - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Óptica",
+    "objeto": "Caleidoscopio",
+    "icono": "objetos/Óptica - Caleidoscopio - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Óptica",
+    "objeto": "Creador de hologramas",
+    "icono": "objetos/Óptica - Creador de hologramas - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Óptica",
+    "objeto": "Cubo de fluorita",
+    "icono": "objetos/Óptica - Cubo de fluorita - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Óptica",
+    "objeto": "Cubo transparente",
+    "icono": "objetos/Óptica - Cubo transparente - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Óptica",
+    "objeto": "Linterna radiación UV",
+    "icono": "objetos/Óptica - Linterna radiación UV - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Óptica",
+    "objeto": "Medallones de dispersión",
+    "icono": "objetos/Óptica - Medallones de dispersión - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Óptica",
+    "objeto": "Microscopio portátil",
+    "icono": "objetos/Óptica - Microscopio portátil - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Óptica",
+    "objeto": "Prisma",
+    "icono": "objetos/Óptica - Prisma - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "tema": "Óptica",
+    "objeto": "Puntero láser rojo",
+    "icono": "objetos/Óptica - Puntero láser rojo - A.png",
+    "imagenes": [
+      "A",
+      "B"
+    ]
+  }
+]
