@@ -43,16 +43,7 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
 .tema-num-label { font-family:'Syne',sans-serif; font-size:0.68rem; font-weight:700; color:var(--accent); letter-spacing:0.08em; text-align:center; }
 .tema-label { font-size:0.72rem; font-weight:500; color:var(--text); text-align:center; line-height:1.3; max-width:110px; transition:color 0.2s; }
 .tema-btn:hover .tema-label { color:var(--accent); }
-.objetos-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:1rem; justify-items:center; justify-content:center; }
-.objeto-btn { position:relative; background:none; border:none; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0.4rem; padding:0.5rem; }
-.objeto-circle { width:110px; height:110px; border-radius:50%; overflow:hidden; border:2px solid var(--border); position:relative; background:var(--card); }
-.objeto-circle img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease; }
-.objeto-btn:hover .objeto-circle { border-color:var(--accent); }
-.objeto-btn:hover .objeto-circle img { transform:scale(1.05); }
-.objeto-tema { font-family:'Syne',sans-serif; font-size:0.68rem; font-weight:700; color:var(--accent); letter-spacing:0.08em; text-align:center; }
-.objeto-nombre { font-size:0.72rem; font-weight:500; color:var(--text); text-align:center; line-height:1.3; max-width:110px; transition:color 0.2s; }
-.objeto-btn:hover .objeto-nombre { color:var(--accent); }
-/* PAGINACIÓN DE OBJETOS */
+/* OBJETOS EN CLASE */
 .objetos-container { display:flex; gap:0; align-items:flex-start; }
 .objetos-sidebar { flex-shrink:0; width:110px; display:flex; flex-direction:column; align-items:center; gap:1rem; padding:0.5rem 1rem 0.5rem 0; border-right:1px solid var(--border); margin-right:1.5rem; }
 .pagination-info { font-size:0.75rem; color:var(--muted); text-align:center; font-weight:600; white-space:nowrap; line-height:1.3; }
@@ -65,12 +56,15 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
 .pagination-btn span { font-size:0.62rem; color:var(--muted); text-align:center; line-height:1.3; transition:color 0.2s; }
 .pagination-btn:hover span { color:var(--accent); }
 .objetos-grid-container { flex:1; }
-/* VÍDEO EN DETALLE */
-.objeto-detail-video { position:absolute; bottom:0.8rem; right:0.8rem; z-index:5; }
-.objeto-detail-video a { display:flex; align-items:center; gap:0.4rem; padding:0.5rem 0.8rem; background:rgba(56,189,248,0.2); border:1px solid var(--accent); border-radius:8px; color:var(--accent); text-decoration:none; font-size:0.75rem; font-weight:600; transition:all 0.2s; }
-.objeto-detail-video a:hover { background:rgba(56,189,248,0.4); }
-.objeto-detail-video img { width:18px; height:18px; object-fit:contain; }
-.objetos-grid-container { flex:1; }
+.objetos-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:1rem; justify-items:center; justify-content:center; }
+.objeto-btn { position:relative; background:none; border:none; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0.4rem; padding:0.5rem; }
+.objeto-circle { width:110px; height:110px; border-radius:50%; overflow:hidden; border:2px solid var(--border); position:relative; background:var(--card); }
+.objeto-circle img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease; }
+.objeto-btn:hover .objeto-circle { border-color:var(--accent); }
+.objeto-btn:hover .objeto-circle img { transform:scale(1.05); }
+.objeto-tema { font-family:'Syne',sans-serif; font-size:0.68rem; font-weight:700; color:var(--accent); letter-spacing:0.08em; text-align:center; }
+.objeto-nombre { font-size:0.72rem; font-weight:500; color:var(--text); text-align:center; line-height:1.3; max-width:110px; transition:color 0.2s; }
+.objeto-btn:hover .objeto-nombre { color:var(--accent); }
 /* VISTA DETALLADA DE OBJETO */
 .objeto-detail-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.82); display:flex; align-items:center; justify-content:center; padding:1.2rem; opacity:0; pointer-events:none; transition:opacity 0.25s; }
 .objeto-detail-overlay.open { opacity:1; pointer-events:all; }
@@ -78,6 +72,10 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
 .objeto-detail-overlay.open .objeto-detail { transform:scale(1) translateY(0); }
 .objeto-detail-close { position:absolute; top:0.7rem; right:0.7rem; z-index:10; width:30px; height:30px; border-radius:50%; background:rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.18); color:var(--text); font-size:0.9rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s; }
 .objeto-detail-close:hover { background:rgba(255,255,255,0.15); }
+.objeto-detail-video { position:absolute; bottom:0.8rem; right:0.8rem; z-index:5; }
+.objeto-detail-video a { display:flex; align-items:center; gap:0.4rem; padding:0.5rem 0.8rem; background:rgba(56,189,248,0.2); border:1px solid var(--accent); border-radius:8px; color:var(--accent); text-decoration:none; font-size:0.75rem; font-weight:600; transition:all 0.2s; }
+.objeto-detail-video a:hover { background:rgba(56,189,248,0.4); }
+.objeto-detail-video img { width:18px; height:18px; object-fit:contain; }
 .objeto-detail-content { display:flex; flex:1; overflow:hidden; }
 .objeto-detail-side { position:relative; display:flex; flex-direction:column; }
 .objeto-detail-side.realidad { flex:0 0 33%; }
@@ -85,29 +83,6 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
 .objeto-detail-title { position:absolute; top:0; left:0; right:0; background:rgba(8,12,16,0.95); padding:0.8rem 1rem; font-size:0.9rem; font-weight:600; color:var(--accent); letter-spacing:0.05em; z-index:5; border-bottom:1px solid var(--border); }
 .objeto-detail-img { width:100%; height:100%; object-fit:cover; padding-top:2.5rem; box-sizing:border-box; }
 .objeto-detail-side.realidad .objeto-detail-img { border-right:1px solid var(--border); }
-
-@media(max-width:768px) {
-  .objetos-container { flex-direction:column; gap:0.8rem; }
-  .objetos-sidebar { width:100%; flex-direction:row; border-right:none; border-bottom:1px solid var(--border); padding:0 0 0.8rem 0; }
-  .objeto-detail { height:90vh; }
-  .objeto-detail-content { flex-direction:column; }
-  .objeto-detail-side.realidad { flex:0 0 40%; }
-  .objeto-detail-side.simulacion { flex:0 0 60%; }
-  .objeto-detail-side.realidad .objeto-detail-img { border-right:none; border-bottom:1px solid var(--border); }
-}
-
-@media(max-width:768px) {
-  .objetos-container { flex-direction:column; gap:0.8rem; }
-  .objetos-sidebar { width:100%; flex-direction:row; border-right:none; border-bottom:1px solid var(--border); margin-right:0; padding:0 0 0.8rem 0; justify-content:center; gap:1.5rem; }
-  .pagination-info { width:100%; }
-  .pagination-btn img { width:50px; height:50px; }
-  .pagination-btn span { font-size:0.58rem; }
-  .objetos-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:0.6rem; }
-  .objeto-btn { width:calc(25% - 0.5rem); min-width:70px; max-width:90px; }
-  .objeto-circle { width:80px; height:80px; }
-  .objeto-nombre { font-size:0.65rem; max-width:80px; }
-  .objeto-tema { font-size:0.6rem; }
-}
 /* MODAL */
 .modal-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.82); display:flex; align-items:center; justify-content:center; padding:1.2rem; opacity:0; pointer-events:none; transition:opacity 0.25s; }
 .modal-overlay.open { opacity:1; pointer-events:all; }
@@ -151,6 +126,13 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
 
 
 /* ── MÓVIL ─────────────────────────────────────────── */
+@media(max-width:400px) {
+  .temas-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:0.4rem; }
+  .tema-btn { width:calc(25% - 0.35rem); min-width:60px; max-width:80px; }
+  .tema-circle { width:70px; height:70px; }
+  .tema-label { font-size:0.6rem; max-width:70px; }
+}
+
 @media(max-width:768px) {
   header { padding:1.5rem 1rem 1rem; }
   .curso-tabs { padding:0.8rem 0.8rem; gap:0.3rem; }
@@ -179,6 +161,18 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
   .tema-label { font-size:0.65rem; max-width:80px; }
   .tema-num-label { font-size:0.6rem; }
 
+  /* Objetos en móvil */
+  .objetos-container { flex-direction:column; gap:0.8rem; }
+  .objetos-sidebar { width:100%; flex-direction:row; border-right:none; border-bottom:1px solid var(--border); margin-right:0; padding:0 0 0.8rem 0; justify-content:center; gap:1.5rem; }
+  .pagination-info { width:100%; }
+  .pagination-btn img { width:50px; height:50px; }
+  .pagination-btn span { font-size:0.58rem; }
+  .objetos-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:0.6rem; }
+  .objeto-btn { width:calc(25% - 0.5rem); min-width:70px; max-width:90px; }
+  .objeto-circle { width:80px; height:80px; }
+  .objeto-nombre { font-size:0.65rem; max-width:80px; }
+  .objeto-tema { font-size:0.6rem; }
+
   /* Modal móvil */
   .modal-overlay { padding:0.5rem; align-items:center; }
   .modal { max-width:100%; }
@@ -189,13 +183,13 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
   .modal-icon-wrap { width:42px; height:42px; }
   .modal-title { font-size:0.88rem; }
   .link-row { padding:0.55rem 0.8rem; }
-}
 
-@media(max-width:400px) {
-  .temas-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:0.4rem; }
-  .tema-btn { width:calc(25% - 0.35rem); min-width:60px; max-width:80px; }
-  .tema-circle { width:70px; height:70px; }
-  .tema-label { font-size:0.6rem; max-width:70px; }
+  /* Objeto detalle móvil */
+  .objeto-detail { height:90vh; }
+  .objeto-detail-content { flex-direction:column; }
+  .objeto-detail-side.realidad { flex:0 0 40%; }
+  .objeto-detail-side.simulacion { flex:0 0 60%; }
+  .objeto-detail-side.realidad .objeto-detail-img { border-right:none; border-bottom:1px solid var(--border); }
 }
 </style>
 </head>
@@ -220,11 +214,11 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
       <div class="objetos-sidebar">
         <div class="pagination-info" id="pagination-info">Página 1 de 2</div>
         <button class="pagination-btn" id="btn-prev" onclick="objetosPrevPage()" title="Página anterior">
-          <img src="imagenes/menu/Menu_anterior.png" alt="Anterior">
+          <img src="imagenes/menu/Menu anterior.png" alt="Anterior">
           <span>Anterior</span>
         </button>
         <button class="pagination-btn" id="btn-next" onclick="objetosNextPage()" title="Página siguiente">
-          <img src="imagenes/menu/Menu_siguiente.png" alt="Siguiente">
+          <img src="imagenes/menu/Menu siguiente.png" alt="Siguiente">
           <span>Siguiente</span>
         </button>
       </div>
@@ -236,11 +230,11 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
   <div class="curso-panel" id="panel-2eso"><div class="curso-layout">
       <div class="curso-sidebar">
         <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/IQDNwKbEt8woTIBvchGnKWwbAaf9xX5AA-sZJVdj7jtU5QI?resid=5E49627FE7EEC215!sc4a6c0cdccb74c28806f7211a7296c1b&ithint=file%2Cpptx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRE53S2JFdDh3b1RJQnZjaEduS1d3YkFhZjl4WDVBQS1zWkpWZGo3anRVNVFJ" target="_blank" rel="noopener">
-          <img src="imagenes/menu/Jornada_de_bienvenida.png" alt="Jornada de bienvenida">
+          <img src="imagenes/menu/Jornada de bienvenida.png" alt="Jornada de bienvenida">
           <span>Jornada de bienvenida</span>
         </a>
         <a class="sidebar-btn" href="https://onedrive.live.com/?qt=allmyphotos&photosData=%2Fshare%2F5E49627FE7EEC215%21s3792c97e578a499ba19db4cd57331f2c%3Fithint%3Dvideo%26migratedtospo%3Dtrue&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s3792c97e578a499ba19db4cd57331f2c&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQi15WkkzaWxlYlNhR2R0TTFYTXg4c0FVcHU2akYxc0Q2b0taRHdyM2c0NnJj&v=photos" target="_blank" rel="noopener">
-          <img src="imagenes/menu/Video_temario.png" alt="Vídeo del temario">
+          <img src="imagenes/menu/Video temario.png" alt="Vídeo del temario">
           <span>Vídeo del temario</span>
         </a>
       
@@ -254,11 +248,11 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
   <div class="curso-panel" id="panel-3eso"><div class="curso-layout">
       <div class="curso-sidebar">
         <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/EYKrjsaUXZVOn-5ioB67Z6gB0D0lGEnYph2ZjDArksBaYw?resid=5E49627FE7EEC215!sc68eab825d944e959fee62a01ebb67a8&ithint=file%2Cpptx&e=K2Lt0h&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0VZS3Jqc2FVWFpWT24tNWlvQjY3WjZnQjBEMGxHRW5ZcGgyWmpEQXJrc0JhWXc_ZT1LMkx0MGg" target="_blank" rel="noopener">
-          <img src="imagenes/menu/Jornada_de_bienvenida.png" alt="Jornada de bienvenida">
+          <img src="imagenes/menu/Jornada de bienvenida.png" alt="Jornada de bienvenida">
           <span>Jornada de bienvenida</span>
         </a>
         <a class="sidebar-btn" href="https://onedrive.live.com/?qt=allmyphotos&photosData=%2Fshare%2F5E49627FE7EEC215%21s167230d99a1842e39d2b38e411bfc221%3Fithint%3Dvideo%26e%3DdUtr0A%26migratedtospo%3Dtrue&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s167230d99a1842e39d2b38e411bfc221&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRFpNSElXR0pyalFwMHJPT1FSdjhJaEFTSjkwVTlnbTNHTVdRTEJnTXN3Y01VP2U9ZFV0cjBB&v=photos" target="_blank" rel="noopener">
-          <img src="imagenes/menu/Video_temario.png" alt="Vídeo del temario">
+          <img src="imagenes/menu/Video temario.png" alt="Vídeo del temario">
           <span>Vídeo del temario</span>
         </a>
       
@@ -272,11 +266,11 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
   <div class="curso-panel" id="panel-4eso"><div class="curso-layout">
       <div class="curso-sidebar">
         <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/EXWKS6ANV6FAu6nwyeMZk_gB2zT7ZxtHkCPQbNkUsh3fzQ?resid=5E49627FE7EEC215!sa04b8a75570d40a1bba9f0c9e31993f8&ithint=file%2Cpptx&e=kljQyY&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0VYV0tTNkFOVjZGQXU2bnd5ZU1aa19nQjJ6VDdaeHRIa0NQUWJOa1VzaDNmelE_ZT1rbGpReVk" target="_blank" rel="noopener">
-          <img src="imagenes/menu/Jornada_de_bienvenida.png" alt="Jornada de bienvenida">
+          <img src="imagenes/menu/Jornada de bienvenida.png" alt="Jornada de bienvenida">
           <span>Jornada de bienvenida</span>
         </a>
         <a class="sidebar-btn" href="https://onedrive.live.com/?qt=allmyphotos&photosData=%2fshare%2f5E49627FE7EEC215!sca768d4c4bfc42fdae14fd70a60bef89%3fithint%3dvideo%26e%3dgfVVAg%26migratedtospo%3dtrue&cid=5E49627FE7EEC215&id=5E49627FE7EEC215!sca768d4c4bfc42fdae14fd70a60bef89&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQk1qWGJLX0V2OVFxNFVfWENtQy0tSkFYR1VoNW5rYmJocURVS1lFTDM3VFkwP2U9Z2ZWVkFn" target="_blank" rel="noopener">
-          <img src="imagenes/menu/Video_temario.png" alt="Vídeo del temario">
+          <img src="imagenes/menu/Video temario.png" alt="Vídeo del temario">
           <span>Vídeo del temario</span>
         </a>
       </div>
@@ -285,11 +279,11 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
   <div class="curso-panel" id="panel-1bach"><div class="curso-layout">
       <div class="curso-sidebar">
         <a class="sidebar-btn" href="https://onedrive.live.com/personal/5e49627fe7eec215/_layouts/15/Doc.aspx?sourcedoc=%7B4b92edb0-9c52-442d-856f-bc1d268939dc%7D&action=default&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQ3c3WkpMVXB3dFJJVnZ2QjBtaVRuY0FiYWg3QjdKLXZ3bDF6eUxXUS13Q00wP2U9N3ZDMTlY" target="_blank" rel="noopener">
-          <img src="imagenes/menu/Jornada_de_bienvenida.png" alt="Jornada de bienvenida">
+          <img src="imagenes/menu/Jornada de bienvenida.png" alt="Jornada de bienvenida">
           <span>Jornada de bienvenida</span>
         </a>
         <a class="sidebar-btn" href="https://onedrive.live.com/?id=5E49627FE7EEC215%21s5b882468916e4afc9c0a9eeb23669362&cid=5E49627FE7EEC215&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQm9KSWhiYnBIOFNwd0tudXNqWnBOaUFVLUxTS25udnJZNE9ZRnV6SmVZSFBJ&parId=5E49627FE7EEC215%21sce87da85e83e4409aa7d803e7ffb10b8&o=OneUp" target="_blank" rel="noopener">
-          <img src="imagenes/menu/Video_temario.png" alt="Vídeo del temario">
+          <img src="imagenes/menu/Video temario.png" alt="Vídeo del temario">
           <span>Vídeo del temario</span>
         </a>
       </div>
@@ -298,11 +292,11 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
   <div class="curso-panel" id="panel-2bachF"><div class="curso-layout">
       <div class="curso-sidebar">
         <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/IQAce58YYDeVT7jckdGHleVtAf69-q1OuQbPVR591QhmIo0?resid=5E49627FE7EEC215!s189f7b1c37604f95b8dc91d18795e56d&ithint=file%2Cpptx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQWNlNThZWURlVlQ3amNrZEdIbGVWdEFmNjktcTFPdVFiUFZSNTkxUWhtSW8w" target="_blank" rel="noopener">
-          <img src="imagenes/menu/Jornada_de_bienvenida.png" alt="Jornada de bienvenida">
+          <img src="imagenes/menu/Jornada de bienvenida.png" alt="Jornada de bienvenida">
           <span>Jornada de bienvenida</span>
         </a>
         <a class="sidebar-btn" href="https://onedrive.live.com/?qt=allmyphotos&photosData=%2Fshare%2F5E49627FE7EEC215%21sa4a2d53918ff4d22a98ff0032dc6b54a%3Fithint%3Dvideo%26migratedtospo%3Dtrue&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21sa4a2d53918ff4d22a98ff0032dc6b54a&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQTUxYUtrX3hnaVRhbVA4QU10eHJWS0FXczZIZjlGcUxKb3A2MUFNT3JfZHdr&v=photos" target="_blank" rel="noopener">
-          <img src="imagenes/menu/Video_temario.png" alt="Vídeo del temario">
+          <img src="imagenes/menu/Video temario.png" alt="Vídeo del temario">
           <span>Vídeo del temario</span>
         </a>
       </div>
@@ -311,11 +305,11 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
   <div class="curso-panel" id="panel-2bachQ"><div class="curso-layout">
       <div class="curso-sidebar">
         <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/IQDVo0hqoIddRoCIBLsMol_2AetPORWqJbnAch3CSh_N7Xw?resid=5E49627FE7EEC215!s6a48a3d587a0465d808804bb0ca25ff6&ithint=file%2Cpptx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRFZvMGhxb0lkZFJvQ0lCTHNNb2xfMkFldFBPUldxSmJuQWNoM0NTaF9ON1h3" target="_blank" rel="noopener">
-          <img src="imagenes/menu/Jornada_de_bienvenida.png" alt="Jornada de bienvenida">
+          <img src="imagenes/menu/Jornada de bienvenida.png" alt="Jornada de bienvenida">
           <span>Jornada de bienvenida</span>
         </a>
         <a class="sidebar-btn" href="https://onedrive.live.com/?qt=allmyphotos&photosData=%2Fshare%2F5E49627FE7EEC215%21s485a4e303e704771a3e5d52d05a64286%3Fithint%3Dvideo%26migratedtospo%3Dtrue&cid=5E49627FE7EEC215&id=5E49627FE7EEC215%21s485a4e303e704771a3e5d52d05a64286&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQXdUbHBJY0Q1eFI2UGwxUzBGcGtLR0FmWnFBakNORnpyWFYwZzRUNEE3M3Ew&v=photos" target="_blank" rel="noopener">
-          <img src="imagenes/menu/Video_temario.png" alt="Vídeo del temario">
+          <img src="imagenes/menu/Video temario.png" alt="Vídeo del temario">
           <span>Vídeo del temario</span>
         </a>
       </div>
@@ -358,16 +352,60 @@ main { position:relative; z-index:10; padding:2rem 1.5rem 4rem; max-width:1300px
 // ICONOS DE ENLACE — carpeta imagenes/menu/
 // ═══════════════════════════════════════════
 const ICONOS = {
-  online:        'imagenes/menu/Ver_apuntes_online.png',
-  presentacion_online: 'imagenes/menu/Ver_presentacion_online.png',
-  pdf:           'imagenes/menu/Descargar_PDF.png',
-  google:        'imagenes/menu/Cuestionario_Google.png',
-  formulacion:   'imagenes/menu/Cuaderno_formulacion.png',
-  kahoot_grupo:  'imagenes/menu/Kahoot_Grupo.png',
-  kahoot_solo:   'imagenes/menu/Kahoot_Individual.png',
+  online:        'imagenes/menu/Ver apuntes online.png',
+  presentacion_online: 'imagenes/menu/Ver presentacion online.png',
+  pdf:           'imagenes/menu/Descargar PDF.png',
+  google:        'imagenes/menu/Cuestionario Google.png',
+  formulacion:   'imagenes/menu/Cuaderno formulacion.png',
+  kahoot_grupo:  'imagenes/menu/Kahoot Grupo.png',
+  kahoot_solo:   'imagenes/menu/Kahoot Individual.png',
   pasapalabra:    'imagenes/menu/Pasapalabra.png',
   formulario:     'imagenes/menu/Formulario.png',
 };
+
+
+// ═══════════════════════════════════════════
+// OBJETOS EN CLASE
+// ═══════════════════════════════════════════
+const OBJETOS = [
+  { tema:"Campo gravitatorio", objeto:"Cuerpos celestes", icono:"objetos/Campo gravitatorio - Cuerpos celestes - A.png" },
+  { tema:"Cinética", objeto:"Momento angular I", icono:"objetos/Cinética - Momento angular I - A.png" },
+  { tema:"Cinética", objeto:"Momento angular II", icono:"objetos/Cinética - Momento angular II - A.png" },
+  { tema:"Clasificación de la materia", objeto:"Arena hidrófoba", icono:"objetos/Clasificación de la materia - Arena hidrófoba - A.png" },
+  { tema:"Clasificación de la materia", objeto:"Colorantes alimentarios", icono:"objetos/Clasificación de la materia - Colorantes alimentarios - A.png" },
+  { tema:"Clasificación de la materia", objeto:"Jeringa de plástico", icono:"objetos/Clasificación de la materia - Jeringa de plástico - A.png" },
+  { tema:"Clasificación de la materia", objeto:"Kit de cristalización", icono:"objetos/Clasificación de la materia - Kit de cristalización - A.png" },
+  { tema:"Clasificación de la materia", objeto:"Pulverizadores", icono:"objetos/Clasificación de la materia - Pulverizadores - A.png" },
+  { tema:"Dinámica", objeto:"Centro de gravedad", icono:"objetos/Dinámica - Centro de gravedad - A.png" },
+  { tema:"Energía", objeto:"Linterna con dinamo", icono:"objetos/Energía - Linterna con dinamo - A.png" },
+  { tema:"Energía", objeto:"Térmica a cinética", icono:"objetos/Energía - Térmica a cinética - A.png" },
+  { tema:"Energía térmica", objeto:"Anillo termocrómico", icono:"objetos/Energía térmica - Anillo termocrómico - A.png" },
+  { tema:"Física nuclear", objeto:"Amonites", icono:"objetos/Física nuclear - Amonites - A.png" },
+  { tema:"Física nuclear", objeto:"Trilobites", icono:"objetos/Física nuclear - Trilobites - A.png" },
+  { tema:"Física nuclear", objeto:"Cangrejo atrapado en ámbar", icono:"objetos/Física nuclear - Cangrejo atrapado en ámbar - A.png" },
+  { tema:"Formulación", objeto:"Modelo molecular básico", icono:"objetos/Formulación - Modelo molecular básico - A.png" },
+  { tema:"Formulación", objeto:"Modelo molecular avanzado", icono:"objetos/Formulación - Modelo molecular avanzado - A.png" },
+  { tema:"Magnetismo", objeto:"Imán y ferrita", icono:"objetos/Magnetismo - Imán y ferrita - A.png" },
+  { tema:"Magnetismo", objeto:"Peonza de levitación magnética", icono:"objetos/Magnetismo - Peonza de levitación magnética - A.png" },
+  { tema:"Metales", objeto:"Identificados", icono:"objetos/Metales - Identificados - A.png" },
+  { tema:"Metales", objeto:"Sin identificar", icono:"objetos/Metales - Sin identificar - A.png" },
+  { tema:"Método científico", objeto:"Brújula esférica", icono:"objetos/Método científico - Brújula esférica - A.png" },
+  { tema:"Método científico", objeto:"Brújula con ventosa", icono:"objetos/Método científico - Brújula con ventosa - A.png" },
+  { tema:"Método científico", objeto:"Pictogramas de seguridad", icono:"objetos/Método científico - Pictogramas de seguridad - A.png" },
+  { tema:"Método científico", objeto:"Termómetro-higrómetro", icono:"objetos/Método científico-Termómetro-higrómetro-C.png" },
+  { tema:"Óptica", objeto:"Creador de hologramas", icono:"objetos/Óptica - Creador de hologramas - A.png" },
+  { tema:"Óptica", objeto:"Fenómenos ondulatorios", icono:"objetos/Óptica - Fenómenos ondulatorios - A.png" },
+  { tema:"Óptica", objeto:"Microscopio portátil", icono:"objetos/Óptica - Microscopio portátil - A.png" },
+  { tema:"Óptica", objeto:"Prisma", icono:"objetos/Óptica - Prisma - A.png" },
+  { tema:"Óptica", objeto:"Puntero láser rojo", icono:"objetos/Óptica - Puntero láser rojo - A.png" },
+  { tema:"Óptica", objeto:"Puntero láser verde", icono:"objetos/Óptica - Puntero láser verde - A.png" },
+  { tema:"Reacciones químicas", objeto:"Indicador pH papel", icono:"objetos/Reacciones químicas - Indicador pH papel - A.png" },
+  { tema:"Reacciones químicas", objeto:"Piedras fluorescentes", icono:"objetos/Reacciones químicas - Piedras fluorescentes - A.png" },
+  { tema:"Reacciones químicas", objeto:"Sustancias fosforescentes", icono:"objetos/Reacciones químicas - Sustancias fosforescentes - A.png" },
+  { tema:"Reacciones químicas", objeto:"Tejidos naturales y sintéticos", icono:"objetos/Reacciones químicas - Tejidos naturales y sintéticos - A.png" },
+  { tema:"Sonido", objeto:"Armónica", icono:"objetos/Sonido - Armónica - A.png" },
+  { tema:"Sonido", objeto:"Diapasones 512 Hz 256 Hz", icono:"objetos/Sonido - Diapasones 512 Hz 256 Hz - A.png" },
+].sort((a,b) => a.tema.localeCompare(b.tema));
 
 const JUEGOS = {
   "2eso": [
@@ -393,49 +431,6 @@ const JUEGOS = {
     ]},
   ],
 };
-
-// ═══════════════════════════════════════════
-// OBJETOS EN CLASE
-// ═══════════════════════════════════════════
-const OBJETOS = [
-  { tema:"Campo gravitatorio", objeto:"Cuerpos celestes", icono:"objetos/Campo_gravitatorio-Cuerpos_celestes-C.png" },
-  { tema:"Cinética", objeto:"Momento angular I", icono:"objetos/Cinética-Momento_angular_I-C.png" },
-  { tema:"Cinética", objeto:"Momento angular II", icono:"objetos/Cinética-Momento_angular_II-C.png" },
-  { tema:"Clasificación de la materia", objeto:"Arena hidrófoba", icono:"objetos/Clasificación_de_la_materia-Arena_hidrófoba-C.png" },
-  { tema:"Clasificación de la materia", objeto:"Colorantes alimentarios", icono:"objetos/Clasificación_de_la_materia-Colorantes_alimentarios-C.png" },
-  { tema:"Clasificación de la materia", objeto:"Jeringa de plástico", icono:"objetos/Clasificación_de_la_materia-Jeringa_de_plástico-C.png" },
-  { tema:"Clasificación de la materia", objeto:"Kit de cristalización", icono:"objetos/Clasificación_de_la_materia-Kit_de_cristalización-C.png" },
-  { tema:"Clasificación de la materia", objeto:"Pulverizadores", icono:"objetos/Clasificación_de_la_materia-Pulverizadores-C.png" },
-  { tema:"Dinámica", objeto:"Centro de gravedad", icono:"objetos/Dinámica-Centro_de_gravedad-C.png" },
-  { tema:"Energía", objeto:"Linterna con dinamo", icono:"objetos/Energía-Linterna_con_dinamo-C.png" },
-  { tema:"Energía", objeto:"Térmica a cinética", icono:"objetos/Energía-Térmica_a_cinética-C.png" },
-  { tema:"Energía térmica", objeto:"Anillo termocrómico", icono:"objetos/Energía_térmica-Anillo_termocrómico-C.png" },
-  { tema:"Física nuclear", objeto:"Amonites", icono:"objetos/Física_nuclear-Amonites-C.png" },
-  { tema:"Física nuclear", objeto:"Trilobites", icono:"objetos/Física_nuclear-Trilobites-C.png" },
-  { tema:"Física nuclear", objeto:"Cangrejo atrapado en ámbar", icono:"objetos/Física_nuclear-Cangrejo_atrapado_en_ámbar-C.png" },
-  { tema:"Formulación", objeto:"Modelo molecular básico", icono:"objetos/Formulación-Modelo_molecular_básico-C.png" },
-  { tema:"Formulación", objeto:"Modelo molecular avanzado", icono:"objetos/Formulación-Modelo_molecular_avanzado-C.png" },
-  { tema:"Magnetismo", objeto:"Imán y ferrita", icono:"objetos/Magnetismo-Imán_y_ferrita-C.png" },
-  { tema:"Magnetismo", objeto:"Peonza de levitación magnética", icono:"objetos/Magnetismo-Peonza_de_levitación_magnética-C.png" },
-  { tema:"Metales", objeto:"Identificados", icono:"objetos/Metales-Identificados-C.png" },
-  { tema:"Metales", objeto:"Sin identificar", icono:"objetos/Metales-Sin_identificar-C.png" },
-  { tema:"Método científico", objeto:"Brújula esférica", icono:"objetos/Método_científico-Brújula_esférica-C.png" },
-  { tema:"Método científico", objeto:"Brújula con ventosa", icono:"objetos/Método_científico-Brújula_con_ventosa-C.png" },
-  { tema:"Método científico", objeto:"Pictogramas de seguridad", icono:"objetos/Método_científico-Pictogramas_de_seguridad-C.png" },
-  { tema:"Método científico", objeto:"Termómetro-higrómetro", icono:"objetos/Método_científico-Termómetro-higrómetro-C.png" },
-  { tema:"Óptica", objeto:"Puntero láser rojo", icono:"objetos/Óptica-Puntero_láser_rojo-C.png" },
-  { tema:"Óptica", objeto:"Puntero láser verde", icono:"objetos/Óptica-Puntero_láser_verde-C.png" },
-  { tema:"Óptica", objeto:"Fenómenos ondulatorios", icono:"objetos/Óptica-Fenómenos_ondulatorios-C.png" },
-  { tema:"Óptica", objeto:"Creador de hologramas", icono:"objetos/Óptica-Creador_de_hologramas-C.png" },
-  { tema:"Óptica", objeto:"Microscopio portátil", icono:"objetos/Óptica-Microscopio_portátil-C.png" },
-  { tema:"Óptica", objeto:"Prisma", icono:"objetos/Óptica-Prisma-C.png" },
-  { tema:"Reacciones químicas", objeto:"Indicador pH papel", icono:"objetos/Reacciones_químicas-Indicador_pH_papel-C.png" },
-  { tema:"Reacciones químicas", objeto:"Piedras fluorescentes", icono:"objetos/Reacciones_químicas-Piedras_fluorescentes-C.png" },
-  { tema:"Reacciones químicas", objeto:"Sustancias fosforescentes", icono:"objetos/Reacciones_químicas-Sustancias_fosforescentes-C.png" },
-  { tema:"Reacciones químicas", objeto:"Tejidos naturales y sintéticos", icono:"objetos/Reacciones_químicas-Tejidos_naturales_y_sintéticos-C.png" },
-  { tema:"Sonido", objeto:"Armónica", icono:"objetos/Sonido-Armónica-C.png" },
-  { tema:"Sonido", objeto:"Diapasones 512 Hz 256 Hz", icono:"objetos/Sonido-Diapasones_512_Hz_256_Hz-C.png" },
-].sort((a,b) => a.tema.localeCompare(b.tema));
 
 // ═══════════════════════════════════════════
 // DATOS
@@ -897,7 +892,7 @@ const SUBTITULOS = {
 
 function openJuegos(cursoId) {
   const juegos = JUEGOS[cursoId] || [];
-  document.getElementById('modal-bg').src = 'imagenes/menu/Juegos_fondo.jpg';
+  document.getElementById('modal-bg').src = 'imagenes/menu/Juegos fondo.jpg';
   document.getElementById('modal-icon').src = 'imagenes/menu/Juegos.png';
   document.getElementById('modal-name').textContent = 'Juegos y actividades';
   document.getElementById('modal-curso').textContent = document.querySelector('.curso-tab.active').textContent;
@@ -993,63 +988,16 @@ function closeModal(e) {
   document.body.style.overflow = '';
 }
 
-function selectObjetos(btn) {
-  document.querySelectorAll('.curso-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.curso-panel').forEach(p => p.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('panel-objetos').classList.add('active');
-}
-
-function abrirObjetoDetalle(obj) {
-  const imagenA = `objetos/${obj.tema}-${obj.objeto}-A.png`;
-  const imagenB = `objetos/${obj.tema}-${obj.objeto}-B.png`;
-  const videoD = `objetos/${obj.tema}-${obj.objeto}-D.png`;
-  
-  document.getElementById('objeto-detail-img-a').src = imagenA;
-  document.getElementById('objeto-detail-img-b').src = imagenB;
-  
-  // Detectar si existe vídeo
-  const videoContainer = document.getElementById('objeto-detail-video');
-  videoContainer.innerHTML = '';
-  
-  const img = new Image();
-  img.onerror = function() {
-    // El archivo -D no existe, no mostrar botón
-  };
-  img.onload = function() {
-    // El archivo -D existe, mostrar botón
-    videoContainer.innerHTML = `<a href="${videoD}" target="_blank" rel="noopener"><img src="imagenes/menu/Video_temario.png" alt="Ver vídeo"><span>Ver vídeo</span></a>`;
-  };
-  img.src = videoD;
-  
-  document.getElementById('objeto-detail-overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeObjeto(e) {
-  if (e && e.target !== document.getElementById('objeto-detail-overlay') && !e.target.classList.contains('objeto-detail-close')) return;
-  document.getElementById('objeto-detail-overlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
 function buildObjetosGrid() {
   let paginaActual = 0;
-  let OBJETOS_POR_PAGINA = 18; // Default
+  let OBJETOS_POR_PAGINA = 14;
   
   function calcularObjetosPorPagina() {
     const width = window.innerWidth;
-    const height = window.innerHeight;
-    const aspectRatio = width / height;
-    
     if (width <= 768) {
-      // Móvil: 4 filas
-      OBJETOS_POR_PAGINA = 16; // 4 columnas x 4 filas
+      OBJETOS_POR_PAGINA = 12;
     } else {
-      // Desktop: 3 filas
-      // Asumiendo ~130px de ancho por objeto + gap, y ~600px de contenedor útil
-      const columnas = Math.floor((width - 200) / 150); // 200px para sidebar
-      OBJETOS_POR_PAGINA = columnas * 3; // 3 filas
-      if (OBJETOS_POR_PAGINA < 9) OBJETOS_POR_PAGINA = 9;
+      OBJETOS_POR_PAGINA = 14;
     }
   }
   
@@ -1068,11 +1016,32 @@ function buildObjetosGrid() {
       btn.className = 'objeto-btn';
       btn.style.setProperty('--d', i);
       btn.onclick = () => abrirObjetoDetalle(obj);
-      btn.innerHTML = `<div class="objeto-circle"><img src="${obj.icono}" alt="${obj.objeto}" onerror="this.style.display='none'"></div><div class="objeto-tema">${obj.tema}</div><div class="objeto-nombre">${obj.objeto}</div>`;
+      
+      const iconImg = document.createElement('img');
+      iconImg.alt = obj.objeto;
+      iconImg.src = obj.icono;
+      iconImg.onerror = function() {
+        this.src = 'imagenes/menu/no disponible.png';
+      };
+      
+      const iconDiv = document.createElement('div');
+      iconDiv.className = 'objeto-circle';
+      iconDiv.appendChild(iconImg);
+      
+      const temaDiv = document.createElement('div');
+      temaDiv.className = 'objeto-tema';
+      temaDiv.textContent = obj.tema;
+      
+      const nombreDiv = document.createElement('div');
+      nombreDiv.className = 'objeto-nombre';
+      nombreDiv.textContent = obj.objeto;
+      
+      btn.appendChild(iconDiv);
+      btn.appendChild(temaDiv);
+      btn.appendChild(nombreDiv);
       grid.appendChild(btn);
     });
     
-    // Actualizar paginación
     const totalPaginas = Math.ceil(OBJETOS.length / OBJETOS_POR_PAGINA);
     document.getElementById('pagination-info').textContent = `Página ${paginaActual + 1} de ${totalPaginas}`;
     document.getElementById('btn-prev').disabled = paginaActual === 0;
@@ -1105,6 +1074,59 @@ function buildObjetosGrid() {
   
   mostrarPagina();
 }
+
+function selectObjetos(btn) {
+  document.querySelectorAll('.curso-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.curso-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-objetos').classList.add('active');
+}
+
+function abrirObjetoDetalle(obj) {
+  const imagenB = `objetos/${obj.tema} - ${obj.objeto} - B.png`;
+  const imagenC = `objetos/${obj.tema} - ${obj.objeto} - C.png`;
+  const videoV = `objetos/${obj.tema} - ${obj.objeto} - V.png`;
+  
+  const imgB = document.getElementById('objeto-detail-img-a');
+  const imgBTemp = new Image();
+  imgBTemp.onerror = () => {
+    imgB.src = 'imagenes/menu/no disponible.png';
+  };
+  imgBTemp.onload = () => {
+    imgB.src = imagenB;
+  };
+  imgBTemp.src = imagenB;
+  
+  const imgC = document.getElementById('objeto-detail-img-b');
+  const imgCTemp = new Image();
+  imgCTemp.onerror = () => {
+    imgC.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==';
+  };
+  imgCTemp.onload = () => {
+    imgC.src = imagenC;
+  };
+  imgCTemp.src = imagenC;
+  
+  const videoContainer = document.getElementById('objeto-detail-video');
+  videoContainer.innerHTML = '';
+  
+  const videoTemp = new Image();
+  videoTemp.onerror = function() {};
+  videoTemp.onload = function() {
+    videoContainer.innerHTML = `<a href="${videoV}" target="_blank" rel="noopener"><img src="imagenes/menu/Video temario.png" alt="Ver vídeo"><span>Ver vídeo</span></a>`;
+  };
+  videoTemp.src = videoV;
+  
+  document.getElementById('objeto-detail-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeObjeto(e) {
+  if (e && e.target !== document.getElementById('objeto-detail-overlay') && !e.target.classList.contains('objeto-detail-close')) return;
+  document.getElementById('objeto-detail-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
 
 function selectCurso(id, btn) {
   document.querySelectorAll('.curso-tab').forEach(t => t.classList.remove('active'));
