@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparativa de Fuentes</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;600;700;800&family=Roboto:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=DM+Sans:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600;700;900&family=Outfit:wght@400;600;700;800&family=Quicksand:wght@400;600;700&family=Raleway:wght@400;600;700;800&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0e12; color: #e8edf2; padding: 2rem; font-size: 16px; }
+.container { max-width: 1400px; margin: 0 auto; }
+h1 { text-align: center; margin-bottom: 3rem; font-size: 2.5rem; }
+
+.fuentes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+
+.fuente-card {
+  background: #131920;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+}
+
+.fuente-card:hover {
+  border-color: rgba(56,189,248,0.5);
+  transform: translateY(-5px);
+}
+
+.fuente-nombre {
+  font-size: 0.9rem;
+  color: #38bdf8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(56,189,248,0.3);
+  padding-bottom: 0.5rem;
+}
+
+.fuente-ejemplo-titulo {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+  line-height: 1.2;
+}
+
+.fuente-ejemplo-subtitulo {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #38bdf8;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.fuente-ejemplo-texto {
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #a0aab8;
+  margin-bottom: 1rem;
+}
+
+.fuente-ejemplo-boton {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background: #38bdf8;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.fuente-ejemplo-boton:hover {
+  background: #0ea5e9;
+}
+
+.caraterísticas {
+  font-size: 0.85rem;
+  color: #5a6677;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Comparativa de Fuentes para tu Plataforma Educativa</h1>
+
+  <div class="fuentes-grid">
+
+    <!-- 1. Poppins -->
+    <div class="fuente-card">
+      <div class="fuente-nombre">1. Poppins</div>
+      <div style="font-family: 'Poppins', sans-serif;">
+        <div class="fuente-ejemplo-titulo">Física & Química</div>
+        <div class="fuente-ejemplo-subtitulo">Unidad 1: Cinética</div>
+        <div class="fuente-ejemplo-texto">Moderna y amigable. Perfecta para educación. Muy legible en pantalla.</div>
+        <button class="fuente-ejemplo-boton" style="font-family: 'Poppins', sans-serif;">Explorar Tema</button>
+        <div class="caraterísticas">✓ Geométrica y redondeada<br>✓ Excelente legibilidad<br>✓ Moderna y joven</div>
+      </div>
+    </div>
+
+    <!-- 2. Inter -->
+    <div class="fuente-card">
+      <div class="fuente-nombre">2. Inter</div>
+      <div style="font-family: 'Inter', sans-serif;">
+        <div class="fuente-ejemplo-titulo">Física & Química</div>
+        <div class="fuente-ejemplo-subtitulo">Unidad 1: Cinética</div>
+        <div class="fuente-ejemplo-texto">Minimalista y limpia. Diseñada especialmente para pantallas.</div>
+        <button class="fuente-ejemplo-boton" style="font-family: 'Inter', sans-serif;">Explorar Tema</button>
+        <div class="caraterísticas">✓ Muy legible en pequeños tamaños<br>✓ Minimalista y profesional<br>✓ Obra maestra del diseño web</div>
+      </div>
+    </div>
+
+    <!-- 3. Roboto -->
+    <div class="fuente-card">
+      <div class="fuente-nombre">3. Roboto</div>
+      <div style="font-family: 'Roboto', sans-serif;">
+        <div class="fuente-ejemplo-titulo">Física & Química</div>
+        <div class="fuente-ejemplo-subtitulo">Unidad 1: Cinética</div>
+        <div class="fuente-ejemplo-texto">Clásica y versátil. Ampliamente utilizada en diseño web.</div>
+        <button class="fuente-ejemplo-boton" style="font-family: 'Roboto', sans-serif;">Explorar Tema</button>
+        <div class="caraterísticas">✓ Neutral y profesional<br>✓ Excelente para textos largos<br>✓ Estable y confiable</div>
+      </div>
+    </div>
+
+    <!-- 4. Plus Jakarta Sans -->
+    <div class="fuente-card">
+      <div class="fuente-nombre">4. Plus Jakarta Sans</div>
+      <div style="font-family: 'Plus Jakarta Sans', sans-serif;">
+        <div class="fuente-ejemplo-titulo">Física & Química</div>
+        <div class="fuente-ejemplo-subtitulo">Unidad 1: Cinética</div>
+        <div class="fuente-ejemplo-texto">Moderna con personalidad. Perfecta para interfaces modernas.</div>
+        <button class="fuente-ejemplo-boton" style="font-family: 'Plus Jakarta Sans', sans-serif;">Explorar Tema</button>
+        <div class="caraterísticas">✓ Contemporánea<br>✓ Excelente contraste<br>✓ Muy legible en UI</div>
+      </div>
+    </div>
+
+    <!-- 5. DM Sans -->
+    <div class="fuente-card">
+      <div class="fuente-nombre">5. DM Sans</div>
+      <div style="font-family: 'DM Sans', sans-serif;">
+        <div class="fuente-ejemplo-titulo">Física & Química</div>
+        <div class="fuente-ejemplo-subtitulo">Unidad 1: Cinética</div>
+        <div class="fuente-ejemplo-texto">Geométrica y precisa. Gran carácter tipográfico.</div>
+        <button class="fuente-ejemplo-boton" style="font-family: 'DM Sans', sans-serif;">Explorar Tema</button>
+        <div class="caraterísticas">✓ Geométrica pura<br>✓ Muy moderna<br>✓ Excelente peso y contraste</div>
+      </div>
+    </div>
+
+    <!-- 6. IBM Plex Sans -->
+    <div class="fuente-card">
+      <div class="fuente-nombre">6. IBM Plex Sans</div>
+      <div style="font-family: 'IBM Plex Sans', sans-serif;">
+        <div class="fuente-ejemplo-titulo">Física & Química</div>
+        <div class="fuente-ejemplo-subtitulo">Unidad 1: Cinética</div>
+        <div class="fuente-ejemplo-texto">Corporate pero moderna. Excelente para contextos académicos.</div>
+        <button class="fuente-ejemplo-boton" style="font-family: 'IBM Plex Sans', sans-serif;">Explorar Tema</button>
+        <div class="caraterísticas">✓ Profesional y seria<br>✓ Muy legible<br>✓ Corporate pero accesible</div>
+      </div>
+    </div>
+
+    <!-- 7. Outfit -->
+    <div class="fuente-card">
+      <div class="fuente-nombre">7. Outfit</div>
+      <div style="font-family: 'Outfit', sans-serif;">
+        <div class="fuente-ejemplo-titulo">Física & Química</div>
+        <div class="fuente-ejemplo-subtitulo">Unidad 1: Cinética</div>
+        <div class="fuente-ejemplo-texto">Geométrica y moderna. Perfecta para interfaces digitales.</div>
+        <button class="fuente-ejemplo-boton" style="font-family: 'Outfit', sans-serif;">Explorar Tema</button>
+        <div class="caraterísticas">✓ Geométrica moderna<br>✓ Friendly pero profesional<br>✓ Muy versátil</div>
+      </div>
+    </div>
+
+    <!-- 8. Quicksand -->
+    <div class="fuente-card">
+      <div class="fuente-nombre">8. Quicksand</div>
+      <div style="font-family: 'Quicksand', sans-serif;">
+        <div class="fuente-ejemplo-titulo">Física & Química</div>
+        <div class="fuente-ejemplo-subtitulo">Unidad 1: Cinética</div>
+        <div class="fuente-ejemplo-texto">Redondeada y amigable. Ideal para públicos jóvenes.</div>
+        <button class="fuente-ejemplo-boton" style="font-family: 'Quicksand', sans-serif;">Explorar Tema</button>
+        <div class="caraterísticas">✓ Muy redondeada<br>✓ Friendly y cálida<br>✓ Perfecta para educación infantil/media</div>
+      </div>
+    </div>
+
+    <!-- 9. Raleway -->
+    <div class="fuente-card">
+      <div class="fuente-nombre">9. Raleway</div>
+      <div style="font-family: 'Raleway', sans-serif;">
+        <div class="fuente-ejemplo-titulo">Física & Química</div>
+        <div class="fuente-ejemplo-subtitulo">Unidad 1: Cinética</div>
+        <div class="fuente-ejemplo-texto">Elegante y sofisticada. Excelente para textos.</div>
+        <button class="fuente-ejemplo-boton" style="font-family: 'Raleway', sans-serif;">Explorar Tema</button>
+        <div class="caraterísticas">✓ Elegante y refinada<br>✓ Muy legible<br>✓ Clásica pero moderna</div>
+      </div>
+    </div>
+
+    <!-- 10. Syne (Actual) -->
+    <div class="fuente-card" style="border: 2px solid #38bdf8;">
+      <div class="fuente-nombre">10. Syne (ACTUAL)</div>
+      <div style="font-family: 'Syne', sans-serif;">
+        <div class="fuente-ejemplo-titulo">Física & Química</div>
+        <div class="fuente-ejemplo-subtitulo">Unidad 1: Cinética</div>
+        <div class="fuente-ejemplo-texto">Tu fuente actual. Moderna y con carácter tipográfico fuerte.</div>
+        <button class="fuente-ejemplo-boton" style="font-family: 'Syne', sans-serif;">Explorar Tema</button>
+        <div class="caraterísticas">✓ Muy característica<br>✓ Modern y juvenil<br>✓ Diferenciada y memorable</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
