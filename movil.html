@@ -64,7 +64,7 @@ header { position:relative; z-index:10; padding:12px 1rem 8px; display:flex; fle
 .page-load-anim { transition:opacity 0.5s ease,transform 0.5s ease; opacity:1 !important; transform:translateY(0) !important; }
 
 /* ── BARRA SUPERIOR ── */
-.barra-superior { position:relative; z-index:10; display:grid; grid-template-columns:repeat(4,1fr); gap:0.25rem; padding:4px; margin:0 0 1px 0; border:1px solid #999999; border-radius:10px; background:rgba(56,189,248,0.154); width:100%; box-sizing:border-box; }
+.barra-superior { position:relative; z-index:10; display:grid; grid-template-columns:repeat(4,1fr); gap:0.25rem; padding:4px; margin:0 0 2px 0; border:1px solid #999999; border-radius:10px; background:rgba(56,189,248,0.154); width:100%; box-sizing:border-box; }
 .curso-tab { padding:3px 4px; border-radius:6px; border:1px solid #999999; background:#000000; color:#ffffff; font-family:'Saira',sans-serif; font-size:0.65rem; font-weight:500; cursor:pointer; transition:all 0.2s; white-space:normal; text-align:center; line-height:1.2; height:40px; width:100%; box-sizing:border-box; }
 .curso-tab.active { background:var(--accent); border-color:#000000; color:#000; font-weight:700; }
 .curso-tab.tab-press { animation:btnActivePulseBlack 0.4s ease-out forwards; }
@@ -296,7 +296,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 /* Cada mitad: fila centrada de botones */
 .sidebar-mitad {
   display:flex; flex-direction:row; align-items:center; justify-content:center;
-  gap:0.4rem; padding:5px 6px 6px;
+  gap:0.4rem; padding:5px 6px 5px;
   flex-wrap:nowrap; overflow:hidden;
 }
 /* Separador vertical central: ocupa toda la altura de la barra */
@@ -788,7 +788,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
 <script src="sistema/objetos-data.js"></script>
 </head>
 <body>
-<div class="pin-overlay" id="pinOverlay" style="display:flex">
+<div class="pin-overlay" id="pinOverlay" style="display:none">
   <div class="pin-modal">
     <h1>Acceso protegido</h1>
     <p>Principios de la termodinámica.<br>PIN solicitado.<br>A la espera de input.</p>
@@ -808,7 +808,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
 <header>
   <div class="header-logo page-load-hidden" onclick="irAPortada()" style="cursor:pointer;">Física <span>&</span> Química</div>
   <div class="header-sub page-load-hidden" onclick="irAAutor()" style="cursor:pointer;">Jacinto Javier Fernández Herrera</div>
-  <button id="btn-sala-control" class="sidebar-btn" onclick="openConsola()" style="display:none;"><img src="imagenes/menu/Sala de control.webp" alt="Sala de control"></button>
+  <button id="btn-sala-control" class="sidebar-btn" onclick="openConsola()" style="display:flex;"><img src="imagenes/menu/Sala de control.webp" alt="Sala de control"></button>
 </header>
 <div class="barra-superior page-load-hidden">
   <button class="curso-tab" onclick="selectCurso('2eso',this)">2º ESO<br>Física y Química</button>
@@ -1571,24 +1571,11 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
         // Botones Amazon: convertir a flex-row (icono izquierda, texto derecha)
         const botonesAmazon = document.querySelectorAll('#grid-consola .control-btn-filter');
         botonesAmazon.forEach(b => {
-          b.style.width = 'auto';
-          b.style.minWidth = '0';
-          b.style.flexDirection = 'row';
-          b.style.justifyContent = 'flex-start';
-          b.style.alignItems = 'center';
-          b.style.gap = '8px';
-          b.style.paddingLeft = '8px';
-          b.style.paddingRight = '12px';
+          b.style.cssText += ';width:auto !important;min-width:0 !important;flex-direction:row !important;justify-content:flex-start !important;align-items:center !important;gap:8px !important;padding:0 12px 0 8px !important;position:relative !important;';
           const img = b.querySelector('img');
-          if (img) { img.style.flexShrink = '0'; img.style.width = '20px'; img.style.height = '20px'; }
+          if (img) img.style.cssText += ';position:static !important;transform:none !important;top:auto !important;left:auto !important;flex-shrink:0 !important;width:20px !important;height:20px !important;';
           const span = b.querySelector('span');
-          if (span) { span.style.textAlign = 'left'; span.style.whiteSpace = 'nowrap'; }
-        });
-        // Igualar ancho de los dos botones
-        requestAnimationFrame(() => {
-          let maxW = 0;
-          botonesAmazon.forEach(b => { maxW = Math.max(maxW, b.offsetWidth); });
-          if (maxW > 0) botonesAmazon.forEach(b => { b.style.width = maxW + 'px'; });
+          if (span) span.style.cssText += ';text-align:left !important;white-space:nowrap !important;overflow:visible !important;';
         });
 
         // Reducir altura del contenedor 9445
@@ -1622,6 +1609,8 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
             ico.alt = 'Google Classroom';
             ico.style.cssText = 'width:24px;height:24px;object-fit:contain;';
             btn.appendChild(ico);
+            const td = a.closest('td');
+            if (td) td.style.textAlign = 'center';
             a.replaceWith(btn);
           });
 
@@ -1876,12 +1865,13 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
         return;
       }
 
-      // Modo normal — flechas de página del curso
-      const flechasGroup = cursoActivo.querySelector('[id^="curso-flechas-group-"]');
-      if (flechasGroup) {
-        const btns = flechasGroup.querySelectorAll('.pagination-btn:not([disabled])');
-        if (dir === 1 && btns[1]) { btns[1].click(); return; }
-        if (dir === -1 && btns[0]) { btns[0].click(); return; }
+      // Modo normal — navegar entre cursos
+      const ORDEN_C = ['2eso','3eso','4eso','1bach','2bachF','2bachQ'];
+      const idx = ORDEN_C.indexOf(cursoId);
+      const destCurso = dir === 1 ? ORDEN_C[idx + 1] : ORDEN_C[idx - 1];
+      if (destCurso) {
+        const tab = document.querySelector(`.curso-tab[onclick*="${destCurso}"]`);
+        if (tab) { window.selectCurso && selectCurso(destCurso, tab); return; }
       }
       return;
     }
