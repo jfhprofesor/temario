@@ -296,7 +296,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 /* Cada mitad: fila centrada de botones */
 .sidebar-mitad {
   display:flex; flex-direction:row; align-items:center; justify-content:center;
-  gap:0.4rem; padding:5px 6px 5px;
+  gap:0.4rem; padding:4px 0;
   flex-wrap:nowrap; overflow:hidden;
 }
 /* Separador vertical central: ocupa toda la altura de la barra */
@@ -306,7 +306,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 .sidebar-btn { display:flex; flex-direction:column; align-items:center; gap:0.2rem; text-decoration:none; padding:4px 0.3rem; border-radius:8px; transition:background 0.2s; flex-shrink:0; }
 .sidebar-btn img { width:38px; height:38px; object-fit:contain; border-radius:8px; border:1px solid #999999; background:#000000; padding:2px; transition:border-color 0.2s,box-shadow 0.2s; }
 .sidebar-btn span { font-size:0.55rem; color:var(--text); text-align:center; line-height:1.2; font-family:'Roboto Condensed',sans-serif; font-weight:500; max-width:50px; height:2.4em; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; }
-.sidebar-btn.anim-entrada { opacity:0; animation:fadeInUp 0.3s ease forwards; animation-delay:calc(var(--d,0)*0.06s); }
+.sidebar-btn.anim-entrada { opacity:1; animation:none; }
 
 /* Colores de fondo sidebar por curso */
 #panel-2eso   .curso-sidebar { background:rgba(51,204,170,0.18); }
@@ -768,7 +768,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
 /* ── ANIMACIONES ENTRADA ── */
 .unidad-ficha.anim-entrada,.publicacion-ficha.anim-entrada,.objeto-ficha.anim-entrada { opacity:0; animation:fadeInUp 0.35s ease forwards; animation-delay:calc(var(--d,0)*0.045s); }
 .anim-flip { display:inline-block; animation:flipNum 0.3s ease; }
-.sidebar-btn.anim-entrada { opacity:0; animation:fadeInUp 0.3s ease forwards; animation-delay:calc(var(--d,0)*0.06s); }
+.sidebar-btn.anim-entrada { opacity:1; animation:none; }
 
 /* ── AJUSTE PANTALLAS MUY PEQUEÑAS ── */
 @media(max-width:380px) {
@@ -992,7 +992,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
               <img src="imagenes/menu/Video temario.webp" alt="Vídeo del temario">
               <span>Vídeo del temario</span>
             </a>
-            <a class="sidebar-btn" href="javascript:void(0)" onclick="openJuegos('1bach')">
+            <a class="sidebar-btn" href="javascript:void(0)" onclick="openJuegos('1bach')" style="visibility:hidden;pointer-events:none;">
               <img src="imagenes/menu/Juegos.webp" alt="Juegos extra">
               <span>Juegos<br>extra</span>
             </a>
@@ -1176,25 +1176,9 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       const sidebar = document.querySelector('#panel-publicaciones .curso-sidebar');
       if (!sidebar) return;
 
-      // Mitad izquierda: placeholder (pos 1), placeholder (pos 2), Volver (pos 3)
+      // Mitad izquierda: Amazon (pos 1), placeholder (pos 2), placeholder (pos 3)
       const mitadIzq = document.createElement('div');
       mitadIzq.className = 'sidebar-mitad';
-      mitadIzq.appendChild(Object.assign(document.createElement('div'), {className:'sidebar-btn sidebar-btn-placeholder'}));
-      mitadIzq.appendChild(Object.assign(document.createElement('div'), {className:'sidebar-btn sidebar-btn-placeholder'}));
-      const btnVolverFicha = document.createElement('a');
-      btnVolverFicha.href = 'javascript:void(0)';
-      btnVolverFicha.className = 'sidebar-btn';
-      btnVolverFicha.setAttribute('onclick', 'openPublicaciones()');
-      btnVolverFicha.innerHTML = '<img src="imagenes/menu/Anterior.webp" alt="Volver a publicaciones"><span>Volver a publicaciones</span>';
-      mitadIzq.appendChild(btnVolverFicha);
-
-      // Separador
-      const sep = document.createElement('div');
-      sep.className = 'sidebar-separador';
-
-      // Mitad derecha: Ver en Amazon (pos 1), Ver muestras (pos 2), placeholder (pos 3)
-      const mitadDer = document.createElement('div');
-      mitadDer.className = 'sidebar-mitad';
 
       if (amazonA) {
         const btnA = document.createElement('a');
@@ -1203,25 +1187,47 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
         btnA.rel = 'noopener';
         btnA.className = 'sidebar-btn';
         btnA.innerHTML = '<img src="imagenes/menu/Amazon.webp" alt="Ver en Amazon"><span>Ver en Amazon</span>';
-        mitadDer.appendChild(btnA);
+        mitadIzq.appendChild(btnA);
         amazonA.style.display = 'none';
       } else {
-        mitadDer.appendChild(Object.assign(document.createElement('div'), {className:'sidebar-btn sidebar-btn-placeholder'}));
+        mitadIzq.appendChild(Object.assign(document.createElement('div'), {className:'sidebar-btn sidebar-btn-placeholder'}));
       }
+      mitadIzq.appendChild(Object.assign(document.createElement('div'), {className:'sidebar-btn sidebar-btn-placeholder'}));
+      mitadIzq.appendChild(Object.assign(document.createElement('div'), {className:'sidebar-btn sidebar-btn-placeholder'}));
 
-      if (muestrasBtn) {
-        const onclickAttr = muestrasBtn.getAttribute('onclick') || '';
-        const btnM = document.createElement('button');
-        btnM.className = 'sidebar-btn';
-        btnM.setAttribute('onclick', onclickAttr);
-        btnM.innerHTML = '<img src="imagenes/menu/Muestras.webp" alt="Ver muestras"><span>Ver<br>muestras</span>';
-        mitadDer.appendChild(btnM);
-        muestrasBtn.style.display = 'none';
-      } else {
-        mitadDer.appendChild(Object.assign(document.createElement('div'), {className:'sidebar-btn sidebar-btn-placeholder'}));
-      }
+      // Separador
+      const sep = document.createElement('div');
+      sep.className = 'sidebar-separador';
 
-      mitadDer.appendChild(Object.assign(document.createElement('div'), {className:'sidebar-btn sidebar-btn-placeholder'}));
+      // Mitad derecha: Volver (pos 1), Pub anterior (pos 2), Pub siguiente (pos 3)
+      const mitadDer = document.createElement('div');
+      mitadDer.className = 'sidebar-mitad';
+
+      const btnVolverFicha = document.createElement('a');
+      btnVolverFicha.href = 'javascript:void(0)';
+      btnVolverFicha.className = 'sidebar-btn';
+      btnVolverFicha.setAttribute('onclick', 'openPublicaciones()');
+      btnVolverFicha.innerHTML = '<img src="imagenes/menu/Anterior.webp" alt="Volver a publicaciones"><span>Volver a publicaciones</span>';
+      mitadDer.appendChild(btnVolverFicha);
+
+      const _lista = window.PUB_PANEL_ORDENADAS || [];
+      const _idx = _lista.findIndex(p => p === pub);
+
+      const btnPubPrev = document.createElement('button');
+      btnPubPrev.className = 'sidebar-btn';
+      btnPubPrev.setAttribute('onclick', '_pubNavegar(-1)');
+      btnPubPrev.innerHTML = '<img src="imagenes/menu/Anterior.webp" alt="Publicación anterior"><span>Publicación anterior</span>';
+      if (_idx <= 0) btnPubPrev.style.visibility = 'hidden';
+      mitadDer.appendChild(btnPubPrev);
+
+      const btnPubNext = document.createElement('button');
+      btnPubNext.className = 'sidebar-btn';
+      btnPubNext.setAttribute('onclick', '_pubNavegar(1)');
+      btnPubNext.innerHTML = '<img src="imagenes/menu/Siguiente.webp" alt="Publicación siguiente"><span>Publicación siguiente</span>';
+      if (_idx >= _lista.length - 1) btnPubNext.style.visibility = 'hidden';
+      mitadDer.appendChild(btnPubNext);
+
+      if (muestrasBtn) { muestrasBtn.style.display = 'none'; }
 
       sidebar.innerHTML = '';
       sidebar.appendChild(mitadIzq);
@@ -1501,9 +1507,9 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
 
     btn.addEventListener('click', intentarAcceso);
 
-    // Mostrar el overlay al cargar
-    overlay.style.display = 'flex';
-    setTimeout(() => digits[0].focus(), 100);
+    // PIN DESACTIVADO TEMPORALMENTE
+    // overlay.style.display = 'flex';
+    // setTimeout(() => digits[0].focus(), 100);
   })();
 
   // ── 8. Parche volverATemas: restaurar estilos del sidebar ──
@@ -1571,11 +1577,17 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
         // Botones Amazon: convertir a flex-row (icono izquierda, texto derecha)
         const botonesAmazon = document.querySelectorAll('#grid-consola .control-btn-filter');
         botonesAmazon.forEach(b => {
-          b.style.cssText += ';width:auto !important;min-width:0 !important;flex-direction:row !important;justify-content:flex-start !important;align-items:center !important;gap:8px !important;padding:0 12px 0 8px !important;position:relative !important;';
+          b.style.cssText += ';width:200px !important;min-width:0 !important;flex-direction:row !important;justify-content:flex-start !important;align-items:center !important;gap:8px !important;padding:0 3px !important;position:relative !important;';
           const img = b.querySelector('img');
           if (img) img.style.cssText += ';position:static !important;transform:none !important;top:auto !important;left:auto !important;flex-shrink:0 !important;width:20px !important;height:20px !important;';
           const span = b.querySelector('span');
           if (span) span.style.cssText += ';text-align:left !important;white-space:nowrap !important;overflow:visible !important;';
+        });
+        // Igualar ancho al mayor
+        requestAnimationFrame(() => {
+          let maxW = 0;
+          botonesAmazon.forEach(b => { maxW = Math.max(maxW, b.offsetWidth); });
+          if (maxW > 0) botonesAmazon.forEach(b => { b.style.setProperty('width', maxW + 'px', 'important'); });
         });
 
         // Reducir altura del contenedor 9445
@@ -1780,7 +1792,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       _orig.apply(this, arguments);
       requestAnimationFrame(() => {
         _inyectarSidebarPublicaciones(vistaMap[fnName]);
-        // Reducir foto del autor si existe
+        // Reducir foto del autor y ocultar botón donación si existe
         if (vistaMap[fnName] === 'autor') {
           const fotoAutor = document.querySelector('#panel-publicaciones img[src*="Foto autor"], #panel-publicaciones img[src*="Foto%20autor"]');
           if (fotoAutor) {
@@ -1790,6 +1802,9 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
             fotoAutor.style.display = 'block';
             fotoAutor.style.margin = '0 auto 0.5rem auto';
           }
+          // Ocultar botón de donación bajo el texto
+          const btnDonacion = document.querySelector('#panel-publicaciones a[href*="paypal"]');
+          if (btnDonacion) btnDonacion.style.display = 'none';
         }
       });
     };
