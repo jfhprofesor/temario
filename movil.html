@@ -450,7 +450,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 /* imagenEDiv en UNIDADES NORMALES: va al final (después de actividades), orden normal */
 .unidad-imagen {
   flex:0 0 auto !important; width:auto !important; max-width:calc(100vw - 10px) !important;
-  height:auto !important; margin:0 !important; padding:0 !important;
+  height:auto !important; margin:0 0 10px 0 !important; padding:0 !important;
   align-self:center !important;
 }
 .unidad-imagen video, .unidad-imagen img { width:auto; height:auto; max-width:100%; max-height:220px; object-fit:contain; border-radius:10px; border:1px solid #999999; display:block; }
@@ -476,7 +476,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 
 /* Fila video+botones: contenedor relativo */
 .video-sala-row { display:flex; flex-direction:row; align-items:center; justify-content:center; width:100%; gap:4px; padding:0 4px; box-sizing:border-box; order:3; }
-.video-sala-row .unidad-imagen { flex:0 0 auto !important; width:auto !important; max-width:calc(100vw - 10px) !important; height:auto !important; padding:0 !important; margin:0 !important; }
+.video-sala-row .unidad-imagen { flex:0 0 auto !important; width:auto !important; max-width:calc(100vw - 10px) !important; height:auto !important; padding:0 !important; margin:10px 0 !important; }
 /* .btn-curso-video-nav eliminados — navegación via barra doble */
 
 /* Ocultar botones de unidad anterior/siguiente en sala de vídeos */
@@ -511,7 +511,7 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .ficha-actividades .objeto-nombre-texto1 { font-size:9px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:3px; }
 .ficha-actividades .objeto-tema-texto2 { font-size:9px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:1px; }
 /* 3 columnas fijas en unidades normales — independiente del var(--fa-cols) del JS */
-.ficha-actividades--unidad { grid-template-columns:repeat(3,1fr) !important; height:180px !important; min-height:180px !important; max-height:180px !important; gap:0 !important; padding:0 !important; align-content:start !important; }
+.ficha-actividades--unidad { grid-template-columns:repeat(3,1fr) !important; height:180px !important; min-height:180px !important; max-height:180px !important; gap:0 !important; padding:0 !important; align-content:start !important; grid-auto-rows:auto !important; }
 .ficha-actividades--unidad .objeto-tema-texto2,.ficha-actividades--video .objeto-tema-texto2 { display:none !important; }
 .ficha-actividades--unidad .objeto-nombre-texto1,.ficha-actividades--video .objeto-nombre-texto1 { font-size:0.75rem; margin-top:4px !important; color:#ffffff !important; }
 .ficha-actividades--unidad .objeto-tema-texto2 { font-size:0.7rem !important; }
@@ -763,6 +763,13 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
 /* Contenedor imagen: sin espacio blanco arriba/abajo */
 #overlay-muestras .objeto-detail > div:last-child {
   padding:0 !important;
+  align-items:stretch !important;
+}
+#overlay-muestras .objeto-detail > div:last-child > img {
+  width:100% !important;
+  height:100% !important;
+  max-height:none !important;
+  object-fit:contain !important;
 }
 
 /* ── SALA DE CONTROL ── */
@@ -1924,10 +1931,10 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
 
       // Modo vídeo
       if (cursoActivo.querySelector('.ficha-actividades--video')) {
-        const btnDir = cursoActivo.querySelector(dir === 1
-          ? '.btn-curso-video-nav:not([disabled]):last-of-type'
-          : '.btn-curso-video-nav:not([disabled]):first-of-type');
-        if (btnDir) { btnDir.click(); return; }
+        const ORDEN_V = ['2eso','3eso','4eso','1bach','2bachF','2bachQ'];
+        const idxV = ORDEN_V.indexOf(cursoId);
+        const destV = dir === 1 ? ORDEN_V[idxV + 1] : ORDEN_V[idxV - 1];
+        if (destV && window.mostrarVideoTemario) { mostrarVideoTemario(destV); return; }
         return;
       }
 
