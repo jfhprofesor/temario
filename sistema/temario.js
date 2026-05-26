@@ -2037,7 +2037,7 @@ function mostrarAutor() {
       </div>
       <a href="https://www.paypal.com/paypalme/jfhprofesor" target="_blank" rel="noopener" class="control-btn control-btn-filter ancho-pub" style="text-decoration:none;margin-top:0.5rem;width:fit-content;align-self:flex-start;">
         <img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" alt="PayPal" style="width:24px;height:24px;object-fit:contain;">
-        <span>Hacer una donación</span>
+        <span>Invítame a un café</span>
       </a>
     </div>`;
 }

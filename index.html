@@ -176,8 +176,8 @@ main { position:relative; z-index:10; padding:0; max-width:1300px; margin:0 auto
 .tema-gris:hover .unidad-numero-texto1 { color:inherit; opacity:1; }
 .tema-gris:hover .unidad-nombre-texto2 { color:inherit; opacity:1; }
 .unidad-ficha.tema-gris .unidad-icono { opacity:0.3; }
-.unidad-ficha.tema-gris .unidad-numero-texto1 { color:#555555; opacity:0.35; }
-.unidad-ficha.tema-gris .unidad-nombre-texto2 { color:#555555; opacity:0.35; }
+.unidad-ficha.tema-gris .unidad-numero-texto1 { color:#555555 !important; opacity:0.35; }
+.unidad-ficha.tema-gris .unidad-nombre-texto2 { color:#555555 !important; opacity:0.35; }
 /* Indicador de categoría en temas */
 .unidad-ficha.cat-metodo:hover .unidad-icono, .unidad-ficha.cat-metodo.selected .unidad-icono { box-shadow:inset 0 0 0 1px #999999, 0 0 14px rgba(56,189,248,0.4); }
 .unidad-ficha.cat-fisica:hover .unidad-icono,  .unidad-ficha.cat-fisica.selected .unidad-icono  { box-shadow:inset 0 0 0 1px #999999, 0 0 14px rgba(255,102,102,0.4); }
@@ -819,7 +819,13 @@ main { position:relative; z-index:10; padding:0; max-width:1300px; margin:0 auto
 .ficha-actividades--unidad .objeto-ficha.color-2bachQ:hover .objeto-nombre-texto1 { color:#dd88ff !important; }
 /* Icono en gris cuando su filtro está desactivado (unidades y juegos) */
 .ficha-actividades--unidad .objeto-ficha.col-filtro-off,
-.ficha-actividades--juegos .objeto-ficha.col-filtro-off { opacity:0.35; pointer-events:none; filter:grayscale(100%); }
+.ficha-actividades--juegos .objeto-ficha.col-filtro-off { pointer-events:none; }
+.ficha-actividades--unidad .objeto-ficha.col-filtro-off .objeto-icono,
+.ficha-actividades--juegos .objeto-ficha.col-filtro-off .objeto-icono { opacity:0.35; filter:grayscale(100%); }
+.ficha-actividades--unidad .objeto-ficha.col-filtro-off .objeto-nombre-texto1,
+.ficha-actividades--juegos .objeto-ficha.col-filtro-off .objeto-nombre-texto1 { color:#444444 !important; opacity:0.5; }
+.ficha-actividades--unidad .objeto-ficha.col-filtro-off .objeto-tema-texto2,
+.ficha-actividades--juegos .objeto-ficha.col-filtro-off .objeto-tema-texto2 { color:#444444 !important; opacity:0.5; }
 .control-btn-filter.col-filtro-off { opacity:0.35 !important; pointer-events:none !important; filter:grayscale(100%) !important; }
 /* Fichas variante juegos: iconos grandes, mismo formato que --unidad pero con dos textos */
 .ficha-actividades--juegos .objeto-icono { width:64px !important; height:64px !important; min-width:64px !important; min-height:64px !important; transition:transform 0.2s, box-shadow 0.2s !important; }
