@@ -50,7 +50,9 @@
 
 /* ── BASE ── */
 body { background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460,#1a1a2e,#2d2d2d,#1e2a1e); background-size:400% 400%; color:var(--text); font-family:'Roboto Condensed',sans-serif; min-height:100vh; overflow-x:hidden; user-select:none; -webkit-user-select:none; animation:bgShift 18s ease infinite, bgPulse 9s ease-in-out infinite; }
-img { -webkit-user-drag:none; user-drag:none; }
+img { -webkit-user-drag:none; user-drag:none; -webkit-touch-callout:none; pointer-events:none; }
+a img, button img { pointer-events:none; }
+a, button { -webkit-touch-callout:none; }
 .bg-fx { position:fixed; inset:0; pointer-events:none; z-index:0; background:radial-gradient(ellipse at 20% 30%,rgba(56,189,248,0.06) 0%,transparent 60%),radial-gradient(ellipse at 80% 70%,rgba(136,102,221,0.05) 0%,transparent 60%); animation:bgPulse 12s ease-in-out infinite; }
 .portada-particula { position:absolute; border-radius:50%; pointer-events:none; animation:particleDrift var(--dur,3s) ease-in-out infinite; animation-delay:var(--delay,0s); }
 
@@ -339,7 +341,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 .tema-rectangle { width:80px; height:100px; border-radius:0; border:none; position:relative; transition:transform 0.3s ease; background:transparent; overflow:hidden; }
 .tema-rectangle img { width:100%; height:100%; object-fit:cover; }
 .unidad-numero-texto1 { font-family:'Saira',sans-serif; font-size:0.75rem; font-weight:600; color:var(--accent); letter-spacing:-0.02em; text-align:center; padding-top:4px; margin-top:8px; width:100%; height:20px; overflow:hidden; display:flex; align-items:center; justify-content:center; line-height:1.2; white-space:nowrap; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
-.unidad-nombre-texto2 { font-size:0.7rem; font-weight:500; color:var(--text); text-align:center; line-height:1.1; font-family:'Roboto Condensed',sans-serif; margin-top:0; width:100%; height:30px; overflow:hidden; display:flex; align-items:center; justify-content:center; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
+.unidad-nombre-texto2 { font-size:0.7rem; font-weight:500; color:var(--text); text-align:center; line-height:1.1; font-family:'Roboto Condensed',sans-serif; margin-top:0; width:100%; height:30px; overflow:hidden; display:flex; align-items:flex-start; justify-content:center; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
 .unidad-ficha.selected .unidad-icono { box-shadow:inset 0 0 0 1.5px #38bdf8,0 0 16px rgba(255,255,255,0.8); }
 .unidad-ficha.selected .unidad-numero-texto1 { color:var(--accent); font-size:0.85rem; }
 .unidad-ficha.selected .unidad-nombre-texto2 { font-weight:700; font-size:0.8rem; }
@@ -389,9 +391,10 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 .publicaciones-grid .publicacion-ficha:nth-child(8) { grid-column:auto; }
 .publicaciones-grid .publicacion-ficha .publicacion-icono { transition:box-shadow 0.5s ease; }
 /* Sidebar publicaciones: iconos centrados horizontalmente */
-#panel-publicaciones .curso-sidebar { justify-content:center; }
-#panel-publicaciones .curso-sidebar .sidebar-mitad { justify-content:space-around; }
-#panel-publicaciones .curso-sidebar .sidebar-mitad .sidebar-btn { flex:1; max-width:33.33%; }
+#panel-publicaciones .curso-sidebar { justify-content:center; overflow:visible !important; }
+#panel-publicaciones .curso-sidebar .sidebar-mitad { justify-content:space-around; gap:0; padding:4px 2px; overflow:visible; }
+#panel-publicaciones .curso-sidebar .sidebar-mitad .sidebar-btn { flex:1; min-width:0; max-width:33.33%; padding:4px 2px; }
+#panel-publicaciones .curso-sidebar .sidebar-mitad .sidebar-btn span { max-width:100%; }
 
 /* ── SUBELEMENTOS ── */
 .subelemento-btn { position:relative; background:none; border:2px solid transparent; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0; padding:0.25rem; min-height:180px; justify-content:flex-start; }
@@ -500,7 +503,7 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .ficha-actividades .objeto-ficha { width:100%; height:100%; min-height:0; padding:0; place-self:stretch; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; }
 .ficha-actividades .objeto-ficha:nth-child(1),
 .ficha-actividades .objeto-ficha:nth-child(2),
-.ficha-actividades .objeto-ficha:nth-child(3) { padding-top:10px !important; }
+.ficha-actividades .objeto-ficha:nth-child(3) { padding-top:8px !important; }
 .ficha-actividades .objeto-icono { width:38px; height:38px; min-width:38px; min-height:38px; margin:0 auto; flex-shrink:0; border-radius:0 !important; background:none !important; border:0 !important; padding:0 !important; box-shadow:none !important; }
 .ficha-actividades .objeto-icono img { width:100%; height:100%; object-fit:contain; display:block; }
 .ficha-actividades--video .objeto-icono { border-radius:50% !important; background:#000000 !important; border:0 !important; box-shadow:inset 0 0 0 1px #999999 !important; overflow:hidden !important; width:38px !important; height:38px !important; min-width:38px !important; min-height:38px !important; }
@@ -513,11 +516,17 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .ficha-actividades .objeto-tema-texto2 { font-size:9px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:1px; }
 /* 3 columnas fijas en unidades normales — independiente del var(--fa-cols) del JS */
 .ficha-actividades--unidad { grid-template-columns:repeat(3,1fr) !important; height:180px !important; min-height:180px !important; max-height:180px !important; gap:0 !important; padding:0 !important; align-content:start !important; grid-auto-rows:auto !important; }
+.ficha-actividades--unidad .objeto-ficha:nth-child(1),
+.ficha-actividades--unidad .objeto-ficha:nth-child(2),
+.ficha-actividades--unidad .objeto-ficha:nth-child(3) { padding-top:12px !important; }
 .ficha-actividades--unidad .objeto-tema-texto2,.ficha-actividades--video .objeto-tema-texto2 { display:none !important; }
 .ficha-actividades--unidad .objeto-nombre-texto1,.ficha-actividades--video .objeto-nombre-texto1 { font-size:0.75rem; margin-top:4px !important; color:#ffffff !important; }
 .ficha-actividades--unidad .objeto-tema-texto2 { font-size:0.7rem !important; }
 .ficha-actividades--unidad .objeto-icono { width:38px !important; height:38px !important; min-width:38px !important; min-height:38px !important; }
 .ficha-actividades--juegos { height:180px !important; min-height:180px !important; max-height:180px !important; gap:0 !important; padding:0 !important; align-content:center !important; }
+.ficha-actividades--juegos .objeto-ficha:nth-child(1),
+.ficha-actividades--juegos .objeto-ficha:nth-child(2),
+.ficha-actividades--juegos .objeto-ficha:nth-child(3) { padding-top:12px !important; }
 .ficha-actividades--juegos .objeto-icono { width:38px !important; height:38px !important; min-width:38px !important; min-height:38px !important; }
 .ficha-actividades--juegos .objeto-tema-texto2 { font-size:0.75rem; color:var(--accent); font-weight:700; margin-top:4px; }
 .ficha-actividades--juegos .objeto-nombre-texto1 { font-size:0.7rem; color:#ffffff !important; margin-top:0; }
@@ -1267,7 +1276,12 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
 
 
   // ── 4. Botones unidad anterior/siguiente flanqueando el icono de unidad ──────
-  // Espera a que el JS renderice .unidad-ficha-dentro y lo envuelve en una fila
+  const _ORDEN_CURSOS = ['2eso','3eso','4eso','1bach','2bachF','2bachQ'];
+  function _cursoActivoId() {
+    const panel = document.querySelector('.contenedor-grande--curso.active');
+    return panel ? panel.id.replace('panel-', '') : null;
+  }
+
   function _inyectarNavUnidad(gridEl, curso, forzarModo) {
     const ficha = gridEl.querySelector('.unidad-ficha-dentro');
     if (!ficha || ficha.dataset.navInjected) return; // ya procesado
@@ -1309,15 +1323,15 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       if (btnPrevEx) {
         const prev = ORDEN_C[idxCurso - 1];
         btnPrevEx.onclick = esJuegos
-          ? () => prev && window.openJuegos && window.openJuegos(prev)
-          : () => prev && window.mostrarVideoTemario && window.mostrarVideoTemario(prev);
+          ? () => { const c = _ORDEN_CURSOS[_ORDEN_CURSOS.indexOf(_cursoActivoId()) - 1]; c && window.openJuegos && window.openJuegos(c); }
+          : () => { const c = _ORDEN_CURSOS[_ORDEN_CURSOS.indexOf(_cursoActivoId()) - 1]; c && window.mostrarVideoTemario && window.mostrarVideoTemario(c); };
         btnPrevEx.classList.toggle('invisible', !prev);
       }
       if (btnNextEx) {
         const next = ORDEN_C[idxCurso + 1];
         btnNextEx.onclick = esJuegos
-          ? () => next && window.openJuegos && window.openJuegos(next)
-          : () => next && window.mostrarVideoTemario && window.mostrarVideoTemario(next);
+          ? () => { const c = _ORDEN_CURSOS[_ORDEN_CURSOS.indexOf(_cursoActivoId()) + 1]; c && window.openJuegos && window.openJuegos(c); }
+          : () => { const c = _ORDEN_CURSOS[_ORDEN_CURSOS.indexOf(_cursoActivoId()) + 1]; c && window.mostrarVideoTemario && window.mostrarVideoTemario(c); };
         btnNextEx.classList.toggle('invisible', !next);
       }
       if (numDivEx)    numDivEx.textContent    = numTxt;
@@ -1337,11 +1351,11 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       btnPrev.innerHTML = '<img src="imagenes/menu/Anterior.webp" alt="' + txtPrev + '"><span>' + txtPrev + '</span>';
       if (esJuegos) {
         const prev = ORDEN_C[idxCurso - 1];
-        btnPrev.onclick = () => prev && window.openJuegos && window.openJuegos(prev);
+        btnPrev.onclick = () => { const c = _ORDEN_CURSOS[_ORDEN_CURSOS.indexOf(_cursoActivoId()) - 1]; c && window.openJuegos && window.openJuegos(c); };
         btnPrev.classList.toggle('invisible', !prev);
       } else if (esVideo) {
         const prev = ORDEN_C[idxCurso - 1];
-        btnPrev.onclick = () => prev && window.mostrarVideoTemario && window.mostrarVideoTemario(prev);
+        btnPrev.onclick = () => { const c = _ORDEN_CURSOS[_ORDEN_CURSOS.indexOf(_cursoActivoId()) - 1]; c && window.mostrarVideoTemario && window.mostrarVideoTemario(c); };
         btnPrev.classList.toggle('invisible', !prev);
       } else {
         btnPrev.onclick = () => window.unidadPrev && window.unidadPrev(curso);
@@ -1379,11 +1393,11 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       btnNext.innerHTML = '<img src="imagenes/menu/Siguiente.webp" alt="' + txtNext + '"><span>' + txtNext + '</span>';
       if (esJuegos) {
         const next = ORDEN_C[idxCurso + 1];
-        btnNext.onclick = () => next && window.openJuegos && window.openJuegos(next);
+        btnNext.onclick = () => { const c = _ORDEN_CURSOS[_ORDEN_CURSOS.indexOf(_cursoActivoId()) + 1]; c && window.openJuegos && window.openJuegos(c); };
         btnNext.classList.toggle('invisible', !next);
       } else if (esVideo) {
         const next = ORDEN_C[idxCurso + 1];
-        btnNext.onclick = () => next && window.mostrarVideoTemario && window.mostrarVideoTemario(next);
+        btnNext.onclick = () => { const c = _ORDEN_CURSOS[_ORDEN_CURSOS.indexOf(_cursoActivoId()) + 1]; c && window.mostrarVideoTemario && window.mostrarVideoTemario(c); };
         btnNext.classList.toggle('invisible', !next);
       } else {
         btnNext.onclick = () => window.unidadNext && window.unidadNext(curso);
@@ -1634,12 +1648,6 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
           if (img) img.style.cssText += ';position:static !important;transform:none !important;top:auto !important;left:auto !important;flex-shrink:0 !important;width:20px !important;height:20px !important;';
           const span = b.querySelector('span');
           if (span) span.style.cssText += ';text-align:left !important;white-space:nowrap !important;overflow:visible !important;';
-        });
-        // Igualar ancho al mayor
-        requestAnimationFrame(() => {
-          let maxW = 0;
-          botonesAmazon.forEach(b => { maxW = Math.max(maxW, b.offsetWidth); });
-          if (maxW > 0) botonesAmazon.forEach(b => { b.style.setProperty('width', maxW + 'px', 'important'); });
         });
 
         // Reducir altura del contenedor 9445
