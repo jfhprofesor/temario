@@ -704,6 +704,14 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 
 /* Punto 5: Reducir row-gap del unidades-grid a la mitad */
 .unidades-grid { row-gap:0 !important; align-content:center !important; }
+/* padding-top solo en la primera fila (4 columnas base) */
+.unidades-grid .unidad-ficha:nth-child(n+5) { padding-top:0 !important; }
+.objetos-grid .objeto-ficha:nth-child(n+5) { padding-top:0 !important; }
+/* padding-top solo en la primera fila (3 columnas, ≤400px) */
+@media(max-width:400px) {
+  .unidades-grid .unidad-ficha:nth-child(n+4) { padding-top:0 !important; }
+  .objetos-grid .objeto-ficha:nth-child(n+4) { padding-top:0 !important; }
+}
 
 /* Punto 7: botones filtro objetos — distribución uniforme en el grupo */
 #panel-objetos .barra-interna > .control-group:has(button[data-filter]) {
