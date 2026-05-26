@@ -389,7 +389,8 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 .publicaciones-grid .publicacion-ficha .publicacion-icono { transition:box-shadow 0.5s ease; }
 /* Sidebar publicaciones: iconos centrados horizontalmente */
 #panel-publicaciones .curso-sidebar { justify-content:center; }
-#panel-publicaciones .curso-sidebar .sidebar-mitad { justify-content:space-evenly; }
+#panel-publicaciones .curso-sidebar .sidebar-mitad { justify-content:space-around; }
+#panel-publicaciones .curso-sidebar .sidebar-mitad .sidebar-btn { flex:1; max-width:33.33%; }
 
 /* ── SUBELEMENTOS ── */
 .subelemento-btn { position:relative; background:none; border:2px solid transparent; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0; padding:0.25rem; min-height:180px; justify-content:flex-start; }
@@ -503,6 +504,10 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .ficha-actividades .objeto-icono img { width:100%; height:100%; object-fit:contain; display:block; }
 .ficha-actividades--video .objeto-icono { border-radius:50% !important; background:#000000 !important; border:0 !important; box-shadow:inset 0 0 0 1px #999999 !important; overflow:hidden !important; width:38px !important; height:38px !important; min-width:38px !important; min-height:38px !important; }
 .ficha-actividades--video .objeto-icono img { width:85% !important; height:85% !important; }
+.ficha-actividades--video .video-curso-icono { width:38px !important; height:38px !important; min-width:38px !important; min-height:38px !important; flex-shrink:0 !important; }
+.ficha-actividades--video .video-curso-icono img { width:85% !important; height:85% !important; }
+.ficha-actividades--video .video-curso-nombre { font-family:'Saira',sans-serif !important; font-size:0.75rem !important; font-weight:600 !important; color:var(--accent) !important; letter-spacing:-0.02em !important; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000 !important; }
+.ficha-actividades--video .objeto-ficha { gap:2px !important; }
 .ficha-actividades .objeto-nombre-texto1 { font-size:9px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:3px; }
 .ficha-actividades .objeto-tema-texto2 { font-size:9px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:1px; }
 /* 3 columnas fijas en unidades normales — independiente del var(--fa-cols) del JS */
@@ -821,7 +826,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
   <button class="curso-tab" onclick="selectCurso('1bach',this)">1º Bachillerato<br>Física y Química</button>
   <button class="curso-tab" onclick="selectCurso('2bachF',this)">2º Bachillerato<br>Física</button>
   <button class="curso-tab" onclick="selectCurso('2bachQ',this)">2º Bachillerato<br>Química</button>
-  <button class="curso-tab objetos-btn" onclick="selectObjetos(this)"><img class="objetos-btn-icono" src="imagenes/menu/Objetos.webp" alt=""><span class="objetos-btn-texto">Objetos</span></button>
+  <button class="curso-tab objetos-btn" onclick="selectObjetos(this)"><img class="objetos-btn-icono" src="imagenes/menu/Objetos.webp" alt=""><span class="objetos-btn-texto">Colección de objetos</span></button>
   <button class="curso-tab objetos-btn publicaciones-btn" onclick="openPublicaciones()"><img class="objetos-btn-icono" src="imagenes/menu/Publicaciones.webp" alt=""><span class="objetos-btn-texto">Publicaciones</span></button>
 </div>
 <main class="page-load-hidden">
@@ -1180,7 +1185,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       const sidebar = document.querySelector('#panel-publicaciones .curso-sidebar');
       if (!sidebar) return;
 
-      // Mitad izquierda: Amazon (pos 1), placeholder (pos 2), placeholder (pos 3)
+      // Mitad izquierda: Amazon (pos 1), Muestras (pos 2), placeholder (pos 3)
       const mitadIzq = document.createElement('div');
       mitadIzq.className = 'sidebar-mitad';
 
@@ -1196,14 +1201,24 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       } else {
         mitadIzq.appendChild(Object.assign(document.createElement('div'), {className:'sidebar-btn sidebar-btn-placeholder'}));
       }
-      mitadIzq.appendChild(Object.assign(document.createElement('div'), {className:'sidebar-btn sidebar-btn-placeholder'}));
+
+      if (muestrasBtn) {
+        const btnM = document.createElement('button');
+        btnM.className = 'sidebar-btn';
+        btnM.innerHTML = '<img src="imagenes/menu/Muestras.webp" alt="Ver muestras"><span>Ver muestras</span>';
+        btnM.onclick = () => muestrasBtn.click();
+        mitadIzq.appendChild(btnM);
+        muestrasBtn.style.display = 'none';
+      } else {
+        mitadIzq.appendChild(Object.assign(document.createElement('div'), {className:'sidebar-btn sidebar-btn-placeholder'}));
+      }
       mitadIzq.appendChild(Object.assign(document.createElement('div'), {className:'sidebar-btn sidebar-btn-placeholder'}));
 
       // Separador
       const sep = document.createElement('div');
       sep.className = 'sidebar-separador';
 
-      // Mitad derecha: Volver (pos 1), Pub anterior (pos 2), Pub siguiente (pos 3)
+      // Mitad derecha: Volver (pos 4), Pub anterior (pos 5), Pub siguiente (pos 6)
       const mitadDer = document.createElement('div');
       mitadDer.className = 'sidebar-mitad';
 
@@ -1211,27 +1226,28 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       btnVolverFicha.href = 'javascript:void(0)';
       btnVolverFicha.className = 'sidebar-btn';
       btnVolverFicha.setAttribute('onclick', 'openPublicaciones()');
-      btnVolverFicha.innerHTML = '<img src="imagenes/menu/Anterior.webp" alt="Volver a publicaciones"><span>Volver a publicaciones</span>';
+      btnVolverFicha.innerHTML = '<img src="imagenes/menu/Volver.png" alt="Volver a publicaciones"><span>Volver a publicaciones</span>';
       mitadDer.appendChild(btnVolverFicha);
 
-      const _lista = window.PUB_PANEL_ORDENADAS || [];
-      const _idx = _lista.findIndex(p => p === pub);
+      // Usar la misma lista filtrada que usa _pubNavegar: PUB_PANEL_ORDENADAS filtrada por filtros activos
+      const _activosPub = [...document.querySelectorAll('[data-pub-filter].active')].map(b => b.dataset.pubFilter);
+      const _tiposPub = _activosPub.length > 0 ? _activosPub : ['libro','cuaderno','lectura'];
+      const _lista = (window.PUB_PANEL_ORDENADAS || []).filter(p => _tiposPub.includes(p.tipo));
+      const _idx = _lista.findIndex(p => p === pub || (p.titulo && pub.titulo && p.titulo === pub.titulo));
 
       const btnPubPrev = document.createElement('button');
       btnPubPrev.className = 'sidebar-btn';
-      btnPubPrev.setAttribute('onclick', '_pubNavegar(-1)');
+      btnPubPrev.onclick = () => typeof _pubNavegar === 'function' && _pubNavegar(-1);
       btnPubPrev.innerHTML = '<img src="imagenes/menu/Anterior.webp" alt="Publicación anterior"><span>Publicación anterior</span>';
-      if (_idx <= 0) btnPubPrev.style.visibility = 'hidden';
+      if (_idx === 0) { btnPubPrev.style.visibility = 'hidden'; btnPubPrev.style.pointerEvents = 'none'; }
       mitadDer.appendChild(btnPubPrev);
 
       const btnPubNext = document.createElement('button');
       btnPubNext.className = 'sidebar-btn';
-      btnPubNext.setAttribute('onclick', '_pubNavegar(1)');
+      btnPubNext.onclick = () => typeof _pubNavegar === 'function' && _pubNavegar(1);
       btnPubNext.innerHTML = '<img src="imagenes/menu/Siguiente.webp" alt="Publicación siguiente"><span>Publicación siguiente</span>';
-      if (_idx >= _lista.length - 1) btnPubNext.style.visibility = 'hidden';
+      if (_idx >= 0 && _idx >= _lista.length - 1) { btnPubNext.style.visibility = 'hidden'; btnPubNext.style.pointerEvents = 'none'; }
       mitadDer.appendChild(btnPubNext);
-
-      if (muestrasBtn) { muestrasBtn.style.display = 'none'; }
 
       sidebar.innerHTML = '';
       sidebar.appendChild(mitadIzq);
@@ -1581,7 +1597,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
         // Botones Amazon: convertir a flex-row (icono izquierda, texto derecha)
         const botonesAmazon = document.querySelectorAll('#grid-consola .control-btn-filter');
         botonesAmazon.forEach(b => {
-          b.style.cssText += ';width:160px !important;min-width:0 !important;flex-direction:row !important;justify-content:flex-start !important;align-items:center !important;gap:8px !important;padding:0 3px !important;position:relative !important;';
+          b.style.cssText += ';width:120px !important;min-width:0 !important;flex-direction:row !important;justify-content:flex-start !important;align-items:center !important;gap:8px !important;padding:0 3px !important;position:relative !important;';
           const img = b.querySelector('img');
           if (img) img.style.cssText += ';position:static !important;transform:none !important;top:auto !important;left:auto !important;flex-shrink:0 !important;width:20px !important;height:20px !important;';
           const span = b.querySelector('span');
@@ -1673,34 +1689,43 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
   }
 
 
-  // ── 11. Parche animación unidad: el clon vuela al .sidebar-unidad-icono ──
+  // ── 11. Parche animación unidad: redirigir clon al .sidebar-unidad-icono ──
   const _origMostrarSub = window.mostrarSubelementos;
   window.mostrarSubelementos = function(cursoId, temaIdx, origenBtn) {
     _origMostrarSub.apply(this, arguments);
-    // Después de que el JS haya construido el layout y lanzado la animación,
-    // buscamos el clon volador y lo redirigimos al sidebar-unidad-icono
-    // (que _inyectarNavUnidad coloca 50ms después)
     if (!origenBtn) return;
-    setTimeout(() => {
-      const panel = document.getElementById('panel-' + cursoId);
-      if (!panel) return;
-      const sidebarIcono = panel.querySelector('.sidebar-unidad-icono');
-      if (!sidebarIcono) return;
-      const clonWrapper = document.querySelector('body > div[style*="position:fixed"][style*="z-index:9999"]');
-      if (!clonWrapper) return;
-      // Calcular nueva posición destino: centro del sidebar-unidad-icono
-      const destRect = sidebarIcono.getBoundingClientRect();
-      const clonRect = clonWrapper.getBoundingClientRect();
-      const origenCX = clonRect.left + clonRect.width / 2;
-      const origenCY = clonRect.top  + clonRect.height / 2;
-      const destCX   = destRect.left + destRect.width  / 2;
-      const destCY   = destRect.top  + destRect.height / 2;
-      const escala   = destRect.width / clonRect.width;
-      const dx = destCX - origenCX;
-      const dy = destCY - origenCY;
-      clonWrapper.style.transition = 'transform 0.45s cubic-bezier(0.4,0,0.2,1)';
-      clonWrapper.style.transform  = `translate(${dx}px, ${dy}px) scale(${escala})`;
-    }, 60);
+    // Esperar a que el clon esté en el DOM pero ANTES de que empiece la transición
+    // El original usa rAF→rAF para lanzar la transición, así que con rAF→rAF→setTimeout lo pillamos
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          const panel = document.getElementById('panel-' + cursoId);
+          if (!panel) return;
+          const sidebarIcono = panel.querySelector('.sidebar-unidad-icono');
+          if (!sidebarIcono) return;
+          const clonWrapper = document.querySelector('body > div[style*="position:fixed"][style*="z-index:9999"]');
+          if (!clonWrapper) return;
+          // Parar la transición en curso y recalcular destino
+          const currentTransform = getComputedStyle(clonWrapper).transform;
+          clonWrapper.style.transition = 'none';
+          clonWrapper.style.transform = currentTransform;
+          // Forzar reflow
+          void clonWrapper.offsetWidth;
+          // Calcular nuevo destino: centro del sidebar-unidad-icono
+          const clonRect    = clonWrapper.getBoundingClientRect();
+          const destRect    = sidebarIcono.getBoundingClientRect();
+          const origenCX    = clonRect.left + clonRect.width  / 2;
+          const origenCY    = clonRect.top  + clonRect.height / 2;
+          const destCX      = destRect.left + destRect.width  / 2;
+          const destCY      = destRect.top  + destRect.height / 2;
+          const escala      = destRect.width / clonRect.width;
+          const dx = destCX - origenCX;
+          const dy = destCY - origenCY;
+          clonWrapper.style.transition = 'transform 0.45s cubic-bezier(0.4,0,0.2,1)';
+          clonWrapper.style.transform  = `translate(${dx}px, ${dy}px) scale(${escala})`;
+        }, 10);
+      });
+    });
   };
 
   // ── 12. Parche animación ficha-actividades: orden por columna (1→4→2→5→3→6) ──
@@ -1800,11 +1825,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
         if (vistaMap[fnName] === 'autor') {
           const fotoAutor = document.querySelector('#panel-publicaciones img[src*="Foto autor"], #panel-publicaciones img[src*="Foto%20autor"]');
           if (fotoAutor) {
-            fotoAutor.style.height = '60px';
-            fotoAutor.style.width = 'auto';
-            fotoAutor.style.borderRadius = '8px';
-            fotoAutor.style.display = 'block';
-            fotoAutor.style.margin = '0 auto 0.5rem auto';
+            fotoAutor.style.cssText += ';height:60px !important;width:auto !important;border-radius:8px !important;display:block !important;margin:0 auto 0.5rem auto !important;';
           }
           // Ocultar botón de donación bajo el texto (solo el del contenido, no el de la sidebar)
           const btnDonacion = document.querySelector('#panel-publicaciones a[href*="paypal"] img[src*="paypalobjects"]');
