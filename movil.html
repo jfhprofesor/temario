@@ -70,9 +70,9 @@ header { position:relative; z-index:10; padding:12px 1rem 8px; display:flex; fle
 .curso-tab { padding:3px 4px; border-radius:6px; border:1px solid #999999; background:#000000; color:#ffffff; font-family:'Saira',sans-serif; font-size:0.65rem; font-weight:500; cursor:pointer; transition:all 0.2s; white-space:normal; text-align:center; line-height:1.2; height:40px; width:100%; box-sizing:border-box; }
 .curso-tab.active { background:var(--accent); border-color:#000000; color:#000; font-weight:700; }
 .curso-tab.tab-press { animation:btnActivePulseBlack 0.4s ease-out forwards; }
-.curso-tab.objetos-btn { border-radius:6px; padding:3px 4px; height:40px; width:100%; background:#000000; color:#ffffff; border:1px solid #999999; box-sizing:border-box; overflow:hidden; white-space:normal; word-break:break-word; display:flex; align-items:center; justify-content:center; gap:3px; }
+.curso-tab.objetos-btn { border-radius:6px; padding:3px 4px; height:40px; width:100%; background:#000000; color:#ffffff; border:1px solid #999999; box-sizing:border-box; overflow:hidden; white-space:normal; word-break:break-word; display:flex; align-items:center; justify-content:flex-start; gap:0; }
 .objetos-btn-icono { width:20px; height:20px; object-fit:contain; flex-shrink:0; display:block; }
-.objetos-btn-texto { white-space:normal; line-height:1.2; text-align:center; flex:0 1 auto; min-width:0; font-size:0.65rem; }
+.objetos-btn-texto { white-space:normal; line-height:1.2; text-align:center; flex:1; min-width:0; font-size:0.65rem; margin-right:20px; }
 .curso-tab.objetos-btn.active { background:#d4b84a; color:#000000; border-color:#000000; }
 .curso-tab.publicaciones-btn.active { background:#c0cce0; color:#000000; border-color:#000000; }
 
@@ -391,9 +391,9 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 .publicaciones-grid .publicacion-ficha:nth-child(8) { grid-column:auto; }
 .publicaciones-grid .publicacion-ficha .publicacion-icono { transition:box-shadow 0.5s ease; }
 /* Sidebar publicaciones: iconos centrados horizontalmente */
-#panel-publicaciones .curso-sidebar { justify-content:center; overflow:visible !important; }
-#panel-publicaciones .curso-sidebar .sidebar-mitad { justify-content:space-around; gap:0; padding:4px 2px; overflow:visible; }
-#panel-publicaciones .curso-sidebar .sidebar-mitad .sidebar-btn { flex:1; min-width:0; max-width:33.33%; padding:4px 2px; }
+#panel-publicaciones .curso-sidebar { justify-content:center; }
+#panel-publicaciones .curso-sidebar .sidebar-mitad { justify-content:space-around; gap:0; padding:4px 0; }
+#panel-publicaciones .curso-sidebar .sidebar-mitad .sidebar-btn { flex:1; min-width:0; padding:4px 1px; }
 #panel-publicaciones .curso-sidebar .sidebar-mitad .sidebar-btn span { max-width:100%; }
 
 /* ── SUBELEMENTOS ── */
