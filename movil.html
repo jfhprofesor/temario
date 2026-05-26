@@ -72,9 +72,10 @@ header { position:relative; z-index:10; padding:12px 1rem 8px; display:flex; fle
 .curso-tab.tab-press { animation:btnActivePulseBlack 0.4s ease-out forwards; }
 .curso-tab.objetos-btn { border-radius:6px; padding:3px 4px; height:40px; width:100%; background:#000000; color:#ffffff; border:1px solid #999999; box-sizing:border-box; overflow:hidden; white-space:normal; word-break:break-word; display:flex; align-items:center; justify-content:flex-start; gap:0; }
 .objetos-btn-icono { width:20px; height:20px; object-fit:contain; flex-shrink:0; display:block; }
-.objetos-btn-texto { white-space:normal; line-height:1.2; text-align:center; flex:1; min-width:0; font-size:0.65rem; margin-right:20px; }
+.objetos-btn-texto { white-space:normal; line-height:1.2; text-align:center; flex:1; min-width:0; font-size:0.65rem; margin-left:6px; margin-right:26px; }
 .curso-tab.objetos-btn.active { background:#d4b84a; color:#000000; border-color:#000000; }
 .curso-tab.publicaciones-btn.active { background:#c0cce0; color:#000000; border-color:#000000; }
+.curso-tab.publicaciones-btn .objetos-btn-texto { white-space:nowrap; margin-left:6px; margin-right:0; }
 
 /* ── MAIN Y CONTENEDOR GRANDE ── */
 main { position:relative; z-index:10; padding:0; width:100%; margin:0; }
@@ -298,8 +299,8 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 .curso-sidebar::-webkit-scrollbar { display:none; }
 /* Cada mitad: fila centrada de botones */
 .sidebar-mitad {
-  display:flex; flex-direction:row; align-items:center; justify-content:center;
-  gap:0.4rem; padding:4px 0;
+  display:flex; flex-direction:row; align-items:center; justify-content:space-around;
+  gap:0; padding:4px 0;
   flex-wrap:nowrap; overflow:hidden;
 }
 /* Separador vertical central: ocupa toda la altura de la barra */
@@ -457,7 +458,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
   height:auto !important; margin:10px 0 10px 0 !important; padding:0 !important;
   align-self:center !important;
 }
-.unidad-imagen video, .unidad-imagen img { width:auto; height:auto; max-width:100%; max-height:230px; object-fit:contain; border-radius:10px; border:1px solid #999999; display:block; }
+.unidad-imagen video, .unidad-imagen img { width:auto; height:auto; max-width:100%; max-height:240px; object-fit:contain; border-radius:10px; border:1px solid #999999; display:block; }
 
 /* Botón volver (unidad-ficha-dentro): columna CENTRADA, icono 90px */
 .unidad-ficha-dentro { flex-direction:column !important; height:auto !important; min-height:0 !important; padding:8px 4px !important; justify-content:center !important; align-items:center !important; gap:4px !important; width:100% !important; cursor:pointer; }
@@ -503,7 +504,7 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .ficha-actividades .objeto-ficha { width:100%; height:100%; min-height:0; padding:0; place-self:stretch; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; }
 .ficha-actividades .objeto-ficha:nth-child(1),
 .ficha-actividades .objeto-ficha:nth-child(2),
-.ficha-actividades .objeto-ficha:nth-child(3) { padding-top:8px !important; }
+.ficha-actividades .objeto-ficha:nth-child(3) { padding-top:5px !important; }
 .ficha-actividades .objeto-icono { width:38px; height:38px; min-width:38px; min-height:38px; margin:0 auto; flex-shrink:0; border-radius:0 !important; background:none !important; border:0 !important; padding:0 !important; box-shadow:none !important; }
 .ficha-actividades .objeto-icono img { width:100%; height:100%; object-fit:contain; display:block; }
 .ficha-actividades--video .objeto-icono { border-radius:50% !important; background:#000000 !important; border:0 !important; box-shadow:inset 0 0 0 1px #999999 !important; overflow:hidden !important; width:38px !important; height:38px !important; min-width:38px !important; min-height:38px !important; }
@@ -515,7 +516,7 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .ficha-actividades .objeto-nombre-texto1 { font-size:9px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:3px; }
 .ficha-actividades .objeto-tema-texto2 { font-size:9px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:1px; }
 /* 3 columnas fijas en unidades normales — independiente del var(--fa-cols) del JS */
-.ficha-actividades--unidad { grid-template-columns:repeat(3,1fr) !important; height:180px !important; min-height:180px !important; max-height:180px !important; gap:0 !important; padding:0 !important; align-content:start !important; grid-auto-rows:auto !important; }
+.ficha-actividades--unidad { grid-template-columns:repeat(3,1fr) !important; height:180px !important; min-height:180px !important; max-height:180px !important; gap:0 !important; padding:0 20px !important; align-content:space-evenly !important; grid-auto-rows:auto !important; }
 .ficha-actividades--unidad .objeto-ficha:nth-child(1),
 .ficha-actividades--unidad .objeto-ficha:nth-child(2),
 .ficha-actividades--unidad .objeto-ficha:nth-child(3) { padding-top:12px !important; }
@@ -523,7 +524,7 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .ficha-actividades--unidad .objeto-nombre-texto1,.ficha-actividades--video .objeto-nombre-texto1 { font-size:0.75rem; margin-top:4px !important; color:#ffffff !important; }
 .ficha-actividades--unidad .objeto-tema-texto2 { font-size:0.7rem !important; }
 .ficha-actividades--unidad .objeto-icono { width:38px !important; height:38px !important; min-width:38px !important; min-height:38px !important; }
-.ficha-actividades--juegos { height:180px !important; min-height:180px !important; max-height:180px !important; gap:0 !important; padding:0 !important; align-content:center !important; }
+.ficha-actividades--juegos { height:180px !important; min-height:180px !important; max-height:180px !important; gap:0 !important; padding:0 20px !important; align-content:space-evenly !important; }
 .ficha-actividades--juegos .objeto-ficha:nth-child(1),
 .ficha-actividades--juegos .objeto-ficha:nth-child(2),
 .ficha-actividades--juegos .objeto-ficha:nth-child(3) { padding-top:12px !important; }
@@ -1401,6 +1402,17 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
         btnNext.classList.toggle('invisible', !next);
       } else {
         btnNext.onclick = () => window.unidadNext && window.unidadNext(curso);
+        // Estado inicial inmediato para unidades (antes de que actualizarSidebar se ejecute)
+        const _temaInicial = (typeof window.estadoGrids !== 'undefined') ? window.estadoGrids[curso] : null;
+        if (typeof _temaInicial === 'number' && window.CURSOS && window.CURSOS[curso]) {
+          const _totalInicial = window.CURSOS[curso].temas.length;
+          btnPrev.classList.toggle('invisible', _temaInicial <= 0);
+          btnNext.classList.toggle('invisible', _temaInicial >= _totalInicial - 1);
+        } else {
+          // Si aún no hay datos, ocultar ambos hasta que lleguen
+          btnPrev.classList.add('invisible');
+          btnNext.classList.add('invisible');
+        }
       }
       colNext.appendChild(btnNext);
 
@@ -1440,18 +1452,26 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
         }
         actualizarSidebar();
         // Fallback: leer directamente de estadoGrids por si unidad-info aún no se actualizó
-        setTimeout(() => {
+        const _fallbackNav = () => {
           const temaIdx2 = (typeof window.estadoGrids !== 'undefined') ? window.estadoGrids[curso] : null;
           if (typeof temaIdx2 === 'number') {
             const total2 = (window.CURSOS && window.CURSOS[curso]) ? window.CURSOS[curso].temas.length : 0;
             btnPrev.classList.toggle('invisible', temaIdx2 <= 0);
             btnNext.classList.toggle('invisible', temaIdx2 >= total2 - 1);
           }
-        }, 150);
-        const infoEl = document.getElementById('unidad-info-' + curso);
-        if (infoEl) {
-          new MutationObserver(actualizarSidebar).observe(infoEl, { childList:true, subtree:true, characterData:true });
-        }
+        };
+        setTimeout(_fallbackNav, 100);
+        setTimeout(_fallbackNav, 300);
+        setTimeout(_fallbackNav, 600);
+        const _conectarObserver = () => {
+          const infoEl = document.getElementById('unidad-info-' + curso);
+          if (infoEl) {
+            new MutationObserver(actualizarSidebar).observe(infoEl, { childList:true, subtree:true, characterData:true });
+          } else {
+            setTimeout(_conectarObserver, 200);
+          }
+        };
+        _conectarObserver();
       }
 
       // Al volver al temario: limpiar el flag para que pueda reinyectarse
@@ -1640,19 +1660,37 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
     window.renderConsola = function() {
       _origRenderConsola.apply(this, arguments);
       requestAnimationFrame(() => {
-        // Botones Amazon: convertir a flex-row (icono izquierda, texto derecha)
+        // Botones Amazon: convertir a flex-row, quitar anim-entrada y animaciones
         const botonesAmazon = document.querySelectorAll('#grid-consola .control-btn-filter');
         botonesAmazon.forEach(b => {
-          b.style.cssText += ';width:180px !important;min-width:0 !important;flex-direction:row !important;justify-content:flex-start !important;align-items:center !important;gap:8px !important;padding:0 3px !important;position:relative !important;';
+          b.classList.remove('anim-entrada');
+          b.style.cssText += ';animation:none !important;transition:none !important;opacity:1 !important;width:180px !important;min-width:0 !important;flex-direction:row !important;justify-content:flex-start !important;align-items:center !important;gap:8px !important;padding:0 3px !important;position:relative !important;';
           const img = b.querySelector('img');
           if (img) img.style.cssText += ';position:static !important;transform:none !important;top:auto !important;left:auto !important;flex-shrink:0 !important;width:20px !important;height:20px !important;';
           const span = b.querySelector('span');
           if (span) span.style.cssText += ';text-align:left !important;white-space:nowrap !important;overflow:visible !important;';
         });
 
-        // Reducir altura del contenedor 9445
+        // Reducir altura del contenedor 9445 y animar dígitos uno a uno en orden aleatorio
         const cuadro9445 = document.getElementById('codigo-universal-cuadro');
-        if (cuadro9445) { cuadro9445.style.height = '50px'; cuadro9445.style.padding = '4px 10px'; cuadro9445.style.userSelect = 'text'; cuadro9445.style.webkitUserSelect = 'text'; }
+        if (cuadro9445) {
+          cuadro9445.style.height = '50px'; cuadro9445.style.padding = '4px 10px';
+          cuadro9445.style.userSelect = 'text'; cuadro9445.style.webkitUserSelect = 'text';
+          const textoEl = document.getElementById('codigo-universal-texto');
+          if (textoEl) {
+            const digitos = '9445'.split('');
+            textoEl.innerHTML = digitos.map((d, i) =>
+              `<span data-i="${i}" style="opacity:0;display:inline-block;transition:opacity 0.25s ease;">${d}</span>`
+            ).join('');
+            const orden = [0,1,2,3].sort(() => Math.random() - 0.5);
+            orden.forEach((idx, step) => {
+              setTimeout(() => {
+                const s = textoEl.querySelector(`span[data-i="${idx}"]`);
+                if (s) s.style.opacity = '1';
+              }, step * 180);
+            });
+          }
+        }
 
         // Procesar tabla de classrooms
         const tabla = document.getElementById('tabla-classrooms');
@@ -1822,34 +1860,62 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
     if (!sidebar) return;
     sidebar.style.cssText = 'display:grid; grid-template-columns:1fr 1px 1fr; height:80px; min-height:80px; width:100%; border-bottom:1px solid #444444; border-radius:9px 9px 0 0; overflow:hidden; flex-shrink:0; box-sizing:border-box; padding:0;';
 
-    // Mitad izquierda: siempre los 3 botones de navegación de publicaciones
-    const mitadIzqHTML = `
-      <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarAutor()">
-        <img src="imagenes/menu/Sobre el autor.webp" alt="Sobre el autor">
-        <span>Sobre el autor</span>
-      </a>
-      <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarListadoPublicaciones()">
-        <img src="imagenes/menu/Listado de publicaciones.webp" alt="Listado de publicaciones">
-        <span>Listado de publicaciones</span>
-      </a>
-      <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarVersionesWeb()">
-        <img src="imagenes/menu/Versiones web.webp" alt="Versiones web">
-        <span>Versiones web</span>
-      </a>`;
+    // Mitad izquierda: los otros 2 navegadores + extra según vista
+    let mitadIzqHTML = '';
+    if (vista === 'autor') {
+      mitadIzqHTML = `
+        <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarListadoPublicaciones()">
+          <img src="imagenes/menu/Listado de publicaciones.webp" alt="Listado de publicaciones">
+          <span>Listado de publicaciones</span>
+        </a>
+        <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarVersionesWeb()">
+          <img src="imagenes/menu/Versiones web.webp" alt="Versiones web">
+          <span>Versiones web</span>
+        </a>
+        <div class="sidebar-btn sidebar-btn-placeholder"></div>`;
+    } else if (vista === 'listado') {
+      mitadIzqHTML = `
+        <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarAutor()">
+          <img src="imagenes/menu/Sobre el autor.webp" alt="Sobre el autor">
+          <span>Sobre el autor</span>
+        </a>
+        <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarVersionesWeb()">
+          <img src="imagenes/menu/Versiones web.webp" alt="Versiones web">
+          <span>Versiones web</span>
+        </a>
+        <div class="sidebar-btn sidebar-btn-placeholder"></div>`;
+    } else {
+      mitadIzqHTML = `
+        <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarAutor()">
+          <img src="imagenes/menu/Sobre el autor.webp" alt="Sobre el autor">
+          <span>Sobre el autor</span>
+        </a>
+        <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarListadoPublicaciones()">
+          <img src="imagenes/menu/Listado de publicaciones.webp" alt="Listado de publicaciones">
+          <span>Listado de publicaciones</span>
+        </a>
+        <div class="sidebar-btn sidebar-btn-placeholder"></div>`;
+    }
 
-    // Mitad derecha según vista
+    // Mitad derecha: Volver en pos 1 + extras según vista
     let mitadDerHTML = '';
     if (vista === 'autor') {
       mitadDerHTML = `
+        <a class="sidebar-btn" href="javascript:void(0)" onclick="openPublicaciones()">
+          <img src="imagenes/menu/Volver.png" alt="Volver a publicaciones">
+          <span>Volver a publicaciones</span>
+        </a>
         <a class="sidebar-btn" href="https://www.paypal.com/paypalme/jfhprofesor" target="_blank" rel="noopener">
           <img src="imagenes/menu/PayPal.webp" alt="Hacer una donación">
           <span>Hacer una donación</span>
         </a>
-        <div class="sidebar-btn sidebar-btn-placeholder"></div>
         <div class="sidebar-btn sidebar-btn-placeholder"></div>`;
     } else {
       mitadDerHTML = `
-        <div class="sidebar-btn sidebar-btn-placeholder"></div>
+        <a class="sidebar-btn" href="javascript:void(0)" onclick="openPublicaciones()">
+          <img src="imagenes/menu/Volver.png" alt="Volver a publicaciones">
+          <span>Volver a publicaciones</span>
+        </a>
         <div class="sidebar-btn sidebar-btn-placeholder"></div>
         <div class="sidebar-btn sidebar-btn-placeholder"></div>`;
     }
@@ -1877,15 +1943,67 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       _orig.apply(this, arguments);
       requestAnimationFrame(() => {
         _inyectarSidebarPublicaciones(vistaMap[fnName]);
-        // Reducir foto del autor y ocultar botón donación si existe
+        // Reorganizar layout del autor en móvil
         if (vistaMap[fnName] === 'autor') {
-          const fotoAutor = document.querySelector('#panel-publicaciones img[src*="Foto autor"], #panel-publicaciones img[src*="Foto%20autor"]');
-          if (fotoAutor) {
-            fotoAutor.style.cssText += ';height:60px !important;width:auto !important;border-radius:8px !important;display:block !important;margin:0 auto 0.5rem auto !important;';
+          const grid = document.querySelector('#panel-publicaciones .publicaciones-grid');
+          if (grid) {
+            // temario.js genera: div[flex-shrink:0](foto) + div[flex:1](nombre, cargo, textos)
+            const fotoWrap = grid.querySelector('div[style*="flex-shrink"]');
+            const textoWrap = grid.querySelector('div[style*="flex:1"]') || grid.querySelector('div[style*="flex: 1"]');
+            if (fotoWrap && textoWrap) {
+              const fotoImg = fotoWrap.querySelector('img');
+              // Encontrar div de nombre y div de cargo dentro de textoWrap
+              const allDivs = Array.from(textoWrap.querySelectorAll(':scope > div[style]'));
+              const divNombre = allDivs.find(d => d.textContent.includes('Jacinto'));
+              const divCargo  = allDivs.find(d => d.textContent.includes('Profesor'));
+              // Párrafos y enlace donación
+              const divTextos = allDivs.find(d => d.querySelector && d.querySelector('p'));
+              const linkDon   = textoWrap.querySelector('a[href*="paypal"]');
+
+              // Reescribir grid como columna: [header-row] + [textos]
+              grid.style.flexDirection = 'column';
+              grid.style.gap = '0.5rem';
+              grid.style.padding = '0.6rem 0.8rem';
+              grid.style.alignItems = 'stretch';
+
+              // Crear fila superior: foto pequeña + nombre/cargo
+              const headerRow = document.createElement('div');
+              headerRow.style.cssText = 'display:flex;flex-direction:row;align-items:center;gap:0.6rem;';
+
+              if (fotoImg) {
+                fotoImg.style.cssText = 'width:auto;height:52px;object-fit:cover;border-radius:8px;border:1px solid #999;display:block;flex-shrink:0;';
+                headerRow.appendChild(fotoImg);
+              }
+
+              const nameCol = document.createElement('div');
+              nameCol.style.cssText = 'display:flex;flex-direction:column;gap:0.15rem;min-width:0;flex:1;';
+              if (divNombre) {
+                divNombre.style.setProperty('font-size','0.9rem','important');
+                divNombre.style.setProperty('line-height','1.2','important');
+                nameCol.appendChild(divNombre);
+              }
+              if (divCargo) {
+                divCargo.style.setProperty('font-size','0.88rem','important');
+                divCargo.style.setProperty('line-height','1.2','important');
+                nameCol.appendChild(divCargo);
+              }
+              headerRow.appendChild(nameCol);
+
+              // Párrafos con tamaño reducido
+              if (divTextos) {
+                divTextos.querySelectorAll('p').forEach(p => p.style.setProperty('font-size','0.88rem','important'));
+                divTextos.style.removeProperty('color');
+              }
+
+              // Ocultar donación
+              if (linkDon) linkDon.style.display = 'none';
+
+              // Vaciar y reconstruir
+              grid.innerHTML = '';
+              grid.appendChild(headerRow);
+              if (divTextos) grid.appendChild(divTextos);
+            }
           }
-          // Ocultar botón de donación bajo el texto (solo el del contenido, no el de la sidebar)
-          const btnDonacion = document.querySelector('#panel-publicaciones a[href*="paypal"] img[src*="paypalobjects"]');
-          if (btnDonacion) btnDonacion.closest('a').style.display = 'none';
         }
       });
     };
