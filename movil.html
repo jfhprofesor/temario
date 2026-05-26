@@ -98,7 +98,7 @@ main { position:relative; z-index:10; padding:0; width:100%; margin:0; }
 #panel-2bachQ .barra-interna { background:rgba(187,68,221,0.18); }
 
 /* ── OBJETOS barra: línea 1 = ORDEN(izq) | OBJETOS(centro) | PÁGINA | FLECHAS(der); línea 2 = FILTRO ── */
-#panel-objetos .barra-interna { background:rgba(200,170,60,0.18); display:flex; flex-wrap:wrap; align-items:center; gap:0.3rem; border-radius:9px 9px 0 0; margin-bottom:0; min-height:65px; height:65px; }
+#panel-objetos .barra-interna { background:rgba(200,170,60,0.18); display:flex; flex-wrap:wrap; align-items:center; gap:0.3rem; border-radius:9px 9px 0 0; margin-bottom:0; min-height:65px; height:65px; border-bottom:1px solid #444444; }
 /* ORDEN (grupo 1, tiene control-btn-orden): izquierda */
 #panel-objetos .barra-interna > .control-group:nth-child(1) { order:1; flex:0 0 auto; justify-content:flex-start; }
 /* OBJETOS (grupo 2): centro expandido */
@@ -227,7 +227,7 @@ body.en-unidad .contenedor-grande--curso .barra-interna > .control-group:has(.si
 /* En modo unidad/juegos: sidebar en grid 3 cols (prev | centro | next) */
 body.en-unidad .curso-sidebar {
   display:grid !important;
-  grid-template-columns:1fr 68px 1fr !important;
+  grid-template-columns:1fr 100px 1fr !important;
   padding:0 !important;
   min-height:125px;
   height:125px;
@@ -329,7 +329,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 .temas-grid { display:grid; gap:6px; flex:1; justify-items:center; border:0; padding:0; height:auto; min-height:400px; grid-template-columns:repeat(4,1fr); }
 .unidades-grid { display:grid; column-gap:6px; row-gap:3px; flex:1; justify-items:center; border:0; padding:0; margin:0; grid-template-columns:repeat(4,1fr); grid-auto-rows:auto; }
 .contenedor-grande--publicaciones .publicaciones-grid { border:0; grid-template-columns:repeat(4,1fr); display:grid; column-gap:4px; row-gap:0px; flex:1; justify-items:stretch; align-items:start; padding:6px 4px 4px; margin:0; align-content:start; overflow:visible; height:auto; max-height:none; }
-.unidad-ficha,.publicacion-ficha { position:relative; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; gap:0; padding:10px 0 0 0; height:175px; min-height:175px; animation:popIn 0.6s 0s both; }
+.unidad-ficha,.publicacion-ficha { position:relative; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; gap:0; padding:10px 0 0 0; height:165px; min-height:165px; animation:popIn 0.6s 0s both; }
 .unidad-icono { width:85px; height:85px; border-radius:50%; border:0; position:relative; background:#000000; box-shadow:inset 0 0 0 1px #999999; padding:0; }
 .unidad-icono img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease; }
 .tema-rectangle { width:80px; height:100px; border-radius:0; border:none; position:relative; transition:transform 0.3s ease; background:transparent; overflow:hidden; }
@@ -365,9 +365,9 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 .objetos-sidebar { flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:0.8rem; padding:0; }
 .objetos-sidebar-left { width:0; display:none; }
 .objetos-sidebar-right { width:50px; display:grid; grid-template-rows:auto 1fr auto; align-items:center; gap:0.8rem; }
-.objetos-grid { display:grid; column-gap:6px; row-gap:0px; justify-items:center; grid-auto-rows:auto; width:100%; flex:1; border:0; padding:0; align-content:start; grid-template-columns:repeat(4,1fr); height:auto !important; max-height:none !important; }
+.objetos-grid { display:grid; column-gap:6px; row-gap:0px; justify-items:center; grid-auto-rows:auto; width:100%; flex:1; border:0; padding:0; align-content:start; grid-template-columns:repeat(4,1fr); height:auto !important; max-height:none !important; padding-top:0px; }
 #grid-objetos { grid-template-columns:repeat(4,1fr) !important; height:auto !important; max-height:none !important; }
-.objeto-ficha { position:relative; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0; padding:10px 0 0 0; height:175px; min-height:175px; min-width:0; overflow:visible; }
+.objeto-ficha { position:relative; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0; padding:10px 0 0 0; height:165px; min-height:165px; min-width:0; overflow:visible; }
 .objeto-icono { width:85px; height:85px; border-radius:50%; border:0; position:relative; background:#000000; flex-shrink:0; transition:background 0.3s ease; box-shadow:inset 0 0 0 1px #999999; padding:0; }
 .objeto-icono img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease; }
 .objeto-nombre-texto1 { font-family:'Saira',sans-serif; font-size:0.62rem; font-weight:600; color:var(--accent); letter-spacing:-0.02em; text-align:center; display:flex; align-items:center; justify-content:center; line-height:1.2; padding-top:2px; margin-top:8px; width:100%; min-width:0; overflow:hidden; white-space:normal; height:20px; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
@@ -474,10 +474,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 /* Fila video+botones: contenedor relativo */
 .video-sala-row { display:flex; flex-direction:row; align-items:center; justify-content:center; width:100%; gap:4px; padding:0 4px; box-sizing:border-box; order:3; }
 .video-sala-row .unidad-imagen { flex:0 0 400px !important; width:400px !important; max-width:400px !important; height:250px !important; padding:4px !important; margin:0 !important; }
-.btn-curso-video-nav { display:flex; flex-direction:column; align-items:center; gap:0.2rem; background:none; border:none; cursor:pointer; padding:4px 2px; flex-shrink:0; }
-.btn-curso-video-nav img { width:34px; height:34px; object-fit:contain; border-radius:8px; border:1px solid #999999; background:#000000; padding:2px; }
-.btn-curso-video-nav span { font-size:0.48rem; color:#ffffff; text-align:center; line-height:1.2; font-family:'Roboto Condensed',sans-serif; max-width:40px; height:2.4em; display:flex; align-items:flex-start; justify-content:center; }
-.btn-curso-video-nav.invisible { visibility:hidden; pointer-events:none; }
+.btn-curso-video-nav { display:none !important; }
 
 /* Ocultar botones de unidad anterior/siguiente en sala de vídeos */
 body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row .btn-unidad-nav { display:none !important; }
@@ -489,8 +486,9 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
   grid-template-columns:repeat(3,1fr) !important;
   grid-auto-rows:1fr !important;
   place-items:center !important;
-  height:240px !important; min-height:240px !important; max-height:240px !important;
-  padding:6px 4px !important; gap:8px !important; width:100% !important;
+  height:200px !important; min-height:200px !important; max-height:200px !important;
+  padding:0 !important; gap:0 !important; width:100% !important;
+  align-content:center !important;
 }
 
 /* ── FICHA-ACTIVIDADES ── */
@@ -503,10 +501,11 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .ficha-actividades .objeto-nombre-texto1 { font-size:9px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:3px; }
 .ficha-actividades .objeto-tema-texto2 { font-size:9px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:1px; }
 /* 3 columnas fijas en unidades normales — independiente del var(--fa-cols) del JS */
-.ficha-actividades--unidad { grid-template-columns:repeat(3,1fr) !important; height:240px !important; min-height:240px !important; max-height:240px !important; }
+.ficha-actividades--unidad { grid-template-columns:repeat(3,1fr) !important; height:200px !important; min-height:200px !important; max-height:200px !important; gap:0 !important; padding:0 !important; align-content:center !important; }
 .ficha-actividades--unidad .objeto-tema-texto2,.ficha-actividades--video .objeto-tema-texto2 { display:none !important; }
 .ficha-actividades--unidad .objeto-nombre-texto1,.ficha-actividades--video .objeto-nombre-texto1 { font-size:0.7rem; margin-top:4px !important; color:#ffffff !important; }
 .ficha-actividades--unidad .objeto-icono { width:50px !important; height:50px !important; min-width:50px !important; min-height:50px !important; }
+.ficha-actividades--juegos { height:200px !important; min-height:200px !important; max-height:200px !important; gap:0 !important; padding:0 !important; align-content:center !important; }
 .ficha-actividades--juegos .objeto-icono { width:50px !important; height:50px !important; min-width:50px !important; min-height:50px !important; }
 .ficha-actividades--juegos .objeto-tema-texto2 { font-size:0.7rem; color:#38bdf8; font-weight:700; margin-top:4px; }
 .ficha-actividades--juegos .objeto-nombre-texto1 { font-size:0.7rem; color:#ffffff !important; margin-top:2px; }
@@ -581,15 +580,15 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .objeto-detail-overlay.open .objeto-detail { transform:scale(1) translateY(0); }
 .objeto-detail-close { flex-shrink:0; z-index:20; width:28px; height:28px; border-radius:50%; background:#000000; border:1px solid #999999; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; overflow:visible; }
 .objeto-detail-close img { width:100%; height:100%; object-fit:contain; }
-.objeto-detail-content { display:flex; flex-direction:column; flex:1; min-height:0; overflow:hidden; width:100%; box-sizing:border-box; }
-.objeto-detail-side { position:relative; display:flex; flex-direction:column; overflow:hidden; height:auto; width:100%; box-sizing:border-box; align-items:center; }
-.objeto-detail-side.realidad { border-right:none; border-bottom:1px solid #999999; background:var(--surface); min-height:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding-top:0 !important; }
-.objeto-detail-side.simulacion { }
+.objeto-detail-content { display:flex; flex-direction:column; flex:1; min-height:0; overflow:hidden; width:100%; box-sizing:border-box; height:100%; }
+.objeto-detail-side { position:relative; display:flex; flex-direction:column; overflow:hidden; flex:1; width:100%; box-sizing:border-box; align-items:center; }
+.objeto-detail-side.realidad { border-right:none; border-bottom:1px solid #999999; background:var(--surface); display:flex; flex-direction:column; align-items:center; padding-top:0 !important; }
+.objeto-detail-side.simulacion { display:flex; flex-direction:column; align-items:center; }
 /* Ambas barras de título: mismo color, mismo ancho */
 .objeto-detail-title { display:flex; align-items:center; justify-content:space-between; flex-shrink:0; background:rgba(56,189,248,0.18); padding:6px 8px; height:36px; font-size:0.85rem; font-weight:600; color:var(--accent); letter-spacing:0.04em; z-index:5; border-bottom:1px solid var(--border); font-family:'Saira',sans-serif; width:100%; box-sizing:border-box; margin-top:0 !important; }
 .objeto-detail-title-text { flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 /* Imágenes centradas verticalmente, sin borde blanco */
-.objeto-detail-img { width:auto; height:auto; object-fit:contain; object-position:center; border:none; display:block; background:transparent; max-width:100%; max-height:260px; margin:auto; align-self:center; }
+.objeto-detail-img { width:auto; height:auto; object-fit:contain; object-position:center; border:none; display:block; background:transparent; max-width:100%; max-height:100%; flex:1; margin:auto; align-self:center; }
 /* Modal más alto para que quepa la imagen de simulación */
 .objeto-detail { max-height:96vh !important; }
 .objeto-detail-video { position:absolute; bottom:0.6rem; left:50%; transform:translateX(-50%); z-index:6; white-space:nowrap; }
@@ -1229,12 +1228,13 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
     if (!ficha || ficha.dataset.navInjected) return; // ya procesado
     ficha.dataset.navInjected = '1';
 
-    // Detectar si estamos en modo juegos
+    // Detectar si estamos en modo juegos o sala de vídeos
     const esJuegos = (typeof window.estadoGrids !== 'undefined' && window.estadoGrids[curso] === 'juegos');
+    const esVideo = !!gridEl.querySelector('.ficha-actividades--video');
 
     // Textos de los botones
-    const txtPrev = esJuegos ? 'Curso anterior' : 'Unidad anterior';
-    const txtNext = esJuegos ? 'Curso siguiente' : 'Unidad siguiente';
+    const txtPrev = (esJuegos || esVideo) ? 'Curso anterior' : 'Unidad anterior';
+    const txtNext = (esJuegos || esVideo) ? 'Curso siguiente' : 'Unidad siguiente';
 
     // Extraer icono, número y nombre de la ficha antes de eliminarla
     const iconoEl = ficha.querySelector('.unidad-icono img');
@@ -1269,6 +1269,10 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       if (esJuegos) {
         const prev = ORDEN_C[idxCurso - 1];
         btnPrev.onclick = () => prev && window.openJuegos && window.openJuegos(prev);
+        btnPrev.classList.toggle('invisible', !prev);
+      } else if (esVideo) {
+        const prev = ORDEN_C[idxCurso - 1];
+        btnPrev.onclick = () => prev && window.mostrarVideoTemario && window.mostrarVideoTemario(prev);
         btnPrev.classList.toggle('invisible', !prev);
       } else {
         btnPrev.onclick = () => window.unidadPrev && window.unidadPrev(curso);
@@ -1307,6 +1311,10 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       if (esJuegos) {
         const next = ORDEN_C[idxCurso + 1];
         btnNext.onclick = () => next && window.openJuegos && window.openJuegos(next);
+        btnNext.classList.toggle('invisible', !next);
+      } else if (esVideo) {
+        const next = ORDEN_C[idxCurso + 1];
+        btnNext.onclick = () => next && window.mostrarVideoTemario && window.mostrarVideoTemario(next);
         btnNext.classList.toggle('invisible', !next);
       } else {
         btnNext.onclick = () => window.unidadNext && window.unidadNext(curso);
@@ -1596,21 +1604,36 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
 
         // Reducir altura del contenedor 9445
         const cuadro9445 = document.getElementById('codigo-universal-cuadro');
-        if (cuadro9445) { cuadro9445.style.height = '42px'; cuadro9445.style.padding = '4px 10px'; }
+        if (cuadro9445) { cuadro9445.style.height = '50px'; cuadro9445.style.padding = '4px 10px'; cuadro9445.style.userSelect = 'text'; cuadro9445.style.webkitUserSelect = 'text'; }
 
         // Procesar tabla de classrooms
         const tabla = document.getElementById('tabla-classrooms');
         if (tabla) {
-          // Classroom: icono sin contenedor (sin border/background)
+          tabla.querySelectorAll('tr td:first-child').forEach(td => {
+            td.style.whiteSpace = 'nowrap';
+          });
+        }
+        if (tabla) {
+          // Classroom: mismo contenedor que Editar/Borrar
           tabla.querySelectorAll('td a[href*="classroom"]').forEach(a => {
             const url = a.href;
-            const img = document.createElement('img');
-            img.src = 'imagenes/menu/Classroom.webp';
-            img.alt = 'Google Classroom';
-            img.style.cssText = 'width:24px;height:24px;object-fit:contain;cursor:pointer;display:block;';
-            img.title = url;
-            img.onclick = (e) => { e.stopPropagation(); window.open(url,'_blank'); };
-            a.replaceWith(img);
+            const btn = document.createElement('button');
+            btn.style.padding = '0';
+            btn.style.width = '24px';
+            btn.style.height = '24px';
+            btn.style.display = 'inline-flex';
+            btn.style.alignItems = 'center';
+            btn.style.justifyContent = 'center';
+            btn.style.background = 'none';
+            btn.style.border = 'none';
+            btn.style.cursor = 'pointer';
+            btn.onclick = (e) => { e.stopPropagation(); window.open(url,'_blank'); };
+            const ico = document.createElement('img');
+            ico.src = 'imagenes/menu/Classroom.webp';
+            ico.alt = 'Google Classroom';
+            ico.style.cssText = 'width:24px;height:24px;object-fit:contain;';
+            btn.appendChild(ico);
+            a.replaceWith(btn);
           });
 
           // Editar → icono Editar.png (mantener onclick original del elemento)
@@ -1738,17 +1761,19 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
   function _inyectarSidebarPublicaciones(vista) {
     const sidebar = document.querySelector('#panel-publicaciones .curso-sidebar');
     if (!sidebar) return;
+    // Forzar estilos del grid igual que .curso-sidebar base
+    sidebar.style.cssText = 'display:grid !important; grid-template-columns:1fr 1px 1fr !important; height:80px !important; min-height:80px !important; width:100% !important; border-bottom:1px solid #444444 !important; border-radius:9px 9px 0 0 !important; overflow:hidden !important; flex-shrink:0 !important; box-sizing:border-box !important;';
 
     // Mitad derecha según vista
     let mitadDerHTML = '';
     if (vista === 'autor') {
       mitadDerHTML = `
-        <div class="sidebar-btn sidebar-btn-placeholder"></div>
-        <div class="sidebar-btn sidebar-btn-placeholder"></div>
         <a class="sidebar-btn" href="https://www.paypal.com/paypalme/jfhprofesor" target="_blank" rel="noopener">
           <img src="imagenes/menu/PayPal.webp" alt="Hacer una donación">
           <span>Hacer una donación</span>
-        </a>`;
+        </a>
+        <div class="sidebar-btn sidebar-btn-placeholder"></div>
+        <div class="sidebar-btn sidebar-btn-placeholder"></div>`;
     } else {
       mitadDerHTML = `
         <div class="sidebar-btn sidebar-btn-placeholder"></div>
@@ -1775,7 +1800,18 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
     const vistaMap = { mostrarAutor:'autor', mostrarListadoPublicaciones:'listado', mostrarVersionesWeb:'versiones' };
     window[fnName] = function() {
       _orig.apply(this, arguments);
-      requestAnimationFrame(() => _inyectarSidebarPublicaciones(vistaMap[fnName]));
+      requestAnimationFrame(() => {
+        _inyectarSidebarPublicaciones(vistaMap[fnName]);
+        // Reducir foto del autor si existe
+        if (vistaMap[fnName] === 'autor') {
+          const fotoAutor = document.querySelector('#panel-publicaciones img[src*="Foto autor"]');
+          if (fotoAutor) {
+            fotoAutor.style.height = '60px';
+            fotoAutor.style.width = 'auto';
+            fotoAutor.style.borderRadius = '8px';
+          }
+        }
+      });
     };
   });
 
@@ -1793,6 +1829,81 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
     });
   };
 
+})();
+
+// ── SWIPE PARA PAGINACIÓN ──────────────────────────────────────────────────
+(function() {
+  let _swipeX = 0, _swipeY = 0;
+  const UMBRAL = 50; // px mínimos para considerar swipe
+
+  document.addEventListener('touchstart', function(e) {
+    _swipeX = e.touches[0].clientX;
+    _swipeY = e.touches[0].clientY;
+  }, { passive: true });
+
+  document.addEventListener('touchend', function(e) {
+    const dx = e.changedTouches[0].clientX - _swipeX;
+    const dy = e.changedTouches[0].clientY - _swipeY;
+    if (Math.abs(dx) < UMBRAL && Math.abs(dy) < UMBRAL) return; // no es swipe
+    if (Math.abs(dy) > Math.abs(dx)) return; // swipe vertical, ignorar
+
+    const dir = dx < 0 ? 1 : -1; // izq→siguiente, der→anterior
+
+    // 1. Detalle de objeto abierto
+    const objOverlay = document.getElementById('objeto-detail-overlay');
+    if (objOverlay && objOverlay.classList.contains('open')) {
+      if (dir === 1) window.objetoDetalleNext && objetoDetalleNext(e);
+      else window.objetoDetallePrevious && objetoDetallePrevious(e);
+      return;
+    }
+
+    // 2. Publicaciones (dentro de ficha)
+    const pubPanel = document.getElementById('panel-publicaciones');
+    if (pubPanel && pubPanel.classList.contains('active') && window._pubActual) {
+      window._pubNavegar && _pubNavegar(dir);
+      return;
+    }
+
+    // 3. Curso activo — detectar modo
+    const cursoActivo = document.querySelector('.contenedor-grande--curso.active');
+    if (cursoActivo) {
+      const cursoId = cursoActivo.id.replace('panel-', '');
+
+      // Modo vídeo
+      if (cursoActivo.querySelector('.ficha-actividades--video')) {
+        const btnDir = cursoActivo.querySelector(dir === 1
+          ? '.btn-curso-video-nav:not([disabled]):last-of-type'
+          : '.btn-curso-video-nav:not([disabled]):first-of-type');
+        if (btnDir) { btnDir.click(); return; }
+        return;
+      }
+
+      // Modo unidad (en-unidad)
+      if (document.body.classList.contains('en-unidad')) {
+        if (dir === 1) window.unidadNext && unidadNext(cursoId);
+        else window.unidadPrev && unidadPrev(cursoId);
+        return;
+      }
+
+      // Modo normal — flechas de página del curso
+      const flechasGroup = cursoActivo.querySelector('[id^="curso-flechas-group-"]');
+      if (flechasGroup) {
+        const btns = flechasGroup.querySelectorAll('.pagination-btn:not([disabled])');
+        if (dir === 1 && btns[1]) { btns[1].click(); return; }
+        if (dir === -1 && btns[0]) { btns[0].click(); return; }
+      }
+      return;
+    }
+
+    // 4. Panel objetos
+    const objPanel = document.getElementById('panel-objetos');
+    if (objPanel && objPanel.classList.contains('active')) {
+      if (dir === 1) window.objetosNextPage && objetosNextPage();
+      else window.objetosPrevPage && objetosPrevPage();
+      return;
+    }
+
+  }, { passive: true });
 })();
 </script>
     
