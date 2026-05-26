@@ -45,6 +45,9 @@
 @keyframes flipNum { 0%{transform:rotateX(0deg);opacity:1} 50%{transform:rotateX(90deg);opacity:0} 100%{transform:rotateX(0deg);opacity:1} }
 @keyframes particleDrift { 0%{transform:translateY(0px) translateX(0px) scale(1);opacity:0.7} 50%{transform:translateY(-18px) translateX(8px) scale(1.2);opacity:1} 100%{transform:translateY(0px) translateX(0px) scale(1);opacity:0.7} }
 
+/* ── SIN HOVER EN MÓVIL ── */
+@media (hover: none) { *:hover { all: unset; } }
+
 /* ── BASE ── */
 body { background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460,#1a1a2e,#2d2d2d,#1e2a1e); background-size:400% 400%; color:var(--text); font-family:'Roboto Condensed',sans-serif; min-height:100vh; overflow-x:hidden; user-select:none; -webkit-user-select:none; animation:bgShift 18s ease infinite, bgPulse 9s ease-in-out infinite; }
 img { -webkit-user-drag:none; user-drag:none; }
@@ -252,7 +255,7 @@ body.en-unidad .curso-sidebar {
 /* Centro: icono de unidad + textos */
 .sidebar-unidad-centro {
   display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:3px; padding:6px 2px; overflow:hidden; cursor:pointer;
+  gap:3px; padding:6px 2px; overflow:hidden; cursor:pointer; width:100px; flex-shrink:0;
 }
 .sidebar-unidad-icono { width:60px; height:60px; border-radius:50%; flex-shrink:0; overflow:hidden; background:#000000; border:2px solid #999999; box-sizing:border-box; transition:border-color 0.2s,box-shadow 0.2s; }
 .sidebar-unidad-icono img { width:100%; height:100%; object-fit:cover; }
@@ -365,12 +368,12 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 .objetos-sidebar { flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:0.8rem; padding:0; }
 .objetos-sidebar-left { width:0; display:none; }
 .objetos-sidebar-right { width:50px; display:grid; grid-template-rows:auto 1fr auto; align-items:center; gap:0.8rem; }
-.objetos-grid { display:grid; column-gap:6px; row-gap:0px; justify-items:center; grid-auto-rows:auto; width:100%; flex:1; border:0; padding:0; align-content:start; grid-template-columns:repeat(4,1fr); height:auto !important; max-height:none !important; padding-top:0px; }
+.objetos-grid { display:grid; column-gap:6px; row-gap:0px; justify-items:center; grid-auto-rows:auto; width:100%; flex:1; border:0; padding:0; align-content:start; grid-template-columns:repeat(4,1fr); height:auto !important; max-height:none !important; padding-top:3px; }
 #grid-objetos { grid-template-columns:repeat(4,1fr) !important; height:auto !important; max-height:none !important; }
 .objeto-ficha { position:relative; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0; padding:10px 0 0 0; height:165px; min-height:165px; min-width:0; overflow:visible; }
 .objeto-icono { width:85px; height:85px; border-radius:50%; border:0; position:relative; background:#000000; flex-shrink:0; transition:background 0.3s ease; box-shadow:inset 0 0 0 1px #999999; padding:0; }
 .objeto-icono img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease; }
-.objeto-nombre-texto1 { font-family:'Saira',sans-serif; font-size:0.62rem; font-weight:600; color:var(--accent); letter-spacing:-0.02em; text-align:center; display:flex; align-items:center; justify-content:center; line-height:1.2; padding-top:2px; margin-top:8px; width:100%; min-width:0; overflow:hidden; white-space:normal; height:20px; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
+.objeto-nombre-texto1 { font-family:'Saira',sans-serif; font-size:0.62rem; font-weight:600; color:var(--accent); letter-spacing:-0.02em; text-align:center; display:flex; align-items:center; justify-content:center; line-height:1.2; padding-top:0; margin-top:8px; width:100%; min-width:0; overflow:hidden; white-space:normal; height:20px; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
 .objeto-tema-texto2 { font-size:0.7rem; font-weight:500; color:#ffffff; text-align:center; line-height:1.1; font-family:'Roboto Condensed',sans-serif; margin-top:4px; width:100%; white-space:normal; min-width:0; height:30px; overflow:visible; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
 
 /* ── PUBLICACIONES ── */
@@ -472,7 +475,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 /* Fila video+botones: contenedor relativo */
 .video-sala-row { display:flex; flex-direction:row; align-items:center; justify-content:center; width:100%; gap:4px; padding:0 4px; box-sizing:border-box; order:3; }
 .video-sala-row .unidad-imagen { flex:0 0 400px !important; width:400px !important; max-width:400px !important; height:250px !important; padding:4px !important; margin:0 !important; }
-.btn-curso-video-nav { display:none !important; }
+/* .btn-curso-video-nav eliminados — navegación via barra doble */
 
 /* Ocultar botones de unidad anterior/siguiente en sala de vídeos */
 body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row .btn-unidad-nav { display:none !important; }
@@ -581,6 +584,7 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .objeto-detail-content { display:flex; flex-direction:column; flex:1; min-height:0; overflow:hidden; width:100%; box-sizing:border-box; height:100%; }
 .objeto-detail-side { position:relative; display:flex; flex-direction:column; overflow:hidden; flex:1; width:100%; box-sizing:border-box; align-items:center; }
 .objeto-detail-side.realidad { border-right:none; border-bottom:1px solid #999999; background:var(--surface); display:flex; flex-direction:column; align-items:center; padding-top:0 !important; }
+.objeto-detail-side.realidad .objeto-detail-title { background:rgba(56,189,248,0.18); }
 .objeto-detail-side.simulacion { display:flex; flex-direction:column; align-items:center; }
 /* Ambas barras de título: mismo color, mismo ancho */
 .objeto-detail-title { display:flex; align-items:center; justify-content:space-between; flex-shrink:0; background:rgba(56,189,248,0.18); padding:6px 8px; height:36px; font-size:0.85rem; font-weight:600; color:var(--accent); letter-spacing:0.04em; z-index:5; border-bottom:1px solid var(--border); font-family:'Saira',sans-serif; width:100%; box-sizing:border-box; margin-top:0 !important; }
@@ -698,7 +702,7 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 /* La barra doble ya tiene border-radius en su propia regla .curso-sidebar */
 
 /* Punto 5: Reducir row-gap del unidades-grid a la mitad */
-.unidades-grid { row-gap:0 !important; }
+.unidades-grid { row-gap:0 !important; align-content:center !important; }
 
 /* Punto 7: botones filtro objetos — distribución uniforme en el grupo */
 #panel-objetos .barra-interna > .control-group:has(button[data-filter]) {
@@ -1103,7 +1107,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
           <span class="objeto-detail-title-text">Objeto en la realidad</span>
           <button class="objeto-detail-close" onclick="closeObjeto()"><img src="imagenes/menu/Cerrar.webp" alt="Cerrar" style="width:100%; height:100%; object-fit:contain;"></button>
         </div>
-        <img class="objeto-detail-img" id="objeto-detail-img-a" src="" alt="Objeto en la realidad">
+        <img class="objeto-detail-img" id="objeto-detail-img-a" src="" alt="Objeto en la realidad" style="margin:auto;">
         <div class="objeto-detail-video" id="objeto-detail-video"></div>
       </div>
       <div class="objeto-detail-side simulacion">
@@ -1215,6 +1219,10 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       sidebar.appendChild(sep);
       sidebar.appendChild(mitadDer);
       sidebar.style.padding = '0';
+      sidebar.style.height = '80px';
+      sidebar.style.minHeight = '80px';
+      sidebar.style.borderBottom = '1px solid #444444';
+      sidebar.style.borderRadius = '9px 9px 0 0';
     });
   };
 
@@ -1780,11 +1788,13 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
         _inyectarSidebarPublicaciones(vistaMap[fnName]);
         // Reducir foto del autor si existe
         if (vistaMap[fnName] === 'autor') {
-          const fotoAutor = document.querySelector('#panel-publicaciones img[src*="Foto autor"]');
+          const fotoAutor = document.querySelector('#panel-publicaciones img[src*="Foto autor"], #panel-publicaciones img[src*="Foto%20autor"]');
           if (fotoAutor) {
             fotoAutor.style.height = '60px';
             fotoAutor.style.width = 'auto';
             fotoAutor.style.borderRadius = '8px';
+            fotoAutor.style.display = 'block';
+            fotoAutor.style.margin = '0 auto 0.5rem auto';
           }
         }
       });
