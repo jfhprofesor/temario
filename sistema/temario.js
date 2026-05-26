@@ -879,7 +879,7 @@ function mostrarJuegos(cursoId) {
     if (sidebarJ) {
       sidebarJ.innerHTML = `
         <a class="sidebar-btn" href="javascript:void(0)" onclick="volverATemas('${cursoId}')">
-          <img src="imagenes/menu/Anterior.webp" alt="Volver al curso">
+          <img src="imagenes/menu/Volver.png" alt="Volver al curso">
           <span>Volver al curso</span>
         </a>`;
     }
@@ -962,7 +962,11 @@ function _navegarVideoEnSala(nuevoCursoId) {
 
   // Actualizar sidebar con el volver correcto
   const sidebarEl = panelActivo.querySelector('.curso-sidebar');
-  if (sidebarEl) sidebarEl.innerHTML = `<a class="sidebar-btn" href="javascript:void(0)" onclick="volverATemas('${cursoPanelId}')"><img src="imagenes/menu/Anterior.webp" alt="Volver"><span>Volver al temario</span></a>`;
+  if (sidebarEl) {
+    ['2eso','3eso','4eso','1bach','2bachF','2bachQ'].forEach(c => sidebarEl.classList.remove('active-'+c));
+    sidebarEl.classList.add('active-'+cursoPanelId);
+    sidebarEl.innerHTML = `<a class="sidebar-btn" href="javascript:void(0)" onclick="volverATemas('${cursoPanelId}')"><img src="imagenes/menu/Volver.png" alt="Volver al curso"><span>Volver al curso</span></a>`;
+  }
 
   // Actualizar el reproductor de vídeo
   const videoEl = panelActivo.querySelector('video');
@@ -1108,7 +1112,9 @@ function mostrarVideoTemario(cursoId) {
       sidebarV.dataset.originalHtml = sidebarV.innerHTML;
     }
     if (sidebarV) {
-      sidebarV.innerHTML = `<a class="sidebar-btn" href="javascript:void(0)" onclick="volverATemas('${cursoId}')"><img src="imagenes/menu/Anterior.webp" alt="Volver"><span>Volver al temario</span></a>`;
+      ['2eso','3eso','4eso','1bach','2bachF','2bachQ'].forEach(c => sidebarV.classList.remove('active-'+c));
+      sidebarV.classList.add('active-'+cursoId);
+      sidebarV.innerHTML = `<a class="sidebar-btn" href="javascript:void(0)" onclick="volverATemas('${cursoId}')"><img src="imagenes/menu/Volver.png" alt="Volver al curso"><span>Volver al curso</span></a>`;
     }
   }
 
@@ -1300,7 +1306,7 @@ function renderPublicaciones(filtrosActivos) {
     btn.onclick = () => abrirFichaPublicacion(p);
     let nombre = p.nombre;
     if (nombre.startsWith('Ingeniosas')) {
-      nombre = 'Ingeniosas, inauditas e inéditas<br>lecturas de matemáticas<br>(1º y 2º ESO)';
+      nombre = 'Ingeniosas, inauditas e inéditas lecturas de matemáticas (1º y 2º ESO)';
     } else if (nombre.includes(' - ')) {
       nombre = nombre.replace(' - ', '<br>');
     } else if (nombre.startsWith('Cuaderno de ')) {
@@ -1546,6 +1552,23 @@ function renderConsola() {
       containers[0].style.height = hAmazon + 'px';
       containers[1].style.height = hAmazon + 'px';
     }
+    // Animar dígitos del código universal: aparecen uno a uno en orden aleatorio
+    const codigoEl = document.getElementById('codigo-universal-texto');
+    if (codigoEl) {
+      const codigoFinal = codigoEl.textContent.trim();
+      const n = codigoFinal.length;
+      // Inicializar todos los dígitos con guiones
+      const revealed = Array(n).fill('—');
+      codigoEl.textContent = revealed.join('');
+      // Orden aleatorio de revelado
+      const orden = Array.from({length: n}, (_, i) => i).sort(() => Math.random() - 0.5);
+      orden.forEach((pos, i) => {
+        setTimeout(() => {
+          revealed[pos] = codigoFinal[pos];
+          codigoEl.textContent = revealed.join('');
+        }, 300 + i * 220);
+      });
+    }
   });
 }
 
@@ -1635,7 +1658,7 @@ function renderizarListadoPublicaciones() {
   const grupos = {
     libro: { titulo:'Libros de texto', items:[] },
     cuaderno: { titulo:'Cuadernos de actividades', items:[] },
-    lectura: { titulo:'Lecturas', items:[] },
+    lectura: { titulo:'Fichas de lectura', items:[] },
   };
   PUBLICACIONES_DATA.forEach(p => {
     if (grupos[p.tipo]) grupos[p.tipo].items.push(p);
@@ -1761,7 +1784,7 @@ function abrirFichaPublicacion(pub) {
   if (sidebar && !sidebar.dataset.originalHtml) sidebar.dataset.originalHtml = sidebar.innerHTML;
   if (sidebar) sidebar.innerHTML = `
     <a class="sidebar-btn" href="javascript:void(0)" onclick="volverAPublicaciones()">
-      <img src="imagenes/menu/Anterior.webp" alt="Volver a las publicaciones">
+      <img src="imagenes/menu/Volver.png" alt="Volver a las publicaciones">
       <span>Volver a las publicaciones</span>
     </a>`;
 
@@ -1780,7 +1803,7 @@ function abrirFichaPublicacion(pub) {
 
   let nombre = pub.nombre;
   if (nombre.startsWith('Ingeniosas')) {
-    nombre = 'Ingeniosas, inauditas e inéditas<br>lecturas de matemáticas<br>(1º y 2º ESO)';
+    nombre = 'Ingeniosas, inauditas e inéditas lecturas de matemáticas (1º y 2º ESO)';
   } else if (nombre.includes('Bachillerato') || nombre.includes('ESO')) {
     nombre = nombre.replace(' - ', '<br>');
   } else if (nombre.startsWith('Cuaderno de ')) {
@@ -1985,7 +2008,7 @@ function mostrarAutor() {
   if (sidebar && !sidebar.dataset.originalHtml) sidebar.dataset.originalHtml = sidebar.innerHTML;
   if (sidebar) sidebar.innerHTML = `
     <a class="sidebar-btn" href="javascript:void(0)" onclick="volverAPublicaciones()">
-      <img src="imagenes/menu/Anterior.webp" alt="Volver a las publicaciones">
+      <img src="imagenes/menu/Volver.png" alt="Volver a las publicaciones">
       <span>Volver a las publicaciones</span>
     </a>`;
 
@@ -2006,7 +2029,7 @@ function mostrarAutor() {
       <img src="imagenes/menu/Foto autor.webp" alt="Foto del autor" style="width:auto;height:140px;object-fit:cover;border-radius:12px;border:1px solid #999999;display:block;">
     </div>
     <div style="flex:1;display:flex;flex-direction:column;gap:0.4rem;font-family:'Roboto Condensed',sans-serif;justify-content:flex-start;padding-top:0;">
-      <div style="font-family:'Saira',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;line-height:1.3;">Jacinto Javier Fernández Herrera</div>
+      <div style="font-family:'Saira',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;line-height:1.3;text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000;">Jacinto Javier Fernández Herrera</div>
       <div style="font-size:0.93rem;color:var(--muted);">Profesor de Física y Química · Licenciado en Química</div>
       <div style="font-size:0.93rem;color:var(--text);line-height:1.7;">
         <p>Siempre he sentido una gran pasión por el mundo de la edición digital y la creación de contenidos educativos. A lo largo de los años he desarrollado un estilo propio basado en el cuidado visual, la claridad de los materiales y la búsqueda constante de nuevas formas de transmitir conocimientos de manera atractiva y accesible. Mi trabajo combina diseño, organización y creatividad, con el objetivo de transformar cada recurso en una experiencia útil y moderna para el alumnado.</p>
@@ -2031,7 +2054,7 @@ function _publicacionesAbrirVistaInterna(barraLabel, gridHtml) {
   if (sidebar && !sidebar.dataset.originalHtml) sidebar.dataset.originalHtml = sidebar.innerHTML;
   if (sidebar) sidebar.innerHTML = `
     <a class="sidebar-btn" href="javascript:void(0)" onclick="volverAPublicaciones()">
-      <img src="imagenes/menu/Anterior.webp" alt="Volver a las publicaciones">
+      <img src="imagenes/menu/Volver.png" alt="Volver a las publicaciones">
       <span>Volver a las publicaciones</span>
     </a>`;
   const grid = panel.querySelector('.publicaciones-grid');
@@ -2051,13 +2074,13 @@ function mostrarListadoPublicaciones() {
   const grupos = [
     { titulo:'Libros de texto', tipos:['libro'], icono:'imagenes/menu/Libro de texto.webp' },
     { titulo:'Cuadernos de actividades', tipos:['cuaderno'], icono:'imagenes/menu/Cuaderno.webp' },
-    { titulo:'Lecturas', tipos:['lectura'], icono:'imagenes/menu/Lecturas.webp' },
+    { titulo:'Fichas de lectura', tipos:['lectura'], icono:'imagenes/menu/Lecturas.webp' },
   ];
   const html = grupos.map(g => {
     const items = PUB_PANEL_DATA.filter(p => g.tipos.includes(p.tipo));
     if (!items.length) return '';
     return `<div style="margin-bottom:0.8rem;">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.3rem;"><img src="${g.icono}" alt="" style="width:22px;height:22px;object-fit:contain;flex-shrink:0;"><span style="font-family:'Saira',sans-serif;font-size:0.9rem;font-weight:700;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;">${g.titulo}</span></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.3rem;"><img src="${g.icono}" alt="" style="width:22px;height:22px;object-fit:contain;flex-shrink:0;"><span style="font-family:'Saira',sans-serif;font-size:0.9rem;font-weight:700;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000;">${g.titulo}</span></div>
       ${items.map((p,i) => `<div style="display:flex;align-items:center;gap:5px;padding:5px 0 5px 22px;"><span style="color:var(--accent);font-size:1.1rem;font-family:'Saira',sans-serif;font-weight:700;flex-shrink:0;line-height:1;">›</span><a href="javascript:void(0)" onclick="window._listadoPubs[${PUB_PANEL_DATA.indexOf(p)}]()" style="font-family:'Roboto Condensed',sans-serif;font-size:0.93rem;color:#ffffff;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='#ffffff'">${p.nombre}</a></div>`).join('')}
     </div>`;
   }).join('');
@@ -2102,9 +2125,9 @@ function mostrarVersionesWeb() {
   const liStyle = 'padding-left:calc(1.2em + 5px);margin:0;line-height:1.7;';
   const html = versiones.map(v => {
     const tituloHtml = v.url
-      ? `<a href="${v.url}" target="_blank" rel="noopener" style="font-family:'Saira',sans-serif;font-size:0.9rem;font-weight:700;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='var(--accent)'">${v.titulo}</a>`
-      : `<span style="font-family:'Saira',sans-serif;font-size:0.9rem;font-weight:700;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;">${v.titulo}</span>`;
-    const listHtml = `<ul style="${liStyle}">${v.items.map(it => `<li style="color:var(--muted);font-family:'Roboto Condensed',sans-serif;font-size:0.93rem;">${it}</li>`).join('')}</ul>`;
+      ? `<a href="${v.url}" target="_blank" rel="noopener" style="font-family:'Saira',sans-serif;font-size:0.9rem;font-weight:700;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:color 0.2s;text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='var(--accent)'">${v.titulo}</a>`
+      : `<span style="font-family:'Saira',sans-serif;font-size:0.9rem;font-weight:700;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000;">${v.titulo}</span>`;
+    const listHtml = `<ul style="${liStyle}">${v.items.map(it => `<li style="color:#ffffff;font-family:'Roboto Condensed',sans-serif;font-size:0.93rem;">${it}</li>`).join('')}</ul>`;
     return `<div style="margin-bottom:5px;">
       <div style="margin-bottom:0.2rem;">${tituloHtml}</div>
       ${listHtml}
@@ -2521,7 +2544,7 @@ function mostrarSubelementos(cursoId, temaIdx, origenBtn) {
         'overflow:visible',
       ].join(';');
 
-      // Clon interior: círculo con imagen recortada (sin box-shadow — el glow va en el wrapper)
+      // Clon interior: círculo con imagen recortada (el borde/box-shadow del origen se mantiene visible)
       const clon = document.createElement('div');
       clon.style.cssText = [
         'width:100%',
@@ -2531,6 +2554,7 @@ function mostrarSubelementos(cursoId, temaIdx, origenBtn) {
         'overflow:hidden',
         'box-sizing:border-box',
         'position:relative',
+        `box-shadow:${iconOrigenShadow}`,
       ].join(';');
 
       const clonImg = document.createElement('img');
@@ -2622,7 +2646,7 @@ function mostrarSubelementos(cursoId, temaIdx, origenBtn) {
     if (sidebar) {
       sidebar.innerHTML = `
         <a class="sidebar-btn" href="javascript:void(0)" onclick="volverATemas('${cursoId}')">
-          <img src="imagenes/menu/Anterior.webp" alt="Volver al curso" onerror="this.src='imagenes/menu/Anterior.webp'">
+          <img src="imagenes/menu/Volver.png" alt="Volver al curso">
           <span>Volver al curso</span>
         </a>`;
     }
@@ -2779,12 +2803,16 @@ function actualizarUnidadInfo(cursoId) {
   // Grupos estáticos PÁGINA/flechas del curso (navegación entre cursos)
   const cursoPagGrp    = document.getElementById('curso-pagina-group-' + cursoId);
   const cursoFlechasGrp = document.getElementById('curso-flechas-group-' + cursoId);
+  // Grupo TEMARIO (solo en cursos que lo tienen, ej. 3eso)
+  const panelEl = document.getElementById('panel-' + cursoId);
+  const temarioGrp = panelEl ? panelEl.querySelector('.barra-interna .control-group [data-sort]')?.closest('.control-group') : null;
 
   if (typeof estado === 'number') {
-    // Dentro de una unidad: mostrar UNIDAD, ocultar PÁGINA del curso
-    if (cursoPagGrp)    cursoPagGrp.style.visibility    = 'hidden';
+    // Dentro de una unidad: mostrar UNIDAD, ocultar PÁGINA del curso y grupo TEMARIO
+    if (cursoPagGrp)     cursoPagGrp.style.visibility    = 'hidden';
     if (cursoFlechasGrp) cursoFlechasGrp.style.visibility = 'hidden';
-    if (paginaEl) paginaEl.style.visibility = 'visible';
+    if (temarioGrp)      temarioGrp.style.visibility     = 'hidden';
+    if (paginaEl)        paginaEl.style.visibility        = 'visible';
     if (infoEl) {
       infoEl.textContent = (estado + 1) + ' / ' + total;
       if (infoEl._flipReady) {
@@ -2799,13 +2827,14 @@ function actualizarUnidadInfo(cursoId) {
     if (prevBtn) { prevBtn.style.visibility = 'visible'; prevBtn.disabled = (estado === 0); }
     if (nextBtn) { nextBtn.style.visibility = 'visible'; nextBtn.disabled = (estado === total - 1); }
   } else {
-    // Vista de temas: mostrar PÁGINA del curso, ocultar UNIDAD
-    if (cursoPagGrp)    cursoPagGrp.style.visibility    = '';
+    // Vista de temas: mostrar PÁGINA del curso y TEMARIO, ocultar UNIDAD
+    if (cursoPagGrp)     cursoPagGrp.style.visibility    = '';
     if (cursoFlechasGrp) cursoFlechasGrp.style.visibility = '';
-    if (paginaEl) paginaEl.style.visibility = 'hidden';
-    if (flechasEl) flechasEl.style.visibility = 'hidden';
-    if (prevBtn) prevBtn.style.visibility = 'hidden';
-    if (nextBtn) nextBtn.style.visibility = 'hidden';
+    if (temarioGrp)      temarioGrp.style.visibility     = '';
+    if (paginaEl)        paginaEl.style.visibility        = 'hidden';
+    if (flechasEl)       flechasEl.style.visibility       = 'hidden';
+    if (prevBtn)         prevBtn.style.visibility          = 'hidden';
+    if (nextBtn)         nextBtn.style.visibility          = 'hidden';
   }
 }
 
@@ -3746,35 +3775,4 @@ function medirCirculos() {
   div.textContent = msg;
 }
 
-// ═══════════════════════════════════════
-// ANIMACIÓN 5: Partículas en portada
-// ═══════════════════════════════════════
-(function initParticulas() {
-  const portada = document.getElementById('panel-portada');
-  if (!portada) return;
-  const contenedor = portada;
-  contenedor.style.position = 'relative';
-  contenedor.style.overflow = 'hidden';
-
-  const colores = ['#38bdf8','#ffffff','#88ee66','#ffaa55','#dd88ff'];
-  for (let i = 0; i < 18; i++) {
-    const p = document.createElement('div');
-    p.className = 'portada-particula';
-    const size = 4 + Math.random() * 8;
-    const dur  = 2.5 + Math.random() * 3;
-    const delay = Math.random() * 4;
-    const color = colores[Math.floor(Math.random() * colores.length)];
-    p.style.cssText = `
-      width:${size}px; height:${size}px;
-      background:${color};
-      left:${Math.random()*95}%;
-      top:${Math.random()*90}%;
-      opacity:0.6;
-      --dur:${dur}s;
-      --delay:${delay}s;
-      filter:blur(${Math.random()<0.4?1:0}px);
-      box-shadow:0 0 ${size*2}px ${color};
-    `;
-    contenedor.appendChild(p);
-  }
-})();
+// ══════════�

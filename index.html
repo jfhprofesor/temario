@@ -114,7 +114,7 @@ main { position:relative; z-index:10; padding:0; max-width:1300px; margin:0 auto
 .contenedor-grande--publicaciones { gap:0; }
 .contenedor-grande--publicaciones .barra-interna { margin:0; padding:5px 15px; }
 .contenedor-grande--publicaciones .curso-layout { flex:1; display:flex; gap:0; align-items:stretch; padding:5px; margin:0; width:100%; border:none; border-radius:0 0 10px 10px; overflow:hidden; }
-.contenedor-grande--publicaciones .publicaciones-grid { border:0; grid-template-columns:repeat(5,1fr); display:grid; column-gap:10px; row-gap:3px; flex:1; justify-items:stretch; align-items:start; padding:20px 5px 5px 5px; margin:0; align-content:start; overflow:hidden; }
+.contenedor-grande--publicaciones .publicaciones-grid { border:0; grid-template-columns:repeat(5,1fr); display:grid; column-gap:10px; row-gap:0px; flex:1; justify-items:stretch; align-items:start; padding:10px 5px 5px 5px; margin:0; align-content:start; overflow:hidden; }
 
 /* Grids internos */
 @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
@@ -173,11 +173,11 @@ main { position:relative; z-index:10; padding:0; max-width:1300px; margin:0 auto
 .unidad-ficha.tema-gris { filter:grayscale(100%); }
 .tema-gris:hover { filter:none; }
 .tema-gris:hover .unidad-icono { opacity:1; }
-.tema-gris:hover .unidad-numero-texto1 { color:inherit; }
-.tema-gris:hover .unidad-nombre-texto2 { color:inherit; }
+.tema-gris:hover .unidad-numero-texto1 { color:inherit; opacity:1; }
+.tema-gris:hover .unidad-nombre-texto2 { color:inherit; opacity:1; }
 .unidad-ficha.tema-gris .unidad-icono { opacity:0.3; }
-.unidad-ficha.tema-gris .unidad-numero-texto1 { color:#555555; }
-.unidad-ficha.tema-gris .unidad-nombre-texto2 { color:#555555; }
+.unidad-ficha.tema-gris .unidad-numero-texto1 { color:#555555; opacity:0.35; }
+.unidad-ficha.tema-gris .unidad-nombre-texto2 { color:#555555; opacity:0.35; }
 /* Indicador de categoría en temas */
 .unidad-ficha.cat-metodo:hover .unidad-icono, .unidad-ficha.cat-metodo.selected .unidad-icono { box-shadow:inset 0 0 0 1px #999999, 0 0 14px rgba(56,189,248,0.4); }
 .unidad-ficha.cat-fisica:hover .unidad-icono,  .unidad-ficha.cat-fisica.selected .unidad-icono  { box-shadow:inset 0 0 0 1px #999999, 0 0 14px rgba(255,102,102,0.4); }
@@ -390,7 +390,7 @@ main { position:relative; z-index:10; padding:0; max-width:1300px; margin:0 auto
 .objeto-nombre-texto1 { font-family:'Saira',sans-serif; font-size:1rem; font-weight:700; color:var(--accent); letter-spacing:0.08em; text-align:center; display:flex; align-items:center; justify-content:center; line-height:1.2; padding-top:5px; margin-top:10px; width:100%; min-width:0; border:none; word-spacing:normal; overflow:hidden; white-space:nowrap; height:25px; text-shadow:-0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000; }
 .objeto-tema-texto2 { font-size:1rem; font-weight:500; color:#ffffff; text-align:center; line-height:1.1; max-width:100%; transition:all 0.2s; display:flex; align-items:flex-start; justify-content:center; font-family:'Roboto Condensed',sans-serif; margin-top:5px; width:100%; white-space:normal; min-width:0; height:35px; overflow:visible; text-shadow:-0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000; }
 .objeto-ficha:hover .objeto-tema-texto2 { overflow:visible; }
-.publicaciones-grid .publicacion-titulo { margin:10px 0 0 5px; padding:5px 0 0 0; border:0; font-family:'Saira',sans-serif; font-size:0.89rem; font-weight:600; color:#38bdf8; letter-spacing:-0.02em; height:60px; display:block; text-align:center; line-height:1.2; width:100%; min-width:0; overflow:hidden; white-space:normal; word-spacing:normal; text-shadow:-0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000; }
+.publicaciones-grid .publicacion-titulo { margin:5px 0 0 5px; padding:5px 0 0 0; border:0; font-family:'Saira',sans-serif; font-size:1rem; font-weight:600; color:#38bdf8; letter-spacing:-0.02em; height:65px; display:block; text-align:center; line-height:1.2; width:100%; min-width:0; overflow:hidden; white-space:normal; word-spacing:normal; text-shadow:-0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000; }
 .publicaciones-grid .unidad-nombre-texto2 { font-size:0.86rem; font-weight:500; color:#ffffff; text-align:center; line-height:1.1; height:15px; display:flex; align-items:flex-start; justify-content:center; }
 .publicaciones-grid .subelemento-descripcion { height:20px; display:flex; align-items:flex-start; justify-content:center; }
 /* Distribuir fila 2 de publicaciones en 3 items */
@@ -915,7 +915,7 @@ main { position:relative; z-index:10; padding:0; max-width:1300px; margin:0 auto
   <button class="curso-tab" onclick="selectCurso('1bach',this)">1º Bachillerato<br>Física y Química</button>
   <button class="curso-tab" onclick="selectCurso('2bachF',this)">2º Bachillerato<br>Física</button>
   <button class="curso-tab" onclick="selectCurso('2bachQ',this)">2º Bachillerato<br>Química</button>
-  <button class="curso-tab objetos-btn" onclick="selectObjetos(this)"><img class="objetos-btn-icono" src="imagenes/menu/Objetos.webp" alt=""><span class="objetos-btn-texto">Objetos</span></button>
+  <button class="curso-tab objetos-btn" onclick="selectObjetos(this)"><img class="objetos-btn-icono" src="imagenes/menu/Objetos.webp" alt=""><span class="objetos-btn-texto">Colección de objetos</span></button>
   <button class="curso-tab objetos-btn publicaciones-btn" onclick="openPublicaciones()"><img class="objetos-btn-icono" src="imagenes/menu/Publicaciones.webp" alt=""><span class="objetos-btn-texto">Publicaciones</span></button>
 </div>
 <main class="page-load-hidden">
