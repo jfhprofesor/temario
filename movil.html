@@ -389,6 +389,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 .publicaciones-grid .publicacion-ficha .publicacion-icono { transition:box-shadow 0.5s ease; }
 /* Sidebar publicaciones: iconos centrados horizontalmente */
 #panel-publicaciones .curso-sidebar { justify-content:center; }
+#panel-publicaciones .curso-sidebar .sidebar-mitad { justify-content:space-evenly; }
 
 /* ── SUBELEMENTOS ── */
 .subelemento-btn { position:relative; background:none; border:2px solid transparent; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0; padding:0.25rem; min-height:180px; justify-content:flex-start; }
@@ -1218,11 +1219,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       sidebar.appendChild(mitadIzq);
       sidebar.appendChild(sep);
       sidebar.appendChild(mitadDer);
-      sidebar.style.padding = '0';
-      sidebar.style.height = '80px';
-      sidebar.style.minHeight = '80px';
-      sidebar.style.borderBottom = '1px solid #444444';
-      sidebar.style.borderRadius = '9px 9px 0 0';
+      sidebar.style.cssText = 'display:grid; grid-template-columns:1fr 1px 1fr; height:80px; min-height:80px; width:100%; border-bottom:1px solid #444444; border-radius:9px 9px 0 0; overflow:hidden; flex-shrink:0; box-sizing:border-box; padding:0;';
     });
   };
 
