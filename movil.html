@@ -449,11 +449,11 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 
 /* imagenEDiv en UNIDADES NORMALES: va al final (después de actividades), orden normal */
 .unidad-imagen {
-  flex:0 0 auto !important; width:400px !important; max-width:400px !important;
-  height:250px !important; margin:5px !important; padding:0 !important;
+  flex:0 0 auto !important; width:auto !important; max-width:calc(100vw - 10px) !important;
+  height:auto !important; margin:0 !important; padding:0 !important;
   align-self:center !important;
 }
-.unidad-imagen video, .unidad-imagen img { width:100%; height:100%; object-fit:contain; border-radius:10px; border:1px solid #999999; display:block; }
+.unidad-imagen video, .unidad-imagen img { width:auto; height:auto; max-width:100%; max-height:220px; object-fit:contain; border-radius:10px; border:1px solid #999999; display:block; }
 
 /* Botón volver (unidad-ficha-dentro): columna CENTRADA, icono 90px */
 .unidad-ficha-dentro { flex-direction:column !important; height:auto !important; min-height:0 !important; padding:8px 4px !important; justify-content:center !important; align-items:center !important; gap:4px !important; width:100% !important; cursor:pointer; }
@@ -476,7 +476,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 
 /* Fila video+botones: contenedor relativo */
 .video-sala-row { display:flex; flex-direction:row; align-items:center; justify-content:center; width:100%; gap:4px; padding:0 4px; box-sizing:border-box; order:3; }
-.video-sala-row .unidad-imagen { flex:0 0 400px !important; width:400px !important; max-width:400px !important; height:250px !important; padding:4px !important; margin:0 !important; }
+.video-sala-row .unidad-imagen { flex:0 0 auto !important; width:auto !important; max-width:calc(100vw - 10px) !important; height:auto !important; padding:0 !important; margin:0 !important; }
 /* .btn-curso-video-nav eliminados — navegación via barra doble */
 
 /* Ocultar botones de unidad anterior/siguiente en sala de vídeos */
@@ -506,12 +506,12 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .ficha-actividades--video .objeto-icono img { width:85% !important; height:85% !important; }
 .ficha-actividades--video .video-curso-icono { width:38px !important; height:38px !important; min-width:38px !important; min-height:38px !important; flex-shrink:0 !important; }
 .ficha-actividades--video .video-curso-icono img { width:85% !important; height:85% !important; }
-.ficha-actividades--video .video-curso-nombre { font-family:'Saira',sans-serif !important; font-size:0.75rem !important; font-weight:600 !important; color:var(--accent) !important; letter-spacing:-0.02em !important; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000 !important; }
-.ficha-actividades--video .objeto-ficha { gap:2px !important; }
+.ficha-actividades--video .video-curso-nombre { font-family:'Saira',sans-serif !important; font-size:0.75rem !important; font-weight:600 !important; color:#ffffff !important; letter-spacing:-0.02em !important; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000 !important; }
+.ficha-actividades--video .objeto-ficha { gap:4px !important; }
 .ficha-actividades .objeto-nombre-texto1 { font-size:9px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:3px; }
 .ficha-actividades .objeto-tema-texto2 { font-size:9px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:1px; }
 /* 3 columnas fijas en unidades normales — independiente del var(--fa-cols) del JS */
-.ficha-actividades--unidad { grid-template-columns:repeat(3,1fr) !important; height:180px !important; min-height:180px !important; max-height:180px !important; gap:0 !important; padding:0 !important; align-content:center !important; }
+.ficha-actividades--unidad { grid-template-columns:repeat(3,1fr) !important; height:180px !important; min-height:180px !important; max-height:180px !important; gap:0 !important; padding:0 !important; align-content:start !important; }
 .ficha-actividades--unidad .objeto-tema-texto2,.ficha-actividades--video .objeto-tema-texto2 { display:none !important; }
 .ficha-actividades--unidad .objeto-nombre-texto1,.ficha-actividades--video .objeto-nombre-texto1 { font-size:0.75rem; margin-top:4px !important; color:#ffffff !important; }
 .ficha-actividades--unidad .objeto-tema-texto2 { font-size:0.7rem !important; }
@@ -592,7 +592,7 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .objeto-detail-close { flex-shrink:0; z-index:20; width:28px; height:28px; border-radius:50%; background:#000000; border:1px solid #999999; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; overflow:visible; }
 .objeto-detail-close img { width:100%; height:100%; object-fit:contain; }
 .objeto-detail-content { display:flex; flex-direction:column; flex:1; min-height:0; overflow:hidden; width:100%; box-sizing:border-box; height:100%; }
-.objeto-detail-side { position:relative; display:flex; flex-direction:column; overflow:hidden; flex:1; width:100%; box-sizing:border-box; align-items:center; }
+.objeto-detail-side { position:relative; display:flex; flex-direction:column; overflow:hidden; flex:0 0 50%; width:100%; box-sizing:border-box; align-items:center; justify-content:center; }
 .objeto-detail-side.realidad { border-right:none; border-bottom:1px solid #999999; background:var(--surface); display:flex; flex-direction:column; align-items:center; padding-top:0 !important; }
 .objeto-detail-side.realidad .objeto-detail-title { background:rgba(56,189,248,0.18); }
 .objeto-detail-side.simulacion { display:flex; flex-direction:column; align-items:center; }
@@ -600,7 +600,7 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .objeto-detail-title { display:flex; align-items:center; justify-content:space-between; flex-shrink:0; background:rgba(56,189,248,0.18); padding:6px 8px; height:36px; font-size:0.85rem; font-weight:600; color:var(--accent); letter-spacing:0.04em; z-index:5; border-bottom:1px solid var(--border); font-family:'Saira',sans-serif; width:100%; box-sizing:border-box; margin-top:0 !important; }
 .objeto-detail-title-text { flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 /* Imágenes centradas verticalmente, sin borde blanco */
-.objeto-detail-img { width:auto; height:auto; object-fit:contain; object-position:center; border:none; display:block; background:transparent; max-width:100%; max-height:100%; flex:1; margin:auto; align-self:center; }
+.objeto-detail-img { width:auto; height:auto; object-fit:contain; object-position:center; border:none; display:block; background:transparent; max-width:100%; max-height:calc(50vh - 36px); flex:1; margin:auto; align-self:center; }
 /* Modal más alto para que quepa la imagen de simulación */
 .objeto-detail { max-height:96vh !important; }
 .objeto-detail-video { position:absolute; bottom:0.6rem; left:50%; transform:translateX(-50%); z-index:6; white-space:nowrap; }
@@ -1288,14 +1288,38 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
     const panel = gridEl.closest('.contenedor-grande');
     const sidebar = panel ? panel.querySelector('.curso-sidebar') : null;
 
+    const ORDEN_C = ['2eso','3eso','4eso','1bach','2bachF','2bachQ'];
+    const idxCurso = ORDEN_C.indexOf(curso);
+
+    // Si ya está inyectado en modo juegos/vídeo, solo actualizar botones existentes
+    if (sidebar && sidebar._navUnidadInjected && (esJuegos || esVideo)) {
+      const btnPrevEx = sidebar.querySelector('.sidebar-nav-col:first-child .sidebar-nav-unidad-btn');
+      const btnNextEx = sidebar.querySelector('.sidebar-nav-col:last-child .sidebar-nav-unidad-btn');
+      const numDivEx  = sidebar.querySelector('.sidebar-unidad-num');
+      const nombreDivEx = sidebar.querySelector('.sidebar-unidad-nombre');
+      const iconoDivEx = sidebar.querySelector('.sidebar-unidad-icono img');
+      if (btnPrevEx) {
+        const prev = ORDEN_C[idxCurso - 1];
+        btnPrevEx.onclick = esJuegos
+          ? () => prev && window.openJuegos && window.openJuegos(prev)
+          : () => prev && window.mostrarVideoTemario && window.mostrarVideoTemario(prev);
+        btnPrevEx.classList.toggle('invisible', !prev);
+      }
+      if (btnNextEx) {
+        const next = ORDEN_C[idxCurso + 1];
+        btnNextEx.onclick = esJuegos
+          ? () => next && window.openJuegos && window.openJuegos(next)
+          : () => next && window.mostrarVideoTemario && window.mostrarVideoTemario(next);
+        btnNextEx.classList.toggle('invisible', !next);
+      }
+      if (numDivEx)    numDivEx.textContent    = numTxt;
+      if (nombreDivEx) nombreDivEx.textContent = nombreTxt;
+      if (iconoDivEx && iconoSrc) iconoDivEx.src = iconoSrc;
+      return;
+    }
+
     if (sidebar && !sidebar._navUnidadInjected) {
       sidebar._navUnidadInjected = true;
-
-      // Guardar el HTML original si aún no lo hizo el JS (para restauración)
-      // El JS de temario.js ya habrá guardado data-original-html antes de llegar aquí
-
-      const ORDEN_C = ['2eso','3eso','4eso','1bach','2bachF','2bachQ'];
-      const idxCurso = ORDEN_C.indexOf(curso);
 
       // Construir columna izquierda con botón prev
       const colPrev = document.createElement('div');
@@ -1597,7 +1621,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
         // Botones Amazon: convertir a flex-row (icono izquierda, texto derecha)
         const botonesAmazon = document.querySelectorAll('#grid-consola .control-btn-filter');
         botonesAmazon.forEach(b => {
-          b.style.cssText += ';width:120px !important;min-width:0 !important;flex-direction:row !important;justify-content:flex-start !important;align-items:center !important;gap:8px !important;padding:0 3px !important;position:relative !important;';
+          b.style.cssText += ';width:90px !important;min-width:0 !important;flex-direction:row !important;justify-content:flex-start !important;align-items:center !important;gap:8px !important;padding:0 3px !important;position:relative !important;';
           const img = b.querySelector('img');
           if (img) img.style.cssText += ';position:static !important;transform:none !important;top:auto !important;left:auto !important;flex-shrink:0 !important;width:20px !important;height:20px !important;';
           const span = b.querySelector('span');
@@ -1811,6 +1835,15 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       </div>
       <div class="sidebar-separador"></div>
       <div class="sidebar-mitad">${mitadDerHTML}</div>`;
+  }
+
+  // Parche openPublicaciones: reconstruir sidebar al abrir el panel
+  const _origOpenPub = window.openPublicaciones;
+  if (_origOpenPub) {
+    window.openPublicaciones = function() {
+      _origOpenPub.apply(this, arguments);
+      requestAnimationFrame(() => _inyectarSidebarPublicaciones('listado'));
+    };
   }
 
   ['mostrarAutor','mostrarListadoPublicaciones','mostrarVersionesWeb'].forEach(fnName => {
