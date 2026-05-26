@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temario de Física y Química</title>
+<script>
+  // Esta es la versión móvil. No redirigir.
+  // Para ver la versión desktop desde móvil: añadir ?desktop=1 a index.html
+</script>
+<style>
+@font-face { font-family:'Saira'; src:url('fuentes/saira-v23-latin-regular.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+@font-face { font-family:'Saira'; src:url('fuentes/saira-v23-latin-500.woff2') format('woff2'); font-weight:500; font-style:normal; font-display:swap; }
+@font-face { font-family:'Saira'; src:url('fuentes/saira-v23-latin-600.woff2') format('woff2'); font-weight:600; font-style:normal; font-display:swap; }
+@font-face { font-family:'Saira'; src:url('fuentes/saira-v23-latin-700.woff2') format('woff2'); font-weight:700; font-style:normal; font-display:swap; }
+@font-face { font-family:'Saira'; src:url('fuentes/saira-v23-latin-800.woff2') format('woff2'); font-weight:800; font-style:normal; font-display:swap; }
+@font-face { font-family:'Syne'; src:url('fuentes/syne-v24-latin-regular.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+@font-face { font-family:'Syne'; src:url('fuentes/syne-v24-latin-500.woff2') format('woff2'); font-weight:500; font-style:normal; font-display:swap; }
+@font-face { font-family:'Syne'; src:url('fuentes/syne-v24-latin-600.woff2') format('woff2'); font-weight:600; font-style:normal; font-display:swap; }
+@font-face { font-family:'Syne'; src:url('fuentes/syne-v24-latin-700.woff2') format('woff2'); font-weight:700; font-style:normal; font-display:swap; }
+@font-face { font-family:'Syne'; src:url('fuentes/syne-v24-latin-800.woff2') format('woff2'); font-weight:800; font-style:normal; font-display:swap; }
+@font-face { font-family:'Roboto Condensed'; src:url('fuentes/roboto-condensed-v31-latin-regular.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+@font-face { font-family:'Roboto Condensed'; src:url('fuentes/roboto-condensed-v31-latin-500.woff2') format('woff2'); font-weight:500; font-style:normal; font-display:swap; }
+@font-face { font-family:'Roboto Condensed'; src:url('fuentes/roboto-condensed-v31-latin-600.woff2') format('woff2'); font-weight:600; font-style:normal; font-display:swap; }
+@font-face { font-family:'Roboto Condensed'; src:url('fuentes/roboto-condensed-v31-latin-700.woff2') format('woff2'); font-weight:700; font-style:normal; font-display:swap; }
+@font-face { font-family:'Patrick Hand SC'; src:url('fuentes/patrick-hand-v25-latin-regular.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+</style>
+<link rel="icon" type="image/png" href="imagenes/menu/Temario.webp">
+<style>
+/* ── VARIABLES Y RESET ── */
+:root { --bg:#2d2d2d; --surface:#1a1a1a; --card:#1a1a1a; --border:#444444; --text:#ffffff; --muted:#bbbbbb; --accent:#38bdf8; }
+* { margin:0; padding:0; box-sizing:border-box; }
+
+/* ── ANIMACIONES ── */
+@keyframes textShine { 0%{transform:translateX(-120%)} 100%{transform:translateX(120%)} }
+.texto-shine { position:relative; overflow:hidden; }
+.texto-shine::after { content:''; position:absolute; top:0; left:0; width:60%; height:100%; background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.7) 50%,transparent 100%); animation:textShine 0.8s ease forwards; pointer-events:none; }
+@keyframes bgShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+@keyframes bgPulse { 0%,100%{opacity:1} 50%{opacity:0.82} }
+@keyframes fadeInUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+@keyframes popIn { from{opacity:0} to{opacity:1} }
+@keyframes panelFadeIn { from{opacity:0} to{opacity:1} }
+@keyframes btnActivePulse { 0%{box-shadow:0 0 0 0px currentColor} 50%{box-shadow:0 0 0 5px transparent} 100%{box-shadow:0 0 0 0px transparent} }
+@keyframes btnActivePulseBlack { 0%{box-shadow:0 0 0 0px #000000} 50%{box-shadow:0 0 0 5px transparent} 100%{box-shadow:0 0 0 0px transparent} }
+@keyframes flipNum { 0%{transform:rotateX(0deg);opacity:1} 50%{transform:rotateX(90deg);opacity:0} 100%{transform:rotateX(0deg);opacity:1} }
+@keyframes particleDrift { 0%{transform:translateY(0px) translateX(0px) scale(1);opacity:0.7} 50%{transform:translateY(-18px) translateX(8px) scale(1.2);opacity:1} 100%{transform:translateY(0px) translateX(0px) scale(1);opacity:0.7} }
+
+/* ── BASE ── */
+body { background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460,#1a1a2e,#2d2d2d,#1e2a1e); background-size:400% 400%; color:var(--text); font-family:'Roboto Condensed',sans-serif; min-height:100vh; overflow-x:hidden; user-select:none; -webkit-user-select:none; animation:bgShift 18s ease infinite, bgPulse 9s ease-in-out infinite; }
+img { -webkit-user-drag:none; user-drag:none; }
+.bg-fx { position:fixed; inset:0; pointer-events:none; z-index:0; background:radial-gradient(ellipse at 20% 30%,rgba(56,189,248,0.06) 0%,transparent 60%),radial-gradient(ellipse at 80% 70%,rgba(136,102,221,0.05) 0%,transparent 60%); animation:bgPulse 12s ease-in-out infinite; }
+.portada-particula { position:absolute; border-radius:50%; pointer-events:none; animation:particleDrift var(--dur,3s) ease-in-out infinite; animation-delay:var(--delay,0s); }
+
+/* ── HEADER ── */
+header { position:relative; z-index:10; padding:12px 1rem 8px; display:flex; flex-direction:column; align-items:center; gap:0.3rem; text-align:center; width:100%; box-sizing:border-box; }
+#btn-sala-control { align-self:center; }
+.header-logo { font-family:'Syne',sans-serif; font-size:1.6rem; font-weight:800; line-height:1; letter-spacing:-0.03em; }
+.header-logo span { color:var(--accent); text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
+.header-sub { color:var(--text); font-size:1rem; font-weight:400; letter-spacing:0.06em; font-variant:small-caps; font-family:'Patrick Hand SC',cursive; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
+.page-load-hidden { opacity:0; transform:translateY(22px); }
+.page-load-anim { transition:opacity 0.5s ease,transform 0.5s ease; opacity:1 !important; transform:translateY(0) !important; }
+
+/* ── BARRA SUPERIOR ── */
+.barra-superior { position:relative; z-index:10; display:grid; grid-template-columns:repeat(4,1fr); gap:0.25rem; padding:4px; margin:0 0 5px 0; border:1px solid #999999; border-radius:10px; background:rgba(56,189,248,0.154); width:100%; box-sizing:border-box; }
+.curso-tab { padding:3px 4px; border-radius:6px; border:1px solid #999999; background:#000000; color:#ffffff; font-family:'Saira',sans-serif; font-size:0.65rem; font-weight:500; cursor:pointer; transition:all 0.2s; white-space:normal; text-align:center; line-height:1.2; height:40px; width:100%; box-sizing:border-box; }
+.curso-tab.active { background:var(--accent); border-color:#000000; color:#000; font-weight:700; }
+.curso-tab.tab-press { animation:btnActivePulseBlack 0.4s ease-out forwards; }
+.curso-tab.objetos-btn { border-radius:6px; padding:3px 4px; height:40px; width:100%; background:#000000; color:#ffffff; border:1px solid #999999; box-sizing:border-box; overflow:hidden; white-space:normal; word-break:break-word; display:flex; align-items:center; justify-content:center; gap:3px; }
+.objetos-btn-icono { width:20px; height:20px; object-fit:contain; flex-shrink:0; display:block; }
+.objetos-btn-texto { white-space:normal; line-height:1.2; text-align:center; flex:0 1 auto; min-width:0; font-size:0.65rem; }
+.curso-tab.objetos-btn:hover { background:#000000; color:#d4b84a; border-color:#d4b84a; }
+.curso-tab.objetos-btn.active { background:#d4b84a; color:#000000; border-color:#000000; }
+.curso-tab.publicaciones-btn:hover { background:#000000; color:#c0cce0; border-color:#c0cce0; }
+.curso-tab.publicaciones-btn.active { background:#c0cce0; color:#000000; border-color:#000000; }
+
+/* ── MAIN Y CONTENEDOR GRANDE ── */
+main { position:relative; z-index:10; padding:0; width:100%; margin:0; }
+.contenedor-grande { display:none; width:100%; min-height:0; margin:0; border:1px solid #999999; border-radius:10px; background:rgba(56,189,248,0.08); padding:0; box-sizing:border-box; }
+.contenedor-grande.active { display:flex; flex-direction:column; }
+.contenedor-grande.panel-enter { animation:panelFadeIn 0.22s ease forwards; }
+
+/* Colores temáticos */
+#panel-2eso   { background:rgba(51,204,170,0.06); }
+#panel-3eso   { background:rgba(102,221,68,0.06); }
+#panel-4eso   { background:rgba(68,136,255,0.06); }
+#panel-1bach  { background:rgba(255,68,68,0.06); }
+#panel-2bachF { background:rgba(255,153,51,0.06); }
+#panel-2bachQ { background:rgba(187,68,221,0.06); }
+#panel-objetos       { background:rgba(200,170,60,0.06); }
+#panel-publicaciones { background:rgba(180,200,220,0.06); }
+
+
+/* ── BARRA INTERNA ── */
+.barra-interna { position:relative; display:flex; gap:0.3rem; padding:3px 6px; background:rgba(56,189,248,0.08); border-radius:8px; border:0; flex-wrap:wrap; align-items:center; font-family:'Saira',sans-serif; width:100%; margin:0 0 3px 0; min-height:28px; overflow:visible; }
+#panel-2eso .barra-interna   { background:rgba(51,204,170,0.18); }
+#panel-3eso .barra-interna   { background:rgba(102,221,68,0.18); }
+#panel-4eso .barra-interna   { background:rgba(68,136,255,0.18); }
+#panel-1bach .barra-interna  { background:rgba(255,68,68,0.18); }
+#panel-2bachF .barra-interna { background:rgba(255,153,51,0.18); }
+#panel-2bachQ .barra-interna { background:rgba(187,68,221,0.18); }
+
+/* ── OBJETOS barra: línea 1 = ORDEN(izq) | OBJETOS(centro) | PÁGINA | FLECHAS(der); línea 2 = FILTRO ── */
+#panel-objetos .barra-interna { background:rgba(200,170,60,0.18); display:flex; flex-wrap:wrap; align-items:center; gap:0.3rem; border-radius:9px 9px 0 0; margin-bottom:0; min-height:65px; height:65px; }
+/* ORDEN (grupo 1, tiene control-btn-orden): izquierda */
+#panel-objetos .barra-interna > .control-group:nth-child(1) { order:1; flex:0 0 auto; justify-content:flex-start; }
+/* OBJETOS (grupo 2): centro expandido */
+#panel-objetos .barra-interna > .control-group:nth-child(2) { order:2; flex:1; justify-content:center; min-width:0; }
+/* PÁGINA (grupo 3, id="grupo-pagina-top"): derecha */
+#panel-objetos .barra-interna > .control-group:nth-child(3) { order:3; flex:0 0 auto; justify-content:flex-end; }
+/* FLECHAS (grupo 4, id="grupo-flechas"): derecha */
+#panel-objetos .barra-interna > .control-group:nth-child(4) { order:4; flex:0 0 auto; justify-content:flex-end; }
+/* FILTRO (grupo 5, tiene data-filter): línea 2 completa */
+#panel-objetos .barra-interna > .control-group:nth-child(5),
+#panel-objetos .barra-interna > .control-group:has(button[data-filter]) { order:10; flex:0 0 100%; justify-content:flex-start; }
+
+/* ── PUBLICACIONES barra ── */
+#panel-publicaciones .barra-interna { background:rgba(180,200,220,0.18); display:flex; flex-wrap:wrap; align-items:center; gap:0.3rem; }
+/* Neutralizar posicionamiento absoluto del JS en todos los hijos */
+#panel-publicaciones .barra-interna > * { position:static !important; left:auto !important; top:auto !important; transform:none !important; }
+/* Barra estática (sólo FILTRO publicaciones): centrado */
+#panel-publicaciones .barra-interna > .control-group:only-child { flex:0 0 100%; justify-content:flex-start; }
+/* Barra dinámica del JS (volver + span-label + pagina + flechas):
+   - volver (control-group primero, tiene sidebar-btn o es el primero): izquierda compacto
+   - span.control-label (título tipo libro): centro expandido
+   - control-group con paginación (2º-3º grup): derecha */
+#panel-publicaciones .barra-interna > .control-group:first-child { flex:0 0 auto; justify-content:flex-start; }
+#panel-publicaciones .barra-interna > span.control-label { flex:1 !important; text-align:center !important; color:var(--accent) !important; font-size:0.75rem !important; font-weight:700 !important; }
+#panel-publicaciones .barra-interna > .control-group:not(:first-child):not(:last-child) { flex:0 0 auto; justify-content:flex-end; }
+#panel-publicaciones .barra-interna > .control-group:last-child:not(:first-child) { flex:0 0 auto; justify-content:flex-end; }
+/* Sidebar publicaciones original: normal con iconos y textos */
+#panel-publicaciones .curso-sidebar .sidebar-btn span { display:block; }
+/* Sidebar publicaciones cuando JS lo reemplaza con volver: compacto, centrado */
+#panel-publicaciones .curso-sidebar[data-original-html] { display:flex !important; flex-direction:row !important; padding:2px 8px !important; min-height:0 !important; height:auto !important; justify-content:center !important; border-bottom:1px solid #444444 !important; border-radius:0 !important; }
+.control-group { display:flex; align-items:center; gap:0.4rem; position:static; transform:none; flex-wrap:wrap; }
+.control-label { font-size:0.65rem; font-weight:600; color:var(--muted); font-family:'Saira',sans-serif; }
+.control-btn { padding:0 5px; border:1px solid #999999; height:22px; background:transparent; border-radius:5px; color:var(--text); font-size:0.68rem; font-weight:500; cursor:pointer; transition:all 0.2s; white-space:nowrap; font-family:'Saira',sans-serif; display:flex; align-items:center; justify-content:center; gap:0.25rem; }
+.control-btn.active { background:var(--accent); border-color:var(--accent); color:#000; font-weight:500; }
+.control-btn.pulse { animation:btnActivePulse 0.4s ease-out forwards; }
+.control-btn-sort { background:#000000; }
+.control-btn-filter { background:#000000; border:1px solid #999999; }
+.control-btn-filter:not(.control-btn-orden) { padding-left:24px; padding-right:6px; position:relative; }
+.control-btn-filter:not(.control-btn-orden) img { position:absolute; left:5px; top:50%; transform:translateY(-50%); width:14px !important; height:14px !important; }
+.control-btn-filter:not(.control-btn-orden) span { display:block; overflow:hidden; white-space:nowrap; }
+.control-btn-orden { width:55px !important; background:#000000 !important; color:#ffffff !important; border:1px solid #999999 !important; }
+.control-btn:hover,.control-btn-filter:hover { background:#ffffff; color:#000000; border-color:#ffffff; }
+/* Botones filtro activos — !important para vencer especificidad de .control-btn-filter */
+.control-btn-filter[data-filter="metodo"].active  { background:#ffffff !important; color:#000000 !important; border-color:#000000 !important; }
+.control-btn-filter[data-filter="fisica"].active   { background:#ffaa55 !important; color:#000000 !important; border-color:#000000 !important; }
+.control-btn-filter[data-filter="quimica"].active  { background:#dd88ff !important; color:#000000 !important; border-color:#000000 !important; }
+.control-btn[data-filter="metodo"].active  { background:#ffffff !important; color:#000000 !important; border-color:#000000 !important; }
+.control-btn[data-filter="fisica"].active  { background:#ffaa55 !important; color:#000000 !important; border-color:#000000 !important; }
+.control-btn[data-filter="quimica"].active { background:#dd88ff !important; color:#000000 !important; border-color:#000000 !important; }
+.control-btn[data-filter="temas"].active   { background:#22a84f !important; color:#000000 !important; border-color:#000000 !important; }
+.control-btn-filter[data-pub-filter].active { background:#ffffff !important; color:#000000 !important; border-color:#000000 !important; }
+.control-btn-filter[data-juego-filter="kahoot"].active    { background:#46afe6; color:#000000; border-color:#000000; }
+.control-btn-filter[data-juego-filter="pasapalabra"].active { background:#22a84f; color:#000000; border-color:#000000; }
+.control-btn-filter[data-juego-filter="otros"].active     { background:#ff9933; color:#000000; border-color:#000000; }
+.control-btn-filter[data-col-filter].active { background:#ffffff; color:#000000; border-color:#000000; }
+.control-btn-pub { background:#000000; border:1px solid #999999; }
+.control-btn-pub.active-pub { background:var(--accent); color:#000; border-color:#000; font-weight:700; }
+.curso-tab:active { background:#ffffff; color:#000000; border-color:#ffffff; }
+/* Filtros desactivados: forzar negro aunque haya estado táctil residual */
+.control-btn-filter:not(.active) { background:#000000 !important; color:#ffffff !important; }
+.control-btn-filter[data-filter]:not(.active) { background:#000000 !important; color:#ffffff !important; border-color:#999999 !important; }
+.control-btn-filter[data-pub-filter]:not(.active) { background:#000000 !important; color:#ffffff !important; border-color:#999999 !important; }
+.pagination-info { font-size:0.75rem; color:var(--muted); font-weight:600; white-space:nowrap; font-family:'Saira',sans-serif; display:flex; gap:0.3rem; align-items:center; font-variant-numeric:tabular-nums; }
+.pagination-btn { display:flex; flex-direction:column; align-items:center; gap:0; text-decoration:none; padding:0; border-radius:10px; transition:background 0.2s; background:none; border:none; cursor:pointer; }
+.pagination-btn img { width:24px; height:24px; object-fit:contain; border:none; background:none; padding:0; opacity:0.8; transition:all 0.2s; }
+.pagination-btn:disabled { pointer-events:none; opacity:0; }
+.pagination-btn span { font-size:0.6rem; color:var(--muted); text-align:center; }
+
+/* ── LAYOUT CURSO ── */
+.contenedor-grande--curso,.contenedor-grande--objetos,.contenedor-grande--publicaciones { gap:0; height:auto !important; min-height:0 !important; }
+.contenedor-grande--curso .barra-interna,
+.contenedor-grande--objetos .barra-interna,
+.contenedor-grande--publicaciones .barra-interna { margin:0; padding:4px 8px; }
+.curso-layout { flex:1; display:flex; flex-direction:column; gap:0; align-items:stretch; padding:0; width:100%; border:none; border-radius:0 0 10px 10px; overflow:visible; }
+/* Contenido interior del curso-layout (grid de unidades) con padding lateral */
+.curso-layout > :not(.curso-sidebar):not(.sidebar-pub-acciones) { padding-left:5px; padding-right:5px; }
+
+/* ── GRID DE CURSOS: 4 columnas, filas libres — anula el repeat(cols) del JS ── */
+[id^="grid-"]:not(#grid-objetos):not(#grid-publicaciones):not(#grid-consola) {
+  grid-template-columns: repeat(4,1fr) !important;
+  grid-auto-rows: auto;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* ── BARRA INTERNA CURSOS — mismo ancho y padding que objetos ── */
+.contenedor-grande--curso .barra-interna { display:flex; flex-wrap:wrap; align-items:center; gap:0.3rem; width:100%; box-sizing:border-box; }
+/* Neutralizar los left: absolutos del desktop */
+.contenedor-grande--curso .barra-interna > .control-group { position:static !important; left:auto !important; top:auto !important; }
+
+/* === MODO NORMAL: fila 1 = FILTRO(izq, si no hay TEMARIO) | PÁGINA + FLECHAS(der); fila 2 = FILTRO ===
+   TEMARIO (tiene button[data-sort]): oculto en cursos — no se muestra
+   PÁGINA (id*="curso-pagina"): fila 1, pegado a FLECHAS (sin margin-left:auto)
+   FLECHAS (id*="curso-flechas"): fila 1 derecha
+   Ambos se empujan a la derecha con margin-left:auto en PÁGINA solo cuando hay TEMARIO o FILTRO en fila 2 */
+/* TEMARIO (tiene button[data-sort]): OCULTO — no ocupa espacio */
+.contenedor-grande--curso .barra-interna > .control-group:has(button[data-sort]) {
+  display: none !important;
+}
+/* PÁGINA (id*="curso-pagina"): fila 1 derecha, pegado a FLECHAS */
+.contenedor-grande--curso .barra-interna > .control-group[id*="curso-pagina"] {
+  order: 2; flex: 0 0 auto; justify-content: flex-end; margin-left: auto;
+}
+/* FLECHAS (id*="curso-flechas"): fila 1 derecha, pegado a PÁGINA */
+.contenedor-grande--curso .barra-interna > .control-group[id*="curso-flechas"] {
+  order: 3; flex: 0 0 auto; justify-content: flex-end; margin-left: 0;
+}
+/* FILTRO (tiene button[data-filter] o button[data-col-filter]): fila 2, izquierda */
+.contenedor-grande--curso .barra-interna > .control-group:has(button[data-filter]),
+.contenedor-grande--curso .barra-interna > .control-group:has(button[data-col-filter]) {
+  order: 10; flex: 0 0 100%; justify-content: flex-start;
+}
+
+/* Ocultar grupos de paginación de unidad en modo normal */
+[id^="unidad-pagina-"],[id^="unidad-flechas-"] { display:none !important; }
+
+/* === MODO UNIDAD (body.en-unidad): barra = volver(izq) | filtro(apuntes/cues/juegos)(fila2) | unidad-pagina+flechas(der) === */
+body.en-unidad [id^="unidad-pagina-"],
+body.en-unidad [id^="unidad-flechas-"] { display:flex !important; flex:0 0 auto; justify-content:flex-end; order:2; }
+body.en-unidad .contenedor-grande--curso .barra-interna > .control-group[id*="curso-pagina"],
+body.en-unidad .contenedor-grande--curso .barra-interna > .control-group[id*="curso-flechas"] { display:none !important; }
+/* Volver (botón de sidebar que JS mueve a la barra): fila 1 izquierda */
+body.en-unidad .contenedor-grande--curso .barra-interna > .control-group:has(.sidebar-btn) {
+  order: 0; flex: 0 0 auto; justify-content: flex-start;
+}
+/* En modo unidad/juegos: sidebar en grid 3 cols (prev | centro | next) */
+body.en-unidad .curso-sidebar {
+  display:grid !important;
+  grid-template-columns:1fr 68px 1fr !important;
+  padding:0 !important;
+  min-height:135px;
+  height:135px;
+  border-bottom:1px solid #444444 !important;
+  border-radius:0 !important;
+  gap:0 !important;
+  align-items:stretch !important;
+}
+/* Sidebar de unidad: botones nav laterales — mismo estilo que sidebar-btn */
+.sidebar-nav-unidad-btn {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:0.2rem; text-decoration:none; padding:4px 0.3rem; border-radius:8px;
+  transition:background 0.2s; background:none; border:none; cursor:pointer; width:100%;
+}
+.sidebar-nav-unidad-btn img { width:38px; height:38px; object-fit:contain; border-radius:8px; border:1px solid #999999; background:#000000; padding:2px; transition:border-color 0.2s,box-shadow 0.2s; }
+.sidebar-nav-unidad-btn span { font-size:0.55rem; color:var(--text); text-align:center; line-height:1.2; font-family:'Roboto Condensed',sans-serif; font-weight:500; max-width:50px; height:2.4em; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; }
+.sidebar-nav-unidad-btn:hover img { border-color:var(--accent); }
+.sidebar-nav-unidad-btn.invisible { visibility:hidden; pointer-events:none; }
+/* Columnas laterales: flex centrado para los botones nav */
+.sidebar-nav-col {
+  display:flex; align-items:center; justify-content:center; padding:4px 2px;
+}
+/* Centro: icono de unidad + textos */
+.sidebar-unidad-centro {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:3px; padding:6px 2px; overflow:hidden; cursor:pointer;
+}
+.sidebar-unidad-icono { width:60px; height:60px; border-radius:50%; flex-shrink:0; overflow:hidden; background:#000000; border:2px solid #999999; box-sizing:border-box; transition:border-color 0.2s,box-shadow 0.2s; }
+.sidebar-unidad-icono img { width:100%; height:100%; object-fit:cover; }
+.sidebar-unidad-num { font-family:'Saira',sans-serif; font-size:0.6rem; font-weight:700; color:var(--accent); text-align:center; letter-spacing:0.02em; white-space:nowrap; overflow:visible; width:100%; }
+.sidebar-unidad-nombre { font-family:'Roboto Condensed',sans-serif; font-size:0.58rem; color:#ffffff; text-align:center; line-height:1.2; width:100%; overflow:visible; white-space:nowrap; }
+/* Colores temáticos del icono central */
+body.en-unidad #panel-2eso   .sidebar-unidad-icono { border-color:#55ddcc; box-shadow:0 0 8px rgba(85,221,204,0.5); }
+body.en-unidad #panel-3eso   .sidebar-unidad-icono { border-color:#88ee66; box-shadow:0 0 8px rgba(136,238,102,0.5); }
+body.en-unidad #panel-4eso   .sidebar-unidad-icono { border-color:#88bbff; box-shadow:0 0 8px rgba(136,187,255,0.5); }
+body.en-unidad #panel-1bach  .sidebar-unidad-icono { border-color:#ff6666; box-shadow:0 0 8px rgba(255,102,102,0.5); }
+body.en-unidad #panel-2bachF .sidebar-unidad-icono { border-color:#ffaa55; box-shadow:0 0 8px rgba(255,170,85,0.5); }
+body.en-unidad #panel-2bachQ .sidebar-unidad-icono { border-color:#dd88ff; box-shadow:0 0 8px rgba(221,136,255,0.5); }
+/* En modo normal ocultar texto del volver en barra (para sala de vídeos) */
+.barra-interna .sidebar-btn span { display:none !important; }
+.barra-interna .sidebar-btn { padding:2px; }
+.barra-interna .sidebar-btn img { width:26px; height:26px; border:none !important; background:none !important; padding:0 !important; opacity:0.8; }
+
+/* === MODO VÍDEO: barra del JS tiene left:Xpx — neutralizar y distribuir === */
+body .contenedor-grande--curso .barra-interna > .control-group[style*="left:175px"],
+body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1075px"],
+body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200px"] { position:static !important; left:auto !important; flex:0 0 auto; justify-content:flex-start; order:1; }
+/* PÁGINA (left:1075px): empuja a la derecha con margin-left:auto */
+body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1075px"] { order:2; margin-left:auto; }
+/* FLECHAS (left:1200px): pegado a PÁGINA, sin margin extra */
+body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200px"] { order:3; margin-left:0; }
+
+/* ── SIDEBAR HORIZONTAL (barra doble) ── */
+/* Grid de 2 mitades iguales con separador central fijo */
+.curso-sidebar {
+  flex-shrink:0; width:100%;
+  min-height:80px; height:80px;
+  display:grid; grid-template-columns:1fr 1px 1fr;
+  border-bottom:1px solid #444444;
+  border-radius:9px 9px 0 0; /* hereda el radio del contenedor-grande */
+  overflow:hidden;
+}
+.curso-sidebar::-webkit-scrollbar { display:none; }
+/* Cada mitad: fila centrada de botones */
+.sidebar-mitad {
+  display:flex; flex-direction:row; align-items:center; justify-content:center;
+  gap:0.4rem; padding:5px 6px 6px;
+  flex-wrap:nowrap; overflow:hidden;
+}
+/* Separador vertical central: ocupa toda la altura de la barra */
+.sidebar-separador {
+  width:1px; background:#666666; align-self:stretch; flex-shrink:0;
+}
+.sidebar-btn { display:flex; flex-direction:column; align-items:center; gap:0.2rem; text-decoration:none; padding:4px 0.3rem; border-radius:8px; transition:background 0.2s; flex-shrink:0; }
+.sidebar-btn img { width:38px; height:38px; object-fit:contain; border-radius:8px; border:1px solid #999999; background:#000000; padding:2px; transition:border-color 0.2s,box-shadow 0.2s; }
+.sidebar-btn span { font-size:0.55rem; color:var(--text); text-align:center; line-height:1.2; font-family:'Roboto Condensed',sans-serif; font-weight:500; max-width:50px; height:2.4em; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; }
+.sidebar-btn.anim-entrada { opacity:0; animation:fadeInUp 0.3s ease forwards; animation-delay:calc(var(--d,0)*0.06s); }
+
+/* Colores de fondo sidebar por curso */
+#panel-2eso   .curso-sidebar { background:rgba(51,204,170,0.18); }
+#panel-3eso   .curso-sidebar { background:rgba(102,221,68,0.18); }
+#panel-4eso   .curso-sidebar { background:rgba(68,136,255,0.18); }
+#panel-1bach  .curso-sidebar { background:rgba(255,68,68,0.18); }
+#panel-2bachF .curso-sidebar { background:rgba(255,153,51,0.18); }
+#panel-2bachQ          .curso-sidebar { background:rgba(187,68,221,0.18); }
+#panel-publicaciones   .curso-sidebar { background:rgba(180,200,220,0.18); border-bottom:1px solid #444444 !important; }
+
+/* Colores de fondo curso-layout por curso (más claro que sidebar) */
+#panel-2eso   .curso-layout { background:rgba(51,204,170,0.08); }
+#panel-3eso   .curso-layout { background:rgba(102,221,68,0.08); }
+#panel-4eso   .curso-layout { background:rgba(68,136,255,0.08); }
+#panel-1bach  .curso-layout { background:rgba(255,68,68,0.08); }
+#panel-2bachF .curso-layout { background:rgba(255,153,51,0.08); }
+#panel-2bachQ .curso-layout { background:rgba(187,68,221,0.08); }
+#panel-publicaciones .curso-layout { background:rgba(180,200,220,0.08); }
+
+/* Colores sidebar hover temáticos */
+.curso-sidebar.active-2eso .sidebar-btn:hover img { border-color:#55ddcc; box-shadow:0 0 16px rgba(85,221,204,0.4); }
+.curso-sidebar.active-2eso .sidebar-btn:hover span { color:#55ddcc; }
+.curso-sidebar.active-3eso .sidebar-btn:hover img { border-color:#88ee66; box-shadow:0 0 16px rgba(136,238,102,0.4); }
+.curso-sidebar.active-3eso .sidebar-btn:hover span { color:#88ee66; }
+.curso-sidebar.active-4eso .sidebar-btn:hover img { border-color:#88bbff; box-shadow:0 0 16px rgba(136,187,255,0.4); }
+.curso-sidebar.active-4eso .sidebar-btn:hover span { color:#88bbff; }
+.curso-sidebar.active-1bach .sidebar-btn:hover img { border-color:#ff6666; box-shadow:0 0 16px rgba(255,102,102,0.4); }
+.curso-sidebar.active-1bach .sidebar-btn:hover span { color:#ff6666; }
+.curso-sidebar.active-2bachF .sidebar-btn:hover img { border-color:#ffaa55; box-shadow:0 0 16px rgba(255,170,85,0.4); }
+.curso-sidebar.active-2bachF .sidebar-btn:hover span { color:#ffaa55; }
+.curso-sidebar.active-2bachQ .sidebar-btn:hover img { border-color:#dd88ff; box-shadow:0 0 16px rgba(221,136,255,0.4); }
+.curso-sidebar.active-2bachQ .sidebar-btn:hover span { color:#dd88ff; }
+.curso-sidebar.active-publicaciones .sidebar-btn:hover img { border-color:#c0cce0; box-shadow:0 0 16px rgba(180,200,220,0.4); }
+.curso-sidebar.active-publicaciones .sidebar-btn:hover span { color:#c0cce0; }
+.curso-sidebar.active-objetos .sidebar-btn:hover img { border-color:#d4b84a; box-shadow:0 0 16px rgba(200,170,60,0.4); }
+.curso-sidebar.active-objetos .sidebar-btn:hover span { color:#d4b84a; }
+
+/* ── GRIDS DE UNIDADES ── */
+.temas-grid { display:grid; gap:6px; flex:1; justify-items:center; border:0; padding:0; height:auto; min-height:400px; grid-template-columns:repeat(4,1fr); }
+.unidades-grid { display:grid; column-gap:6px; row-gap:3px; flex:1; justify-items:center; border:0; padding:0; margin:0; grid-template-columns:repeat(4,1fr); grid-auto-rows:auto; }
+.contenedor-grande--publicaciones .publicaciones-grid { border:0; grid-template-columns:repeat(4,1fr); display:grid; column-gap:4px; row-gap:0px; flex:1; justify-items:stretch; align-items:start; padding:6px 4px 4px; margin:0; align-content:start; overflow:visible; height:auto; max-height:none; }
+.unidad-ficha,.publicacion-ficha { position:relative; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; gap:0; padding:10px 0 0 0; height:185px; min-height:185px; animation:popIn 0.6s 0s both; }
+.unidad-icono { width:90px; height:90px; border-radius:50%; border:0; position:relative; background:#000000; box-shadow:inset 0 0 0 1px #999999; padding:0; }
+.unidad-icono img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease; }
+.tema-rectangle { width:80px; height:100px; border-radius:0; border:none; position:relative; transition:transform 0.3s ease; background:transparent; overflow:hidden; }
+.tema-rectangle img { width:100%; height:100%; object-fit:cover; }
+.unidad-numero-texto1 { font-family:'Saira',sans-serif; font-size:0.75rem; font-weight:600; color:var(--accent); letter-spacing:-0.02em; text-align:center; padding-top:4px; margin-top:8px; width:100%; height:20px; overflow:hidden; display:flex; align-items:center; justify-content:center; line-height:1.2; white-space:nowrap; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
+.unidad-nombre-texto2 { font-size:0.7rem; font-weight:500; color:var(--text); text-align:center; line-height:1.1; font-family:'Roboto Condensed',sans-serif; margin-top:4px; width:100%; height:30px; overflow:hidden; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
+.unidad-ficha:hover .unidad-icono { box-shadow:inset 0 0 0 1px #999999,0 0 16px rgba(255,255,255,0.8); }
+.unidad-ficha:hover .unidad-icono img { transform:scale(1.18); }
+.unidad-ficha.selected .unidad-icono { box-shadow:inset 0 0 0 1.5px #38bdf8,0 0 16px rgba(255,255,255,0.8); }
+.unidad-ficha.selected .unidad-numero-texto1 { color:var(--accent); font-size:0.85rem; }
+.unidad-ficha.selected .unidad-nombre-texto2 { font-weight:700; font-size:0.8rem; }
+
+/* Tema gris */
+.unidad-ficha.tema-gris { filter:grayscale(100%); }
+.tema-gris:hover { filter:none; }
+.unidad-ficha.tema-gris .unidad-icono { opacity:0.3; }
+.unidad-ficha.tema-gris .unidad-numero-texto1,.unidad-ficha.tema-gris .unidad-nombre-texto2 { color:#555555; }
+
+/* Colores temáticos curso */
+.curso-tab.color-1bach.active  { background:#ff4444; color:#000; }
+.curso-tab.color-2bachF.active { background:#ff9933; color:#000; }
+.curso-tab.color-2bachQ.active { background:#bb44dd; color:#000; }
+.curso-tab.color-2eso.active   { background:#33ccaa; color:#000; }
+.curso-tab.color-3eso.active   { background:#66dd44; color:#000; }
+.curso-tab.color-4eso.active   { background:#4488ff; color:#000; }
+.unidad-ficha.color-2eso:hover  .unidad-icono { box-shadow:inset 0 0 0 1.5px #33ccaa,0 0 14px rgba(51,204,170,0.4); }
+.unidad-ficha.color-3eso:hover  .unidad-icono { box-shadow:inset 0 0 0 1.5px #66dd44,0 0 14px rgba(102,221,68,0.4); }
+.unidad-ficha.color-4eso:hover  .unidad-icono { box-shadow:inset 0 0 0 1.5px #4488ff,0 0 14px rgba(68,136,255,0.4); }
+.unidad-ficha.color-1bach:hover  .unidad-icono { box-shadow:inset 0 0 0 1.5px #ff4444,0 0 14px rgba(255,68,68,0.4); }
+.unidad-ficha.color-2bachF:hover .unidad-icono { box-shadow:inset 0 0 0 1.5px #ff9933,0 0 14px rgba(255,153,51,0.4); }
+.unidad-ficha.color-2bachQ:hover .unidad-icono { box-shadow:inset 0 0 0 1.5px #bb44dd,0 0 14px rgba(187,68,221,0.4); }
+.unidad-ficha.color-2eso:hover  .unidad-nombre-texto2 { color:#55ddcc; }
+.unidad-ficha.color-3eso:hover  .unidad-nombre-texto2 { color:#88ee66; }
+.unidad-ficha.color-4eso:hover  .unidad-nombre-texto2 { color:#88bbff; }
+.unidad-ficha.color-1bach:hover  .unidad-nombre-texto2 { color:#ff6666; }
+.unidad-ficha.color-2bachF:hover .unidad-nombre-texto2 { color:#ffaa55; }
+.unidad-ficha.color-2bachQ:hover .unidad-nombre-texto2 { color:#dd88ff; }
+.unidad-ficha.selected.color-2eso   .unidad-icono { box-shadow:inset 0 0 0 1.5px #55ddcc,0 0 16px rgba(85,221,204,0.8); }
+.unidad-ficha.selected.color-3eso   .unidad-icono { box-shadow:inset 0 0 0 1.5px #88ee66,0 0 16px rgba(136,238,102,0.8); }
+.unidad-ficha.selected.color-4eso   .unidad-icono { box-shadow:inset 0 0 0 1.5px #88bbff,0 0 16px rgba(136,187,255,0.8); }
+.unidad-ficha.selected.color-1bach  .unidad-icono { box-shadow:inset 0 0 0 1.5px #ff6666,0 0 16px rgba(255,102,102,0.8); }
+.unidad-ficha.selected.color-2bachF .unidad-icono { box-shadow:inset 0 0 0 1.5px #ffaa55,0 0 16px rgba(255,170,85,0.8); }
+.unidad-ficha.selected.color-2bachQ .unidad-icono { box-shadow:inset 0 0 0 1.5px #dd88ff,0 0 16px rgba(221,136,255,0.8); }
+
+/* ── OBJETOS EN CLASE ── */
+.objetos-container { display:flex; gap:0.8rem; align-items:flex-start; flex-direction:column; border:1.5px solid #999999; padding:0.8rem; }
+.objetos-grid-wrapper { display:flex; gap:0; align-items:flex-start; justify-content:flex-start; width:100%; }
+.objetos-sidebar { flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:0.8rem; padding:0; }
+.objetos-sidebar-left { width:0; display:none; }
+.objetos-sidebar-right { width:50px; display:grid; grid-template-rows:auto 1fr auto; align-items:center; gap:0.8rem; }
+.objetos-grid { display:grid; column-gap:6px; row-gap:0px; justify-items:center; grid-auto-rows:auto; width:100%; flex:1; border:0; padding:0; align-content:start; grid-template-columns:repeat(4,1fr); height:auto !important; max-height:none !important; }
+#grid-objetos { grid-template-columns:repeat(4,1fr) !important; height:auto !important; max-height:none !important; }
+.objeto-ficha { position:relative; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0; padding:6px 0 0 0; height:190px; min-height:190px; min-width:0; overflow:visible; }
+.objeto-icono { width:72px; height:72px; border-radius:50%; border:0; position:relative; background:#000000; flex-shrink:0; transition:background 0.3s ease; box-shadow:inset 0 0 0 1px #999999; padding:0; }
+.objeto-icono img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease; }
+.objeto-ficha:hover .objeto-icono { box-shadow:inset 0 0 0 1px #d4b84a,0 0 16px rgba(200,170,60,0.8); }
+.objeto-ficha:hover .objeto-icono img { transform:scale(1.18); }
+.objeto-nombre-texto1 { font-family:'Saira',sans-serif; font-size:0.62rem; font-weight:600; color:var(--accent); letter-spacing:-0.02em; text-align:center; display:flex; align-items:center; justify-content:center; line-height:1.2; padding-top:2px; margin-top:4px; width:100%; min-width:0; overflow:hidden; white-space:normal; height:28px; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
+.objeto-tema-texto2 { font-size:0.7rem; font-weight:500; color:#ffffff; text-align:center; line-height:1.1; font-family:'Roboto Condensed',sans-serif; margin-top:4px; width:100%; white-space:normal; min-width:0; height:30px; overflow:visible; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
+.objeto-ficha:hover .objeto-tema-texto2 { color:#d4b84a; }
+.objeto-ficha:hover .objeto-nombre-texto1 { border:none; }
+
+/* ── PUBLICACIONES ── */
+.publicaciones-grid .publicacion-ficha { margin:0; padding:0; min-height:180px; height:180px; overflow:visible; }
+.publicaciones-grid .publicacion-icono { width:fit-content; height:110px; min-height:110px; padding:0; margin:0 auto; }
+.publicaciones-grid .publicacion-icono img { object-fit:contain; width:auto; height:100%; transition:filter 0.5s ease,transform 0.5s ease; border:0.8px solid #000000; }
+/* Títulos en azul */
+.publicaciones-grid .publicacion-titulo { margin:5px 0 0 0; padding:2px 0 0 0; border:0; font-family:'Saira',sans-serif; font-size:0.62rem; font-weight:600; color:#38bdf8 !important; letter-spacing:-0.02em; height:45px; display:block; text-align:center; line-height:1.2; width:100%; overflow:hidden; white-space:normal; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
+.publicaciones-grid .unidad-nombre-texto2 { font-size:0.6rem; font-weight:500; color:#ffffff; text-align:center; line-height:1.1; height:14px; display:flex; align-items:flex-start; justify-content:center; }
+.publicaciones-grid .publicacion-ficha:nth-child(6) { grid-column:auto; }
+.publicaciones-grid .publicacion-ficha:nth-child(7) { grid-column:auto; }
+.publicaciones-grid .publicacion-ficha:nth-child(8) { grid-column:auto; }
+.publicaciones-grid .publicacion-ficha .publicacion-icono { transition:box-shadow 0.5s ease; }
+.publicaciones-grid .publicacion-ficha:hover .publicacion-icono { box-shadow:0 0 14px 3px rgba(180,200,220,0.85),0 0 6px 1.5px rgba(180,200,220,0.5); }
+.publicaciones-grid .publicacion-ficha:hover .publicacion-icono img { transform:scale(1.08); filter:brightness(1.1); }
+.publicaciones-grid .publicacion-ficha:hover .publicacion-titulo { color:#c0e8ff !important; }
+/* Sidebar publicaciones: iconos centrados horizontalmente */
+#panel-publicaciones .curso-sidebar { justify-content:center; }
+/* Sidebar publicaciones cuando JS lo reemplaza con volver: flex centrado */
+#panel-publicaciones .curso-sidebar[data-original-html] { display:flex !important; justify-content:center !important; }
+
+/* ── SUBELEMENTOS ── */
+.subelemento-btn { position:relative; background:none; border:2px solid transparent; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0; padding:0.25rem; min-height:180px; justify-content:flex-start; }
+.subelemento-square { width:80px; height:80px; border-radius:0; border:1.5px solid transparent; position:relative; background:transparent; flex-shrink:0; transition:all 0.3s ease; display:flex; align-items:center; justify-content:center; }
+.subelemento-square img { width:100%; height:100%; object-fit:contain; }
+.subelemento-titulo { font-family:'Roboto Condensed',sans-serif; font-size:0.72rem; font-weight:500; color:#ffffff; text-align:center; margin-top:8px; }
+.subelemento-descripcion { display:none; }
+.juego-btn .subelemento-descripcion { display:flex; font-size:0.65rem; color:#ffffff; margin-top:2px; text-align:center; justify-content:center; align-items:center; }
+.subelemento-btn:hover .subelemento-titulo { font-weight:700; }
+
+/* ── VISTA-SUB SELECTED ── */
+.unidad-ficha.selected.vista-sub { height:195px !important; min-height:195px !important; max-height:195px !important; padding:0; justify-content:center; pointer-events:auto; }
+.unidad-ficha.selected.vista-sub .unidad-numero-texto1 { font-size:1.1em !important; }
+.unidad-ficha.selected.vista-sub .unidad-nombre-texto2 { font-size:1.1em !important; }
+.unidad-ficha.selected.vista-sub .unidad-icono img { transform:scale(1.18) !important; transition:none !important; }
+
+/* Fichas por curso */
+.unidad-2eso-ficha,.unidad-3eso-ficha,.unidad-4eso-ficha,.unidad-1bach-ficha,.unidad-2bachF-ficha,.unidad-2bachQ-ficha { height:185px; min-height:185px; max-height:185px; padding:0; justify-content:center; pointer-events:auto; position:relative; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0; overflow:visible; animation:popIn 0.6s 0s both; }
+.unidad-ficha-dentro { width:100% !important; min-width:0 !important; max-width:none !important; padding-top:10px !important; }
+.unidad-2eso-ficha   .unidad-icono { box-shadow:inset 0 0 0 1.5px #55ddcc,0 0 16px rgba(85,221,204,0.8); }
+.unidad-3eso-ficha   .unidad-icono { box-shadow:inset 0 0 0 1.5px #88ee66,0 0 16px rgba(136,238,102,0.8); }
+.unidad-4eso-ficha   .unidad-icono { box-shadow:inset 0 0 0 1.5px #88bbff,0 0 16px rgba(136,187,255,0.8); }
+.unidad-1bach-ficha  .unidad-icono { box-shadow:inset 0 0 0 1.5px #ff6666,0 0 16px rgba(255,102,102,0.8); }
+.unidad-2bachF-ficha .unidad-icono { box-shadow:inset 0 0 0 1.5px #ffaa55,0 0 16px rgba(255,170,85,0.8); }
+.unidad-2bachQ-ficha .unidad-icono { box-shadow:inset 0 0 0 1.5px #dd88ff,0 0 16px rgba(221,136,255,0.8); }
+.unidad-2eso-ficha .unidad-icono img,.unidad-3eso-ficha .unidad-icono img,.unidad-4eso-ficha .unidad-icono img,.unidad-1bach-ficha .unidad-icono img,.unidad-2bachF-ficha .unidad-icono img,.unidad-2bachQ-ficha .unidad-icono img { transform:scale(1.18); transition:none; }
+.unidad-2eso-ficha .unidad-numero-texto1,.unidad-3eso-ficha .unidad-numero-texto1,.unidad-4eso-ficha .unidad-numero-texto1,.unidad-1bach-ficha .unidad-numero-texto1,.unidad-2bachF-ficha .unidad-numero-texto1,.unidad-2bachQ-ficha .unidad-numero-texto1 { font-size:1.1em; }
+.unidad-2eso-ficha .unidad-nombre-texto2,.unidad-3eso-ficha .unidad-nombre-texto2,.unidad-4eso-ficha .unidad-nombre-texto2,.unidad-1bach-ficha .unidad-nombre-texto2,.unidad-2bachF-ficha .unidad-nombre-texto2,.unidad-2bachQ-ficha .unidad-nombre-texto2 { font-size:1.1em; font-weight:700; }
+
+/* ── VISTA-UNIDAD-TOP ── */
+.vista-unidad-top { display:flex; flex-direction:row; gap:0; align-items:stretch; width:100%; height:220px; min-height:220px; max-height:220px; box-sizing:border-box; overflow:visible; }
+.vista-unidad-top .unidad-ficha { flex:1; height:100%; min-height:100%; max-height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4px 2px; box-sizing:border-box; }
+.vista-unidad-top .unidad-icono { width:90px; height:90px; }
+.vista-unidad-top .unidad-nombre-texto2 { height:28px; }
+
+/* ── MODO UNIDAD / SALA DE VÍDEOS: layout columna ── */
+/* El JS genera layout flex-direction:row — lo revertimos a columna */
+.unidad-dentro-iconos { flex-direction:column !important; margin-right:0 !important; margin-left:0 !important; width:100% !important; height:auto !important; }
+/* Fila de navegación de unidad: anterior | ficha | siguiente */
+.unidad-nav-row { display:flex; flex-direction:row; align-items:center; justify-content:center; width:100%; gap:0; }
+.btn-unidad-nav { display:flex; flex-direction:column; align-items:center; gap:0.2rem; background:none; border:none; cursor:pointer; padding:4px 6px; flex-shrink:0; opacity:0.85; }
+.btn-unidad-nav img { width:38px; height:38px; object-fit:contain; border-radius:8px; border:1px solid #999999; background:#000000; padding:2px; }
+.btn-unidad-nav span { font-size:0.5rem; color:#ffffff; text-align:center; line-height:1.2; font-family:'Roboto Condensed',sans-serif; max-width:44px; height:2.4em; display:flex; align-items:flex-start; justify-content:center; }
+.btn-unidad-nav:hover img { border-color:var(--accent); }
+.btn-unidad-nav.invisible { visibility:hidden; pointer-events:none; }
+/* Grid en modo unidad/vídeo: columna flex */
+#grid-2eso[style*="display: block"],
+#grid-3eso[style*="display: block"],
+#grid-4eso[style*="display: block"],
+#grid-1bach[style*="display: block"],
+#grid-2bachF[style*="display: block"],
+#grid-2bachQ[style*="display: block"] {
+  display:flex !important; flex-direction:column !important;
+  width:100% !important; height:auto !important; overflow:visible !important;
+}
+/* Layout padre (flex row) → columna */
+[id^="grid-"] > div[style*="flex-direction: row"] { flex-direction:column !important; height:auto !important; }
+
+/* imagenEDiv en UNIDADES NORMALES: va al final (después de actividades), orden normal */
+.unidad-imagen {
+  flex:0 0 auto !important; width:400px !important; max-width:400px !important;
+  height:250px !important; margin:0 auto !important; padding:6px !important;
+  align-self:center !important;
+}
+.unidad-imagen video, .unidad-imagen img { width:100%; height:100%; object-fit:contain; border-radius:10px; border:1px solid #999999; display:block; }
+
+/* Botón volver (unidad-ficha-dentro): columna CENTRADA, icono 90px */
+.unidad-ficha-dentro { flex-direction:column !important; height:auto !important; min-height:0 !important; padding:8px 4px !important; justify-content:center !important; align-items:center !important; gap:4px !important; width:100% !important; cursor:pointer; }
+.unidad-ficha-dentro .unidad-icono { width:90px !important; height:90px !important; flex-shrink:0; }
+.unidad-ficha-dentro .unidad-numero-texto1 { font-size:0.75rem !important; margin-top:6px !important; padding-top:0 !important; width:100% !important; height:auto !important; text-align:center !important; }
+.unidad-ficha-dentro .unidad-nombre-texto2 { height:auto !important; text-align:center !important; margin-top:4px !important; font-size:0.8rem !important; }
+
+/* ── SALA DE VÍDEOS: layout completo ── */
+/* El JS genera: layout(flex-row) > [ colIzq(unidad-dentro-iconos: btnVideo + subRowWrapper) + videoDiv(unidad-imagen) ] */
+/* En móvil: icono arriba → fila(prev · video · next) → 6 iconos abajo */
+
+/* layout → columna */
+.unidad-dentro-iconos:has(.ficha-actividades--video) { display:contents !important; }
+/* btnVideo (unidad-ficha-dentro) → order 1 */
+.unidad-dentro-iconos:has(.ficha-actividades--video) .unidad-ficha-dentro { order:1; }
+/* videoDiv (unidad-imagen) → order 3 */
+[id^="grid-"] > div[style*="flex-direction: row"] > .unidad-imagen { order:3; }
+/* subRowWrapper (6 iconos) → order 2 */
+.unidad-dentro-iconos:has(.ficha-actividades--video) > div { order:2; }
+
+/* Fila video+botones: contenedor relativo */
+.video-sala-row { display:flex; flex-direction:row; align-items:center; justify-content:center; width:100%; gap:4px; padding:0 4px; box-sizing:border-box; order:3; }
+.video-sala-row .unidad-imagen { flex:0 0 400px !important; width:400px !important; max-width:400px !important; height:250px !important; padding:4px !important; margin:0 !important; }
+.btn-curso-video-nav { display:flex; flex-direction:column; align-items:center; gap:0.2rem; background:none; border:none; cursor:pointer; padding:4px 2px; flex-shrink:0; }
+.btn-curso-video-nav img { width:34px; height:34px; object-fit:contain; border-radius:8px; border:1px solid #999999; background:#000000; padding:2px; }
+.btn-curso-video-nav span { font-size:0.48rem; color:#ffffff; text-align:center; line-height:1.2; font-family:'Roboto Condensed',sans-serif; max-width:40px; height:2.4em; display:flex; align-items:flex-start; justify-content:center; }
+.btn-curso-video-nav.invisible { visibility:hidden; pointer-events:none; }
+
+/* Ocultar botones de unidad anterior/siguiente en sala de vídeos */
+body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row .btn-unidad-nav { display:none !important; }
+body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { justify-content:center !important; }
+
+/* 6 iconos sala de vídeos: grid 3x2 */
+.ficha-actividades--video {
+  display:grid !important;
+  grid-template-columns:repeat(3,1fr) !important;
+  grid-auto-rows:1fr !important;
+  place-items:center !important;
+  height:250px !important; min-height:250px !important; max-height:250px !important;
+  padding:6px 4px !important; gap:8px !important; width:100% !important;
+}
+
+/* ── FICHA-ACTIVIDADES ── */
+.ficha-actividades { display:grid; grid-template-columns:repeat(var(--fa-cols,3),1fr); grid-auto-rows:1fr; place-items:center; gap:3px; width:100%; height:250px; min-height:250px; max-height:250px; overflow:visible; margin:0; padding:3px; box-sizing:border-box; }
+.ficha-actividades .objeto-ficha { width:100%; height:100%; min-height:0; padding:0; place-self:stretch; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; }
+.ficha-actividades .objeto-icono { width:38px; height:38px; min-width:38px; min-height:38px; margin:0 auto; flex-shrink:0; border-radius:0 !important; background:none !important; border:0 !important; padding:0 !important; box-shadow:none !important; }
+.ficha-actividades .objeto-icono img { width:100%; height:100%; object-fit:contain; display:block; }
+.ficha-actividades--video .objeto-icono { border-radius:50% !important; background:#000000 !important; border:0 !important; box-shadow:inset 0 0 0 1px #999999 !important; overflow:hidden !important; width:50px !important; height:50px !important; min-width:50px !important; min-height:50px !important; }
+.ficha-actividades--video .objeto-icono img { width:85% !important; height:85% !important; }
+.ficha-actividades .objeto-nombre-texto1 { font-size:9px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:3px; }
+.ficha-actividades .objeto-tema-texto2 { font-size:9px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:1px; }
+/* 3 columnas fijas en unidades normales — independiente del var(--fa-cols) del JS */
+.ficha-actividades--unidad { grid-template-columns:repeat(3,1fr) !important; height:250px !important; min-height:250px !important; max-height:250px !important; }
+.ficha-actividades--unidad .objeto-tema-texto2,.ficha-actividades--video .objeto-tema-texto2 { display:none !important; }
+.ficha-actividades--unidad .objeto-nombre-texto1,.ficha-actividades--video .objeto-nombre-texto1 { font-size:0.7rem; margin-top:4px !important; color:#ffffff !important; }
+.ficha-actividades--unidad .objeto-icono { width:50px !important; height:50px !important; min-width:50px !important; min-height:50px !important; }
+.ficha-actividades--unidad .objeto-ficha:hover .objeto-icono { transform:none !important; }
+.ficha-actividades--juegos .objeto-icono { width:50px !important; height:50px !important; min-width:50px !important; min-height:50px !important; }
+.ficha-actividades--juegos .objeto-ficha:hover .objeto-icono { transform:none !important; }
+.ficha-actividades--juegos .objeto-tema-texto2 { font-size:0.7rem; color:#38bdf8; font-weight:700; margin-top:4px; }
+.ficha-actividades--juegos .objeto-nombre-texto1 { font-size:0.7rem; color:#ffffff !important; margin-top:2px; }
+.ficha-actividades .objeto-ficha.col-filtro-off { opacity:0.35; pointer-events:none; filter:grayscale(100%); }
+/* Animación de entrada en actividades de unidades y juegos */
+.ficha-actividades--unidad .objeto-ficha.anim-entrada,
+.ficha-actividades--juegos .objeto-ficha.anim-entrada { opacity:0; animation:fadeInUp 0.35s ease forwards; animation-delay:calc(var(--d,0)*0.045s); }
+
+/* ── PUB-LISTADO ── */
+.pub-listado-grupo { display:flex; flex-direction:column; overflow:hidden; justify-content:flex-start; height:auto; min-height:0; }
+.pub-listado-titulo { font-family:'Saira',sans-serif; font-size:0.9rem; font-weight:700; color:var(--accent); padding:0; margin-bottom:0; letter-spacing:0.06em; text-transform:uppercase; cursor:default; flex-shrink:0; }
+.pub-listado-nombre { font-family:'Roboto Condensed',sans-serif; font-size:0.88rem; color:#ffffff; font-weight:500; cursor:pointer; text-decoration:none; display:block; padding:4px 0; overflow:hidden; }
+.pub-listado-nombre:hover { color:var(--accent); }
+.pub-listado-meta { font-family:'Roboto Condensed',sans-serif; font-size:0.78rem; color:var(--muted); padding:4px 0; display:block; overflow:hidden; }
+.pub-listado-item { padding:3px 0 3px 20px; display:flex; align-items:center; gap:0; }
+.pub-listado-item-chevron { color:var(--accent); font-size:1rem; font-family:'Saira',sans-serif; font-weight:700; flex-shrink:0; width:20px; }
+
+/* ── MODAL ── */
+.modal-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.82); display:flex; align-items:center; justify-content:center; padding:0.8rem; opacity:0; pointer-events:none; transition:opacity 0.25s; }
+.modal-overlay.open { opacity:1; pointer-events:all; }
+.modal { position:relative; background:var(--surface); border:1px solid #999999; border-radius:16px; width:100%; max-width:380px; overflow:auto; display:flex; flex-direction:column; transform:scale(0.92) translateY(20px); transition:transform 0.3s cubic-bezier(.34,1.3,.64,1); box-shadow:0 10px 40px rgba(0,0,0,0.3); max-height:90vh; }
+.modal-overlay.open .modal { transform:scale(1) translateY(0); }
+.modal-bg-img { display:block; width:100%; height:120px; object-fit:cover; object-position:center; filter:brightness(0.65); flex-shrink:0; }
+.modal-bg-gradient { position:absolute; top:0; left:0; right:0; height:120px; background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,0.6) 100%); pointer-events:none; }
+.modal-hero-info { position:absolute; top:90px; left:0; right:0; z-index:3; display:flex; align-items:center; gap:0.7rem; padding:0 0.9rem; }
+.modal-icon-wrap { width:44px; height:44px; border-radius:50%; border:2px solid rgba(56,189,248,0.6); flex-shrink:0; }
+.modal-icon-wrap img { width:100%; height:100%; object-fit:cover; }
+.modal-title { font-family:'Saira',sans-serif; font-size:0.9rem; font-weight:700; line-height:1.25; text-shadow:0 1px 10px rgba(0,0,0,1); }
+.modal-curso-tag { font-size:0.78rem; color:var(--accent); font-weight:600; letter-spacing:0.04em; text-shadow:0 1px 8px rgba(0,0,0,1); }
+.modal-close { position:absolute; top:0.6rem; right:0.6rem; z-index:10; width:28px; height:28px; border-radius:50%; background:rgba(0,0,0,0.7); border:none; color:#ffffff; font-size:0.9rem; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.modal-links { overflow-y:auto; padding:1.6rem 0.8rem 0.8rem; display:flex; flex-direction:column; gap:0.2rem; scrollbar-width:none; max-width:240px; margin:0 auto; }
+.modal-links::-webkit-scrollbar { display:none; }
+.modal-empty { text-align:center; padding:2rem; color:var(--muted); font-size:0.88rem; }
+.link-row { display:flex; align-items:center; gap:0.6rem; padding:0.45rem 0.6rem; border-radius:10px; text-decoration:none; color:var(--text); border:1px solid #999999; background:var(--card); transition:all 0.18s; }
+.link-row:hover { border-color:var(--accent); background:rgba(56,189,248,0.07); }
+.link-row-icon { width:34px; height:34px; border-radius:8px; background:rgba(56,189,248,0.06); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.link-row-icon img { width:28px; height:28px; object-fit:contain; }
+.link-row-name { font-size:0.85rem; font-weight:500; line-height:1.3; }
+.link-row-type { font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em; }
+.link-row-arrow { color:var(--muted); font-size:0.82rem; }
+.link-row:hover .link-row-arrow { color:var(--accent); }
+
+/* ── DROPDOWN TEMAS ── */
+.temas-button-wrapper { position:relative; display:inline-block; }
+#temas-dropdown { position:fixed; background:#000000; border:1px solid #999999; border-radius:6px; width:200px; overflow-y:visible; z-index:2000; padding:0.3rem; box-shadow:0 2px 8px rgba(0,0,0,0.6); opacity:0; transform:translateY(-6px) scaleY(0.95); transform-origin:top center; pointer-events:none; transition:opacity 0.18s ease,transform 0.18s ease; }
+#temas-dropdown.open { opacity:1; transform:translateY(0) scaleY(1); pointer-events:auto; }
+#temas-dropdown .tema-checkbox { padding:0.2rem 0.25rem; margin:0 0 2px 0; gap:0.3rem; cursor:pointer; background:transparent; border-radius:4px; }
+#temas-dropdown .tema-checkbox:hover { background:rgba(34,168,79,0.15); }
+#temas-dropdown .tema-checkbox.checked { background:rgba(34,168,79,0.25); }
+#temas-dropdown .tema-checkbox label { font-size:0.75rem; cursor:pointer; color:#ffffff; }
+#temas-dropdown .tema-checkbox input[type="checkbox"] { accent-color:#ffffff; width:15px; height:15px; }
+.tema-checkbox { display:flex; align-items:center; gap:0.6rem; padding:0.5rem; cursor:pointer; border-radius:8px; transition:background 0.2s; }
+.tema-checkbox:hover { background:rgba(56,189,248,0.1); }
+.tema-checkbox input[type="checkbox"] { width:16px; height:16px; cursor:pointer; accent-color:var(--accent); }
+.tema-checkbox label { cursor:pointer; color:var(--text); font-size:0.88rem; flex:1; }
+
+/* ── TEMA DETAIL OVERLAY ── */
+.tema-detail-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.82); display:flex; align-items:center; justify-content:center; padding:0.8rem; opacity:0; pointer-events:none; transition:opacity 0.25s; flex-direction:column; }
+.tema-detail-overlay.open { opacity:1; pointer-events:all; }
+.tema-detail-panel { position:relative; background:var(--surface); border:1px solid #999999; border-radius:16px; width:100%; max-width:100%; max-height:90vh; overflow:auto; transform:scale(0.92) translateY(20px); transition:transform 0.3s cubic-bezier(.34,1.3,.64,1); box-shadow:0 40px 80px -20px rgba(0,0,0,0.7); }
+.tema-detail-overlay.open .tema-detail-panel { transform:scale(1) translateY(0); }
+.tema-detail-header { background:linear-gradient(135deg,rgba(56,189,248,0.15) 0%,rgba(56,189,248,0.05) 100%); padding:1.2rem 1rem; border-bottom:1px solid var(--border); position:relative; }
+.tema-detail-title { font-family:'Saira',sans-serif; font-size:1.1rem; font-weight:800; color:var(--text); margin-bottom:0.4rem; }
+.tema-detail-curso { font-size:0.78rem; color:var(--accent); font-weight:600; letter-spacing:0.04em; text-transform:uppercase; }
+.tema-detail-close { position:absolute; top:0.6rem; right:0.6rem; z-index:10; width:28px; height:28px; border-radius:50%; background:rgba(0,0,0,0.6); border:1px solid #999999; color:var(--text); font-size:0.9rem; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.tema-subelementos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.6rem; padding:1rem; }
+.tema-subelemento-btn { position:relative; background:none; border:none; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0.3rem; padding:0.4rem; }
+.tema-subelemento-circle { width:90px; height:90px; border-radius:50%; border:1.5px solid #999999; position:relative; background:#000000; flex-shrink:0; transition:all 0.3s ease; }
+.tema-subelemento-circle img { width:100%; height:100%; object-fit:cover; }
+.tema-subelemento-btn:hover .tema-subelemento-circle { transform:scale(1.05); border-color:var(--accent); }
+.tema-subelemento-nombre { font-family:'Saira',sans-serif; font-size:0.72rem; font-weight:600; color:var(--text); text-align:center; line-height:1.2; max-width:100px; }
+
+/* ── OBJETO DETAIL OVERLAY ── */
+.objeto-detail-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.82); display:flex; align-items:center; justify-content:center; padding:0.5rem; opacity:0; pointer-events:none; transition:opacity 0.25s; flex-direction:column; gap:0.8rem; }
+.objeto-detail-overlay.open { opacity:1; pointer-events:all; }
+.objeto-detail-nav { display:none; }
+.objeto-detail { position:relative; background:var(--surface); border:1px solid #999999; border-radius:10px; width:100%; max-width:calc(100vw - 1rem); height:auto; max-height:92vh; overflow-y:auto; display:flex; flex-direction:column; transform:scale(0.88) translateY(30px); transition:transform 0.35s cubic-bezier(.34,1.4,.64,1); box-shadow:0 40px 80px -20px rgba(0,0,0,0.7); }
+.objeto-detail-overlay.open .objeto-detail { transform:scale(1) translateY(0); }
+.objeto-detail-close { flex-shrink:0; z-index:20; width:28px; height:28px; border-radius:50%; background:#000000; border:1px solid #999999; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; overflow:visible; }
+.objeto-detail-close img { width:100%; height:100%; object-fit:contain; }
+.objeto-detail-content { display:flex; flex-direction:column; flex:1; min-height:0; overflow:hidden; width:100%; box-sizing:border-box; }
+.objeto-detail-side { position:relative; display:flex; flex-direction:column; overflow:hidden; height:auto; width:100%; box-sizing:border-box; align-items:center; }
+.objeto-detail-side.realidad { border-right:none; border-bottom:1px solid #999999; background:#ffffff; min-height:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding-top:0 !important; }
+.objeto-detail-side.simulacion { }
+/* Ambas barras de título: mismo color, mismo ancho */
+.objeto-detail-title { display:flex; align-items:center; justify-content:space-between; flex-shrink:0; background:rgba(56,189,248,0.18); padding:6px 8px; height:36px; font-size:0.85rem; font-weight:600; color:var(--accent); letter-spacing:0.04em; z-index:5; border-bottom:1px solid var(--border); font-family:'Saira',sans-serif; width:100%; box-sizing:border-box; margin-top:0 !important; }
+.objeto-detail-title-text { flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+/* Imágenes centradas verticalmente, sin borde blanco */
+.objeto-detail-img { width:auto; height:auto; object-fit:contain; object-position:center; border:none; display:block; background:transparent; max-width:100%; max-height:260px; margin:auto; }
+/* Modal más alto para que quepa la imagen de simulación */
+.objeto-detail { max-height:96vh !important; }
+.objeto-detail-video { position:absolute; bottom:0.6rem; left:50%; transform:translateX(-50%); z-index:6; white-space:nowrap; }
+.objeto-detail-video button { display:flex; align-items:center; gap:0.4rem; padding:0 6px; background:#000000; border:1px solid #999999; border-radius:6px; color:var(--text); cursor:pointer; font-size:0.78rem; font-weight:500; transition:all 0.2s; font-family:'Saira',sans-serif; height:26px; white-space:nowrap; justify-content:flex-start; }
+
+/* ── VIDEO OVERLAY ── */
+.video-overlay { position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.92); display:flex; align-items:flex-start; justify-content:center; flex-direction:column; gap:0; }
+.video-overlay-panel { display:flex; flex-direction:column; gap:0; overflow:hidden; background:transparent; width:100%; }
+#video-player { flex:1; width:100%; display:block; }
+.video-overlay-bar { display:flex; align-items:center; height:40px; padding:8px 10px 8px 16px; background:rgba(56,189,248,0.08); border:1px solid #999999; border-bottom:none; border-radius:10px 10px 0 0; box-sizing:border-box; width:100%; }
+.video-overlay-title { font-family:'Saira',sans-serif; font-size:0.85rem; font-weight:600; color:var(--accent); flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; letter-spacing:0.04em; }
+.video-overlay video { border:1px solid #999999; border-radius:0 0 10px 10px; display:block; width:100%; }
+.video-overlay-close { flex-shrink:0; width:26px; height:26px; border-radius:50%; background:#000000; border:1px solid #999999; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; margin-left:auto; }
+.video-overlay-close img { width:100%; height:100%; object-fit:contain; }
+
+/* ── PIN MODAL ── */
+.pin-overlay { position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.95); display:flex; align-items:center; justify-content:center; padding:1rem; backdrop-filter:blur(10px); }
+.pin-modal { background:var(--surface); border:1px solid #999999; border-radius:10px; padding:1.5rem 2rem; width:100%; max-width:340px; text-align:center; }
+.pin-modal h1 { font-family:'Saira',sans-serif; font-size:1.1rem; font-weight:700; color:var(--accent); margin-bottom:0.6rem; letter-spacing:0.08em; text-transform:uppercase; }
+.pin-modal p { font-family:'Roboto Condensed',sans-serif; font-size:0.85rem; color:var(--muted); margin-bottom:1rem; line-height:1.5; }
+.pin-label { font-family:'Roboto Condensed',sans-serif; font-size:0.85rem; color:var(--muted); margin-bottom:0.6rem; }
+.pin-input-group { display:flex; gap:0.5rem; justify-content:center; margin-bottom:1rem; }
+.pin-digit { width:44px; height:44px; font-size:1.3rem; font-weight:700; text-align:center; background:#000000; border:1px solid #999999; border-radius:6px; color:#ffffff; font-family:'Roboto Condensed',sans-serif; transition:border-color 0.2s; }
+.pin-digit:focus { outline:none; border-color:var(--accent); box-shadow:0 0 8px rgba(56,189,248,0.4); }
+.pin-btn { padding:0 1.5rem; height:34px; background:var(--accent); color:#000000; border:none; border-radius:6px; font-size:0.85rem; font-weight:700; cursor:pointer; transition:background 0.2s; font-family:'Saira',sans-serif; }
+.pin-btn:hover { filter:brightness(1.15); border-color:#ffffff; }
+.pin-btn:disabled { opacity:0.5; cursor:not-allowed; }
+
+/* ── VISTA FICHA PUBLICACIÓN (abrirFichaPublicacion: flex-direction:row con imagen + texto) ── */
+/* Solo actúa sobre la vista con imagen a la izquierda (flex:0 0 280px en primer div) */
+#panel-publicaciones .publicaciones-grid[style*="flex-direction: row"] {
+  flex-direction:column !important;
+  gap:0.8rem !important;
+  padding:0.8rem !important;
+  overflow-y:auto !important;
+}
+/* Todo hijo directo: resetear posicionamiento absoluto del JS */
+#panel-publicaciones .publicaciones-grid[style*="flex-direction: row"] > div {
+  position:static !important;
+  transform:none !important;
+  animation:none !important;
+  opacity:1 !important;
+  margin-left:0 !important;
+  width:100% !important;
+  height:auto !important;
+}
+/* Imagen de portada: centrada, SIN cuadro blanco */
+#panel-publicaciones .publicaciones-grid[style*="flex-direction: row"] > div:first-child {
+  display:flex !important;
+  justify-content:center !important;
+  flex:0 0 auto !important;
+  background:transparent !important;
+  border-radius:0 !important;
+  padding:0 !important;
+}
+#panel-publicaciones .publicaciones-grid[style*="flex-direction: row"] > div:first-child img {
+  width:auto !important;
+  max-width:100% !important;
+  height:auto !important;
+  max-height:280px !important;
+  object-fit:contain !important;
+  display:block !important;
+  margin:0 auto !important;
+}
+/* Textos: ocupar el ancho completo */
+#panel-publicaciones .publicaciones-grid[style*="flex-direction: row"] > div:last-child { flex:1 !important; }
+/* Botón donación / ver muestras / comprar: ancho auto */
+#panel-publicaciones .publicaciones-grid[style*="flex-direction: row"] a.control-btn,
+#panel-publicaciones .publicaciones-grid[style*="flex-direction: row"] button.control-btn {
+  width:auto !important;
+  align-self:flex-start !important;
+}
+
+/* ── VISTA SOBRE EL AUTOR (flex-direction:column con foto + textos): dejar como genera el JS ── */
+/* NO aplicar ningún override — el JS genera correctamente la vista columna */
+/* Barra interna publicaciones: tipo de publicación a la IZQUIERDA */
+#panel-publicaciones .barra-interna > span.control-label {
+  flex:1 !important;
+  text-align:left !important;
+  color:var(--accent) !important;
+  font-size:0.75rem !important;
+  font-weight:700 !important;
+}
+
+/* ── JUEGOS: barra = fila1(PÁGINA+FLECHAS derecha) fila2(FILTRO) — misma lógica que modo vídeo ── */
+/* Los grupos juegos-curso-group (left:1075px) y juegos-flechas-group (left:1200px) ya están
+   capturados por las reglas de modo vídeo (left:1075px / left:1200px) — no necesitan regla nueva */
+/* FILTRO juegos (data-juego-filter): fila 2, izquierda */
+.contenedor-grande--curso .barra-interna > .control-group:has(button[data-juego-filter]) {
+  order: 10; flex: 0 0 100%; justify-content: flex-start;
+}
+
+/* ── BOTONES ESTILO "VOLVER": usados para Amazon/Muestras/Donación en móvil ── */
+.btn-movil-accion {
+  display:inline-flex !important; align-items:center !important; gap:0.4rem !important;
+  padding:0 8px !important; height:26px !important; border-radius:6px !important;
+  border:1px solid #999999 !important; background:#000000 !important;
+  color:#ffffff !important; font-family:'Saira',sans-serif !important;
+  font-size:0.72rem !important; font-weight:500 !important;
+  cursor:pointer !important; text-decoration:none !important;
+  white-space:nowrap !important; flex-shrink:0 !important;
+}
+.btn-movil-accion img { width:18px !important; height:18px !important; object-fit:contain !important; flex-shrink:0 !important; }
+.btn-movil-accion:hover { background:#ffffff !important; color:#000000 !important; border-color:#ffffff !important; }
+
+/* El separador ahora es una columna del grid — su estilo está en .curso-sidebar */
+
+/* Punto 3: Icono sala de control al 80% */
+#btn-sala-control img { width:calc(38px * 0.8) !important; height:calc(38px * 0.8) !important; }
+
+/* La barra doble ya tiene border-radius en su propia regla .curso-sidebar */
+
+/* Punto 5: Reducir row-gap del unidades-grid a la mitad */
+.unidades-grid { row-gap:0 !important; }
+
+/* Punto 7: botones filtro objetos — distribución uniforme en el grupo */
+#panel-objetos .barra-interna > .control-group:has(button[data-filter]) {
+  justify-content:space-between !important;
+  width:100% !important;
+}
+#panel-objetos .barra-interna > .control-group:has(button[data-filter]) .control-btn-filter {
+  flex:1 !important;
+  justify-content:center !important;
+}
+
+/* Punto 9: Barra publicaciones — sin margin extra, comparte estilo de .curso-sidebar */
+#panel-publicaciones .sidebar-pub-acciones { min-height:52px; }
+/* sidebar-btn como button (curso anterior/siguiente) */
+button.sidebar-btn { background:none; border:none; cursor:pointer; }
+/* Placeholder invisible para mantener espacio cuando falta un botón de navegación */
+.sidebar-btn-placeholder { visibility:hidden; pointer-events:none; width:calc(38px + 0.6rem); min-width:calc(38px + 0.6rem); height:calc(38px + 2.4em + 0.2rem + 8px); }
+
+/* Sidebar publicaciones con botones acción: fila horizontal volver + acciones */
+.sidebar-pub-acciones {
+  display:flex; flex-direction:row; align-items:center; justify-content:center;
+  gap:0.5rem; flex-wrap:wrap; padding:4px 8px;
+  border-bottom:1px solid #444444; width:100%; box-sizing:border-box;
+}
+
+/* Foto autor reducida a 1/3 (~47px de los 140px originales) */
+.foto-autor-movil { height:47px !important; width:auto !important; object-fit:contain !important; display:block !important; margin:0 auto 0.5rem auto !important; border-radius:8px !important; }
+
+/* ── VER MUESTRAS: barra título más alta para "Ingeniosas..." ── */
+#overlay-muestras .objeto-detail-title {
+  height:auto !important;
+  min-height:36px !important;
+  padding:6px 8px !important;
+  white-space:normal !important;
+  line-height:1.3 !important;
+}
+/* Contenedor imagen: sin espacio blanco arriba/abajo */
+#overlay-muestras .objeto-detail > div:last-child {
+  padding:0 !important;
+}
+
+/* ── SALA DE CONTROL ── */
+#btn-sala-control { align-items:center; justify-content:center; gap:4px; position:absolute; bottom:4px; right:4px; white-space:nowrap; }
+#panel-consola.active .objetos-container-wrapper { height:500px; overflow:hidden; }
+.btn-reconstruir { font-family:'Saira',sans-serif; cursor:pointer; transition:background 0.2s,color 0.2s; height:36px; }
+.btn-reconstruir:hover { background:#38bdf8; border-color:#38bdf8; color:#000000; font-weight:700; }
+
+/* ── CONTENEDOR DE PORTADA ── */
+.contenedor-grande--portada { height:auto; min-height:0; padding:0; border-radius:10px; overflow:hidden; }
+.contenedor-grande--portada img { width:100%; height:auto; object-fit:contain; border-radius:10px; display:block; }
+
+/* ── ANIMACIONES ENTRADA ── */
+.unidad-ficha.anim-entrada,.publicacion-ficha.anim-entrada,.objeto-ficha.anim-entrada { opacity:0; animation:fadeInUp 0.35s ease forwards; animation-delay:calc(var(--d,0)*0.045s); }
+.anim-flip { display:inline-block; animation:flipNum 0.3s ease; }
+.sidebar-btn.anim-entrada { opacity:0; animation:fadeInUp 0.3s ease forwards; animation-delay:calc(var(--d,0)*0.06s); }
+
+/* ── AJUSTE PANTALLAS MUY PEQUEÑAS ── */
+@media(max-width:380px) {
+  .barra-superior { gap:0.2rem; padding:4px; }
+  .curso-tab { width:76px; font-size:0.65rem; }
+  .objetos-btn-texto { font-size:0.65rem; }
+  .objetos-grid { grid-template-columns:repeat(3,1fr); }
+  .temas-grid,.unidades-grid,.publicaciones-grid { grid-template-columns:repeat(3,1fr); }
+}
+@media(max-width:320px) {
+  body { font-size:12px; }
+  .curso-tab { width:65px; font-size:0.6rem; }
+  .objetos-grid { grid-template-columns:repeat(2,1fr); }
+  .temas-grid,.unidades-grid,.publicaciones-grid { grid-template-columns:repeat(3,1fr); }
+}
+</style>
+<script src="sistema/objetos-data.js"></script>
+</head>
+<body>
+<div class="pin-overlay" id="pinOverlay" style="display:flex">
+  <div class="pin-modal">
+    <h1>Acceso protegido</h1>
+    <p>Principios de la termodinámica.<br>PIN solicitado.<br>A la espera de input.</p>
+    <div class="pin-label">Clave:</div>
+    <div class="pin-input-group">
+      <input type="text" class="pin-digit" id="pin0" maxlength="1" inputmode="numeric" autocomplete="off">
+      <input type="text" class="pin-digit" id="pin1" maxlength="1" inputmode="numeric" autocomplete="off">
+      <input type="text" class="pin-digit" id="pin2" maxlength="1" inputmode="numeric" autocomplete="off">
+      <input type="text" class="pin-digit" id="pin3" maxlength="1" inputmode="numeric" autocomplete="off">
+    </div>
+    <button class="pin-btn" id="pinBtn">Acceder</button>
+  </div>
+</div>
+
+
+<div class="bg-fx"></div>
+<header>
+  <div class="header-logo page-load-hidden" onclick="irAPortada()" style="cursor:pointer;">Física <span>&</span> Química</div>
+  <div class="header-sub page-load-hidden" onclick="irAAutor()" style="cursor:pointer;">Jacinto Javier Fernández Herrera</div>
+  <button id="btn-sala-control" class="sidebar-btn" onclick="openConsola()" style="display:none;"><img src="imagenes/menu/Sala de control.webp" alt="Sala de control"></button>
+</header>
+<div class="barra-superior page-load-hidden">
+  <button class="curso-tab" onclick="selectCurso('2eso',this)">2º ESO<br>Física y Química</button>
+  <button class="curso-tab" onclick="selectCurso('3eso',this)">3º ESO<br>Física y Química</button>
+  <button class="curso-tab" onclick="selectCurso('4eso',this)">4º ESO<br>Física y Química</button>
+  <button class="curso-tab" onclick="selectCurso('1bach',this)">1º Bachillerato<br>Física y Química</button>
+  <button class="curso-tab" onclick="selectCurso('2bachF',this)">2º Bachillerato<br>Física</button>
+  <button class="curso-tab" onclick="selectCurso('2bachQ',this)">2º Bachillerato<br>Química</button>
+  <button class="curso-tab objetos-btn" onclick="selectObjetos(this)"><img class="objetos-btn-icono" src="imagenes/menu/Objetos.webp" alt=""><span class="objetos-btn-texto">Objetos</span></button>
+  <button class="curso-tab objetos-btn publicaciones-btn" onclick="openPublicaciones()"><img class="objetos-btn-icono" src="imagenes/menu/Publicaciones.webp" alt=""><span class="objetos-btn-texto">Publicaciones</span></button>
+</div>
+<main class="page-load-hidden">
+  <div class="contenedor-grande contenedor-grande--portada active" id="panel-portada">
+    <img src="imagenes/menu/Portada móvil.webp" alt="Portada" style="width:100%;height:100%;object-fit:contain;border-radius:10px;">
+  </div>
+  <div class="contenedor-grande contenedor-grande--objetos" id="panel-objetos">
+      <div class="barra-interna">
+        <div class="control-group">
+          <span class="control-label">ORDEN:</span>
+          <button class="control-btn active control-btn-filter control-btn-orden" id="btn-orden-toggle" data-sort="nombre">Nombre</button>
+        </div>
+        <div class="control-group">
+          <span class="control-label">OBJETOS:</span>
+          <span class="pagination-info" id="pagination-info-count" style="display:flex; gap:0.3rem; align-items:center; color:#ffffff; white-space:nowrap;">39 / 39</span>
+        </div>
+        <div class="control-group" id="grupo-pagina-top">
+          <span class="control-label">PÁGINA:</span>
+          <span class="pagination-info" id="pagination-info-top" style="display:flex; gap:0.3rem; align-items:center; color:#ffffff; white-space:nowrap;">1 / 5</span>
+        </div>
+        <div class="control-group" id="grupo-flechas">
+          <button class="pagination-btn" id="btn-prev" onclick="objetosPrevPage()" title="Página anterior" style="width:24px; height:24px; padding:0;">
+            <img src="imagenes/menu/Anterior.webp" alt="Anterior" style="width:100%; height:100%; object-fit:contain;">
+          </button>
+          <button class="pagination-btn" id="btn-next" onclick="objetosNextPage()" title="Página siguiente" style="width:24px; height:24px; padding:0;">
+            <img src="imagenes/menu/Siguiente.webp" alt="Siguiente" style="width:100%; height:100%; object-fit:contain;">
+          </button>
+        </div>
+        <div class="control-group" style="width:100%;">
+          <span class="control-label">FILTRO:</span>
+          <div class="temas-button-wrapper">
+            <button class="control-btn control-btn-filter" data-filter="temas"><img src="imagenes/menu/Temas.webp" alt=""><span>Temas</span></button>
+          </div>
+          <button class="control-btn control-btn-filter" data-filter="metodo"><img src="imagenes/menu/Boton_metodo.webp" alt=""><span>Método científico</span></button>
+          <button class="control-btn control-btn-filter" data-filter="fisica"><img src="imagenes/menu/Boton_fisica.webp" alt=""><span>Física</span></button>
+          <button class="control-btn control-btn-filter" data-filter="quimica"><img src="imagenes/menu/Boton_quimica.webp" alt=""><span>Química</span></button>
+        </div>
+      </div>
+      <div class="curso-layout">
+        <div class="objetos-grid" id="grid-objetos"></div>
+      </div>
+  </div>
+  <div class="contenedor-grande contenedor-grande--publicaciones" id="panel-publicaciones">
+      <div class="curso-layout">
+        <div class="curso-sidebar">
+          <div class="sidebar-mitad">
+            <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarAutor()">
+              <img src="imagenes/menu/Sobre el autor.webp" alt="Sobre el autor">
+              <span>Sobre el autor</span>
+            </a>
+            <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarListadoPublicaciones()">
+              <img src="imagenes/menu/Listado de publicaciones.webp" alt="Listado de publicaciones">
+              <span>Listado de publicaciones</span>
+            </a>
+            <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarVersionesWeb()">
+              <img src="imagenes/menu/Versiones web.webp" alt="Versiones web">
+              <span>Versiones web</span>
+            </a>
+          </div>
+          <div class="sidebar-separador"></div>
+          <div class="sidebar-mitad">
+            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+          </div>
+        </div>
+        <div class="publicaciones-grid" id="grid-publicaciones"></div>
+      </div>
+  </div>
+  <div class="contenedor-grande contenedor-grande--curso" id="panel-2eso">
+      <div class="curso-layout">
+        <div class="curso-sidebar">
+          <div class="sidebar-mitad">
+            <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/IQDNwKbEt8woTIBvchGnKWwbAaf9xX5AA-sZJVdj7jtU5QI?resid=5E49627FE7EEC215!sc4a6c0cdccb74c28806f7211a7296c1b&ithint=file%2Cpptx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRE53S2JFdDh3b1RJQnZjaEduS1d3YkFhZjl4WDVBQS1zWkpWZGo3anRVNVFJ" target="_blank" rel="noopener">
+              <img src="imagenes/menu/Jornada de bienvenida.webp" alt="Jornada de bienvenida">
+              <span>Jornada de bienvenida</span>
+            </a>
+            <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarVideoTemario('2eso')">
+              <img src="imagenes/menu/Video temario.webp" alt="Vídeo del temario">
+              <span>Vídeo del temario</span>
+            </a>
+            <a class="sidebar-btn" href="javascript:void(0)" onclick="openJuegos('2eso')">
+              <img src="imagenes/menu/Juegos.webp" alt="Juegos extra">
+              <span>Juegos<br>extra</span>
+            </a>
+          </div>
+          <div class="sidebar-separador"></div>
+          <div class="sidebar-mitad">
+            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+            <button class="sidebar-btn" onclick="selectCurso('3eso',document.querySelector('.curso-tab[onclick*=\'3eso\']'))">
+              <img src="imagenes/menu/Siguiente.webp" alt="Curso siguiente">
+              <span>Curso siguiente</span>
+            </button>
+          </div>
+        </div>
+        <div class="unidades-grid" id="grid-2eso"></div>
+      </div>
+  </div>
+  <div class="contenedor-grande contenedor-grande--curso" id="panel-3eso">
+      <div class="curso-layout">
+        <div class="curso-sidebar">
+          <div class="sidebar-mitad">
+            <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/EYKrjsaUXZVOn-5ioB67Z6gB0D0lGEnYph2ZjDArksBaYw?resid=5E49627FE7EEC215!sc68eab825d944e959fee62a01ebb67a8&ithint=file%2Cpptx&e=K2Lt0h&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0VZS3Jqc2FVWFpWT24tNWlvQjY3WjZnQjBEMGxHRW5ZcGgyWmpEQXJrc0JhWXc_ZT1LMkx0MGg" target="_blank" rel="noopener">
+              <img src="imagenes/menu/Jornada de bienvenida.webp" alt="Jornada de bienvenida">
+              <span>Jornada de bienvenida</span>
+            </a>
+            <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarVideoTemario('3eso')">
+              <img src="imagenes/menu/Video temario.webp" alt="Vídeo del temario">
+              <span>Vídeo del temario</span>
+            </a>
+            <a class="sidebar-btn" href="javascript:void(0)" onclick="openJuegos('3eso')">
+              <img src="imagenes/menu/Juegos.webp" alt="Juegos extra">
+              <span>Juegos<br>extra</span>
+            </a>
+          </div>
+          <div class="sidebar-separador"></div>
+          <div class="sidebar-mitad">
+            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+            <button class="sidebar-btn" onclick="selectCurso('2eso',document.querySelector('.curso-tab[onclick*=\'2eso\']'))">
+              <img src="imagenes/menu/Anterior.webp" alt="Curso anterior">
+              <span>Curso<br>anterior</span>
+            </button>
+            <button class="sidebar-btn" onclick="selectCurso('4eso',document.querySelector('.curso-tab[onclick*=\'4eso\']'))">
+              <img src="imagenes/menu/Siguiente.webp" alt="Curso siguiente">
+              <span>Curso siguiente</span>
+            </button>
+          </div>
+        </div>
+        <div class="unidades-grid" id="grid-3eso"></div>
+      </div>
+  </div>
+  <div class="contenedor-grande contenedor-grande--curso" id="panel-4eso">
+      <div class="curso-layout">
+        <div class="curso-sidebar">
+          <div class="sidebar-mitad">
+            <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/EXWKS6ANV6FAu6nwyeMZk_gB2zT7ZxtHkCPQbNkUsh3fzQ?resid=5E49627FE7EEC215!sa04b8a75570d40a1bba9f0c9e31993f8&ithint=file%2Cpptx&e=kljQyY&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0VYV0tTNkFOVjZGQXU2bnd5ZU1aa19nQjJ6VDdaeHRIa0NQUWJOa1VzaDNmelE_ZT1rbGpReVk" target="_blank" rel="noopener">
+              <img src="imagenes/menu/Jornada de bienvenida.webp" alt="Jornada de bienvenida">
+              <span>Jornada de bienvenida</span>
+            </a>
+            <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarVideoTemario('4eso')">
+              <img src="imagenes/menu/Video temario.webp" alt="Vídeo del temario">
+              <span>Vídeo del temario</span>
+            </a>
+            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+          </div>
+          <div class="sidebar-separador"></div>
+          <div class="sidebar-mitad">
+            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+            <button class="sidebar-btn" onclick="selectCurso('3eso',document.querySelector('.curso-tab[onclick*=\'3eso\']'))">
+              <img src="imagenes/menu/Anterior.webp" alt="Curso anterior">
+              <span>Curso<br>anterior</span>
+            </button>
+            <button class="sidebar-btn" onclick="selectCurso('1bach',document.querySelector('.curso-tab[onclick*=\'1bach\']'))">
+              <img src="imagenes/menu/Siguiente.webp" alt="Curso siguiente">
+              <span>Curso siguiente</span>
+            </button>
+          </div>
+        </div>
+        <div class="unidades-grid" id="grid-4eso"></div>
+      </div>
+  </div>
+  <div class="contenedor-grande contenedor-grande--curso" id="panel-1bach">
+      <div class="curso-layout">
+        <div class="curso-sidebar">
+          <div class="sidebar-mitad">
+            <a class="sidebar-btn" href="https://onedrive.live.com/personal/5e49627fe7eec215/_layouts/15/Doc.aspx?sourcedoc=%7B4b92edb0-9c52-442d-856f-bc1d268939dc%7D&action=default&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQ3c3WkpMWXB3dFJJVnZ2QjBtaVRuY0FiYWg3QjdKLXZ3bDF6eUxXUS13Q00wP2U9N3ZDMTlY" target="_blank" rel="noopener">
+              <img src="imagenes/menu/Jornada de bienvenida.webp" alt="Jornada de bienvenida">
+              <span>Jornada de bienvenida</span>
+            </a>
+            <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarVideoTemario('1bach')">
+              <img src="imagenes/menu/Video temario.webp" alt="Vídeo del temario">
+              <span>Vídeo del temario</span>
+            </a>
+            <a class="sidebar-btn" href="javascript:void(0)" onclick="openJuegos('1bach')">
+              <img src="imagenes/menu/Juegos.webp" alt="Juegos extra">
+              <span>Juegos<br>extra</span>
+            </a>
+          </div>
+          <div class="sidebar-separador"></div>
+          <div class="sidebar-mitad">
+            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+            <button class="sidebar-btn" onclick="selectCurso('4eso',document.querySelector('.curso-tab[onclick*=\'4eso\']'))">
+              <img src="imagenes/menu/Anterior.webp" alt="Curso anterior">
+              <span>Curso<br>anterior</span>
+            </button>
+            <button class="sidebar-btn" onclick="selectCurso('2bachF',document.querySelector('.curso-tab[onclick*=\'2bachF\']'))">
+              <img src="imagenes/menu/Siguiente.webp" alt="Curso siguiente">
+              <span>Curso siguiente</span>
+            </button>
+          </div>
+        </div>
+        <div class="unidades-grid" id="grid-1bach"></div>
+      </div>
+  </div>
+  <div class="contenedor-grande contenedor-grande--curso" id="panel-2bachF">
+      <div class="curso-layout">
+        <div class="curso-sidebar">
+          <div class="sidebar-mitad">
+            <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/IQAce58YYDeVT7jckdGHleVtAf69-q1OuQbPVR591QhmIo0?resid=5E49627FE7EEC215!s189f7b1c37604f95b8dc91d18795e56d&ithint=file%2Cpptx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQWNlNThZWURlVlQ3amNrZEdIbGVWdEFmNjktcTFPdVFiUFZSNTkxUWhtSW8w" target="_blank" rel="noopener">
+              <img src="imagenes/menu/Jornada de bienvenida.webp" alt="Jornada de bienvenida">
+              <span>Jornada de bienvenida</span>
+            </a>
+            <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarVideoTemario('2bachF')">
+              <img src="imagenes/menu/Video temario.webp" alt="Vídeo del temario">
+              <span>Vídeo del temario</span>
+            </a>
+            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+          </div>
+          <div class="sidebar-separador"></div>
+          <div class="sidebar-mitad">
+            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+            <button class="sidebar-btn" onclick="selectCurso('1bach',document.querySelector('.curso-tab[onclick*=\'1bach\']'))">
+              <img src="imagenes/menu/Anterior.webp" alt="Curso anterior">
+              <span>Curso<br>anterior</span>
+            </button>
+            <button class="sidebar-btn" onclick="selectCurso('2bachQ',document.querySelector('.curso-tab[onclick*=\'2bachQ\']'))">
+              <img src="imagenes/menu/Siguiente.webp" alt="Curso siguiente">
+              <span>Curso siguiente</span>
+            </button>
+          </div>
+        </div>
+        <div class="unidades-grid" id="grid-2bachF"></div>
+      </div>
+  </div>
+  <div class="contenedor-grande contenedor-grande--curso" id="panel-2bachQ">
+      <div class="curso-layout">
+        <div class="curso-sidebar">
+          <div class="sidebar-mitad">
+            <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/IQDVo0hqoIddRoCIBLsMol_2AetPORWqJbnAch3CSh_N7Xw?resid=5E49627FE7EEC215!s6a48a3d587a0465d808804bb0ca25ff6&ithint=file%2Cpptx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRFZvMGhxb0lkZFJvQ0lCTHNNb2xfMkFldFBPUldxSmJuQWNoM0NTaF9ON1h3" target="_blank" rel="noopener">
+              <img src="imagenes/menu/Jornada de bienvenida.webp" alt="Jornada de bienvenida">
+              <span>Jornada de bienvenida</span>
+            </a>
+            <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarVideoTemario('2bachQ')">
+              <img src="imagenes/menu/Video temario.webp" alt="Vídeo del temario">
+              <span>Vídeo del temario</span>
+            </a>
+            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+          </div>
+          <div class="sidebar-separador"></div>
+          <div class="sidebar-mitad">
+            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+            <button class="sidebar-btn" onclick="selectCurso('2bachF',document.querySelector('.curso-tab[onclick*=\'2bachF\']'))">
+              <img src="imagenes/menu/Anterior.webp" alt="Curso anterior">
+              <span>Curso<br>anterior</span>
+            </button>
+            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+          </div>
+        </div>
+        <div class="unidades-grid" id="grid-2bachQ"></div>
+      </div>
+  </div>
+
+  <div class="contenedor-grande contenedor-grande--curso" id="panel-consola">
+    <div class="barra-interna">
+      <div class="control-group" style="left:15px;">
+        <span class="control-label">SALA DE CONTROL</span>
+      </div>
+    </div>
+    <div class="curso-layout">
+      <div id="grid-consola" style="display:flex; flex-direction:row; gap:15px; flex:1; height:100%; overflow:hidden;"></div>
+    </div>
+  </div>
+  <div class="contenedor-grande contenedor-grande--publicaciones" id="pagina-listado">
+    <div class="objetos-container-wrapper">
+      <div class="pub-listado-contenedor" style="display:flex; flex-direction:column; gap:10px; padding:10px; width:100%; height:100%; overflow-y:auto;"></div>
+    </div>
+  </div>
+</main>
+<div id="temas-dropdown">
+  <div id="temas-checkboxes"></div>
+</div>
+<div class="tema-detail-overlay" id="tema-detail-overlay" onclick="closeTemaDetail(event)">
+  <div class="tema-detail-panel">
+    <button class="tema-detail-close" onclick="closeTemaDetail()">✕</button>
+    <div class="tema-detail-header">
+      <div class="tema-detail-title" id="tema-detail-titulo">Título del Tema</div>
+      <div class="tema-detail-curso" id="tema-detail-curso">Nivel Educativo</div>
+    </div>
+    <div class="tema-subelementos-grid" id="tema-subelementos-grid"></div>
+  </div>
+</div>
+<div class="objeto-detail-overlay" id="objeto-detail-overlay" onclick="closeObjeto(event)">
+  <div class="objeto-detail-nav" id="objeto-detail-nav">
+    <button class="pagination-btn" id="btn-prev-objeto" onclick="objetoDetallePrevious(event)" title="Objeto anterior">
+      <img src="imagenes/menu/Anterior.webp" alt="Anterior">
+    </button>
+    <button class="pagination-btn" id="btn-next-objeto" onclick="objetoDetalleNext(event)" title="Objeto siguiente">
+      <img src="imagenes/menu/Siguiente.webp" alt="Siguiente">
+    </button>
+  </div>
+  <div class="objeto-detail">
+    <div class="objeto-detail-content">
+      <div class="objeto-detail-side realidad">
+        <div class="objeto-detail-title">
+          <span class="objeto-detail-title-text">Objeto en la realidad</span>
+          <button class="objeto-detail-close" onclick="closeObjeto()"><img src="imagenes/menu/Cerrar.webp" alt="Cerrar" style="width:100%; height:100%; object-fit:contain;"></button>
+        </div>
+        <img class="objeto-detail-img" id="objeto-detail-img-a" src="" alt="Objeto en la realidad">
+        <div class="objeto-detail-video" id="objeto-detail-video"></div>
+      </div>
+      <div class="objeto-detail-side simulacion">
+        <div class="objeto-detail-title">
+          <span class="objeto-detail-title-text">Objeto en la simulación</span>
+        </div>
+        <img class="objeto-detail-img" id="objeto-detail-img-b" src="" alt="Objeto en la simulación">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="video-overlay" id="video-overlay" style="display:none;" onclick="if(event.target===this)cerrarVideo()">
+  <div class="video-overlay-panel">
+    <div class="video-overlay-bar">
+      <span class="video-overlay-title" id="video-overlay-title"></span>
+      <button class="video-overlay-close" onclick="cerrarVideo()"><img src="imagenes/menu/Cerrar.webp" alt="Cerrar"></button>
+    </div>
+    <video id="video-player" controls autoplay></video>
+  </div>
+</div>
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <img class="modal-bg-img" id="modal-bg" src="" alt="">
+    <div class="modal-bg-gradient"></div>
+    <div class="modal-hero-info">
+      <div class="modal-icon-wrap"><img id="modal-icon" src="" alt=""></div>
+      <div>
+        <div class="modal-curso-tag" id="modal-curso"></div>
+        <div class="modal-title" id="modal-name"></div>
+      </div>
+    </div>
+    <div class="modal-links" id="modal-links"></div>
+  </div>
+</div>
+<script src="sistema/temario.js"></script>
+<script>
+// ── MÓVIL: post-procesado de vistas de publicaciones ──────────────────────
+// Transforma botones Amazon/Muestras en estilo volver, reduce foto autor,
+// y reinicia filtros de objetos al entrar al panel.
+
+(function() {
+  // ── 1. Parche sobre abrirFichaPublicacion: transformar botones ────────────
+  const _origAbrirFicha = window.abrirFichaPublicacion;
+  window.abrirFichaPublicacion = function(pub) {
+    _origAbrirFicha(pub);
+    // Buscar el grid después de que el JS lo haya rellenado
+    requestAnimationFrame(() => {
+      const grid = document.querySelector('#panel-publicaciones .publicaciones-grid');
+      if (!grid) return;
+
+      // Buscar el enlace "Ver en Amazon" y botón "Ver muestras"
+      const amazonA = grid.querySelector('a[href*="amazon"]');
+      const muestrasBtn = grid.querySelector('button[onclick*="mostrarMuestras"]');
+
+      // Construir el sidebar con mismo formato que las otras vistas
+      const sidebar = document.querySelector('#panel-publicaciones .curso-sidebar');
+      if (!sidebar) return;
+
+      // Mitad izquierda: placeholder (pos 1), placeholder (pos 2), Volver (pos 3)
+      const mitadIzq = document.createElement('div');
+      mitadIzq.className = 'sidebar-mitad';
+      mitadIzq.appendChild(Object.assign(document.createElement('div'), {className:'sidebar-btn sidebar-btn-placeholder'}));
+      mitadIzq.appendChild(Object.assign(document.createElement('div'), {className:'sidebar-btn sidebar-btn-placeholder'}));
+      const btnVolverFicha = document.createElement('a');
+      btnVolverFicha.href = 'javascript:void(0)';
+      btnVolverFicha.className = 'sidebar-btn';
+      btnVolverFicha.setAttribute('onclick', 'openPublicaciones()');
+      btnVolverFicha.innerHTML = '<img src="imagenes/menu/Anterior.webp" alt="Volver a publicaciones"><span>Volver a publicaciones</span>';
+      mitadIzq.appendChild(btnVolverFicha);
+
+      // Separador
+      const sep = document.createElement('div');
+      sep.className = 'sidebar-separador';
+
+      // Mitad derecha: Ver en Amazon (pos 1), Ver muestras (pos 2), placeholder (pos 3)
+      const mitadDer = document.createElement('div');
+      mitadDer.className = 'sidebar-mitad';
+
+      if (amazonA) {
+        const btnA = document.createElement('a');
+        btnA.href = amazonA.href;
+        btnA.target = '_blank';
+        btnA.rel = 'noopener';
+        btnA.className = 'sidebar-btn';
+        btnA.innerHTML = '<img src="imagenes/menu/Amazon.webp" alt="Ver en Amazon"><span>Ver en Amazon</span>';
+        mitadDer.appendChild(btnA);
+        amazonA.style.display = 'none';
+      } else {
+        mitadDer.appendChild(Object.assign(document.createElement('div'), {className:'sidebar-btn sidebar-btn-placeholder'}));
+      }
+
+      if (muestrasBtn) {
+        const onclickAttr = muestrasBtn.getAttribute('onclick') || '';
+        const btnM = document.createElement('button');
+        btnM.className = 'sidebar-btn';
+        btnM.setAttribute('onclick', onclickAttr);
+        btnM.innerHTML = '<img src="imagenes/menu/Muestras.webp" alt="Ver muestras"><span>Ver<br>muestras</span>';
+        mitadDer.appendChild(btnM);
+        muestrasBtn.style.display = 'none';
+      } else {
+        mitadDer.appendChild(Object.assign(document.createElement('div'), {className:'sidebar-btn sidebar-btn-placeholder'}));
+      }
+
+      mitadDer.appendChild(Object.assign(document.createElement('div'), {className:'sidebar-btn sidebar-btn-placeholder'}));
+
+      sidebar.innerHTML = '';
+      sidebar.appendChild(mitadIzq);
+      sidebar.appendChild(sep);
+      sidebar.appendChild(mitadDer);
+      sidebar.style.padding = '0';
+    });
+  };
+
+
+  // ── 4. Botones unidad anterior/siguiente flanqueando el icono de unidad ──────
+  // Espera a que el JS renderice .unidad-ficha-dentro y lo envuelve en una fila
+  function _inyectarNavUnidad(gridEl, curso) {
+    const ficha = gridEl.querySelector('.unidad-ficha-dentro');
+    if (!ficha || ficha.dataset.navInjected) return; // ya procesado
+    ficha.dataset.navInjected = '1';
+
+    // Detectar si estamos en modo juegos
+    const esJuegos = (typeof window.estadoGrids !== 'undefined' && window.estadoGrids[curso] === 'juegos');
+
+    // Textos de los botones
+    const txtPrev = esJuegos ? 'Curso anterior' : 'Unidad anterior';
+    const txtNext = esJuegos ? 'Curso siguiente' : 'Unidad siguiente';
+
+    // Extraer icono, número y nombre de la ficha antes de eliminarla
+    const iconoEl = ficha.querySelector('.unidad-icono img');
+    const iconoSrc = iconoEl ? iconoEl.src : '';
+    const numEl = ficha.querySelector('.unidad-numero-texto1');
+    const numTxt = numEl ? numEl.textContent.trim() : '';
+    const nombreEl = ficha.querySelector('.unidad-nombre-texto2');
+    const nombreTxt = nombreEl ? nombreEl.textContent.trim() : '';
+
+    // Eliminar el contenedor "Volver al curso"
+    ficha.remove();
+
+    // Encontrar el sidebar del panel padre
+    const panel = gridEl.closest('.contenedor-grande');
+    const sidebar = panel ? panel.querySelector('.curso-sidebar') : null;
+
+    if (sidebar && !sidebar._navUnidadInjected) {
+      sidebar._navUnidadInjected = true;
+
+      // Guardar el HTML original si aún no lo hizo el JS (para restauración)
+      // El JS de temario.js ya habrá guardado data-original-html antes de llegar aquí
+
+      const ORDEN_C = ['2eso','3eso','4eso','1bach','2bachF','2bachQ'];
+      const idxCurso = ORDEN_C.indexOf(curso);
+
+      // Construir columna izquierda con botón prev
+      const colPrev = document.createElement('div');
+      colPrev.className = 'sidebar-nav-col';
+      const btnPrev = document.createElement('button');
+      btnPrev.className = 'sidebar-nav-unidad-btn';
+      btnPrev.innerHTML = '<img src="imagenes/menu/Anterior.webp" alt="' + txtPrev + '"><span>' + txtPrev + '</span>';
+      if (esJuegos) {
+        const prev = ORDEN_C[idxCurso - 1];
+        btnPrev.onclick = () => prev && window.openJuegos && window.openJuegos(prev);
+        btnPrev.classList.toggle('invisible', !prev);
+      } else {
+        btnPrev.onclick = () => window.unidadPrev && window.unidadPrev(curso);
+      }
+      colPrev.appendChild(btnPrev);
+
+      // Construir centro: icono clicable + textos
+      const centro = document.createElement('div');
+      centro.className = 'sidebar-unidad-centro';
+      centro.title = 'Volver al curso';
+      centro.onclick = () => window.volverATemas && window.volverATemas(curso);
+      const iconoDiv = document.createElement('div');
+      iconoDiv.className = 'sidebar-unidad-icono';
+      if (iconoSrc) {
+        const imgIco = document.createElement('img');
+        imgIco.src = iconoSrc;
+        imgIco.alt = numTxt;
+        iconoDiv.appendChild(imgIco);
+      }
+      const numDiv = document.createElement('div');
+      numDiv.className = 'sidebar-unidad-num';
+      numDiv.textContent = numTxt;
+      const nombreDiv = document.createElement('div');
+      nombreDiv.className = 'sidebar-unidad-nombre';
+      nombreDiv.textContent = nombreTxt;
+      centro.appendChild(iconoDiv);
+      centro.appendChild(numDiv);
+      centro.appendChild(nombreDiv);
+
+      // Construir columna derecha con botón next
+      const colNext = document.createElement('div');
+      colNext.className = 'sidebar-nav-col';
+      const btnNext = document.createElement('button');
+      btnNext.className = 'sidebar-nav-unidad-btn';
+      btnNext.innerHTML = '<img src="imagenes/menu/Siguiente.webp" alt="' + txtNext + '"><span>' + txtNext + '</span>';
+      if (esJuegos) {
+        const next = ORDEN_C[idxCurso + 1];
+        btnNext.onclick = () => next && window.openJuegos && window.openJuegos(next);
+        btnNext.classList.toggle('invisible', !next);
+      } else {
+        btnNext.onclick = () => window.unidadNext && window.unidadNext(curso);
+      }
+      colNext.appendChild(btnNext);
+
+      // Vaciar el sidebar y poner los 3 celdas del grid
+      sidebar.innerHTML = '';
+      sidebar.appendChild(colPrev);
+      sidebar.appendChild(centro);
+      sidebar.appendChild(colNext);
+
+      // Actualizar botones prev/next y textos del centro para unidades
+      if (!esJuegos) {
+        function actualizarSidebar() {
+          const infoEl = document.getElementById('unidad-info-' + curso);
+          if (!infoEl) return;
+          const txt = infoEl.textContent.trim();
+          const m = txt.match(/(\d+)\s*\/\s*(\d+)/);
+          if (!m) return;
+          const cur = parseInt(m[1]), total = parseInt(m[2]);
+          btnPrev.classList.toggle('invisible', cur <= 1);
+          btnNext.classList.toggle('invisible', cur >= total);
+
+          // Actualizar icono y textos del centro con la unidad activa
+          const fichaActual = gridEl.querySelector('.unidad-ficha-dentro');
+          if (!fichaActual) {
+            // Buscar info directamente del curso en el JS
+            const temaIdx = (typeof window.estadoGrids !== 'undefined') ? window.estadoGrids[curso] : null;
+            if (typeof temaIdx === 'number' && window.CURSOS && window.CURSOS[curso]) {
+              const tema = window.CURSOS[curso].temas[temaIdx];
+              if (tema) {
+                const imgEl = iconoDiv.querySelector('img');
+                if (imgEl) imgEl.src = tema.icono;
+                numDiv.textContent = 'Unidad ' + (temaIdx + 1);
+                nombreDiv.textContent = tema.nombre;
+              }
+            }
+          }
+        }
+        actualizarSidebar();
+        // Fallback: leer directamente de estadoGrids por si unidad-info aún no se actualizó
+        setTimeout(() => {
+          const temaIdx2 = (typeof window.estadoGrids !== 'undefined') ? window.estadoGrids[curso] : null;
+          if (typeof temaIdx2 === 'number') {
+            const total2 = (window.CURSOS && window.CURSOS[curso]) ? window.CURSOS[curso].temas.length : 0;
+            btnPrev.classList.toggle('invisible', temaIdx2 <= 0);
+            btnNext.classList.toggle('invisible', temaIdx2 >= total2 - 1);
+          }
+        }, 150);
+        const infoEl = document.getElementById('unidad-info-' + curso);
+        if (infoEl) {
+          new MutationObserver(actualizarSidebar).observe(infoEl, { childList:true, subtree:true, characterData:true });
+        }
+      }
+
+      // Al volver al temario: limpiar el flag para que pueda reinyectarse
+      // (el JS de temario.js restaurará sidebar.innerHTML desde dataset.originalHtml)
+      // Necesitamos limpiar _navUnidadInjected cuando el sidebar sea restaurado
+      const sidebarObserver = new MutationObserver(() => {
+        if (sidebar.innerHTML !== '' && !sidebar.querySelector('.sidebar-nav-unidad-btn')) {
+          sidebar._navUnidadInjected = false;
+          sidebarObserver.disconnect();
+        }
+      });
+      sidebarObserver.observe(sidebar, { childList:true });
+    }
+  }
+
+  // Parchear abrirUnidad / selectUnidad si existe, usando MutationObserver como fallback
+  const cursos = ['2eso','3eso','4eso','1bach','2bachF','2bachQ'];
+  cursos.forEach(curso => {
+    const gridEl = document.getElementById('grid-' + curso);
+    if (!gridEl) return;
+    new MutationObserver(() => {
+      if (document.body.classList.contains('en-unidad')) {
+        setTimeout(() => _inyectarNavUnidad(gridEl, curso), 50);
+      }
+    }).observe(gridEl, { childList:true, subtree:true });
+  });
+
+  // ── 4b. 2º ESO unidades: distribuir kahoot grupo (col2) y solo (col3) ──
+  // El JS asigna gridColumn=3 a todos los juegos (kahoot_grupo, kahoot_solo, pasapalabra).
+  // Para 2ESO queremos: kahoot_grupo en col2, kahoot_solo en col3.
+  // También ajustamos gridRow para que queden en la misma fila.
+  const grid2eso = document.getElementById('grid-2eso');
+  if (grid2eso) {
+    new MutationObserver(() => {
+      const fa = grid2eso.querySelector('.ficha-actividades--unidad');
+      if (!fa || fa.dataset.reordenado2eso) return;
+      fa.dataset.reordenado2eso = '1';
+      const celdas = Array.from(fa.children);
+      // Buscar botones de kahoot por imagen src
+      const btnGrupo = celdas.find(c => c.querySelector && c.querySelector('img[src*="Kahoot Grupo"]'));
+      const btnSolo  = celdas.find(c => c.querySelector && c.querySelector('img[src*="Kahoot Individual"]'));
+      if (btnGrupo) {
+        btnGrupo.style.gridColumn = '2';
+        btnGrupo.style.gridRow = '';
+      }
+      if (btnSolo) {
+        btnSolo.style.gridColumn = '3';
+        btnSolo.style.gridRow = '';
+      }
+      // La pasapalabra también va en col3 pero en fila 2
+      const btnPasap = celdas.find(c => c.querySelector && c.querySelector('img[src*="Pasapalabra"]'));
+      if (btnPasap) {
+        btnPasap.style.gridColumn = '3';
+      }
+    }).observe(grid2eso, { childList:true, subtree:true });
+  }
+
+  // ── 3. PIN al cargar — copiado de temario.js, con sala de control si PIN universal ──
+  (function() {
+    const PINES_VALIDOS  = ['0123', '9445'];
+    const PIN_UNIVERSAL  = '9445'; // activa la sala de control
+    const overlay = document.getElementById('pinOverlay');
+    const btn     = document.getElementById('pinBtn');
+    const digits  = [0,1,2,3].map(i => document.getElementById('pin' + i));
+
+    function getPIN() { return digits.map(d => d.value).join(''); }
+
+    function bambalear(el, color, onDone) {
+      el.style.background = color;
+      const shake = [8,-8,6,-6,4,-4,0];
+      let i = 0;
+      const interval = setInterval(() => {
+        el.style.transform = 'translateX(' + shake[i] + 'px)';
+        i++;
+        if (i >= shake.length) {
+          clearInterval(interval);
+          el.style.transform = '';
+          if (onDone) onDone();
+        }
+      }, 60);
+    }
+
+    function intentarAcceso() {
+      const pin = getPIN();
+      if (PINES_VALIDOS.includes(pin)) {
+        digits.forEach(d => d.style.borderColor = '#44cc88');
+        bambalear(btn, '#44cc88', () => {
+          btn.style.background = '';
+          overlay.style.transition = 'opacity 0.4s';
+          overlay.style.opacity = '0';
+          setTimeout(() => {
+            overlay.style.display = 'none';
+            if (pin === PIN_UNIVERSAL) {
+              const btnSala = document.getElementById('btn-sala-control');
+              if (btnSala) { btnSala.style.display = 'flex'; }
+            }
+          }, 400);
+        });
+      } else {
+        digits.forEach(d => { d.value = ''; d.style.borderColor = '#ff6666'; });
+        bambalear(btn, '#ff6666', () => {
+          btn.style.background = '';
+          digits[0].focus();
+          setTimeout(() => digits.forEach(d => d.style.borderColor = ''), 600);
+        });
+      }
+    }
+
+    digits.forEach((d, i) => {
+      d.addEventListener('input', () => {
+        d.value = d.value.replace(/\D/g, '').slice(-1);
+        if (d.value && i < 3) digits[i + 1].focus();
+        if (getPIN().length === 4) intentarAcceso();
+      });
+      d.addEventListener('keydown', e => {
+        if (e.key === 'Backspace' && !d.value && i > 0) digits[i - 1].focus();
+      });
+    });
+
+    btn.addEventListener('click', intentarAcceso);
+
+    // Mostrar el overlay al cargar
+    overlay.style.display = 'flex';
+    setTimeout(() => digits[0].focus(), 100);
+  })();
+
+  // ── 8. Parche volverATemas: restaurar estilos del sidebar ──
+  const _origVolverATemas = window.volverATemas;
+  if (_origVolverATemas) {
+    window.volverATemas = function(cursoId) {
+      // Restaurar estilos inline antes de que el JS restaure el innerHTML
+      const panel = document.getElementById('panel-' + cursoId);
+      if (panel) {
+        const sb = panel.querySelector('.curso-sidebar');
+        if (sb) {
+          // Limpiar flag de sala de vídeos
+          if (sb._mobileHidden) {
+            sb.style.visibility = '';
+            sb.style.height = '';
+            sb.style.minHeight = '';
+            sb.style.overflow = '';
+            sb.style.padding = '';
+            sb.style.margin = '';
+            sb.style.border = '';
+            delete sb._mobileHidden;
+          }
+          // Limpiar flag de nav unidad para que pueda reinyectarse en la siguiente apertura
+          if (sb._navUnidadInjected) {
+            delete sb._navUnidadInjected;
+          }
+        }
+      }
+      _origVolverATemas.call(this, cursoId);
+    };
+  }
+
+  // ── 7. Parche sala de vídeos: icono arriba, fila(prev·video·next), ocultar sidebar volver ──
+  const _origMostrarVideo = window.mostrarVideoTemario;
+  if (_origMostrarVideo) {
+    const ORDEN_CURSOS = ['2eso','3eso','4eso','1bach','2bachF','2bachQ'];
+    const NOMBRES_VIDEO = {
+      '2eso':'2º ESO\nFísica y Química','3eso':'3º ESO\nFísica y Química',
+      '4eso':'4º ESO\nFísica y Química','1bach':'1º Bach.\nFísica y Química',
+      '2bachF':'2º Bach.\nFísica','2bachQ':'2º Bach.\nQuímica'
+    };
+    window.mostrarVideoTemario = function(cursoId) {
+      _origMostrarVideo.call(this, cursoId);
+      requestAnimationFrame(() => setTimeout(() => {
+        const gridEl = document.getElementById('grid-' + cursoId);
+        if (!gridEl) return;
+
+
+        // Encontrar videoDiv (unidad-imagen) dentro del layout
+        const videoDiv = gridEl.querySelector('.unidad-imagen');
+        if (!videoDiv || videoDiv.classList.contains('video-sala-wrapped')) return;
+        videoDiv.classList.add('video-sala-wrapped');
+
+        // Crear fila contenedora
+        const row = document.createElement('div');
+        row.className = 'video-sala-row';
+
+        // Botón curso anterior
+        const idxActual = ORDEN_CURSOS.indexOf(cursoId);
+        const prevId = idxActual > 0 ? ORDEN_CURSOS[idxActual - 1] : null;
+        const nextId = idxActual < ORDEN_CURSOS.length - 1 ? ORDEN_CURSOS[idxActual + 1] : null;
+
+        const btnPrev = document.createElement('button');
+        btnPrev.className = 'btn-curso-video-nav' + (prevId ? '' : ' invisible');
+        btnPrev.innerHTML = '<img src="imagenes/menu/Anterior.webp" alt="Curso anterior"><span>Curso<br>anterior</span>';
+        if (prevId) btnPrev.onclick = () => window.mostrarVideoTemario(prevId);
+
+        const btnNext = document.createElement('button');
+        btnNext.className = 'btn-curso-video-nav' + (nextId ? '' : ' invisible');
+        btnNext.innerHTML = '<img src="imagenes/menu/Siguiente.webp" alt="Curso siguiente"><span>Curso<br>siguiente</span>';
+        if (nextId) btnNext.onclick = () => window.mostrarVideoTemario(nextId);
+
+        videoDiv.parentNode.insertBefore(row, videoDiv);
+        row.appendChild(btnPrev);
+        row.appendChild(videoDiv);
+        row.appendChild(btnNext);
+      }, 80));
+    };
+  }
+
+  // ── 6. Parche sala de control: botones ventas/administrar; Classroom/Editar/Eliminar como iconos ──
+  const _origRenderConsola = window.renderConsola;
+  if (_origRenderConsola) {
+    window.renderConsola = function() {
+      _origRenderConsola.apply(this, arguments);
+      requestAnimationFrame(() => {
+        // Botones Amazon: convertir a flex-row (icono izquierda, texto derecha)
+        const botonesAmazon = document.querySelectorAll('#grid-consola .control-btn-filter');
+        botonesAmazon.forEach(b => {
+          b.style.width = 'auto';
+          b.style.minWidth = '0';
+          b.style.flexDirection = 'row';
+          b.style.justifyContent = 'flex-start';
+          b.style.alignItems = 'center';
+          b.style.gap = '8px';
+          b.style.paddingLeft = '8px';
+          b.style.paddingRight = '12px';
+          const img = b.querySelector('img');
+          if (img) { img.style.flexShrink = '0'; img.style.width = '20px'; img.style.height = '20px'; }
+          const span = b.querySelector('span');
+          if (span) { span.style.textAlign = 'left'; span.style.whiteSpace = 'nowrap'; }
+        });
+        // Igualar ancho de los dos botones
+        requestAnimationFrame(() => {
+          let maxW = 0;
+          botonesAmazon.forEach(b => { maxW = Math.max(maxW, b.offsetWidth); });
+          if (maxW > 0) botonesAmazon.forEach(b => { b.style.width = maxW + 'px'; });
+        });
+
+        // Reducir altura del contenedor 9445
+        const cuadro9445 = document.getElementById('codigo-universal-cuadro');
+        if (cuadro9445) { cuadro9445.style.height = '42px'; cuadro9445.style.padding = '4px 10px'; }
+
+        // Procesar tabla de classrooms
+        const tabla = document.getElementById('tabla-classrooms');
+        if (tabla) {
+          // Classroom: icono sin contenedor (sin border/background)
+          tabla.querySelectorAll('td a[href*="classroom"]').forEach(a => {
+            const url = a.href;
+            const img = document.createElement('img');
+            img.src = 'imagenes/menu/Classroom.webp';
+            img.alt = 'Google Classroom';
+            img.style.cssText = 'width:24px;height:24px;object-fit:contain;cursor:pointer;display:block;';
+            img.title = url;
+            img.onclick = (e) => { e.stopPropagation(); window.open(url,'_blank'); };
+            a.replaceWith(img);
+          });
+
+          // Editar → icono Editar.png (mantener onclick original del elemento)
+          tabla.querySelectorAll('button[onclick*="editarClassroom"]').forEach(btn => {
+            btn.innerHTML = '';
+            btn.style.padding = '0';
+            btn.style.width = '24px';
+            btn.style.height = '24px';
+            btn.style.display = 'inline-flex';
+            btn.style.alignItems = 'center';
+            btn.style.justifyContent = 'center';
+            btn.style.background = 'none';
+            btn.style.border = 'none';
+            btn.style.cursor = 'pointer';
+            const ico = document.createElement('img');
+            ico.src = 'imagenes/menu/Editar.webp';
+            ico.alt = 'Editar';
+            ico.style.cssText = 'width:24px;height:24px;object-fit:contain;';
+            btn.appendChild(ico);
+          });
+
+          // Borrar → icono Cerrar.png
+          tabla.querySelectorAll('button[onclick*="borrarClassroom"]').forEach(btn => {
+            btn.innerHTML = '';
+            btn.style.padding = '0';
+            btn.style.width = '24px';
+            btn.style.height = '24px';
+            btn.style.display = 'inline-flex';
+            btn.style.alignItems = 'center';
+            btn.style.justifyContent = 'center';
+            btn.style.background = 'none';
+            btn.style.border = 'none';
+            btn.style.cursor = 'pointer';
+            const ico = document.createElement('img');
+            ico.src = 'imagenes/menu/Cerrar.webp';
+            ico.alt = 'Borrar';
+            ico.style.cssText = 'width:24px;height:24px;object-fit:contain;';
+            btn.appendChild(ico);
+          });
+        }
+      });
+    };
+  }
+
+
+  // ── 11. Parche animación unidad: el clon vuela al .sidebar-unidad-icono ──
+  const _origMostrarSub = window.mostrarSubelementos;
+  window.mostrarSubelementos = function(cursoId, temaIdx, origenBtn) {
+    _origMostrarSub.apply(this, arguments);
+    // Después de que el JS haya construido el layout y lanzado la animación,
+    // buscamos el clon volador y lo redirigimos al sidebar-unidad-icono
+    // (que _inyectarNavUnidad coloca 50ms después)
+    if (!origenBtn) return;
+    setTimeout(() => {
+      const panel = document.getElementById('panel-' + cursoId);
+      if (!panel) return;
+      const sidebarIcono = panel.querySelector('.sidebar-unidad-icono');
+      if (!sidebarIcono) return;
+      const clonWrapper = document.querySelector('body > div[style*="position:fixed"][style*="z-index:9999"]');
+      if (!clonWrapper) return;
+      // Calcular nueva posición destino: centro del sidebar-unidad-icono
+      const destRect = sidebarIcono.getBoundingClientRect();
+      const clonRect = clonWrapper.getBoundingClientRect();
+      const origenCX = clonRect.left + clonRect.width / 2;
+      const origenCY = clonRect.top  + clonRect.height / 2;
+      const destCX   = destRect.left + destRect.width  / 2;
+      const destCY   = destRect.top  + destRect.height / 2;
+      const escala   = destRect.width / clonRect.width;
+      const dx = destCX - origenCX;
+      const dy = destCY - origenCY;
+      clonWrapper.style.transition = 'transform 0.45s cubic-bezier(0.4,0,0.2,1)';
+      clonWrapper.style.transform  = `translate(${dx}px, ${dy}px) scale(${escala})`;
+    }, 60);
+  };
+
+  // ── 12. Parche animación ficha-actividades: orden por columna (1→4→2→5→3→6) ──
+  // Reordena --d para que el delay siga columna1(filas)→columna2(filas)→columna3(filas)
+  // numCols: número de columnas del grid (por defecto 3)
+  function _reordenarAnimPorColumna(grid, numCols) {
+    if (!grid) return;
+    numCols = numCols || 3;
+    const btns = Array.from(grid.querySelectorAll('.objeto-ficha'));
+    if (!btns.length) return;
+    // Agrupar por columna: si el botón tiene gridColumn explícito se usa,
+    // si no, se deduce por su posición (índice % numCols + 1)
+    const porColumna = {};
+    btns.forEach((btn, idx) => {
+      const colExplicita = parseInt(btn.style.gridColumn);
+      const col = colExplicita || (idx % numCols) + 1;
+      if (!porColumna[col]) porColumna[col] = [];
+      porColumna[col].push(btn);
+    });
+    const colsOrdenadas = Object.keys(porColumna).map(Number).sort((a,b) => a-b);
+    let delay = 0;
+    colsOrdenadas.forEach(col => {
+      porColumna[col].forEach(btn => {
+        btn.style.setProperty('--d', delay++);
+      });
+    });
+  }
+
+  // Parchear mostrarSubelementos → reordenar --d en ficha-actividades--unidad
+  const _origMostrarSubAnim = window.mostrarSubelementos;
+  window.mostrarSubelementos = function(cursoId, temaIdx, origenBtn) {
+    _origMostrarSubAnim.apply(this, arguments);
+    setTimeout(() => {
+      const panel = document.getElementById('panel-' + cursoId);
+      if (!panel) return;
+      _reordenarAnimPorColumna(panel.querySelector('.ficha-actividades--unidad'), 3);
+    }, 10);
+  };
+
+  // Parchear mostrarJuegos → reordenar --d en ficha-actividades--juegos
+  const _origMostrarJuegosAnim = window.mostrarJuegos;
+  if (_origMostrarJuegosAnim) {
+    window.mostrarJuegos = function() {
+      _origMostrarJuegosAnim.apply(this, arguments);
+      setTimeout(() => {
+        _reordenarAnimPorColumna(document.querySelector('.ficha-actividades--juegos'), 3);
+      }, 10);
+    };
+  }
+
+  // ── 10. Parche vistas publicaciones: botón Volver en posición de Versiones web ──
+  function _inyectarSidebarPublicaciones() {
+    const sidebar = document.querySelector('#panel-publicaciones .curso-sidebar');
+    if (!sidebar) return;
+    sidebar.innerHTML = `
+      <div class="sidebar-mitad">
+        <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarAutor()">
+          <img src="imagenes/menu/Sobre el autor.webp" alt="Sobre el autor">
+          <span>Sobre el autor</span>
+        </a>
+        <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarListadoPublicaciones()">
+          <img src="imagenes/menu/Listado de publicaciones.webp" alt="Listado de publicaciones">
+          <span>Listado de publicaciones</span>
+        </a>
+        <a class="sidebar-btn" href="javascript:void(0)" onclick="openPublicaciones()">
+          <img src="imagenes/menu/Anterior.webp" alt="Volver a publicaciones">
+          <span>Volver a publicaciones</span>
+        </a>
+      </div>
+      <div class="sidebar-separador"></div>
+      <div class="sidebar-mitad"></div>`;
+  }
+
+  ['mostrarAutor','mostrarListadoPublicaciones','mostrarVersionesWeb'].forEach(fnName => {
+    const _orig = window[fnName];
+    if (!_orig) return;
+    window[fnName] = function() {
+      _orig.apply(this, arguments);
+      requestAnimationFrame(_inyectarSidebarPublicaciones);
+    };
+  });
+
+  // ── 5. Reiniciar filtros de objetos al entrar al panel ────────────────────
+  const _origSelectObjetos = window.selectObjetos;
+  window.selectObjetos = function(btn) {
+    _origSelectObjetos(btn);
+    // Activar todos los botones de filtro de objetos
+    requestAnimationFrame(() => {
+      document.querySelectorAll('#panel-objetos .control-btn-filter[data-filter]').forEach(b => {
+        if (b.dataset.filter !== 'temas') {
+          b.classList.add('active');
+        }
+      });
+    });
+  };
+
+})();
+</script>

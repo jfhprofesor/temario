@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temario de Física y Química</title>
+<script>
+  (function() {
+    var mobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      || window.innerWidth <= 768;
+    var params = new URLSearchParams(window.location.search);
+    if (mobile && params.get('desktop') !== '1') {
+      window.location.replace('movil.html');
+    }
+  })();
+</script>
+<style>
+@font-face { font-family:'Saira'; src:url('fuentes/saira-v23-latin-regular.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+@font-face { font-family:'Saira'; src:url('fuentes/saira-v23-latin-500.woff2') format('woff2'); font-weight:500; font-style:normal; font-display:swap; }
+@font-face { font-family:'Saira'; src:url('fuentes/saira-v23-latin-600.woff2') format('woff2'); font-weight:600; font-style:normal; font-display:swap; }
+@font-face { font-family:'Saira'; src:url('fuentes/saira-v23-latin-700.woff2') format('woff2'); font-weight:700; font-style:normal; font-display:swap; }
+@font-face { font-family:'Saira'; src:url('fuentes/saira-v23-latin-800.woff2') format('woff2'); font-weight:800; font-style:normal; font-display:swap; }
+@font-face { font-family:'Syne'; src:url('fuentes/syne-v24-latin-regular.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+@font-face { font-family:'Syne'; src:url('fuentes/syne-v24-latin-500.woff2') format('woff2'); font-weight:500; font-style:normal; font-display:swap; }
+@font-face { font-family:'Syne'; src:url('fuentes/syne-v24-latin-600.woff2') format('woff2'); font-weight:600; font-style:normal; font-display:swap; }
+@font-face { font-family:'Syne'; src:url('fuentes/syne-v24-latin-700.woff2') format('woff2'); font-weight:700; font-style:normal; font-display:swap; }
+@font-face { font-family:'Syne'; src:url('fuentes/syne-v24-latin-800.woff2') format('woff2'); font-weight:800; font-style:normal; font-display:swap; }
+@font-face { font-family:'Roboto Condensed'; src:url('fuentes/roboto-condensed-v31-latin-regular.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+@font-face { font-family:'Roboto Condensed'; src:url('fuentes/roboto-condensed-v31-latin-500.woff2') format('woff2'); font-weight:500; font-style:normal; font-display:swap; }
+@font-face { font-family:'Roboto Condensed'; src:url('fuentes/roboto-condensed-v31-latin-600.woff2') format('woff2'); font-weight:600; font-style:normal; font-display:swap; }
+@font-face { font-family:'Roboto Condensed'; src:url('fuentes/roboto-condensed-v31-latin-700.woff2') format('woff2'); font-weight:700; font-style:normal; font-display:swap; }
+@font-face { font-family:'Patrick Hand SC'; src:url('fuentes/patrick-hand-v25-latin-regular.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+</style>
+<link rel="icon" type="image/png" href="imagenes/menu/Temario.webp">
+<style>
+:root { --bg:#2d2d2d; --surface:#1a1a1a; --card:#1a1a1a; --border:#444444; --text:#ffffff; --muted:#bbbbbb; --accent:#38bdf8; }
+* { margin:0; padding:0; box-sizing:border-box; }
+@keyframes textShine {
+  0%   { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+.texto-shine {
+  position: relative;
+  overflow: hidden;
+}
+.texto-shine::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.7) 50%, transparent 100%);
+  animation: textShine 0.8s ease forwards;
+  pointer-events: none;
+}
+@keyframes bgShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes bgPulse {
+  0%,100% { opacity:1; }
+  50%      { opacity:0.82; }
+}
+body { background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #1a1a2e, #2d2d2d, #1e2a1e); background-size:400% 400%; color:var(--text); font-family:'Roboto Condensed',sans-serif; min-height:100vh; overflow-x:hidden; user-select:none; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; animation:bgShift 18s ease infinite, bgPulse 9s ease-in-out infinite; }
+img { -webkit-user-drag:none; user-drag:none; draggable:false; }
+.bg-fx { position:fixed; inset:0; pointer-events:none; z-index:0; background:radial-gradient(ellipse at 20% 30%, rgba(56,189,248,0.06) 0%, transparent 60%), radial-gradient(ellipse at 80% 70%, rgba(136,102,221,0.05) 0%, transparent 60%); animation:bgPulse 12s ease-in-out infinite; }
+header { position:relative; z-index:10; padding:20px 2rem; border-bottom:0; display:flex; flex-direction:column; align-items:center; gap:0.4rem; text-align:center; width:1300px; margin:0 auto; box-sizing:border-box; }
+.header-logo { font-family:'Syne',sans-serif; font-size:clamp(1.4rem,3.5vw,2.2rem); font-weight:800; line-height:1; letter-spacing:-0.03em; }
+.header-logo span { color:var(--accent); text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000; }
+.header-sub { color:var(--text); font-size:1.3rem; font-weight:400; letter-spacing:0.08em; text-transform:none; font-variant:small-caps; font-family:'Patrick Hand SC',cursive; text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000; }
+/* Animación de carga inicial */
+.page-load-hidden { opacity:0; transform:translateY(22px); }
+.page-load-anim { transition:opacity 0.5s ease, transform 0.5s ease; opacity:1 !important; transform:translateY(0) !important; }
+.barra-superior { position:relative; z-index:10; display:flex; gap:0.4rem; padding:5px; margin:0 auto 5px auto; overflow-x:auto; scrollbar-width:none; border:1px solid #999999; border-radius:10px; background:rgba(56,189,248,0.154); flex-wrap:wrap; justify-content:space-evenly; width:1300px; }
+.barra-superior::-webkit-scrollbar { display:none; }
+.curso-tab { flex-shrink:0; padding:5px; border-radius:6px; border:1px solid #999999; background:#000000; color:#ffffff; font-family:'Saira',sans-serif; font-size:0.89rem; font-weight:500; cursor:pointer; transition:all 0.2s; white-space:normal; text-align:center; line-height:1.2; width:155px; height:45px; box-sizing:border-box; }
+.curso-tab:hover:not(.active) { color:#ffffff; border-color:#999999; font-weight:700; }
+/* Animación A: pulse en curso-tab */
+.curso-tab.tab-press { animation: btnActivePulse 0.4s ease-out forwards; }
+.curso-tab.active { background:var(--accent); border-color:#000000; color:#000; font-weight:700; }
+.curso-tab.active:hover { border-color:#ffffff !important; }
+.curso-tab.objetos-btn { border-radius:6px; padding:5px; width:155px; height:45px; flex-shrink:0; background:#000000; color:#ffffff; border:1px solid #999999; box-sizing:border-box; overflow:hidden; white-space:normal; word-break:break-word; display:flex; align-items:center; gap:5px; }
+.objetos-btn-icono { width:30px; height:30px; object-fit:contain; flex-shrink:0; display:block; margin:0 auto; }
+.objetos-btn-texto { white-space:normal; line-height:1.2; text-align:left; flex:1; min-width:0; }
+.curso-tab.objetos-btn:hover { background:#000000; color:#d4b84a; border-color:#d4b84a; font-weight:700; }
+.curso-tab.objetos-btn.active { background:#d4b84a; color:#000000; border-color:#000000; font-weight:700; }
+.curso-tab.objetos-btn.active:hover { border-color:#ffffff; }
+.curso-tab.publicaciones-btn:hover { background:#000000; color:#c0cce0; border-color:#c0cce0; font-weight:700; }
+.curso-tab.publicaciones-btn.active { background:#c0cce0; color:#000000; border-color:#000000; font-weight:700; }
+.curso-tab.publicaciones-btn.active:hover { border-color:#ffffff; }
+main { position:relative; z-index:10; padding:0; max-width:1300px; margin:0 auto; border:none; border-radius:0; }
+/* ── CONTENEDOR GRANDE: base compartida ── */
+.contenedor-grande { display:none; width:1300px; height:500px; margin:0 auto; border:1px solid #999999; border-radius:10px; background:rgba(56,189,248,0.08); padding:0; box-sizing:border-box; }
+.contenedor-grande.active { display:flex; flex-direction:column; }
+@keyframes panelFadeIn {
+  from { opacity:0; }
+  to   { opacity:1; }
+}
+.contenedor-grande.panel-enter { animation: panelFadeIn 0.22s ease forwards; }
+
+/* Variante objetos */
+.contenedor-grande--objetos { gap:0; }
+.contenedor-grande--objetos .barra-interna { margin:0; padding:5px 15px; }
+.contenedor-grande--objetos .curso-layout { flex:1; display:flex; gap:0; align-items:stretch; padding:5px; margin:0; width:100%; border:none; border-radius:0 0 10px 10px; overflow:hidden; }
+
+/* Variante curso */
+.contenedor-grande--curso { gap:0; }
+.contenedor-grande--curso .barra-interna { margin:0; padding:5px 15px; }
+.contenedor-grande--curso .curso-layout { flex:1; display:flex; gap:0; align-items:stretch; padding:5px; margin:0; width:100%; border:none; border-radius:0 0 10px 10px; overflow:hidden; }
+#panel-consola .curso-layout { padding:10px; }
+
+/* Variante publicaciones */
+.contenedor-grande--publicaciones { gap:0; }
+.contenedor-grande--publicaciones .barra-interna { margin:0; padding:5px 15px; }
+.contenedor-grande--publicaciones .curso-layout { flex:1; display:flex; gap:0; align-items:stretch; padding:5px; margin:0; width:100%; border:none; border-radius:0 0 10px 10px; overflow:hidden; }
+.contenedor-grande--publicaciones .publicaciones-grid { border:0; grid-template-columns:repeat(5,1fr); display:grid; column-gap:10px; row-gap:3px; flex:1; justify-items:stretch; align-items:start; padding:20px 5px 5px 5px; margin:0; align-content:start; overflow:hidden; }
+
+/* Grids internos */
+@keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+.unidades-grid { display:grid; column-gap:10px; row-gap:3px; flex:1; justify-items:center; border:0; padding:0; margin:0; grid-template-columns:repeat(5,1fr); grid-auto-rows:auto; }
+
+/* Colores temáticos del barra-interna */
+#panel-2eso   { background:rgba(51, 204, 170, 0.06); }
+#panel-3eso   { background:rgba(102, 221, 68, 0.06); }
+#panel-4eso   { background:rgba(68, 136, 255, 0.06); }
+#panel-1bach  { background:rgba(255, 68, 68, 0.06); }
+#panel-2bachF { background:rgba(255, 153, 51, 0.06); }
+#panel-2bachQ { background:rgba(187, 68, 221, 0.06); }
+#panel-objetos       { background:rgba(200, 170, 60, 0.06); }
+#panel-publicaciones { background:rgba(180, 200, 220, 0.06); }
+#panel-2eso .barra-interna   { background:rgba(51, 204, 170, 0.18); }
+#panel-3eso .barra-interna   { background:rgba(102, 221, 68, 0.18); }
+#panel-4eso .barra-interna   { background:rgba(68, 136, 255, 0.18); }
+#panel-1bach .barra-interna  { background:rgba(255, 68, 68, 0.18); }
+#panel-2bachF .barra-interna { background:rgba(255, 153, 51, 0.18); }
+#panel-2bachQ .barra-interna { background:rgba(187, 68, 221, 0.18); }
+#panel-objetos .barra-interna       { background:rgba(200, 170, 60, 0.18); }
+#panel-publicaciones .barra-interna { background:rgba(180, 200, 220, 0.18); }
+.curso-sidebar { flex-shrink:0; width:160px; display:flex; flex-direction:column; align-items:center; gap:0.5rem; padding:10px; border-right:1px solid #444444; margin-right:0; justify-content:flex-start; }
+.sidebar-btn { display:flex; flex-direction:column; align-items:center; gap:0.4rem; text-decoration:none; padding:10px 0.4rem; border-radius:10px; transition:background 0.2s; width:100%; -webkit-user-drag:none; user-drag:none; }
+/* Animación B: entrada escalonada sidebar-btn */
+.sidebar-btn.anim-entrada { opacity:0; animation:fadeInUp 0.3s ease forwards; animation-delay:calc(var(--d,0) * 0.06s); }
+.sidebar-btn:hover { background:none; }
+.sidebar-btn img { width:75px; height:75px; object-fit:contain; border-radius:12px; border:1px solid #999999; background:#000000; padding:4px; transition:border-color 0.2s, box-shadow 0.2s; }
+.sidebar-btn span { font-size:0.86rem; color:var(--text); text-align:center; line-height:1.3; transition:all 0.2s; font-family:'Roboto Condensed',sans-serif; font-weight:500; height:2.26rem; min-height:2.26rem; display:flex; align-items:flex-start; justify-content:center; padding-top:2px; }
+.sidebar-btn:hover span { font-weight:500; }
+
+/* Resaltado temático del sidebar (hover) */
+.curso-sidebar.active-2eso .sidebar-btn:hover img { border-color:#55ddcc; box-shadow:0 0 20px rgba(85,221,204,0.4); }
+.curso-sidebar.active-2eso .sidebar-btn:hover span { color:#55ddcc; }
+.curso-sidebar.active-3eso .sidebar-btn:hover img { border-color:#88ee66; box-shadow:0 0 20px rgba(136,238,102,0.4); }
+.curso-sidebar.active-3eso .sidebar-btn:hover span { color:#88ee66; }
+.curso-sidebar.active-4eso .sidebar-btn:hover img { border-color:#88bbff; box-shadow:0 0 20px rgba(136,187,255,0.4); }
+.curso-sidebar.active-4eso .sidebar-btn:hover span { color:#88bbff; }
+.curso-sidebar.active-1bach .sidebar-btn:hover img { border-color:#ff6666; box-shadow:0 0 20px rgba(255,102,102,0.4); }
+.curso-sidebar.active-1bach .sidebar-btn:hover span { color:#ff6666; }
+.curso-sidebar.active-2bachF .sidebar-btn:hover img { border-color:#ffaa55; box-shadow:0 0 20px rgba(255,170,85,0.4); }
+.curso-sidebar.active-2bachF .sidebar-btn:hover span { color:#ffaa55; }
+.curso-sidebar.active-2bachQ .sidebar-btn:hover img { border-color:#dd88ff; box-shadow:0 0 20px rgba(221,136,255,0.4); }
+.curso-sidebar.active-2bachQ .sidebar-btn:hover span { color:#dd88ff; }
+.curso-sidebar.active-publicaciones .sidebar-btn:hover img { border-color:#c0cce0; box-shadow:0 0 20px rgba(180,200,220,0.4); }
+.curso-sidebar.active-publicaciones .sidebar-btn:hover span { color:#c0cce0; }
+.curso-sidebar.active-objetos .sidebar-btn:hover img { border-color:#d4b84a; box-shadow:0 0 20px rgba(200,170,60,0.4); }
+.curso-sidebar.active-objetos .sidebar-btn:hover span { color:#d4b84a; }
+/* Botón volver: color temático permanente (igual que sidebar-btn en hover) */
+.temas-grid { display:grid; gap:10px; flex:1; justify-items:center; border:0; padding:0; height:450px; }
+.temas-grid .unidad-ficha.selected { grid-column:1/-1; }
+.temas-grid .unidad-ficha.selected + .subelemento-btn { grid-column:1; }
+.unidad-ficha, .publicacion-ficha { position:relative; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; gap:0; padding:15px 0 0 0; height:220px; min-height:220px; animation:popIn 0.6s 0s both; }
+@keyframes popIn { from{opacity:0} to{opacity:1} }
+/* Temas no activos con filtro */
+.unidad-ficha.tema-gris { filter:grayscale(100%); }
+.tema-gris:hover { filter:none; }
+.tema-gris:hover .unidad-icono { opacity:1; }
+.tema-gris:hover .unidad-numero-texto1 { color:inherit; }
+.tema-gris:hover .unidad-nombre-texto2 { color:inherit; }
+.unidad-ficha.tema-gris .unidad-icono { opacity:0.3; }
+.unidad-ficha.tema-gris .unidad-numero-texto1 { color:#555555; }
+.unidad-ficha.tema-gris .unidad-nombre-texto2 { color:#555555; }
+/* Indicador de categoría en temas */
+.unidad-ficha.cat-metodo:hover .unidad-icono, .unidad-ficha.cat-metodo.selected .unidad-icono { box-shadow:inset 0 0 0 1px #999999, 0 0 14px rgba(56,189,248,0.4); }
+.unidad-ficha.cat-fisica:hover .unidad-icono,  .unidad-ficha.cat-fisica.selected .unidad-icono  { box-shadow:inset 0 0 0 1px #999999, 0 0 14px rgba(255,102,102,0.4); }
+.unidad-ficha.cat-quimica:hover .unidad-icono, .unidad-ficha.cat-quimica.selected .unidad-icono { box-shadow:inset 0 0 0 1px #999999, 0 0 14px rgba(102,221,136,0.4); }
+.unidad-icono { width:130px; height:130px; border-radius:50%; border:0; position:relative; transition:none; background:#000000; box-shadow:inset 0 0 0 1px #999999; padding:0; }
+.unidad-icono img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease; }
+.tema-rectangle { width:120px; height:150px; border-radius:0; border:none; position:relative; transition:transform 0.3s ease, box-shadow 0.3s ease; background:transparent; box-shadow:none; overflow:hidden; margin:0; padding:0; display:flex; align-items:center; justify-content:center; }
+.tema-rectangle img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease; }
+.publicaciones-grid .publicacion-ficha { margin:0; padding:0; min-height:215px; height:215px; overflow:visible; }
+.publicaciones-grid .publicacion-icono { width:fit-content; height:140px; min-height:140px; padding:0; box-sizing:border-box; margin:0; }
+.publicaciones-grid .publicacion-icono img { object-fit:contain; width:auto; height:100%; transition:filter 0.5s ease, transform 0.5s ease; border:0.8px solid #000000; }
+.publicaciones-grid .publicacion-ficha:hover { overflow:visible; }
+.publicaciones-grid .publicacion-ficha:hover .publicacion-icono { overflow:visible; box-shadow:0 0 12px 3px rgba(56,189,248,0.85), 0 0 5px 1px rgba(56,189,248,0.5); }
+#pagina-listado .pub-listado-grupo { height:auto; min-height:0; overflow:visible; }
+#pagina-web .pub-listado-nombre { cursor:default; pointer-events:none; }
+#pagina-web .pub-listado-nombre:hover { color:#ffffff; text-shadow:none; }
+/* Margen extra en listas de descripción dentro de fichas de publicación */
+.pub-descripcion ul { padding-left:calc(1.2em + 5px) !important; }
+.pub-descripcion li { margin-left:5px; }
+.unidad-ficha:hover .unidad-icono { transform:none; box-shadow:inset 0 0 0 1px #999999, 0 0 20px rgba(255,255,255,0.8); }
+.unidad-ficha:hover .unidad-icono img { transform:scale(1.20); }
+.unidad-numero-texto1 { font-family:'Saira',sans-serif; font-size:1rem; font-weight:700; color:var(--accent); letter-spacing:0.08em; text-align:center; padding-top:5px; margin-top:10px; width:100%; height:25px; overflow:hidden; display:flex; align-items:center; justify-content:center; line-height:1.2; white-space:nowrap; text-shadow:-0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000; }
+.unidad-nombre-texto2 { font-size:1rem; font-weight:500; color:var(--text); text-align:center; line-height:1.1; transition:all 0.2s; font-family:'Roboto Condensed',sans-serif; margin-top:5px; width:100%; height:35px; overflow:hidden; text-shadow:-0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000; }
+.unidad-ficha:hover .unidad-numero-texto1 { color:var(--accent); text-shadow: -0.5px -0.5px 0 #000000, 0.5px -0.5px 0 #000000, -0.5px 0.5px 0 #000000, 0.5px 0.5px 0 #000000; }
+.unidad-ficha:hover .unidad-nombre-texto2 { text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000; }
+.unidad-ficha.color-1bach:hover .unidad-nombre-texto2 { color:#ff6666; }
+.unidad-ficha.color-2bachF:hover .unidad-nombre-texto2 { color:#ffaa55; }
+.unidad-ficha.color-2bachQ:hover .unidad-nombre-texto2 { color:#dd88ff; }
+.unidad-ficha.color-2eso:hover .unidad-nombre-texto2 { color:#55ddcc; }
+.unidad-ficha.color-3eso:hover .unidad-nombre-texto2 { color:#88ee66; }
+.unidad-ficha.color-4eso:hover .unidad-nombre-texto2 { color:#88bbff; }
+/* Borde temático solo en hover */
+.unidad-ficha.color-2eso:hover .unidad-icono   { border-color:#55ddcc; }
+.unidad-ficha.color-3eso:hover .unidad-icono   { border-color:#88ee66; }
+.unidad-ficha.color-4eso:hover .unidad-icono   { border-color:#88bbff; }
+.unidad-ficha.color-1bach:hover .unidad-icono  { border-color:#ff6666; }
+.unidad-ficha.color-2bachF:hover .unidad-icono { border-color:#ffaa55; }
+.unidad-ficha.color-2bachQ:hover .unidad-icono { border-color:#dd88ff; }
+.unidad-ficha.selected .unidad-icono { box-shadow:inset 0 0 0 1.5px #38bdf8, 0 0 20px rgba(255,255,255,0.8); }
+.unidad-ficha.selected.color-1bach .unidad-icono { box-shadow:inset 0 0 0 1.5px #ff6666, 0 0 20px rgba(255,102,102,0.8); }
+.unidad-ficha.selected.color-2bachF .unidad-icono { box-shadow:inset 0 0 0 1.5px #ffaa55, 0 0 20px rgba(255,170,85,0.8); }
+.unidad-ficha.selected.color-2bachQ .unidad-icono { box-shadow:inset 0 0 0 1.5px #dd88ff, 0 0 20px rgba(221,136,255,0.8); }
+.unidad-ficha.selected.color-2eso .unidad-icono { box-shadow:inset 0 0 0 1.5px #55ddcc, 0 0 20px rgba(85,221,204,0.8); }
+.unidad-ficha.selected.color-3eso .unidad-icono { box-shadow:inset 0 0 0 1.5px #88ee66, 0 0 20px rgba(136,238,102,0.8); }
+.unidad-ficha.selected.color-4eso .unidad-icono { box-shadow:inset 0 0 0 1.5px #88bbff, 0 0 20px rgba(136,187,255,0.8); }
+.unidad-ficha.selected .unidad-numero-texto1 { text-shadow: -0.5px -0.5px 0 #000000, 0.5px -0.5px 0 #000000, -0.5px 0.5px 0 #000000, 0.5px 0.5px 0 #000000, 0 0 10px #ffffff; color:var(--accent); font-size:1.1rem; }
+.unidad-ficha.selected .unidad-nombre-texto2 { font-weight:700; text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000; font-size:1.05rem; }
+.unidad-ficha.selected.color-1bach .unidad-nombre-texto2 { color:#ffffff; }
+.unidad-ficha.selected.color-2bachF .unidad-nombre-texto2 { color:#ffffff; }
+.unidad-ficha.selected.color-2bachQ .unidad-nombre-texto2 { color:#ffffff; }
+.unidad-ficha.selected.color-2eso .unidad-nombre-texto2 { color:#ffffff; }
+.unidad-ficha.selected.color-3eso .unidad-nombre-texto2 { color:#ffffff; }
+.unidad-ficha.selected.color-4eso .unidad-nombre-texto2 { color:#ffffff; }
+.unidad-ficha.selected.color-1bach .unidad-nombre-texto2 { color:#ffffff; }
+.unidad-ficha.selected.color-2bachF .unidad-nombre-texto2 { color:#ffffff; }
+.unidad-ficha.selected.color-2bachQ .unidad-nombre-texto2 { color:#ffffff; }
+.unidad-ficha.selected.color-2eso .unidad-nombre-texto2 { color:#ffffff; }
+.unidad-ficha.selected.color-3eso .unidad-nombre-texto2 { color:#ffffff; }
+.unidad-ficha.selected.color-4eso .unidad-nombre-texto2 { color:#ffffff; }
+
+/* Subelemento título hover - sin cambio de color */
+.subelemento-btn:hover .subelemento-titulo { text-shadow:0 0 8px currentColor; font-weight:700; }
+
+/* Subelemento descripción hover - sin cambio de color */
+.subelemento-btn:hover .subelemento-descripcion { text-shadow:0 0 8px currentColor; font-weight:700; }
+
+/* Colores temáticos para subelementos en hover - resplandor en texto */
+.subelemento-btn.color-1bach:hover .subelemento-titulo { color:#ff6666; text-shadow: -0.5px -0.5px 0 #000000, 0.5px -0.5px 0 #000000, -0.5px 0.5px 0 #000000, 0.5px 0.5px 0 #000000, 0 0 10px #000000; }
+.subelemento-btn.color-2bachF:hover .subelemento-titulo { color:#ffaa55; text-shadow: -0.5px -0.5px 0 #000000, 0.5px -0.5px 0 #000000, -0.5px 0.5px 0 #000000, 0.5px 0.5px 0 #000000, 0 0 10px #000000; }
+.subelemento-btn.color-2bachQ:hover .subelemento-titulo { color:#dd88ff; text-shadow: -0.5px -0.5px 0 #000000, 0.5px -0.5px 0 #000000, -0.5px 0.5px 0 #000000, 0.5px 0.5px 0 #000000, 0 0 10px #000000; }
+.subelemento-btn.color-2eso:hover .subelemento-titulo { color:#55ddcc; text-shadow: -0.5px -0.5px 0 #000000, 0.5px -0.5px 0 #000000, -0.5px 0.5px 0 #000000, 0.5px 0.5px 0 #000000, 0 0 10px #000000; }
+.subelemento-btn.color-3eso:hover .subelemento-titulo { color:#88ee66; text-shadow: -0.5px -0.5px 0 #000000, 0.5px -0.5px 0 #000000, -0.5px 0.5px 0 #000000, 0.5px 0.5px 0 #000000, 0 0 10px #000000; }
+.subelemento-btn.color-4eso:hover .subelemento-titulo { color:#88bbff; text-shadow: -0.5px -0.5px 0 #000000, 0.5px -0.5px 0 #000000, -0.5px 0.5px 0 #000000, 0.5px 0.5px 0 #000000, 0 0 10px #000000; }
+
+/* OBJETOS EN CLASE */
+.objetos-container { display:flex; gap:1.5rem; align-items:flex-start; flex-direction:column; border:1.5px solid #999999; padding:1.5rem; }
+.objetos-grid-wrapper { display:flex; gap:0; align-items:flex-start; justify-content:flex-start; }
+.objetos-sidebar { flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:1rem; padding:0; }
+.objetos-sidebar-left { width:0px; display:none; }
+.objetos-sidebar-right { width:70px; display:grid; grid-template-rows:auto 1fr auto; align-items:center; gap:1rem; margin-left:-20px; }
+.pagination-info { font-size:0.89rem; color:var(--muted); text-align:center; font-weight:600; white-space:normal; line-height:1.3; font-variant-numeric:tabular-nums; min-width:3rem; display:inline-block; }
+.pagination-btn { display:flex; flex-direction:column; align-items:center; gap:0; text-decoration:none; padding:0; border-radius:10px; transition:background 0.2s; width:auto; background:none; border:none; cursor:pointer; }
+.pagination-btn:first-child { align-self:center; grid-row:1; }
+.pagination-btn:last-child { align-self:center; grid-row:3; }
+.pagination-btn:hover { background:none; }
+.pagination-btn img { width:27px; height:27px; object-fit:contain; border-radius:0; border:none; background:none; padding:0; opacity:0.8; transition:all 0.2s; }
+.pagination-btn:hover img { transform:scale(1.08); }
+.pagination-btn:disabled { pointer-events:none; opacity:0; }
+.pagination-btn:disabled img { opacity:0; }
+.pagination-btn span { font-size:0.69rem; color:var(--muted); text-align:center; line-height:1.3; transition:color 0.2s; }
+.pagination-btn:hover span { color:var(--accent); }
+.barra-interna { position:relative; display:flex; gap:0.8rem; padding:5px 15px; background:rgba(56,189,248,0.08); border-radius:10px; border:0px solid transparent; flex-wrap:nowrap; align-items:center; font-family:'Saira',sans-serif; width:100%; margin:0 0 5px 0; transition:border-color 0.2s; height:40px; min-height:40px; max-height:40px; overflow:hidden; }
+#panel-2eso .barra-interna { background:rgba(51, 204, 170, 0.18); margin:0; }
+#panel-3eso .barra-interna { background:rgba(102, 221, 68, 0.18); margin:0; }
+#panel-4eso .barra-interna { background:rgba(68, 136, 255, 0.18); margin:0; }
+#panel-1bach .barra-interna { background:rgba(255, 68, 68, 0.18); margin:0; }
+#panel-2bachF .barra-interna { background:rgba(255, 153, 51, 0.18); margin:0; }
+#panel-2bachQ .barra-interna { background:rgba(187, 68, 221, 0.18); margin:0; }
+#panel-objetos .barra-interna { background:rgba(200, 170, 60, 0.18); margin:0; }
+#panel-publicaciones .barra-interna { background:rgba(180, 200, 220, 0.18); margin:0; }
+.control-group { display:flex; align-items:center; gap:0.6rem; position:absolute; top:50%; transform:translateY(-50%); }
+
+/* Panel de objetos */
+.barra-interna .control-group:nth-child(1) { left:15px; }
+.barra-interna .control-group:nth-child(2) { left:175px; }
+.barra-interna .control-group:nth-child(3) { left:900px; }
+.barra-interna .control-group:nth-child(4) { left:1075px; }
+.barra-interna #grupo-flechas { left:1200px; }
+
+/* Paneles de cursos - grupos: FILTRO, PÁGINA, FLECHAS-CURSO, UNIDAD[hidden], FLECHAS-UNIDAD[hidden] */
+/* Los grupos con left fijo usan inline style; aquí solo posicionamos FILTRO (y TEMARIO en los que lo tienen) */
+#panel-2eso .barra-interna .control-group:nth-child(1) { left:175px; }
+#panel-3eso .barra-interna .control-group:nth-child(1) { left:15px; }
+#panel-3eso .barra-interna .control-group:nth-child(2) { left:175px; }
+#panel-4eso .barra-interna .control-group:nth-child(1) { left:15px; }
+#panel-4eso .barra-interna .control-group:nth-child(2) { left:175px; }
+#panel-1bach .barra-interna .control-group:nth-child(1) { left:15px; }
+#panel-1bach .barra-interna .control-group:nth-child(2) { left:175px; }
+#panel-2bachF .barra-interna .control-group:nth-child(1) { left:15px; }
+#panel-2bachF .barra-interna .control-group:nth-child(2) { left:175px; }
+#panel-2bachQ .barra-interna .control-group:nth-child(1) { left:15px; }
+#panel-2bachQ .barra-interna .control-group:nth-child(2) { left:175px; }
+
+/* Panel de publicaciones - FILTRO en misma posición que en paneles de cursos */
+#panel-publicaciones .barra-interna .control-group:nth-child(1) { left:175px; }
+.control-label { font-size:0.89rem; font-weight:600; color:var(--muted); text-transform:none; letter-spacing:0.02em; font-family:'Saira',sans-serif; }
+.control-btn-pub { width:110px; }
+.control-btn-pub img { width:22px; height:22px; object-fit:contain; }
+.control-btn-pub.active-pub { background:var(--accent); color:#000; border-color:#000; font-weight:700; }
+@keyframes btnActivePulse {
+  0%   { box-shadow: 0 0 0 0px currentColor; }
+  50%  { box-shadow: 0 0 0 5px transparent; }
+  100% { box-shadow: 0 0 0 0px transparent; }
+}
+.control-btn { padding:0 5px; border:1px solid #999999; height:30px; background:transparent; border-radius:6px; color:var(--text); font-size:0.89rem; font-weight:500; cursor:pointer; transition:all 0.2s; white-space:nowrap; text-align:center; font-family:'Saira',sans-serif; display:flex; align-items:center; justify-content:center; gap:0.5rem; }
+.control-btn.pulse { animation: btnActivePulse 0.4s ease-out forwards; }
+.control-btn-sort { width:75px; background:#000000; }
+.control-btn-filter { width:auto; background:#000000; border:1px solid #999999; justify-content:flex-start; }
+.control-btn-filter:not(.control-btn-orden) { position:relative; padding-left:36px; padding-right:20px; }
+.control-btn-filter.ancho-pub { width:auto; }
+.control-btn-filter:not(.control-btn-orden) img { position:absolute; left:10px; top:50%; transform:translateY(-50%); width:22px !important; height:22px !important; flex-shrink:0; }
+.control-btn-filter:not(.control-btn-orden) span { display:block; overflow:hidden; white-space:nowrap; }
+.control-btn-orden { width:60px !important; background:#000000 !important; color:#ffffff !important; border:1px solid #999999 !important; font-weight:500 !important; justify-content:center !important; padding:0 5px !important; }
+#btn-orden-toggle { width:75px !important; }
+.control-btn-filter[data-pub-filter] { width:auto; }
+.control-btn-filter[data-pub-filter].active { background:#ffffff; color:#000000; border-color:#000000; }
+.control-btn-filter[data-pub-filter]:hover { background:#ffffff; color:#000000; border-color:#ffffff; }
+.control-btn-filter[data-pub-filter].active:hover { background:#ffffff; color:#000000; border-color:#ffffff; }
+.control-btn-filter:hover { background:#ffffff; color:#000000; border-color:#ffffff; }
+.control-btn-filter:hover span { text-shadow:none; }
+.contenedor-grande--curso .control-btn-filter[data-filter="metodo"].active  { background:#ffffff; color:#000000; border-color:#000000; }
+.contenedor-grande--curso .control-btn-filter[data-filter="fisica"].active  { background:#ffaa55; color:#000000; border-color:#000000; }
+.contenedor-grande--curso .control-btn-filter[data-filter="quimica"].active { background:#dd88ff; color:#000000; border-color:#000000; }
+.control-btn-filter img { object-fit:contain; }
+.control-btn:hover { border-color:#ffffff; color:#ffffff; font-weight:500; background:var(--accent); }
+.control-btn-sort:hover { background:var(--accent); border-color:#ffffff; color:#ffffff; font-weight:700; }
+.control-btn-orden:hover { border-color:#ffffff !important; }
+.control-btn.active { background:var(--accent); border-color:var(--accent); color:#000; font-weight:500; }
+.curso-tab:active, .control-btn:active, .control-btn-filter:active, .control-btn-orden:active { background:#ffffff !important; color:#000000 !important; border-color:#ffffff !important; }
+.control-btn[data-filter="metodo"]:hover { background:#ffffff; color:#000000; border-color:#000000; }
+.control-btn[data-filter="fisica"]:hover { background:#ffaa55; color:#000000; border-color:#000000; }
+.control-btn[data-filter="quimica"]:hover { background:#dd88ff; color:#000000; border-color:#000000; }
+.control-btn[data-filter="temas"]:hover { background:#22a84f; color:#000000; border-color:#000000; }
+.control-btn[data-filter="metodo"].active:hover { background:#ffffff; color:#000000; border-color:#ffffff; }
+.control-btn[data-filter="fisica"].active:hover { background:#ffaa55; color:#ffffff; border-color:#ffffff; }
+.control-btn[data-filter="quimica"].active:hover { background:#dd88ff; color:#ffffff; border-color:#ffffff; }
+.control-btn[data-filter="temas"].active:hover { background:#22a84f; color:#ffffff; border-color:#ffffff; }
+.contenedor-grande--curso .control-btn-filter[data-filter="metodo"].active:hover { background:#ffffff; color:#000000; border-color:#ffffff; }
+.contenedor-grande--curso .control-btn-filter[data-filter="fisica"].active:hover { background:#ffaa55; color:#ffffff; border-color:#ffffff; }
+.contenedor-grande--curso .control-btn-filter[data-filter="quimica"].active:hover { background:#dd88ff; color:#ffffff; border-color:#ffffff; }
+.control-btn[data-filter="metodo"].active { background:#ffffff; color:#000000; border-color:#000000; }
+.control-btn[data-filter="fisica"].active { background:#ffaa55; color:#000000; border-color:#000000; }
+.control-btn[data-filter="quimica"].active { background:#dd88ff; color:#000000; border-color:#000000; }
+.control-btn[data-filter="temas"] { margin-right:1rem; cursor:pointer; }
+.control-btn[data-filter="temas"].active { background:#22a84f; color:#000000; border-color:#000000; }
+/* Botones filtro unidades: mismos colores que colección */
+.control-btn-filter[data-col-filter].active { background:#ffffff; color:#000000; border-color:#000000; }
+/* Botones filtro juegos: misma estética que filtros de curso */
+.control-btn-filter[data-juego-filter] { width:auto; }
+.control-btn-filter[data-juego-filter].active { background:#ffffff; color:#000000; border-color:#000000; }
+.control-btn-filter[data-juego-filter]:hover { background:#ffffff; color:#000000; border-color:#ffffff; }
+.control-btn-filter[data-juego-filter="kahoot"].active { background:#46afe6; color:#000000; border-color:#000000; }
+.control-btn-filter[data-juego-filter="kahoot"]:hover { background:#46afe6; color:#000000; border-color:#000000; }
+.control-btn-filter[data-juego-filter="kahoot"].active:hover { background:#46afe6; color:#ffffff; border-color:#ffffff; }
+.control-btn-filter[data-juego-filter="kahoot"]:hover span { text-shadow:none; }
+.control-btn-filter[data-juego-filter="pasapalabra"].active { background:#22a84f; color:#000000; border-color:#000000; }
+.control-btn-filter[data-juego-filter="pasapalabra"]:hover { background:#22a84f; color:#000000; border-color:#000000; }
+.control-btn-filter[data-juego-filter="pasapalabra"].active:hover { background:#22a84f; color:#ffffff; border-color:#ffffff; }
+.control-btn-filter[data-juego-filter="pasapalabra"]:hover span { text-shadow:none; }
+.control-btn-filter[data-juego-filter="otros"].active { background:#ff9933; color:#000000; border-color:#000000; }
+.control-btn-filter[data-juego-filter="otros"]:hover { background:#ff9933; color:#000000; border-color:#000000; }
+.control-btn-filter[data-juego-filter="otros"].active:hover { background:#ff9933; color:#ffffff; border-color:#ffffff; }
+.control-btn-filter[data-juego-filter="otros"]:hover span { text-shadow:none; }
+.control-btn-filter[data-col-filter]:hover { background:#ffffff; color:#000000; border-color:#000000; }
+.control-btn-filter[data-col-filter]:hover span { text-shadow:none; }
+.control-btn-filter[data-col-filter].active:hover { background:#ffffff; color:#000000; border-color:#ffffff; }
+
+/* Estilos para checkboxes de temas */
+.tema-checkbox { display:flex; align-items:center; gap:0.8rem; padding:0.6rem; cursor:pointer; border-radius:8px; transition:background 0.2s; }
+.tema-checkbox:hover { background:rgba(56,189,248,0.1); }
+.tema-checkbox input[type="checkbox"] { width:18px; height:18px; cursor:pointer; accent-color:var(--accent); }
+.tema-checkbox label { cursor:pointer; color:var(--text); font-size:0.95rem; flex:1; }
+.pagination-info { font-size:0.89rem; color:var(--muted); text-align:right; font-weight:600; white-space:nowrap; line-height:1; text-transform:uppercase; font-family:'Saira',sans-serif; display:flex; gap:0.5rem; align-items:center; height:30px; font-variant-numeric:tabular-nums; }
+.objetos-grid { display:grid; column-gap:10px; row-gap:3px; justify-items:center; grid-auto-rows:auto; flex:1; border:0; padding:0; align-content:start; }
+.objeto-ficha { position:relative; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0; padding:15px 0 0 0; height:220px; min-height:220px; min-width:0; overflow:visible; }
+.objeto-icono { width:130px; height:130px; border-radius:50%; border:0; position:relative; background:#000000; flex-shrink:0; transition:background 0.3s ease; box-shadow:inset 0 0 0 1px #999999; padding:0; }
+.objeto-icono img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease; }
+.objeto-ficha:hover .objeto-icono { box-shadow:inset 0 0 0 1px #d4b84a, 0 0 20px rgba(200,170,60,0.8); }
+.objeto-ficha:hover .objeto-icono img { transform:scale(1.20); }
+.objeto-nombre-texto1 { font-family:'Saira',sans-serif; font-size:1rem; font-weight:700; color:var(--accent); letter-spacing:0.08em; text-align:center; display:flex; align-items:center; justify-content:center; line-height:1.2; padding-top:5px; margin-top:10px; width:100%; min-width:0; border:none; word-spacing:normal; overflow:hidden; white-space:nowrap; height:25px; text-shadow:-0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000; }
+.objeto-tema-texto2 { font-size:1rem; font-weight:500; color:#ffffff; text-align:center; line-height:1.1; max-width:100%; transition:all 0.2s; display:flex; align-items:flex-start; justify-content:center; font-family:'Roboto Condensed',sans-serif; margin-top:5px; width:100%; white-space:normal; min-width:0; height:35px; overflow:visible; text-shadow:-0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000; }
+.objeto-ficha:hover .objeto-tema-texto2 { overflow:visible; }
+.publicaciones-grid .publicacion-titulo { margin:10px 0 0 5px; padding:5px 0 0 0; border:0; font-family:'Saira',sans-serif; font-size:0.89rem; font-weight:600; color:#38bdf8; letter-spacing:-0.02em; height:60px; display:block; text-align:center; line-height:1.2; width:100%; min-width:0; overflow:hidden; white-space:normal; word-spacing:normal; text-shadow:-0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000; }
+.publicaciones-grid .unidad-nombre-texto2 { font-size:0.86rem; font-weight:500; color:#ffffff; text-align:center; line-height:1.1; height:15px; display:flex; align-items:flex-start; justify-content:center; }
+.publicaciones-grid .subelemento-descripcion { height:20px; display:flex; align-items:flex-start; justify-content:center; }
+/* Distribuir fila 2 de publicaciones en 3 items */
+.publicaciones-grid .publicacion-ficha:nth-child(4) { position:relative; z-index:10; }
+.publicaciones-grid .publicacion-ficha:nth-child(4) .tema-num-label { width:100%; white-space:normal; overflow:hidden; }
+.publicaciones-grid .publicacion-ficha:nth-child(6) { grid-column: 1; }
+.publicaciones-grid .publicacion-ficha:nth-child(7) { grid-column: 2; }
+.publicaciones-grid .publicacion-ficha:nth-child(8) { grid-column: 3; }
+.publicaciones-grid .publicacion-ficha .publicacion-icono { transition:box-shadow 0.5s ease; }
+.publicaciones-grid .publicacion-ficha:hover .publicacion-icono { box-shadow:0 0 18px 4.5px rgba(180,200,220,0.85), 0 0 7.5px 1.5px rgba(180,200,220,0.5); }
+.publicaciones-grid .publicacion-ficha:hover .publicacion-icono img { transform:scale(1.08); filter:brightness(1.1); }
+.publicaciones-grid .publicacion-ficha:hover .publicacion-titulo { color:#ffffff; text-shadow:-0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000; }
+.objeto-ficha:hover .objeto-tema-texto2 { color:#d4b84a; text-shadow:-0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000; border-color:transparent; }
+.objeto-ficha:hover .objeto-nombre-texto1 { border:none; }
+/* ═══════════════════════════════════════════
+   COLORES TEMÁTICOS POR CURSO
+   ═══════════════════════════════════════════ */
+.curso-tab.color-1bach:hover { border-color:#ff4444; color:#ff6666; }
+.curso-tab.color-1bach.active { background:#ff4444; color:#000; font-weight:700; }
+.unidad-ficha.color-1bach:hover .unidad-icono { box-shadow:inset 0 0 0 1.5px #ff4444, 0 0 20px rgba(255,68,68,0.4); }
+
+.curso-tab.color-2bachF:hover { border-color:#ff9933; color:#ffaa55; }
+.curso-tab.color-2bachF.active { background:#ff9933; color:#000; font-weight:700; }
+.unidad-ficha.color-2bachF:hover .unidad-icono { box-shadow:inset 0 0 0 1.5px #ff9933, 0 0 20px rgba(255,153,51,0.4); }
+
+.curso-tab.color-2bachQ:hover { border-color:#bb44dd; color:#cc66ee; }
+.curso-tab.color-2bachQ.active { background:#bb44dd; color:#000; font-weight:700; }
+.unidad-ficha.color-2bachQ:hover .unidad-icono { box-shadow:inset 0 0 0 1.5px #bb44dd, 0 0 20px rgba(187,68,221,0.4); }
+
+.curso-tab.color-2eso:hover { border-color:#33ccaa; color:#55ddbb; }
+.curso-tab.color-2eso.active { background:#33ccaa; color:#000; font-weight:700; }
+.unidad-ficha.color-2eso:hover .unidad-icono { box-shadow:inset 0 0 0 1.5px #33ccaa, 0 0 20px rgba(51,204,170,0.4); }
+
+.curso-tab.color-3eso:hover { border-color:#66dd44; color:#88ee66; }
+.curso-tab.color-3eso.active { background:#66dd44; color:#000; font-weight:700; }
+.unidad-ficha.color-3eso:hover .unidad-icono { box-shadow:inset 0 0 0 1.5px #66dd44, 0 0 20px rgba(102,221,68,0.4); }
+
+.curso-tab.color-4eso:hover { border-color:#4488ff; color:#6699ff; }
+.curso-tab.color-4eso.active { background:#4488ff; color:#000; font-weight:700; }
+.unidad-ficha.color-4eso:hover .unidad-icono { box-shadow:inset 0 0 0 1.5px #4488ff, 0 0 20px rgba(68,136,255,0.4); }
+
+/* VISTA DETALLADA DE OBJETO */
+.objeto-detail-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.82); display:flex; align-items:center; justify-content:center; padding:1.2rem; opacity:0; pointer-events:none; transition:opacity 0.25s; flex-direction:row; gap:1.5rem; }
+.objeto-detail-nav { display:none; gap:2rem; z-index:101; flex-direction:row; }
+.objeto-detail-overlay.open .objeto-detail-nav { display:none; }
+.objeto-detail-overlay.open { opacity:1; pointer-events:all; }
+.objeto-detail { position:relative; background:var(--surface); border:1px solid #999999; border-radius:10px; width:auto; height:88vh; max-height:88vh; overflow:hidden; display:flex; flex-direction:column; transform:scale(0.88) translateY(30px); transition:transform 0.35s cubic-bezier(.34,1.4,.64,1); box-shadow:0 40px 80px -20px rgba(0,0,0,0.7); }
+.objeto-detail-overlay.open .objeto-detail { transform:scale(1) translateY(0); }
+.objeto-detail-close { flex-shrink:0; z-index:20; width:28px; height:28px; border-radius:50%; background:#000000; border:1px solid #999999; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; overflow:visible; transition:border-color 0.2s; margin-left:auto; }
+.objeto-detail-close:hover { border-color:#ffffff; transform:none; }
+.objeto-detail-close img { transition:transform 0.2s; }
+.objeto-detail-close:hover img { transform:scale(1.2); }
+.objeto-detail-video { position:absolute; bottom:0.8rem; left:50%; transform:translateX(-50%); z-index:6; white-space:nowrap; }
+.objeto-detail-video button { display:flex; align-items:center; gap:0.5rem; padding:0 5px; background:#000000; border:1px solid #999999; border-radius:6px; color:var(--text); cursor:pointer; font-size:0.89rem; font-weight:500; transition:all 0.2s; font-family:'Saira',sans-serif; height:30px; width:131px; white-space:nowrap; justify-content:flex-start; }
+.objeto-detail-video button:hover { border-color:#000000 !important; background:#38bdf8; color:#ffffff; font-weight:700; text-shadow:-0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000; }
+/* Overlay de vídeo integrado */
+.video-overlay { position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.92); display:flex; align-items:flex-start; justify-content:center; flex-direction:column; gap:0; }
+.video-overlay-panel { display:flex; flex-direction:column; gap:0; overflow:hidden; background:transparent; }
+#video-player { flex:1; width:100%; display:block; }
+.video-overlay-bar { display:flex; align-items:center; height:43px; padding:10px 10px 10px 20px; background:rgba(56,189,248,0.08); border:1px solid #999999; border-bottom:none; border-radius:10px 10px 0 0; box-sizing:border-box; width:100%; }
+.video-overlay-title { font-family:'Saira',sans-serif; font-size:0.97rem; font-weight:600; color:var(--accent); flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; letter-spacing:0.05em; }
+.video-overlay video { border:1px solid #999999; border-radius:0 0 10px 10px; display:block; }
+.video-overlay-close { flex-shrink:0; width:28px; height:28px; border-radius:50%; background:#000000; border:1px solid #999999; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; overflow:visible; transition:border-color 0.2s; margin-left:auto; }
+.video-overlay-close:hover { border-color:#ffffff; }
+.video-overlay-close img { width:100%; height:100%; object-fit:contain; transition:transform 0.2s; }
+.video-overlay-close:hover img { transform:scale(1.2); }
+.objeto-detail-content { display:flex; flex-direction:row; flex:1; min-height:0; overflow:hidden; }
+.objeto-detail-side { position:relative; display:flex; flex-direction:column; overflow:hidden; }
+.objeto-detail-side.realidad { flex:0 0 auto; width:400px; background:var(--surface); }
+.objeto-detail-side.simulacion { flex:0 0 auto; width:750px; }
+.objeto-detail-title { display:flex; align-items:center; flex-wrap:wrap; flex-shrink:0; background:rgba(56,189,248,0.08); padding:5px 10px 5px 20px; min-height:43px; box-sizing:border-box; font-size:0.97rem; font-weight:600; color:var(--accent); letter-spacing:0.05em; z-index:5; border-bottom:1px solid var(--border); font-family:'Saira',sans-serif; justify-content:flex-start; }
+.objeto-detail-img { width:100%; flex:1; min-height:0; object-fit:cover; object-position:center; border:none; display:block; background:#ffffff; }
+.objeto-detail-side.realidad { border-right:1px solid #999999; }
+
+/* VISTA DE TEMA DETALLADO CON SUBELEMENTOS */
+.tema-detail-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.82); display:flex; align-items:center; justify-content:center; padding:1.2rem; opacity:0; pointer-events:none; transition:opacity 0.25s; flex-direction:column; }
+.tema-detail-overlay.open { opacity:1; pointer-events:all; }
+.tema-detail-panel { position:relative; background:var(--surface); border:1px solid #999999; border-radius:20px; width:100%; max-width:900px; max-height:85vh; overflow:auto; transform:scale(0.92) translateY(20px); transition:transform 0.3s cubic-bezier(.34,1.3,.64,1); box-shadow:0 40px 80px -20px rgba(0,0,0,0.7); }
+.tema-detail-overlay.open .tema-detail-panel { transform:scale(1) translateY(0); }
+.tema-detail-header { background:linear-gradient(135deg, rgba(56,189,248,0.15) 0%, rgba(56,189,248,0.05) 100%); padding:2rem 1.5rem; border-bottom:1px solid var(--border); position:relative; }
+.tema-detail-title { font-family:'Saira',sans-serif; font-size:1.4rem; font-weight:800; color:var(--text); margin-bottom:0.5rem; }
+.tema-detail-curso { font-size:0.89rem; color:var(--accent); font-weight:600; letter-spacing:0.05em; text-transform:uppercase; }
+.tema-detail-close { position:absolute; top:0.7rem; right:0.7rem; z-index:10; width:30px; height:30px; border-radius:50%; background:rgba(0,0,0,0.6); border:1px solid #999999; color:var(--text); font-size:0.97rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s; }
+.tema-detail-close:hover { background:rgba(255,255,255,0.15); }
+.tema-subelementos-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:1rem; padding:2rem 1.5rem; }
+.tema-subelemento-btn { position:relative; background:none; border:none; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0.4rem; padding:0.5rem; }
+.tema-subelemento-circle { width:130px; height:130px; border-radius:50%;  border:1.5px solid #999999; position:relative; background:#000000; flex-shrink:0; transition:all 0.3s ease; box-shadow:inset 0 0 0 1.5px #000000; }
+.tema-subelemento-circle img { width:100%; height:100%; object-fit:cover; }
+.tema-subelemento-btn:hover .tema-subelemento-circle { transform:scale(1.05); border-color:var(--accent); }
+.tema-subelemento-btn:hover .tema-subelemento-circle img { filter:brightness(1.2); }
+.tema-subelemento-nombre { font-family:'Saira',sans-serif; font-size:0.89rem; font-weight:600; color:var(--text); text-align:center; line-height:1.2; max-width:130px; }
+.tema-subelemento-btn:hover .tema-subelemento-nombre { color:var(--accent); }
+
+/* Iconos cuadrados para subelementos */
+.subelemento-square { width:105px; height:105px; border-radius:0; border:1.5px solid transparent; position:relative; background:transparent; flex-shrink:0; transition:all 0.3s ease; display:flex; align-items:center; justify-content:center; }
+.subelemento-square img { width:100%; height:100%; object-fit:contain; opacity:1; }
+.subelemento-btn { position:relative; background:none; border:2px solid transparent; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0; padding:0.3125rem 0.25rem; min-height:210px; justify-content:flex-start; }
+.subelemento-btn:hover .subelemento-square { transform:none; }
+.subelemento-titulo { font-family:'Roboto Condensed',sans-serif; font-size:0.86rem; font-weight:500; color:#ffffff; text-align:center; margin-top:11px; }
+.subelemento-btn:hover .subelemento-titulo { text-shadow: -0.5px -0.5px 0 #000000, 0.5px -0.5px 0 #000000, -0.5px 0.5px 0 #000000, 0.5px 0.5px 0 #000000, 0 0 10px #000000; }
+.subelemento-descripcion { display:none; }
+/* Mostrar descripción en juegos */
+.juego-btn .subelemento-descripcion { display:flex; font-size:0.75rem; color:#ffffff; margin-top:3px; text-align:center; justify-content:center; align-items:center; }
+/* Segunda fila de subelementos - tamaño ampliado */
+.subelemento-btn:nth-child(n+7) .subelemento-titulo { font-size:0.89rem; }
+.subelemento-btn:nth-child(n+7) .subelemento-descripcion { font-size:1.6rem; }
+
+/* MODAL */
+.modal-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.82); display:flex; align-items:center; justify-content:center; padding:1.2rem; opacity:0; pointer-events:none; transition:opacity 0.25s; }
+.modal-overlay.open { opacity:1; pointer-events:all; }
+
+/* DROPDOWN TEMAS */
+.temas-button-wrapper { position:relative; display:inline-block; }
+#temas-dropdown { position:fixed; background:#000000; border:1px solid #999999; border-radius:6px; width:225px; overflow-y:visible; z-index:2000; padding:0.4rem; box-shadow:0 2px 8px rgba(0,0,0,0.6); opacity:0; transform:translateY(-6px) scaleY(0.95); transform-origin:top center; pointer-events:none; transition:opacity 0.18s ease, transform 0.18s ease; }
+#temas-dropdown.open { opacity:1; transform:translateY(0) scaleY(1); pointer-events:auto; }
+#temas-dropdown .tema-checkbox { padding:0.25rem 0.3rem; margin:0 0 2px 0; gap:0.4rem; cursor:pointer; transition:font-weight 0.2s; background:transparent; border-radius:4px; }
+#temas-dropdown .tema-checkbox:hover { font-weight:700; background:rgba(34,168,79,0.15); }
+#temas-dropdown .tema-checkbox.checked { background:rgba(34,168,79,0.25); }
+#temas-dropdown .tema-checkbox label { font-size:0.8rem; cursor:pointer; color:#ffffff; }
+#temas-dropdown .tema-checkbox input[type="checkbox"] { accent-color:#ffffff; }
+
+/* El modal es el contenedor de posicionamiento de todo */
+.modal { position:relative; background:var(--surface); border:1px solid #999999; border-radius:20px; width:100%; max-width:520px; overflow:auto; display:flex; flex-direction:column; transform:scale(0.92) translateY(20px); transition:transform 0.3s cubic-bezier(.34,1.3,.64,1); box-shadow:0 10px 40px rgba(0,0,0,0.3); max-height:85vh; }
+.modal-overlay.open .modal { transform:scale(1) translateY(0); }
+
+/* Imagen de fondo: ocupa la mitad superior del modal */
+.modal-bg-img { display:block; width:100%; height:150px; object-fit:cover; object-position:center; filter:brightness(0.65); flex-shrink:0; }
+
+/* Gradiente que oscurece la parte baja de la imagen para que el texto sea legible */
+.modal-bg-gradient { position:absolute; top:0; left:0; right:0; height:150px; background:linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.6) 100%); pointer-events:none; }
+
+/* Icono + nombre: pegados al fondo de la imagen, transparentes */
+.modal-hero-info { top:120px; padding:0 1rem; }
+.modal-hero-info { position:absolute; top:172px; left:0; right:0; z-index:3; display:flex; align-items:center; gap:0.9rem; padding:0 1.2rem; background:transparent; }
+.modal-icon-wrap { width:52px; height:52px; border-radius:50%;  border:2px solid rgba(56,189,248,0.6); flex-shrink:0; }
+.modal-icon-wrap img { width:100%; height:100%; object-fit:cover; }
+.modal-title { font-family:'Saira',sans-serif; font-size:1rem; font-weight:700; line-height:1.25; text-shadow:0 1px 10px rgba(0,0,0,1); }
+.modal-curso-tag { font-size:0.89rem; color:var(--accent); font-weight:600; letter-spacing:0.05em; text-shadow:0 1px 8px rgba(0,0,0,1); }
+
+/* Botón cerrar */
+.modal-close { position:absolute; top:0.7rem; right:0.7rem; z-index:10; width:30px; height:30px; border-radius:50%; background:rgba(0,0,0,0.7); border:none; color:#ffffff; font-size:0.97rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s; }
+.modal-close:hover { background:rgba(0,0,0,0.9); }
+
+/* Panel botones: justo debajo de la imagen, con padding-top para que el icono solapado quede visible */
+.modal-links::-webkit-scrollbar { display:none; }
+.modal-links { overflow-y:auto; padding:1.8rem 1rem 1rem; display:flex; flex-direction:column; gap:0.25rem; scrollbar-width:none; max-width:250px; margin:0 auto; }
+
+.modal-empty { text-align:center; padding:2rem; color:var(--muted); font-size:0.92rem; }
+.modal-empty span { display:block; font-size:2rem; margin-bottom:0.5rem; opacity:0.4; }
+.link-row { display:flex; align-items:center; gap:0.8rem; padding:0.5rem 0.7rem; border-radius:10px; text-decoration:none; color:var(--text); border:1px solid #999999; background:var(--card); transition:all 0.18s; }
+.link-row:hover { border-color:var(--accent); background:rgba(56,189,248,0.07); transform:translateX(3px); }
+.link-row-icon { width:38px; height:38px; border-radius:8px; background:rgba(56,189,248,0.06); display:flex; align-items:center; justify-content:center; flex-shrink:0;  }
+.link-row-icon img { width:32px; height:32px; object-fit:contain; }
+.link-row-text { flex:1; }
+.link-row-name { font-size:0.92rem; font-weight:500; line-height:1.3; }
+.link-row-type { font-size:0.89rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; }
+.link-row-arrow { color:var(--muted); font-size:0.87rem; transition:color 0.2s; }
+.link-row:hover .link-row-arrow { color:var(--accent); }
+
+/* Colores temáticos en las barras de enlaces según el grupo */
+.modal-links.color-1bach:hover .link-row:hover { border-color:#ff6666; background:rgba(255,102,102,0.1); }
+.modal-links.color-1bach:hover .link-row:hover .link-row-arrow { color:#ff6666; }
+.modal-links.color-2bachF:hover .link-row:hover { border-color:#ffaa55; background:rgba(255,170,85,0.1); }
+.modal-links.color-2bachF:hover .link-row:hover .link-row-arrow { color:#ffaa55; }
+.modal-links.color-2bachQ:hover .link-row:hover { border-color:#dd88ff; background:rgba(221,136,255,0.1); }
+.modal-links.color-2bachQ:hover .link-row:hover .link-row-arrow { color:#dd88ff; }
+.modal-links.color-2eso:hover .link-row:hover { border-color:#55ddcc; background:rgba(85,221,204,0.1); }
+.modal-links.color-2eso:hover .link-row:hover .link-row-arrow { color:#55ddcc; }
+.modal-links.color-3eso:hover .link-row:hover { border-color:#88ee66; background:rgba(136,238,102,0.1); }
+.modal-links.color-3eso:hover .link-row:hover .link-row-arrow { color:#88ee66; }
+.modal-links.color-4eso:hover .link-row:hover { border-color:#88bbff; background:rgba(136,187,255,0.1); }
+.modal-links.color-4eso:hover .link-row:hover .link-row-arrow { color:#88bbff; }
+
+
+/* ── MÓVIL ─────────────────────────────────────────── */
+@media(max-width:400px) {
+  .temas-grid, .unidades-grid, .publicaciones-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:0.4rem; }
+  .unidad-ficha { width:calc(25% - 0.35rem); min-width:60px; max-width:80px; }
+  .unidad-icono { width:70px; height:70px; }
+  .unidad-nombre-texto2 { font-size:0.6rem; max-width:70px; }
+}
+
+@media(max-width:768px) {
+  header { padding:1.5rem 1rem 1rem; }
+  .barra-superior { padding:0.8rem 0.8rem; gap:0.3rem; }
+  .objetos-grid-wrapper { gap:1rem; }
+  .objetos-sidebar-left { width:80px; }
+  .objetos-sidebar-right { width:80px; }
+  .curso-tab { font-size:0.79rem; padding:0.4rem 0.8rem; }
+  main { padding:1rem 0.8rem 3rem; }
+
+  /* Sidebar goes horizontal on top */
+  .curso-layout { flex-direction:column; gap:0.8rem; }
+  .curso-sidebar {
+    flex-direction:row;
+    width:100%;
+    border-right:none;
+    border-bottom:1px solid var(--border);
+    margin-right:0;
+    padding:0 0 0.8rem 0;
+    justify-content:center;
+    gap:1.5rem;
+  }
+  .sidebar-btn img { width:50px; height:50px; }
+  .sidebar-btn span { font-size:0.58rem; }
+
+  /* Grid 4 columnas en móvil, centrado */
+  .temas-grid, .unidades-grid, .publicaciones-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:0.6rem; }
+  .unidad-ficha { width:calc(25% - 0.5rem); min-width:70px; max-width:90px; }
+  .unidad-icono { width:80px; height:80px; }
+  .unidad-nombre-texto2 { font-size:0.65rem; max-width:80px; }
+  .unidad-numero-texto1 { font-size:0.6rem; }
+
+  /* Objetos en móvil */
+  .objetos-container { flex-direction:column; gap:0.8rem; }
+  .objetos-sidebar { width:100%; flex-direction:row; border-right:none; border-bottom:1px solid var(--border); margin-right:0; padding:0 0 0.8rem 0; justify-content:center; gap:1.5rem; }
+  .pagination-info { width:100%; }
+  .pagination-btn img { width:50px; height:50px; }
+  .pagination-btn span { font-size:0.58rem; }
+  .objetos-grid { display:flex; flex-wrap:wrap; justify-content:center; gap:0.6rem; }
+  .objeto-ficha { width:calc(25% - 0.5rem); min-width:70px; max-width:90px; }
+  .objeto-icono { width:80px; height:80px; }
+  .objeto-tema-texto2 { font-size:0.65rem; max-width:80px; }
+  .objeto-nombre-texto1 { font-size:0.6rem; }
+
+  /* Modal móvil */
+  .modal-overlay { padding:0.5rem; align-items:center; }
+  .modal { max-width:100%; }
+  .modal-bg-img { height:170px; }
+  .modal-bg-gradient { height:170px; }
+  .modal-hero-info { top:144px; padding:0 1rem; }
+  .modal-links { padding-top:1.6rem; }
+  .modal-icon-wrap { width:42px; height:42px; }
+  .modal-title { font-size:0.88rem; }
+  .link-row { padding:0.55rem 0.8rem; }
+
+  /* Objeto detalle móvil */
+  .objeto-detail { height:90vh; }
+  .objeto-detail-content { flex-direction:column; }
+  .objeto-detail-side.realidad { flex:0 0 40%; }
+  .objeto-detail-side.simulacion { flex:0 0 60%; }
+  .objeto-detail-side.realidad .objeto-detail-img { border:none; }
+}
+
+/* PIN MODAL */
+.pin-overlay { position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.95); display:flex; align-items:center; justify-content:center; padding:1rem; backdrop-filter:blur(10px); }
+.pin-modal { background:var(--surface); border:1px solid #999999; border-radius:10px; padding:1.5rem 2rem; width:100%; max-width:340px; text-align:center; }
+.pin-modal h1 { font-family:'Saira',sans-serif; font-size:1.1rem; font-weight:700; color:var(--accent); margin-bottom:0.6rem; letter-spacing:0.08em; text-transform:uppercase; }
+.pin-modal p { font-family:'Roboto Condensed',sans-serif; font-size:0.85rem; color:var(--muted); margin-bottom:1rem; line-height:1.5; }
+.pin-label { font-family:'Roboto Condensed',sans-serif; font-size:0.85rem; color:var(--muted); margin-bottom:0.6rem; }
+.pin-input-group { display:flex; gap:0.5rem; justify-content:center; margin-bottom:1rem; }
+.pin-digit { width:44px; height:44px; font-size:1.3rem; font-weight:700; text-align:center; background:#000000; border:1px solid #999999; border-radius:6px; color:#ffffff; font-family:'Roboto Condensed',sans-serif; transition:border-color 0.2s; }
+.pin-digit:focus { outline:none; border-color:var(--accent); box-shadow:0 0 8px rgba(56,189,248,0.4); }
+.pin-btn { padding:0 1.5rem; height:34px; background:var(--accent); color:#000000; border:none; border-radius:6px; font-size:0.85rem; font-weight:700; cursor:pointer; transition:background 0.2s; font-family:'Saira',sans-serif; }
+.pin-btn:hover { filter:brightness(1.15); border-color:#ffffff; }
+.pin-btn:disabled { opacity:0.5; cursor:not-allowed; }
+
+/* Letras más estrechas para títulos azules */
+.unidad-numero-texto1 { font-weight:600; letter-spacing:-0.02em; }
+.objeto-nombre-texto1 { font-weight:600; letter-spacing:-0.02em; }
+
+/* ════════════════════════════════════════════════════════════════════
+   RESPONSIVIDAD MÓVIL - Sin cambios en desktop
+   ════════════════════════════════════════════════════════════════════ */
+
+@media(max-width:1024px) {
+  .barra-superior { width:100% !important; max-width:100%; }
+  .curso-layout { width:100% !important; max-width:100%; }
+  .objetos-container-wrapper { width:100% !important; max-width:100%; }
+  main { max-width:100%; padding:1rem 0.8rem; }
+  #panel-publicaciones .curso-layout { width:100% !important; }
+}
+
+@media(max-width:768px) {
+  .barra-superior { width:100% !important; max-width:100%; overflow-x:auto; scrollbar-width:thin; }
+  .curso-layout { width:100% !important; }
+  .objetos-container-wrapper { width:100% !important; }
+  .objetos-grid { grid-template-columns:repeat(4,1fr); }
+  .tema-subelementos-grid { grid-template-columns:repeat(3,1fr); }
+}
+
+@media(max-width:480px) {
+  .barra-superior { width:100% !important; padding:0.8rem 0.5rem; gap:0.2rem; }
+  .curso-tab { width:155px; font-size:0.75rem; padding:0.4rem 0.6rem; }
+  .curso-layout { width:100% !important; }
+  .objetos-container-wrapper { width:100% !important; padding:5px; }
+  .barra-interna { flex-direction:column; gap:1rem; }
+  .control-group { flex-wrap:wrap; gap:0.4rem; }
+  .control-btn-filter { width:auto !important; padding:0.4rem 0.6rem; }
+  .control-btn-sort { width:auto !important; }
+  .control-label { font-size:0.8rem; }
+  .objetos-grid { grid-template-columns:repeat(3,1fr); gap:4px; }
+  .temas-grid, .unidades-grid, .publicaciones-grid { gap:0.4rem; }
+  .objeto-ficha { width:100%; max-width:none; min-height:180px; }
+  .unidad-ficha { max-width:none; }
+  .tema-subelementos-grid { grid-template-columns:repeat(2,1fr); gap:0.8rem; }
+  .pagination-info { font-size:0.75rem; }
+  .header-logo { font-size:1.5rem; }
+  .header-sub { font-size:1rem; }
+  .curso-sidebar { gap:1rem; padding:0.8rem 0; }
+  .sidebar-btn img { width:50px; height:50px; }
+}
+
+@media(max-width:380px) {
+  .curso-tab { width:120px; font-size:0.7rem; padding:0.35rem 0.5rem; }
+  .header-logo { font-size:1.3rem; }
+  .objetos-grid { grid-template-columns:repeat(2,1fr); gap:3px; }
+  .temas-grid, .unidades-grid, .publicaciones-grid { gap:0.3rem; }
+  .tema-subelementos-grid { grid-template-columns:1fr; gap:0.6rem; }
+}
+
+@media(max-width:320px) {
+  body { font-size:13px; }
+  .barra-superior { padding:0.6rem 0.4rem; }
+  .curso-tab { width:100px; font-size:0.65rem; }
+  .objetos-grid { grid-template-columns:repeat(2,1fr); gap:2px; }
+}
+
+/* VISTA-SUB SELECTED */
+.unidad-ficha.selected.vista-sub { height:230px !important; min-height:230px !important; max-height:230px !important; padding:0; justify-content:center; pointer-events:auto; }
+.unidad-ficha.selected.vista-sub:hover { filter:none; }
+.unidad-ficha.selected.vista-sub .unidad-numero-texto1 { font-size:1.2em !important; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000 !important; }
+.unidad-ficha.selected.vista-sub:hover .unidad-numero-texto1 { text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000 !important; }
+.unidad-ficha.selected.vista-sub .unidad-nombre-texto2 { font-size:1.2em !important; }
+.unidad-ficha.selected.vista-sub .unidad-icono img { transform:scale(1.20) !important; transition:none !important; }
+/* En vista-sub el hover del círculo no cambia nada respecto al estado normal */
+.unidad-ficha.selected.vista-sub:hover .unidad-icono { transform:none !important; box-shadow:inherit !important; }
+.unidad-ficha.selected.vista-sub:hover .unidad-icono img { transform:scale(1.20) !important; transition:none !important; }
+/* Dentro de la unidad: hover no cambia nada (congela escala y resplandor en su valor de reposo) */
+.unidad-ficha-dentro:hover .unidad-icono img { transform:scale(1.20) !important; transition:none !important; }
+.unidad-2eso-ficha.unidad-ficha-dentro:hover   .unidad-icono { box-shadow:inset 0 0 0 1.5px #55ddcc, 0 0 20px rgba(85,221,204,0.8) !important; transition:none !important; }
+.unidad-3eso-ficha.unidad-ficha-dentro:hover   .unidad-icono { box-shadow:inset 0 0 0 1.5px #88ee66, 0 0 20px rgba(136,238,102,0.8) !important; transition:none !important; }
+.unidad-4eso-ficha.unidad-ficha-dentro:hover   .unidad-icono { box-shadow:inset 0 0 0 1.5px #88bbff, 0 0 20px rgba(136,187,255,0.8) !important; transition:none !important; }
+.unidad-1bach-ficha.unidad-ficha-dentro:hover  .unidad-icono { box-shadow:inset 0 0 0 1.5px #ff6666, 0 0 20px rgba(255,102,102,0.8) !important; transition:none !important; }
+.unidad-2bachF-ficha.unidad-ficha-dentro:hover .unidad-icono { box-shadow:inset 0 0 0 1.5px #ffaa55, 0 0 20px rgba(255,170,85,0.8) !important; transition:none !important; }
+.unidad-2bachQ-ficha.unidad-ficha-dentro:hover .unidad-icono { box-shadow:inset 0 0 0 1.5px #dd88ff, 0 0 20px rgba(221,136,255,0.8) !important; transition:none !important; }
+
+/* Iconos en ficha-actividades: sin cambios de imagen por defecto */
+.ficha-actividades .objeto-ficha .objeto-icono img { transition:none !important; transform:none !important; }
+.ficha-actividades .objeto-ficha:hover .objeto-icono img { transform:none !important; }
+/* Iconos de tipo unidad/video: permiten box-shadow de glow (no anular) */
+.ficha-actividades:not(.ficha-actividades--unidad):not(.ficha-actividades--video) .objeto-ficha:hover .objeto-icono { box-shadow:none !important; }
+/* Hover: texto en color temático en fichas genéricas (NO en ficha-actividades--unidad, donde el texto es siempre blanco) */
+.ficha-actividades:not(.ficha-actividades--unidad) .objeto-ficha.color-2eso:hover   .objeto-nombre-texto1 { color:#55ddcc !important; }
+.ficha-actividades:not(.ficha-actividades--unidad) .objeto-ficha.color-3eso:hover   .objeto-nombre-texto1 { color:#88ee66 !important; }
+.ficha-actividades:not(.ficha-actividades--unidad) .objeto-ficha.color-4eso:hover   .objeto-nombre-texto1 { color:#88bbff !important; }
+.ficha-actividades:not(.ficha-actividades--unidad) .objeto-ficha.color-1bach:hover  .objeto-nombre-texto1 { color:#ff6666 !important; }
+.ficha-actividades:not(.ficha-actividades--unidad) .objeto-ficha.color-2bachF:hover .objeto-nombre-texto1 { color:#ffaa55 !important; }
+.ficha-actividades:not(.ficha-actividades--unidad) .objeto-ficha.color-2bachQ:hover .objeto-nombre-texto1 { color:#dd88ff !important; }
+/* En ficha-actividades--unidad el texto permanece blanco siempre */
+.ficha-actividades--unidad .objeto-ficha:hover .objeto-nombre-texto1 { color:#ffffff !important; }
+
+/* PANEL CONSOLA Y BTN-RECONSTRUIR */
+#panel-consola.active .objetos-container-wrapper { height:540px; overflow:hidden; }
+.btn-reconstruir:hover { background:#38bdf8; border-color:#38bdf8; color:#000000; font-weight:700; }
+
+/* PUB-LISTADO-ITEM */
+.pub-listado-item { padding:4px 0 4px 26px; height:auto; display:flex; align-items:center; gap:0; }
+.pub-listado-item-chevron { color:var(--accent); font-size:1.1rem; font-family:'Saira',sans-serif; font-weight:700; flex-shrink:0; line-height:1; width:26px; text-align:left; display:inline-block; }
+
+
+/* Fichas vista-sub por curso */
+.unidad-2eso-ficha, .unidad-3eso-ficha, .unidad-4eso-ficha, .unidad-1bach-ficha, .unidad-2bachF-ficha, .unidad-2bachQ-ficha { height:220px; min-height:220px; max-height:220px; padding:0; justify-content:center; pointer-events:auto; position:relative; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0; overflow:visible; animation:popIn 0.6s 0s both; }
+.unidad-ficha-dentro { width:100% !important; min-width:0 !important; max-width:none !important; align-self:center; margin-bottom:0; padding-top:15px !important; }
+.unidad-2eso-ficha:hover, .unidad-3eso-ficha:hover, .unidad-4eso-ficha:hover, .unidad-1bach-ficha:hover, .unidad-2bachF-ficha:hover, .unidad-2bachQ-ficha:hover { filter:none; }
+.unidad-2eso-ficha   .unidad-icono { box-shadow:inset 0 0 0 1.5px #55ddcc, 0 0 20px rgba(85,221,204,0.8); }
+.unidad-3eso-ficha   .unidad-icono { box-shadow:inset 0 0 0 1.5px #88ee66, 0 0 20px rgba(136,238,102,0.8); }
+.unidad-4eso-ficha   .unidad-icono { box-shadow:inset 0 0 0 1.5px #88bbff, 0 0 20px rgba(136,187,255,0.8); }
+.unidad-1bach-ficha  .unidad-icono { box-shadow:inset 0 0 0 1.5px #ff6666, 0 0 20px rgba(255,102,102,0.8); }
+.unidad-2bachF-ficha .unidad-icono { box-shadow:inset 0 0 0 1.5px #ffaa55, 0 0 20px rgba(255,170,85,0.8); }
+.unidad-2bachQ-ficha .unidad-icono { box-shadow:inset 0 0 0 1.5px #dd88ff, 0 0 20px rgba(221,136,255,0.8); }
+.unidad-2eso-ficha .unidad-icono img, .unidad-3eso-ficha .unidad-icono img, .unidad-4eso-ficha .unidad-icono img, .unidad-1bach-ficha .unidad-icono img, .unidad-2bachF-ficha .unidad-icono img, .unidad-2bachQ-ficha .unidad-icono img { transform:scale(1.20); transition:none; }
+.unidad-2eso-ficha .unidad-numero-texto1, .unidad-3eso-ficha .unidad-numero-texto1, .unidad-4eso-ficha .unidad-numero-texto1, .unidad-1bach-ficha .unidad-numero-texto1, .unidad-2bachF-ficha .unidad-numero-texto1, .unidad-2bachQ-ficha .unidad-numero-texto1 { font-size:1.2em; }
+.unidad-2eso-ficha .unidad-nombre-texto2, .unidad-3eso-ficha .unidad-nombre-texto2, .unidad-4eso-ficha .unidad-nombre-texto2, .unidad-1bach-ficha .unidad-nombre-texto2, .unidad-2bachF-ficha .unidad-nombre-texto2, .unidad-2bachQ-ficha .unidad-nombre-texto2 { font-size:1.2em; font-weight:700; }
+
+/* VISTA-UNIDAD-TOP */
+.vista-unidad-top { display:flex; flex-direction:row; gap:0; align-items:stretch; width:100%; height:300px; min-height:300px; max-height:300px; box-sizing:border-box; overflow:visible; }
+.vista-unidad-top .unidad-ficha { flex:1; height:100%; min-height:100%; max-height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:5px 2px; box-sizing:border-box; overflow:visible; }
+.vista-unidad-top .unidad-ficha:hover .unidad-icono { box-shadow:inset 0 0 0 1px #999999; }
+.vista-unidad-top .unidad-ficha:hover .unidad-icono img { transform:none; }
+.vista-unidad-top .unidad-icono { width:130px; height:130px; }
+.vista-unidad-top .unidad-nombre-texto2 { height:30px; }
+
+/* PUB-LISTADO FULL */
+.pub-listado-grupo { display:flex; flex-direction:column; overflow:hidden; justify-content:flex-start; height:100px; min-height:100px; }
+.pub-listado-titulo { font-family:'Saira',sans-serif; font-size:1rem; font-weight:700; color:var(--accent); border-bottom:none; padding:0; margin-bottom:0; letter-spacing:0.08em; text-transform:uppercase; cursor:default; transition:color 0.2s; flex-shrink:0; }
+.pub-listado-titulo:hover { color:#38bdf8; }
+.pub-listado-nombre { font-family:'Roboto Condensed',sans-serif; font-size:0.95rem; color:#ffffff; font-weight:500; cursor:pointer; transition:color 0.2s, text-shadow 0.2s; text-decoration:none; display:block; height:15px; padding:5px 0; box-sizing:content-box; overflow:hidden; }
+.pub-listado-nombre:hover { color:var(--accent); text-shadow:0 0 8px rgba(56,189,248,0.5); text-decoration:none; }
+.pub-listado-meta { font-family:'Roboto Condensed',sans-serif; font-size:0.82rem; color:var(--muted); height:15px; padding:5px 0; display:block; box-sizing:content-box; overflow:hidden; }
+
+/* BTN-RECONSTRUIR BASE */
+.btn-reconstruir { font-family:'Saira',sans-serif; cursor:pointer; transition:background 0.2s, color 0.2s, font-weight 0.2s; height:40px; }
+
+#btn-sala-control { align-items:center; justify-content:center; gap:4px; position:absolute; bottom:5px; right:5px; white-space:nowrap; }
+
+
+
+/* FICHA-ACTIVIDADES: grid 3 columnas, filas automáticas, altura total 220px */
+.ficha-actividades { display:grid; grid-template-columns:repeat(var(--fa-cols,3),1fr); grid-auto-rows:1fr; gap:4px; width:100%; height:220px; min-height:220px; max-height:220px; overflow:visible; margin:0; padding:4px; box-sizing:border-box; }
+.ficha-actividades .objeto-ficha { width:100%; height:100%; min-height:0; padding:0; justify-content:center; }
+.ficha-actividades .objeto-icono { width:44px; height:44px; min-width:44px; min-height:44px; margin:0 auto; flex-shrink:0; border-radius:0 !important; background:none !important; border:0 !important; padding:0 !important; }
+.ficha-actividades:not(.ficha-actividades--video) .objeto-icono { box-shadow:none !important; }
+.ficha-actividades .objeto-icono img { width:100%; height:100%; object-fit:contain; display:block; }
+.ficha-actividades--video .objeto-icono img { width:85% !important; height:85% !important; transition:transform 0.2s !important; }
+.ficha-actividades:not(.ficha-actividades--video) .objeto-ficha:hover .objeto-icono { box-shadow:none !important; }
+.ficha-actividades--video .objeto-icono { border-radius:50% !important; background:#000000 !important; border:0 !important; box-shadow:inset 0 0 0 1px #999999 !important; overflow:hidden !important; }
+.ficha-actividades .objeto-nombre-texto1 { font-size:11px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:5px; padding-top:0; }
+.ficha-actividades .objeto-tema-texto2 { font-size:11px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:2px; padding:0; }
+/* Fichas variante video: grid 6 columnas (una línea) */
+.ficha-actividades--video { display:grid !important; grid-template-columns:repeat(6,1fr) !important; height:auto !important; min-height:0 !important; max-height:none !important; align-items:center !important; justify-items:center !important; padding:8px 0 !important; }
+/* Fichas variante unidad/video: sin texto2, icono más grande */
+.ficha-actividades--unidad .objeto-tema-texto2,
+.ficha-actividades--video  .objeto-tema-texto2 { display:none !important; }
+.ficha-actividades--unidad .objeto-nombre-texto1,
+.ficha-actividades--video  .objeto-nombre-texto1 { font-size:0.86rem; margin-top:5px !important; color:#ffffff !important; align-items:flex-start; }
+.ficha-actividades--unidad .objeto-icono,
+.ficha-actividades--video  .objeto-icono { width:64px !important; height:64px !important; min-width:64px !important; min-height:64px !important; transition:transform 0.2s, box-shadow 0.2s !important; }
+.ficha-actividades--unidad .objeto-ficha:hover .objeto-icono { transform:scale(1.2) !important; }
+/* Color temático en hover de texto de iconos de tareas (sin resplandor en icono) */
+.ficha-actividades--unidad .objeto-ficha.color-2eso:hover   .objeto-nombre-texto1 { color:#55ddcc !important; }
+.ficha-actividades--unidad .objeto-ficha.color-3eso:hover   .objeto-nombre-texto1 { color:#88ee66 !important; }
+.ficha-actividades--unidad .objeto-ficha.color-4eso:hover   .objeto-nombre-texto1 { color:#88bbff !important; }
+.ficha-actividades--unidad .objeto-ficha.color-1bach:hover  .objeto-nombre-texto1 { color:#ff6666 !important; }
+.ficha-actividades--unidad .objeto-ficha.color-2bachF:hover .objeto-nombre-texto1 { color:#ffaa55 !important; }
+.ficha-actividades--unidad .objeto-ficha.color-2bachQ:hover .objeto-nombre-texto1 { color:#dd88ff !important; }
+/* Icono en gris cuando su filtro está desactivado (unidades y juegos) */
+.ficha-actividades--unidad .objeto-ficha.col-filtro-off,
+.ficha-actividades--juegos .objeto-ficha.col-filtro-off { opacity:0.35; pointer-events:none; filter:grayscale(100%); }
+.control-btn-filter.col-filtro-off { opacity:0.35 !important; pointer-events:none !important; filter:grayscale(100%) !important; }
+/* Fichas variante juegos: iconos grandes, mismo formato que --unidad pero con dos textos */
+.ficha-actividades--juegos .objeto-icono { width:64px !important; height:64px !important; min-width:64px !important; min-height:64px !important; transition:transform 0.2s, box-shadow 0.2s !important; }
+.ficha-actividades--juegos .objeto-ficha:hover .objeto-icono { transform:scale(1.2) !important; }
+.ficha-actividades--juegos .objeto-ficha:hover .objeto-tema-texto2 { color:#38bdf8 !important; }
+.ficha-actividades--juegos .objeto-tema-texto2 { font-size:0.86rem; color:#38bdf8; font-weight:700; margin-top:5px; padding:0; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; }
+.ficha-actividades--juegos .objeto-nombre-texto1 { font-size:0.86rem; color:#ffffff !important; margin-top:2px; padding:0; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; }
+.ficha-actividades--juegos .objeto-ficha.color-2eso:hover   .objeto-nombre-texto1 { color:#55ddcc !important; }
+.ficha-actividades--juegos .objeto-ficha.color-3eso:hover   .objeto-nombre-texto1 { color:#88ee66 !important; }
+.ficha-actividades--juegos .objeto-ficha.color-4eso:hover   .objeto-nombre-texto1 { color:#88bbff !important; }
+.ficha-actividades--juegos .objeto-ficha.color-1bach:hover  .objeto-nombre-texto1 { color:#ff6666 !important; }
+.ficha-actividades--juegos .objeto-ficha.color-2bachF:hover .objeto-nombre-texto1 { color:#ffaa55 !important; }
+.ficha-actividades--juegos .objeto-ficha.color-2bachQ:hover .objeto-nombre-texto1 { color:#dd88ff !important; }
+
+
+/* ═══════════════════════════════════════
+   ANIMACIONES
+═══════════════════════════════════════ */
+
+/* 1. Entrada en cascada de fichas */
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(22px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.unidad-ficha.anim-entrada,
+.publicacion-ficha.anim-entrada,
+.objeto-ficha.anim-entrada {
+  opacity:0;
+  animation: fadeInUp 0.35s ease forwards;
+  animation-delay: calc(var(--d, 0) * 0.045s);
+}
+
+/* 2. Slide columna izquierda al entrar en unidad */
+@keyframes slideInLeft { from { opacity:1; } to { opacity:1; } }
+@keyframes slideInRight { from { opacity:1; } to { opacity:1; } }
+.anim-slide-izq { animation: none; }
+.anim-slide-der { animation: none; }
+
+/* 3. Flip del contador de unidad */
+@keyframes flipNum {
+  0%   { transform:rotateX(0deg);    opacity:1; }
+  50%  { transform:rotateX(90deg);   opacity:0; }
+  100% { transform:rotateX(0deg);    opacity:1; }
+}
+.anim-flip {
+  display:inline-block;
+  animation: flipNum 0.3s ease;
+}
+
+
+/* 5. Partículas portada */
+@keyframes particleDrift {
+  0%   { transform:translateY(0px)   translateX(0px)   scale(1);   opacity:0.7; }
+  50%  { transform:translateY(-18px) translateX(8px)   scale(1.2); opacity:1; }
+  100% { transform:translateY(0px)   translateX(0px)   scale(1);   opacity:0.7; }
+}
+.portada-particula {
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+  animation: particleDrift var(--dur, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+</style>
+<script src="sistema/objetos-data.js"></script>
+</head>
+<body>
+<div class="pin-overlay" id="pinOverlay">
+  <div class="pin-modal">
+    <h1>Acceso protegido</h1>
+    <p>Principios de la termodinámica.<br>PIN solicitado.<br>A la espera de input.</p>
+    <div class="pin-label">Clave:</div>
+    <div class="pin-input-group">
+      <input type="text" class="pin-digit" id="pin0" maxlength="1" inputmode="numeric" autocomplete="off">
+      <input type="text" class="pin-digit" id="pin1" maxlength="1" inputmode="numeric" autocomplete="off">
+      <input type="text" class="pin-digit" id="pin2" maxlength="1" inputmode="numeric" autocomplete="off">
+      <input type="text" class="pin-digit" id="pin3" maxlength="1" inputmode="numeric" autocomplete="off">
+    </div>
+    <button class="pin-btn" id="pinBtn">Acceder</button>
+  </div>
+</div>
+
+<div class="bg-fx"></div>
+<header>
+  <div class="header-logo page-load-hidden" onclick="irAPortada()" style="cursor:pointer;">Física <span>&</span> Química</div>
+  <div class="header-sub page-load-hidden" onclick="irAAutor()" style="cursor:pointer;">Jacinto Javier Fernández Herrera</div>
+  <button id="btn-sala-control" class="curso-tab objetos-btn" onclick="openConsola()" style="display:none;"><img class="objetos-btn-icono" src="imagenes/menu/Sala de control.webp" alt=""><span class="objetos-btn-texto">Sala de control</span></button>
+</header>
+<div class="barra-superior page-load-hidden">
+  <button class="curso-tab" onclick="selectCurso('2eso',this)">2º ESO<br>Física y Química</button>
+  <button class="curso-tab" onclick="selectCurso('3eso',this)">3º ESO<br>Física y Química</button>
+  <button class="curso-tab" onclick="selectCurso('4eso',this)">4º ESO<br>Física y Química</button>
+  <button class="curso-tab" onclick="selectCurso('1bach',this)">1º Bachillerato<br>Física y Química</button>
+  <button class="curso-tab" onclick="selectCurso('2bachF',this)">2º Bachillerato<br>Física</button>
+  <button class="curso-tab" onclick="selectCurso('2bachQ',this)">2º Bachillerato<br>Química</button>
+  <button class="curso-tab objetos-btn" onclick="selectObjetos(this)"><img class="objetos-btn-icono" src="imagenes/menu/Objetos.webp" alt=""><span class="objetos-btn-texto">Objetos</span></button>
+  <button class="curso-tab objetos-btn publicaciones-btn" onclick="openPublicaciones()"><img class="objetos-btn-icono" src="imagenes/menu/Publicaciones.webp" alt=""><span class="objetos-btn-texto">Publicaciones</span></button>
+</div>
+<main class="page-load-hidden">
+  <div class="contenedor-grande contenedor-grande--portada active" id="panel-portada">
+    <img src="imagenes/menu/Portada.webp" alt="Portada" style="width:100%;height:100%;object-fit:contain;border-radius:10px;">
+  </div>
+  <div class="contenedor-grande contenedor-grande--objetos" id="panel-objetos">
+      <div class="barra-interna">
+        <div class="control-group">
+          <span class="control-label">ORDEN:</span>
+          <button class="control-btn active control-btn-filter control-btn-orden" id="btn-orden-toggle" data-sort="nombre">Nombre</button>
+        </div>
+        <div class="control-group">
+          <span class="control-label">FILTRO:</span>
+          <button class="control-btn control-btn-filter" data-filter="metodo"><img src="imagenes/menu/Boton_metodo.webp" alt=""><span>Método científico</span></button>
+          <button class="control-btn control-btn-filter" data-filter="fisica"><img src="imagenes/menu/Boton_fisica.webp" alt=""><span>Física</span></button>
+          <button class="control-btn control-btn-filter" data-filter="quimica"><img src="imagenes/menu/Boton_quimica.webp" alt=""><span>Química</span></button>
+          <div class="temas-button-wrapper">
+            <button class="control-btn control-btn-filter" data-filter="temas"><img src="imagenes/menu/Temas.webp" alt=""><span>Temas</span></button>
+          </div>
+        </div>
+        <div class="control-group">
+          <span class="control-label">OBJETOS:</span>
+          <span class="pagination-info" id="pagination-info-count" style="display:flex; gap:0.5rem; align-items:center; color:#ffffff; white-space:nowrap;">39 / 39</span>
+        </div>
+        <div class="control-group" id="grupo-pagina-top" style="margin-left:auto;">
+          <span class="control-label">PÁGINA:</span>
+          <span class="pagination-info" id="pagination-info-top" style="display:flex; gap:0.5rem; align-items:center; color:#ffffff; white-space:nowrap;">1 / 5</span>
+        </div>
+        <div class="control-group" id="grupo-flechas">
+          <button class="pagination-btn" id="btn-prev" onclick="objetosPrevPage()" title="Página anterior" style="width:32px; height:32px; padding:0;">
+            <img src="imagenes/menu/Anterior.webp" alt="Anterior" style="width:100%; height:100%; object-fit:contain;">
+          </button>
+          <button class="pagination-btn" id="btn-next" onclick="objetosNextPage()" title="Página siguiente" style="width:32px; height:32px; padding:0;">
+            <img src="imagenes/menu/Siguiente.webp" alt="Siguiente" style="width:100%; height:100%; object-fit:contain;">
+          </button>
+        </div>
+      </div>
+      <div class="curso-layout">
+        <div class="objetos-grid" id="grid-objetos"></div>
+      </div>
+  </div>
+  <div class="contenedor-grande contenedor-grande--publicaciones" id="panel-publicaciones">
+      <div class="barra-interna">
+        <div class="control-group">
+          <span class="control-label">FILTRO:</span>
+          <button class="control-btn control-btn-filter active" data-pub-filter="libro" onclick="filtrarPublicaciones(this,'libro')"><img src="imagenes/menu/Libro de texto.webp" alt=""><span>Libros</span></button>
+          <button class="control-btn control-btn-filter active" data-pub-filter="cuaderno" onclick="filtrarPublicaciones(this,'cuaderno')"><img src="imagenes/menu/Cuaderno.webp" alt=""><span>Cuadernos</span></button>
+          <button class="control-btn control-btn-filter active" data-pub-filter="lectura" onclick="filtrarPublicaciones(this,'lectura')"><img src="imagenes/menu/Lecturas.webp" alt=""><span>Lecturas</span></button>
+        </div>
+      </div>
+      <div class="curso-layout">
+        <div class="curso-sidebar">
+          <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarAutor()">
+            <img src="imagenes/menu/Sobre el autor.webp" alt="Sobre el autor">
+            <span>Sobre el autor</span>
+          </a>
+          <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarListadoPublicaciones()">
+            <img src="imagenes/menu/Listado de publicaciones.webp" alt="Listado de publicaciones">
+            <span>Listado de publicaciones</span>
+          </a>
+          <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarVersionesWeb()">
+            <img src="imagenes/menu/Versiones web.webp" alt="Versiones web">
+            <span>Versiones web</span>
+          </a>
+        </div>
+        <div class="publicaciones-grid" id="grid-publicaciones"></div>
+      </div>
+  </div>
+  <div class="contenedor-grande contenedor-grande--curso" id="panel-2eso">
+      <div class="barra-interna">
+        <div class="control-group">
+          <span class="control-label">FILTRO:</span>
+          <button class="control-btn control-btn-filter active" data-filter="metodo" onclick="toggleFiltroCurso(this)"><img src="imagenes/menu/Boton_metodo.webp" alt=""><span>Método científico</span></button>
+          <button class="control-btn control-btn-filter active" data-filter="fisica" onclick="toggleFiltroCurso(this)"><img src="imagenes/menu/Boton_fisica.webp" alt=""><span>Física</span></button>
+          <button class="control-btn control-btn-filter active" data-filter="quimica" onclick="toggleFiltroCurso(this)"><img src="imagenes/menu/Boton_quimica.webp" alt=""><span>Química</span></button>
+        </div>
+        <div class="control-group" id="curso-pagina-group-2eso" style="left:1075px;">
+          <span class="control-label">PÁGINA:</span>
+          <span class="pagination-info curso-pagina-info" style="display:flex;gap:0.5rem;align-items:center;color:#ffffff;white-space:nowrap;">1 / 6</span>
+        </div>
+        <div class="control-group" id="curso-flechas-group-2eso" style="left:1200px;">
+          <button class="pagination-btn" onclick="selectCurso('2eso',document.querySelector('.curso-tab[onclick*=\'2eso\']'))" disabled style="width:32px;height:32px;padding:0;"><img src="imagenes/menu/Anterior.webp" alt="Anterior" style="width:100%;height:100%;object-fit:contain;"></button>
+          <button class="pagination-btn" onclick="selectCurso('3eso',document.querySelector('.curso-tab[onclick*=\'3eso\']'))" style="width:32px;height:32px;padding:0;"><img src="imagenes/menu/Siguiente.webp" alt="Siguiente" style="width:100%;height:100%;object-fit:contain;"></button>
+        </div>
+        <div class="control-group" id="unidad-pagina-2eso" style="left:1075px; visibility:hidden;">
+          <span class="control-label">UNIDAD:</span>
+          <span class="pagination-info" id="unidad-info-2eso" style="display:flex; gap:0.5rem; align-items:center; color:#ffffff; white-space:nowrap;">1 / 1</span>
+        </div>
+        <div class="control-group" id="unidad-flechas-2eso" style="left:1200px; visibility:hidden;">
+          <button class="pagination-btn" id="unidad-prev-2eso" onclick="unidadPrev('2eso')" title="Unidad anterior" style="width:32px; height:32px; padding:0;">
+            <img src="imagenes/menu/Anterior.webp" alt="Anterior" style="width:100%; height:100%; object-fit:contain;">
+          </button>
+          <button class="pagination-btn" id="unidad-next-2eso" onclick="unidadNext('2eso')" title="Unidad siguiente" style="width:32px; height:32px; padding:0;">
+            <img src="imagenes/menu/Siguiente.webp" alt="Siguiente" style="width:100%; height:100%; object-fit:contain;">
+          </button>
+        </div>
+      </div>
+      <div class="curso-layout">
+        <div class="curso-sidebar">
+
+          <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/IQDNwKbEt8woTIBvchGnKWwbAaf9xX5AA-sZJVdj7jtU5QI?resid=5E49627FE7EEC215!sc4a6c0cdccb74c28806f7211a7296c1b&ithint=file%2Cpptx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRE53S2JFdDh3b1RJQnZjaEduS1d3YkFhZjl4WDVBQS1zWkpWZGo3anRVNVFJ" target="_blank" rel="noopener">
+            <img src="imagenes/menu/Jornada de bienvenida.webp" alt="Jornada de bienvenida">
+            <span>Jornada de bienvenida</span>
+          </a>
+          <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarVideoTemario('2eso')">
+            <img src="imagenes/menu/Video temario.webp" alt="Vídeo del temario">
+            <span>Vídeo del temario</span>
+          </a>
+
+          <a class="sidebar-btn" href="javascript:void(0)" onclick="openJuegos('2eso')">
+            <img src="imagenes/menu/Juegos.webp" alt="Juegos extra">
+            <span>Juegos extra</span>
+          </a>
+        </div>
+        <div class="unidades-grid" id="grid-2eso"></div>
+      </div>
+  </div>
+  <div class="contenedor-grande contenedor-grande--curso" id="panel-3eso">
+      <div class="barra-interna">
+        <div class="control-group">
+          <span class="control-label">TEMARIO:</span>
+          <button class="control-btn active control-btn-filter control-btn-orden" data-sort="nombre">Todo</button>
+        </div>
+        <div class="control-group">
+          <span class="control-label">FILTRO:</span>
+          <button class="control-btn control-btn-filter active" data-filter="metodo" onclick="toggleFiltroCurso(this)"><img src="imagenes/menu/Boton_metodo.webp" alt=""><span>Método científico</span></button>
+          <button class="control-btn control-btn-filter active" data-filter="fisica" onclick="toggleFiltroCurso(this)"><img src="imagenes/menu/Boton_fisica.webp" alt=""><span>Física</span></button>
+          <button class="control-btn control-btn-filter active" data-filter="quimica" onclick="toggleFiltroCurso(this)"><img src="imagenes/menu/Boton_quimica.webp" alt=""><span>Química</span></button>
+        </div>
+        <div class="control-group" id="curso-pagina-group-3eso" style="left:1075px;">
+          <span class="control-label">PÁGINA:</span>
+          <span class="pagination-info curso-pagina-info" style="display:flex;gap:0.5rem;align-items:center;color:#ffffff;white-space:nowrap;">2 / 6</span>
+        </div>
+        <div class="control-group" id="curso-flechas-group-3eso" style="left:1200px;">
+          <button class="pagination-btn" onclick="selectCurso('2eso',document.querySelector('.curso-tab[onclick*=\'2eso\']'))" style="width:32px;height:32px;padding:0;"><img src="imagenes/menu/Anterior.webp" alt="Anterior" style="width:100%;height:100%;object-fit:contain;"></button>
+          <button class="pagination-btn" onclick="selectCurso('4eso',document.querySelector('.curso-tab[onclick*=\'4eso\']'))" style="width:32px;height:32px;padding:0;"><img src="imagenes/menu/Siguiente.webp" alt="Siguiente" style="width:100%;height:100%;object-fit:contain;"></button>
+        </div>
+        <div class="control-group" id="unidad-pagina-3eso" style="left:1075px; visibility:hidden;">
+          <span class="control-label">UNIDAD:</span>
+          <span class="pagination-info" id="unidad-info-3eso" style="display:flex; gap:0.5rem; align-items:center; color:#ffffff; white-space:nowrap;">1 / 1</span>
+        </div>
+        <div class="control-group" id="unidad-flechas-3eso" style="left:1200px; visibility:hidden;">
+          <button class="pagination-btn" id="unidad-prev-3eso" onclick="unidadPrev('3eso')" title="Unidad anterior" style="width:32px; height:32px; padding:0;">
+            <img src="imagenes/menu/Anterior.webp" alt="Anterior" style="width:100%; height:100%; object-fit:contain;">
+          </button>
+          <button class="pagination-btn" id="unidad-next-3eso" onclick="unidadNext('3eso')" title="Unidad siguiente" style="width:32px; height:32px; padding:0;">
+            <img src="imagenes/menu/Siguiente.webp" alt="Siguiente" style="width:100%; height:100%; object-fit:contain;">
+          </button>
+        </div>
+      </div>
+      <div class="curso-layout">
+        <div class="curso-sidebar">
+
+          <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/EYKrjsaUXZVOn-5ioB67Z6gB0D0lGEnYph2ZjDArksBaYw?resid=5E49627FE7EEC215!sc68eab825d944e959fee62a01ebb67a8&ithint=file%2Cpptx&e=K2Lt0h&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0VZS3Jqc2FVWFpWT24tNWlvQjY3WjZnQjBEMGxHRW5ZcGgyWmpEQXJrc0JhWXc_ZT1LMkx0MGg" target="_blank" rel="noopener">
+            <img src="imagenes/menu/Jornada de bienvenida.webp" alt="Jornada de bienvenida">
+            <span>Jornada de bienvenida</span>
+          </a>
+          <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarVideoTemario('3eso')">
+            <img src="imagenes/menu/Video temario.webp" alt="Vídeo del temario">
+            <span>Vídeo del temario</span>
+          </a>
+
+          <a class="sidebar-btn" href="javascript:void(0)" onclick="openJuegos('3eso')">
+            <img src="imagenes/menu/Juegos.webp" alt="Juegos extra">
+            <span>Juegos extra</span>
+          </a>
+        </div>
+        <div class="unidades-grid" id="grid-3eso"></div>
+      </div>
+  </div>
+  <div class="contenedor-grande contenedor-grande--curso" id="panel-4eso">
+      <div class="barra-interna">
+        <div class="control-group">
+          <span class="control-label">TEMARIO:</span>
+          <button class="control-btn active control-btn-filter control-btn-orden" data-sort="nombre">Todo</button>
+        </div>
+        <div class="control-group">
+          <span class="control-label">FILTRO:</span>
+          <button class="control-btn control-btn-filter active" data-filter="metodo" onclick="toggleFiltroCurso(this)"><img src="imagenes/menu/Boton_metodo.webp" alt=""><span>Método científico</span></button>
+          <button class="control-btn control-btn-filter active" data-filter="fisica" onclick="toggleFiltroCurso(this)"><img src="imagenes/menu/Boton_fisica.webp" alt=""><span>Física</span></button>
+          <button class="control-btn control-btn-filter active" data-filter="quimica" onclick="toggleFiltroCurso(this)"><img src="imagenes/menu/Boton_quimica.webp" alt=""><span>Química</span></button>
+        </div>
+        <div class="control-group" id="curso-pagina-group-4eso" style="left:1075px;">
+          <span class="control-label">PÁGINA:</span>
+          <span class="pagination-info curso-pagina-info" style="display:flex;gap:0.5rem;align-items:center;color:#ffffff;white-space:nowrap;">3 / 6</span>
+        </div>
+        <div class="control-group" id="curso-flechas-group-4eso" style="left:1200px;">
+          <button class="pagination-btn" onclick="selectCurso('3eso',document.querySelector('.curso-tab[onclick*=\'3eso\']'))" style="width:32px;height:32px;padding:0;"><img src="imagenes/menu/Anterior.webp" alt="Anterior" style="width:100%;height:100%;object-fit:contain;"></button>
+          <button class="pagination-btn" onclick="selectCurso('1bach',document.querySelector('.curso-tab[onclick*=\'1bach\']'))" style="width:32px;height:32px;padding:0;"><img src="imagenes/menu/Siguiente.webp" alt="Siguiente" style="width:100%;height:100%;object-fit:contain;"></button>
+        </div>
+        <div class="control-group" id="unidad-pagina-4eso" style="left:1075px; visibility:hidden;">
+          <span class="control-label">UNIDAD:</span>
+          <span class="pagination-info" id="unidad-info-4eso" style="display:flex; gap:0.5rem; align-items:center; color:#ffffff; white-space:nowrap;">1 / 1</span>
+        </div>
+        <div class="control-group" id="unidad-flechas-4eso" style="left:1200px; visibility:hidden;">
+          <button class="pagination-btn" id="unidad-prev-4eso" onclick="unidadPrev('4eso')" title="Unidad anterior" style="width:32px; height:32px; padding:0;">
+            <img src="imagenes/menu/Anterior.webp" alt="Anterior" style="width:100%; height:100%; object-fit:contain;">
+          </button>
+          <button class="pagination-btn" id="unidad-next-4eso" onclick="unidadNext('4eso')" title="Unidad siguiente" style="width:32px; height:32px; padding:0;">
+            <img src="imagenes/menu/Siguiente.webp" alt="Siguiente" style="width:100%; height:100%; object-fit:contain;">
+          </button>
+        </div>
+      </div>
+      <div class="curso-layout">
+        <div class="curso-sidebar">
+
+          <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/EXWKS6ANV6FAu6nwyeMZk_gB2zT7ZxtHkCPQbNkUsh3fzQ?resid=5E49627FE7EEC215!sa04b8a75570d40a1bba9f0c9e31993f8&ithint=file%2Cpptx&e=kljQyY&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0VYV0tTNkFOVjZGQXU2bnd5ZU1aa19nQjJ6VDdaeHRIa0NQUWJOa1VzaDNmelE_ZT1rbGpReVk" target="_blank" rel="noopener">
+            <img src="imagenes/menu/Jornada de bienvenida.webp" alt="Jornada de bienvenida">
+            <span>Jornada de bienvenida</span>
+          </a>
+          <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarVideoTemario('4eso')">
+            <img src="imagenes/menu/Video temario.webp" alt="Vídeo del temario">
+            <span>Vídeo del temario</span>
+          </a>
+        </div>
+        <div class="unidades-grid" id="grid-4eso"></div>
+      </div>
+  </div>
+  <div class="contenedor-grande contenedor-grande--curso" id="panel-1bach">
+      <div class="barra-interna">
+        <div class="control-group">
+          <span class="control-label">TEMARIO:</span>
+          <button class="control-btn active control-btn-filter control-btn-orden" data-sort="nombre">Todo</button>
+        </div>
+        <div class="control-group">
+          <span class="control-label">FILTRO:</span>
+          <button class="control-btn control-btn-filter active" data-filter="metodo" onclick="toggleFiltroCurso(this)"><img src="imagenes/menu/Boton_metodo.webp" alt=""><span>Método científico</span></button>
+          <button class="control-btn control-btn-filter active" data-filter="fisica" onclick="toggleFiltroCurso(this)"><img src="imagenes/menu/Boton_fisica.webp" alt=""><span>Física</span></button>
+          <button class="control-btn control-btn-filter active" data-filter="quimica" onclick="toggleFiltroCurso(this)"><img src="imagenes/menu/Boton_quimica.webp" alt=""><span>Química</span></button>
+        </div>
+        <div class="control-group" id="curso-pagina-group-1bach" style="left:1075px;">
+          <span class="control-label">PÁGINA:</span>
+          <span class="pagination-info curso-pagina-info" style="display:flex;gap:0.5rem;align-items:center;color:#ffffff;white-space:nowrap;">4 / 6</span>
+        </div>
+        <div class="control-group" id="curso-flechas-group-1bach" style="left:1200px;">
+          <button class="pagination-btn" onclick="selectCurso('4eso',document.querySelector('.curso-tab[onclick*=\'4eso\']'))" style="width:32px;height:32px;padding:0;"><img src="imagenes/menu/Anterior.webp" alt="Anterior" style="width:100%;height:100%;object-fit:contain;"></button>
+          <button class="pagination-btn" onclick="selectCurso('2bachF',document.querySelector('.curso-tab[onclick*=\'2bachF\']'))" style="width:32px;height:32px;padding:0;"><img src="imagenes/menu/Siguiente.webp" alt="Siguiente" style="width:100%;height:100%;object-fit:contain;"></button>
+        </div>
+        <div class="control-group" id="unidad-pagina-1bach" style="left:1075px; visibility:hidden;">
+          <span class="control-label">UNIDAD:</span>
+          <span class="pagination-info" id="unidad-info-1bach" style="display:flex; gap:0.5rem; align-items:center; color:#ffffff; white-space:nowrap;">1 / 1</span>
+        </div>
+        <div class="control-group" id="unidad-flechas-1bach" style="left:1200px; visibility:hidden;">
+          <button class="pagination-btn" id="unidad-prev-1bach" onclick="unidadPrev('1bach')" title="Unidad anterior" style="width:32px; height:32px; padding:0;">
+            <img src="imagenes/menu/Anterior.webp" alt="Anterior" style="width:100%; height:100%; object-fit:contain;">
+          </button>
+          <button class="pagination-btn" id="unidad-next-1bach" onclick="unidadNext('1bach')" title="Unidad siguiente" style="width:32px; height:32px; padding:0;">
+            <img src="imagenes/menu/Siguiente.webp" alt="Siguiente" style="width:100%; height:100%; object-fit:contain;">
+          </button>
+        </div>
+      </div>
+      <div class="curso-layout">
+        <div class="curso-sidebar">
+
+          <a class="sidebar-btn" href="https://onedrive.live.com/personal/5e49627fe7eec215/_layouts/15/Doc.aspx?sourcedoc=%7B4b92edb0-9c52-442d-856f-bc1d268939dc%7D&action=default&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQ3c3WkpMVXB3dFJJVnZ2QjBtaVRuY0FiYWg3QjdKLXZ3bDF6eUxXUS13Q00wP2U9N3ZDMTlY" target="_blank" rel="noopener">
+            <img src="imagenes/menu/Jornada de bienvenida.webp" alt="Jornada de bienvenida">
+            <span>Jornada de bienvenida</span>
+          </a>
+          <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarVideoTemario('1bach')">
+            <img src="imagenes/menu/Video temario.webp" alt="Vídeo del temario">
+            <span>Vídeo del temario</span>
+          </a>
+          </div>
+        <div class="unidades-grid" id="grid-1bach"></div>
+      </div>
+  </div>
+  <div class="contenedor-grande contenedor-grande--curso" id="panel-2bachF">
+      <div class="barra-interna">
+        <div class="control-group">
+          <span class="control-label">TEMARIO:</span>
+          <button class="control-btn active control-btn-filter control-btn-orden" data-sort="nombre">Todo</button>
+        </div>
+        <div class="control-group">
+          <span class="control-label">FILTRO:</span>
+          <button class="control-btn control-btn-filter active" data-filter="metodo" onclick="toggleFiltroCurso(this)"><img src="imagenes/menu/Boton_metodo.webp" alt=""><span>Método científico</span></button>
+          <button class="control-btn control-btn-filter active" data-filter="fisica" onclick="toggleFiltroCurso(this)"><img src="imagenes/menu/Boton_fisica.webp" alt=""><span>Física</span></button>
+          <button class="control-btn control-btn-filter active" data-filter="quimica" onclick="toggleFiltroCurso(this)"><img src="imagenes/menu/Boton_quimica.webp" alt=""><span>Química</span></button>
+          <button class="control-btn control-btn-filter col-filtro-off" disabled style="cursor:default;pointer-events:none;" title="No disponible en 2º Bachillerato Física"><img src="imagenes/menu/Boton_quimica.webp" alt=""><span>Química</span></button>
+        </div>
+        <div class="control-group" id="curso-pagina-group-2bachF" style="left:1075px;">
+          <span class="control-label">PÁGINA:</span>
+          <span class="pagination-info curso-pagina-info" style="display:flex;gap:0.5rem;align-items:center;color:#ffffff;white-space:nowrap;">5 / 6</span>
+        </div>
+        <div class="control-group" id="curso-flechas-group-2bachF" style="left:1200px;">
+          <button class="pagination-btn" onclick="selectCurso('1bach',document.querySelector('.curso-tab[onclick*=\'1bach\']'))" style="width:32px;height:32px;padding:0;"><img src="imagenes/menu/Anterior.webp" alt="Anterior" style="width:100%;height:100%;object-fit:contain;"></button>
+          <button class="pagination-btn" onclick="selectCurso('2bachQ',document.querySelector('.curso-tab[onclick*=\'2bachQ\']'))" style="width:32px;height:32px;padding:0;"><img src="imagenes/menu/Siguiente.webp" alt="Siguiente" style="width:100%;height:100%;object-fit:contain;"></button>
+        </div>
+        <div class="control-group" id="unidad-pagina-2bachF" style="left:1075px; visibility:hidden;">
+          <span class="control-label">UNIDAD:</span>
+          <span class="pagination-info" id="unidad-info-2bachF" style="display:flex; gap:0.5rem; align-items:center; color:#ffffff; white-space:nowrap;">1 / 1</span>
+        </div>
+        <div class="control-group" id="unidad-flechas-2bachF" style="left:1200px; visibility:hidden;">
+          <button class="pagination-btn" id="unidad-prev-2bachF" onclick="unidadPrev('2bachF')" title="Unidad anterior" style="width:32px; height:32px; padding:0;">
+            <img src="imagenes/menu/Anterior.webp" alt="Anterior" style="width:100%; height:100%; object-fit:contain;">
+          </button>
+          <button class="pagination-btn" id="unidad-next-2bachF" onclick="unidadNext('2bachF')" title="Unidad siguiente" style="width:32px; height:32px; padding:0;">
+            <img src="imagenes/menu/Siguiente.webp" alt="Siguiente" style="width:100%; height:100%; object-fit:contain;">
+          </button>
+        </div>
+      </div>
+      <div class="curso-layout">
+        <div class="curso-sidebar">
+
+        <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/IQAce58YYDeVT7jckdGHleVtAf69-q1OuQbPVR591QhmIo0?resid=5E49627FE7EEC215!s189f7b1c37604f95b8dc91d18795e56d&ithint=file%2Cpptx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRQWNlNThZWURlVlQ3amNrZEdIbGVWdEFmNjktcTFPdVFiUFZSNTkxUWhtSW8w" target="_blank" rel="noopener">
+          <img src="imagenes/menu/Jornada de bienvenida.webp" alt="Jornada de bienvenida">
+          <span>Jornada de bienvenida</span>
+        </a>
+        <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarVideoTemario('2bachF')">
+          <img src="imagenes/menu/Video temario.webp" alt="Vídeo del temario">
+          <span>Vídeo del temario</span>
+        </a>
+        </div>
+        <div class="unidades-grid" id="grid-2bachF"></div>
+      </div>
+  </div>
+  <div class="contenedor-grande contenedor-grande--curso" id="panel-2bachQ">
+      <div class="barra-interna">
+        <div class="control-group">
+          <span class="control-label">TEMARIO:</span>
+          <button class="control-btn active control-btn-filter control-btn-orden" data-sort="nombre">Todo</button>
+        </div>
+        <div class="control-group">
+          <span class="control-label">FILTRO:</span>
+          <button class="control-btn control-btn-filter active" data-filter="metodo" onclick="toggleFiltroCurso(this)"><img src="imagenes/menu/Boton_metodo.webp" alt=""><span>Método científico</span></button>
+          <button class="control-btn control-btn-filter active" data-filter="fisica" onclick="toggleFiltroCurso(this)"><img src="imagenes/menu/Boton_fisica.webp" alt=""><span>Física</span></button>
+          <button class="control-btn control-btn-filter col-filtro-off" disabled style="cursor:default;pointer-events:none;" title="No disponible en 2º Bachillerato Química"><img src="imagenes/menu/Boton_fisica.webp" alt=""><span>Física</span></button>
+          <button class="control-btn control-btn-filter active" data-filter="quimica" onclick="toggleFiltroCurso(this)"><img src="imagenes/menu/Boton_quimica.webp" alt=""><span>Química</span></button>
+        </div>
+        <div class="control-group" id="curso-pagina-group-2bachQ" style="left:1075px;">
+          <span class="control-label">PÁGINA:</span>
+          <span class="pagination-info curso-pagina-info" style="display:flex;gap:0.5rem;align-items:center;color:#ffffff;white-space:nowrap;">6 / 6</span>
+        </div>
+        <div class="control-group" id="curso-flechas-group-2bachQ" style="left:1200px;">
+          <button class="pagination-btn" onclick="selectCurso('2bachF',document.querySelector('.curso-tab[onclick*=\'2bachF\']'))" style="width:32px;height:32px;padding:0;"><img src="imagenes/menu/Anterior.webp" alt="Anterior" style="width:100%;height:100%;object-fit:contain;"></button>
+          <button class="pagination-btn" disabled style="width:32px;height:32px;padding:0;"><img src="imagenes/menu/Siguiente.webp" alt="Siguiente" style="width:100%;height:100%;object-fit:contain;"></button>
+        </div>
+        <div class="control-group" id="unidad-pagina-2bachQ" style="left:1075px; visibility:hidden;">
+          <span class="control-label">UNIDAD:</span>
+          <span class="pagination-info" id="unidad-info-2bachQ" style="display:flex; gap:0.5rem; align-items:center; color:#ffffff; white-space:nowrap;">1 / 1</span>
+        </div>
+        <div class="control-group" id="unidad-flechas-2bachQ" style="left:1200px; visibility:hidden;">
+          <button class="pagination-btn" id="unidad-prev-2bachQ" onclick="unidadPrev('2bachQ')" title="Unidad anterior" style="width:32px; height:32px; padding:0;">
+            <img src="imagenes/menu/Anterior.webp" alt="Anterior" style="width:100%; height:100%; object-fit:contain;">
+          </button>
+          <button class="pagination-btn" id="unidad-next-2bachQ" onclick="unidadNext('2bachQ')" title="Unidad siguiente" style="width:32px; height:32px; padding:0;">
+            <img src="imagenes/menu/Siguiente.webp" alt="Siguiente" style="width:100%; height:100%; object-fit:contain;">
+          </button>
+        </div>
+      </div>
+      <div class="curso-layout">
+        <div class="curso-sidebar">
+
+        <a class="sidebar-btn" href="https://onedrive.live.com/:p:/g/personal/5E49627FE7EEC215/IQDVo0hqoIddRoCIBLsMol_2AetPORWqJbnAch3CSh_N7Xw?resid=5E49627FE7EEC215!s6a48a3d587a0465d808804bb0ca25ff6&ithint=file%2Cpptx&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3AvYy81ZTQ5NjI3ZmU3ZWVjMjE1L0lRRFZvMGhxb0lkZFJvQ0lCTHNNb2xfMkFldFBPUldxSmJuQWNoM0NTaF9ON1h3" target="_blank" rel="noopener">
+          <img src="imagenes/menu/Jornada de bienvenida.webp" alt="Jornada de bienvenida">
+          <span>Jornada de bienvenida</span>
+        </a>
+        <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarVideoTemario('2bachQ')">
+          <img src="imagenes/menu/Video temario.webp" alt="Vídeo del temario">
+          <span>Vídeo del temario</span>
+        </a>
+        </div>
+        <div class="unidades-grid" id="grid-2bachQ"></div>
+      </div>
+  </div>
+
+  <div class="contenedor-grande contenedor-grande--curso" id="panel-consola">
+    <div class="barra-interna">
+      <div class="control-group" style="left:15px;">
+        <span class="control-label">SALA DE CONTROL</span>
+      </div>
+    </div>
+    <div class="curso-layout">
+      <div id="grid-consola" style="display:flex; flex-direction:row; gap:15px; flex:1; height:100%; overflow:hidden;"></div>
+    </div>
+  </div>
+  <div class="contenedor-grande contenedor-grande--publicaciones" id="pagina-listado">
+    <div class="objetos-container-wrapper">
+      <div class="pub-listado-contenedor" style="display:flex; flex-direction:column; gap:10px; padding:10px; width:100%; height:100%; overflow-y:auto;"></div>
+    </div>
+  </div>
+</main>
+<div id="temas-dropdown">
+  <div id="temas-checkboxes"></div>
+</div>
+<div class="tema-detail-overlay" id="tema-detail-overlay" onclick="closeTemaDetail(event)">
+  <div class="tema-detail-panel">
+    <button class="tema-detail-close" onclick="closeTemaDetail()">✕</button>
+    <div class="tema-detail-header">
+      <div class="tema-detail-title" id="tema-detail-titulo">Título del Tema</div>
+      <div class="tema-detail-curso" id="tema-detail-curso">Nivel Educativo</div>
+    </div>
+    <div class="tema-subelementos-grid" id="tema-subelementos-grid"></div>
+  </div>
+</div>
+<div class="objeto-detail-overlay" id="objeto-detail-overlay" onclick="closeObjeto(event)">
+  <div class="objeto-detail-nav" id="objeto-detail-nav">
+    <button class="pagination-btn" id="btn-prev-objeto" onclick="objetoDetallePrevious(event)" title="Objeto anterior">
+      <img src="imagenes/menu/Anterior.webp" alt="Anterior">
+    </button>
+    <button class="pagination-btn" id="btn-next-objeto" onclick="objetoDetalleNext(event)" title="Objeto siguiente">
+      <img src="imagenes/menu/Siguiente.webp" alt="Siguiente">
+    </button>
+  </div>
+  <div class="objeto-detail">
+    <div class="objeto-detail-content">
+      <div class="objeto-detail-side realidad">
+        <div class="objeto-detail-title">Objeto en la realidad</div>
+        <img class="objeto-detail-img" id="objeto-detail-img-a" src="" alt="Objeto en la realidad">
+        <div class="objeto-detail-video" id="objeto-detail-video"></div>
+      </div>
+      <div class="objeto-detail-side simulacion">
+        <div class="objeto-detail-title">Objeto en la simulación<button class="objeto-detail-close" onclick="closeObjeto()"><img src="imagenes/menu/Cerrar.webp" alt="Cerrar" style="width:100%; height:100%; object-fit:contain;"></button></div>
+        <img class="objeto-detail-img" id="objeto-detail-img-b" src="" alt="Objeto en la simulación">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="video-overlay" id="video-overlay" style="display:none;" onclick="if(event.target===this)cerrarVideo()">
+  <div class="video-overlay-panel">
+    <div class="video-overlay-bar">
+      <span class="video-overlay-title" id="video-overlay-title"></span>
+      <button class="video-overlay-close" onclick="cerrarVideo()"><img src="imagenes/menu/Cerrar.webp" alt="Cerrar"></button>
+    </div>
+    <video id="video-player" controls autoplay></video>
+  </div>
+</div>
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <img class="modal-bg-img" id="modal-bg" src="" alt="">
+    <div class="modal-bg-gradient"></div>
+    <div class="modal-hero-info">
+      <div class="modal-icon-wrap"><img id="modal-icon" src="" alt=""></div>
+      <div>
+        <div class="modal-curso-tag" id="modal-curso"></div>
+        <div class="modal-title" id="modal-name"></div>
+      </div>
+    </div>
+    <div class="modal-links" id="modal-links"></div>
+  </div>
+</div>
+<script src="sistema/temario.js"></script>
+                                                                               
