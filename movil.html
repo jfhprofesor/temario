@@ -922,6 +922,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       </div>
   </div>
   <div class="contenedor-grande contenedor-grande--curso" id="panel-2eso">
+      <span id="unidad-info-2eso" style="display:none;">1 / 1</span>
       <div class="curso-layout">
         <div class="curso-sidebar">
           <div class="sidebar-mitad">
@@ -952,6 +953,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       </div>
   </div>
   <div class="contenedor-grande contenedor-grande--curso" id="panel-3eso">
+      <span id="unidad-info-3eso" style="display:none;">1 / 1</span>
       <div class="curso-layout">
         <div class="curso-sidebar">
           <div class="sidebar-mitad">
@@ -985,6 +987,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       </div>
   </div>
   <div class="contenedor-grande contenedor-grande--curso" id="panel-4eso">
+      <span id="unidad-info-4eso" style="display:none;">1 / 1</span>
       <div class="curso-layout">
         <div class="curso-sidebar">
           <div class="sidebar-mitad">
@@ -1015,6 +1018,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       </div>
   </div>
   <div class="contenedor-grande contenedor-grande--curso" id="panel-1bach">
+      <span id="unidad-info-1bach" style="display:none;">1 / 1</span>
       <div class="curso-layout">
         <div class="curso-sidebar">
           <div class="sidebar-mitad">
@@ -1048,6 +1052,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       </div>
   </div>
   <div class="contenedor-grande contenedor-grande--curso" id="panel-2bachF">
+      <span id="unidad-info-2bachF" style="display:none;">1 / 1</span>
       <div class="curso-layout">
         <div class="curso-sidebar">
           <div class="sidebar-mitad">
@@ -1078,6 +1083,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       </div>
   </div>
   <div class="contenedor-grande contenedor-grande--curso" id="panel-2bachQ">
+      <span id="unidad-info-2bachQ" style="display:none;">1 / 1</span>
       <div class="curso-layout">
         <div class="curso-sidebar">
           <div class="sidebar-mitad">
@@ -1496,17 +1502,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
 
   // ── 4d. Parche directo mostrarSubelementos → inyectar nav sidebar ──
   // Debug overlay
-  function _navLog(msg) {
-    let d = document.getElementById('_nav_dbg');
-    if (!d) {
-      d = document.createElement('div');
-      d.id = '_nav_dbg';
-      d.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(0,0,0,0.85);color:#0f0;font-size:10px;padding:4px 6px;max-height:120px;overflow-y:auto;pointer-events:none;';
-      document.body.appendChild(d);
-    }
-    d.innerHTML += msg + '<br>';
-    d.scrollTop = d.scrollHeight;
-  }
+  function _navLog(msg) { /* debug desactivado */ }
 
   function _forzarNavUnidad(cursoId, modo, intentos) {
     intentos = intentos || 0;
