@@ -1365,4 +1365,102 @@ main { position:relative; z-index:10; padding:0; max-width:1300px; margin:0 auto
   </div>
 </div>
 <script src="sistema/temario.js"></script>
+<script>
+// ── Parche rutas WebP para PUB_PANEL_DATA ─────────────────────────────────
+(function() {
+  if (typeof PUB_PANEL_DATA === 'undefined') return;
+  const P = 'imagenes/publicaciones/';
+  const _iconos = {
+    'Física y Química - 3º ESO':           P + 'Libro - 3º ESO - Física y Química - Portada.webp',
+    'Física y Química - 4º ESO':           P + 'Libro - 4º ESO - Física y Química - Portada.webp',
+    'Física y Química - 1º Bachillerato':  P + 'Libro - 1º Bachillerato - Física y Química - Portada.webp',
+    'Física - 2º Bachillerato':            P + 'Libro - 2º Bachillerato - Física - Portada.webp',
+    'Química - 2º Bachillerato':           P + 'Libro - 2º Bachillerato - Química - Portada.webp',
+    'Cuaderno de formulación inorgánica':  P + 'Cuaderno de Formulación Inorgánica - Portada.webp',
+    'Cuaderno de formulación orgánica':    P + 'Cuaderno de Formulación Orgánica - Portada.webp',
+    'Ingeniosas, inauditas e inéditas lecturas de matemáticas (1º y 2º ESO)': P + "Libro 'Ingeniosas, inauditas e inéditas lecturas - Matemáticas (Primer ciclo ESO)' - Portada.webp",
+  };
+  const _muestras = {
+    'Cuaderno de formulación inorgánica': [
+      P + 'Cuaderno de Formulación Inorgánica - Pg 003.webp',
+      P + 'Cuaderno de Formulación Inorgánica - Pg 007.webp',
+      P + 'Cuaderno de Formulación Inorgánica - Pg 008.webp',
+      P + 'Cuaderno de Formulación Inorgánica - Pg 014.webp',
+      P + 'Cuaderno de Formulación Inorgánica - Pg 051.webp',
+      P + 'Cuaderno de Formulación Inorgánica - Pg 052.webp',
+      P + 'Cuaderno de Formulación Inorgánica - Pg 057.webp',
+      P + 'Cuaderno de Formulación Inorgánica - Pg 063.webp',
+    ],
+    'Cuaderno de formulación orgánica': [
+      P + 'Cuaderno de Formulación Orgánica - Pg 003.webp',
+      P + 'Cuaderno de Formulación Orgánica - Pg 005.webp',
+      P + 'Cuaderno de Formulación Orgánica - Pg 007.webp',
+      P + 'Cuaderno de Formulación Orgánica - Pg 013.webp',
+      P + 'Cuaderno de Formulación Orgánica - Pg 016.webp',
+      P + 'Cuaderno de Formulación Orgánica - Pg 032.webp',
+      P + 'Cuaderno de Formulación Orgánica - Pg 033.webp',
+    ],
+    'Ingeniosas, inauditas e inéditas lecturas de matemáticas (1º y 2º ESO)': [
+      P + "Libro 'Ingeniosas, inauditas e inéditas lecturas - Matemáticas (Primer ciclo ESO)' - Pg 003.webp",
+      P + "Libro 'Ingeniosas, inauditas e inéditas lecturas - Matemáticas (Primer ciclo ESO)' - Pg 004.webp",
+      P + "Libro 'Ingeniosas, inauditas e inéditas lecturas - Matemáticas (Primer ciclo ESO)' - Pg 017.webp",
+      P + "Libro 'Ingeniosas, inauditas e inéditas lecturas - Matemáticas (Primer ciclo ESO)' - Pg 025.webp",
+      P + "Libro 'Ingeniosas, inauditas e inéditas lecturas - Matemáticas (Primer ciclo ESO)' - Pg 032.webp",
+      P + "Libro 'Ingeniosas, inauditas e inéditas lecturas - Matemáticas (Primer ciclo ESO)' - Pg 038.webp",
+      P + "Libro 'Ingeniosas, inauditas e inéditas lecturas - Matemáticas (Primer ciclo ESO)' - Pg 041.webp",
+    ],
+  };
+  PUB_PANEL_DATA.forEach(p => {
+    if (_iconos[p.nombre]) p.icono = _iconos[p.nombre];
+    if (_muestras[p.nombre]) p.muestras = _muestras[p.nombre];
+  });
+})();
+
+// ── Patch mostrarAutor: añadir botón Contacto junto al PayPal ────────────────
+(function() {
+  const _origMostrarAutor = window.mostrarAutor;
+  if (!_origMostrarAutor) return;
+  window.mostrarAutor = function() {
+    _origMostrarAutor.apply(this, arguments);
+    requestAnimationFrame(() => {
+      const grid = document.querySelector('#panel-publicaciones .publicaciones-grid');
+      if (!grid) return;
+      const linkPaypal = grid.querySelector('a[href*="paypal"]');
+      if (!linkPaypal || linkPaypal.dataset.contactoAnadido) return;
+      linkPaypal.dataset.contactoAnadido = '1';
+
+      const btnContacto = document.createElement('button');
+      btnContacto.className = 'control-btn control-btn-filter ancho-pub';
+      btnContacto.style.cssText = 'padding-left:10px;padding-right:10px;gap:0.4rem;justify-content:center;position:static;';
+      btnContacto.innerHTML = '<img src="imagenes/menu/Correo.png" alt="" style="position:static;transform:none;top:auto;left:auto;width:18px;height:18px;flex-shrink:0;"><span style="white-space:nowrap;">Contacto</span>';
+      btnContacto.onclick = function() {
+        const existing = document.getElementById('overlay-contacto-autor');
+        if (existing) { existing.remove(); return; }
+        const ov = document.createElement('div');
+        ov.id = 'overlay-contacto-autor';
+        ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(10px);';
+        ov.innerHTML = `
+          <div style="background:#2a3038;border:1px solid #999999;border-radius:10px;padding:1.5rem 2rem;width:100%;max-width:320px;text-align:center;font-family:'Saira',sans-serif;">
+            <img src="imagenes/menu/Logotipo de editor.jpeg" alt="Logotipo" style="width:160px;height:auto;border-radius:10px;border:1px solid #999999;margin-bottom:1rem;display:block;margin-left:auto;margin-right:auto;">
+            <div style="font-size:1rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.8rem;color:var(--text);">Contacto</div>
+            <div style="font-size:0.9rem;font-weight:600;color:#38bdf8;margin-bottom:0.6rem;">Jacinto Javier Fernández Herrera</div>
+            <div style="font-size:0.85rem;color:var(--muted);">Correo electrónico:</div>
+            <div style="font-size:0.95rem;margin-top:0.3rem;color:var(--accent);user-select:text;-webkit-user-select:text;cursor:text;">jfh.profesor@gmail.com</div>
+            <button class="control-btn control-btn-filter ancho-pub" onclick="document.getElementById('overlay-contacto-autor').remove()" style="margin-top:1.2rem;padding-left:16px;padding-right:16px;justify-content:center;display:flex;margin-left:auto;margin-right:auto;">Cerrar</button>
+          </div>`;
+        ov.addEventListener('click', e => { if (e.target === ov) ov.remove(); });
+        document.body.appendChild(ov);
+      };
+
+      // Envolver PayPal y Contacto en un contenedor flex-row sin tocar el div padre
+      const wrapper = document.createElement('div');
+      wrapper.style.cssText = 'display:flex;flex-direction:row;flex-wrap:wrap;gap:0.5rem;align-items:center;margin-top:0.5rem;';
+      linkPaypal.style.marginTop = '0';
+      linkPaypal.parentNode.insertBefore(wrapper, linkPaypal);
+      wrapper.appendChild(linkPaypal);
+      wrapper.appendChild(btnContacto);
+    });
+  };
+})();
+</script>
                                                                                
