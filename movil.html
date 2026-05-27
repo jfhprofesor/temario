@@ -1536,6 +1536,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
   if (_origMostrarSubNav) {
     window.mostrarSubelementos = function(cursoId, temaIdx, origenBtn) {
       _origMostrarSubNav.apply(this, arguments);
+      _navLog('MSE ' + cursoId + ' t=' + temaIdx);
       setTimeout(() => _forzarNavUnidad(cursoId, null, 0), 80);
     };
   }

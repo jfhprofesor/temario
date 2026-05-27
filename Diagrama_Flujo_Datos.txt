@@ -1,0 +1,372 @@
+═════════════════════════════════════════════════════════════════════════════════
+                    DIAGRAMA DE FLUJO DE DATOS - TEMARIO WEB
+═════════════════════════════════════════════════════════════════════════════════
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ CAPA 1: PUNTO DE ENTRADA (Browser)                                          │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+                         Usuario escribe URL
+                                │
+                    ┌───────────┴───────────┐
+                    │                       │
+        ┌───────────▼──────────┐  ┌────────▼─────────────┐
+        │   index.html         │  │   movil.html         │
+        │   (Desktop)          │  │   (Mobile)           │
+        │   1368 líneas        │  │   400+ líneas        │
+        │   @media: 768px+     │  │   No redirección     │
+        └────────┬─────────────┘  └────────┬─────────────┘
+                 │                         │
+        Script JS (líneas 7-16)    No hay script de detección
+        detecta user-agent              │
+                 │                      │
+    ┌────────────┴─────────────┐        │
+    │ Es móvil?                │        │
+    │ ¿Ancho <= 768px?         │        │
+    └────┬─────────────┬───────┘        │
+         │ SÍ          │ NO              │
+         │             │                │
+         │             └──→ Desktop OK   │
+         │                              │
+         └──→ location.replace('movil.html')  ◄──┘
+             (redirección permanente)
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ CAPA 2: RECURSOS COMPARTIDOS (Cargados DESPUÉS de HTML)                     │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+              index.html / movil.html
+                      │
+        ┌─────────────┼─────────────┐
+        │             │             │
+        ▼             ▼             ▼
+
+    ┌─────────────────────────┐
+    │ FUENTES (via @font-face)│
+    ├─────────────────────────┤
+    │ Saira (400,500,600,700) │
+    │ Syne (400,500,600,700)  │
+    │ Roboto Condensed        │
+    │ Patrick Hand SC         │
+    │ (fuentes/*.woff2)       │
+    └─────────────────────────┘
+            │
+            ▼ (font-display: swap)
+         Renderizado
+
+    ┌─────────────────────────┐
+    │ SISTEMA/TEMARIO.JS      │
+    ├─────────────────────────┤
+    │ Constantes:             │
+    │ - CURSOS{6}             │ ◄── IMPORTANCIA: Aquí se definen
+    │ - JUEGOS{2}             │     todos los datos estáticos
+    │ - ICONOS{15}            │
+    │                         │
+    │ Acceso: window.CURSOS   │
+    └─────────────────────────┘
+            │
+            └──→ Import: objetos-data.js
+
+    ┌─────────────────────────┐
+    │ SISTEMA/OBJETOS-DATA.JS │
+    ├─────────────────────────┤
+    │ Array OBJETOS[]         │ ◄── AUTO-GENERADO
+    │ - tema                  │     (node generate-objetos.js)
+    │ - objeto                │
+    │ - categoria             │
+    │ - icono (path)          │
+    │                         │
+    │ Cantidad: 50+ items     │
+    └─────────────────────────┘
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ CAPA 3: ESTRUCTURA HTML (IDÉNTICA EN AMBOS ARCHIVOS)                         │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    <html>
+      │
+      ├─ <header>
+      │  ├─ .header-logo
+      │  └─ .header-sub
+      │
+      └─ <main>
+         │
+         ├─ .barra-superior (tabs de curso)
+         │  ├─ .curso-tab (2eso, 3eso, 4eso, 1bach, 2bachF, 2bachQ)
+         │  ├─ .curso-tab.objetos-btn
+         │  └─ .curso-tab.publicaciones-btn
+         │
+         └─ .contenedor-grande (con .active para mostrar)
+            │
+            ├─ #panel-2eso.contenedor-grande--curso
+            │  ├─ .barra-interna (filtros, paginación)
+            │  └─ .curso-layout
+            │     ├─ .curso-sidebar (unidades)
+            │     │  └─ .sidebar-btn × N (botones navegación)
+            │     └─ .temas-grid / .unidades-grid
+            │        └─ .unidad-ficha × N
+            │           ├─ .unidad-icono (img)
+            │           ├─ .unidad-numero-texto1 (número tema)
+            │           └─ .unidad-nombre-texto2 (nombre tema)
+            │
+            ├─ #panel-3eso... (idéntica estructura)
+            ├─ #panel-4eso...
+            ├─ #panel-1bach...
+            ├─ #panel-2bachF...
+            ├─ #panel-2bachQ...
+            │
+            ├─ #panel-objetos.contenedor-grande--objetos
+            │  ├─ .barra-interna (orden, filtro)
+            │  └─ .objetos-grid
+            │     └─ .objeto-ficha × 50+
+            │        ├─ .objeto-icono (img)
+            │        ├─ .objeto-nombre-texto1
+            │        └─ .objeto-tema-texto2
+            │
+            └─ #panel-publicaciones.contenedor-grande--publicaciones
+               ├─ .barra-interna (filtro)
+               └─ .publicaciones-grid
+                  └─ .publicacion-ficha × N
+                     ├─ .publicacion-icono (img)
+                     ├─ .publicacion-titulo
+                     └─ .unidad-nombre-texto2
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ CAPA 4: DIFERENCIAS CSS (RESPONSIVAS)                                        │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    ┌─────────────────────────────────────────────────────────────┐
+    │ index.html (DESKTOP)                  movil.html (MOBILE)   │
+    ├──────────────────────────┬─────────────────────────────────┤
+    │ header {                 │ header {                         │
+    │   width: 1300px;         │   width: 100%;                   │
+    │   padding: 20px;         │   padding: 12px 1rem;            │
+    │   margin: auto;          │   margin: 0;                     │
+    │ }                        │ }                                │
+    ├──────────────────────────┼─────────────────────────────────┤
+    │ .barra-superior {        │ .barra-superior {                │
+    │   width: 1300px;         │   width: 100%;                   │
+    │   flex-wrap: wrap;       │   grid: repeat(4, 1fr);          │
+    │ }                        │   gap: 0.25rem;                  │
+    │                          │ }                                │
+    ├──────────────────────────┼─────────────────────────────────┤
+    │ .curso-sidebar {         │ .curso-sidebar {                 │
+    │   width: 160px;          │   width: 100%;                   │
+    │   flex-direction: col;   │   grid: 1fr|1px|1fr;             │
+    │   border-right: 1px;     │   border-bottom: 1px;            │
+    │   height: auto;          │   height: 80px;                  │
+    │ }                        │ }                                │
+    ├──────────────────────────┼─────────────────────────────────┤
+    │ .unidades-grid {         │ .unidades-grid {                 │
+    │   grid-template-columns  │   grid-template-columns          │
+    │   repeat(5, 1fr);        │   repeat(4, 1fr);                │
+    │   height: 450px;         │   height: auto;                  │
+    │ }                        │ }                                │
+    ├──────────────────────────┼─────────────────────────────────┤
+    │ .unidad-icono {          │ .unidad-icono {                  │
+    │   width: 130px;          │   width: 85px;                   │
+    │   height: 130px;         │   height: 85px;                  │
+    │ }                        │ }                                │
+    ├──────────────────────────┼─────────────────────────────────┤
+    │ .barra-interna {         │ .barra-interna {                 │
+    │   height: 40px;          │   min-height: 28px;              │
+    │   position: relative;    │   flex-wrap: wrap;               │
+    │ }                        │   position: static;              │
+    │ .control-group {         │ }                                │
+    │   position: absolute;    │ .control-group {                 │
+    │   left: Xpx;             │   position: static;              │
+    │ }                        │   left: auto;                    │
+    └──────────────────────────┴─────────────────────────────────┘
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ CAPA 5: FLUJO DE INTERACCIÓN (JAVASCRIPT)                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    ESCENARIO 1: Usuario clickea tab "3º ESO"
+    ─────────────────────────────────────────
+
+    1. listener en .curso-tab[data-curso="3eso"]
+         │
+    2. JS busca CURSOS["3eso"].temas
+         │
+    3. Itera temas, genera HTML dinámico:
+         │
+         ├─ Asigna clase .color-3eso (color temático)
+         ├─ Asigna cat: metodo/quimica/fisica
+         ├─ Crear .unidad-ficha
+         │  ├─ <img class="unidad-icono" src="imagenes/3ESO/0XA - Icono.webp">
+         │  ├─ <span class="unidad-numero-texto1">0X</span>
+         │  └─ <span class="unidad-nombre-texto2">Nombre del tema</span>
+         │
+    4. Inyecta en #grid-3eso (dentro de .unidades-grid)
+         │
+    5. Aplica animación: @keyframes fadeInUp (0.3s + delay por --d)
+         │
+    6. Asigna nuevo listener para click en cada ficha
+
+
+    ESCENARIO 2: Usuario clickea unidad (ej: "La materia")
+    ───────────────────────────────────────────────────────
+
+    1. listener en .unidad-ficha
+         │
+    2. JS busca tema en CURSOS["3eso"].temas[2]
+         │
+    3. Extrae:
+         ├─ nombre: "La materia"
+         ├─ icono: "imagenes/3ESO/02A - Icono.webp"
+         ├─ fondo: "imagenes/3ESO/02C - Imagen.webp"
+         └─ enlaces: [ { label, tipo, url, editUrl } ]
+         │
+    4. Genera .modal (si no existe) o reutiliza:
+         ├─ .modal-bg-img (src=fondo)
+         ├─ .modal-hero-info
+         │  ├─ .modal-icon-wrap (src=icono)
+         │  └─ .modal-title
+         │
+    5. Genera .link-row × N (uno por enlace):
+         │  ├─ <img class="link-row-icon">
+         │  ├─ <span class="link-row-name">label</span>
+         │  └─ <span class="link-row-type">tipo</span>
+         │
+    6. Busca icono en ICONOS{} y asigna img
+         │
+    7. Abre .modal-overlay (opacity 0→1)
+
+
+    ESCENARIO 3: Generar datos de objetos
+    ──────────────────────────────────────
+
+    $ node sistema/generate-objetos.js
+         │
+    1. Lee imagenes/objetos/*.webp
+         │
+    2. Parsea nombre con REGEX: {Tema} - {Objeto} - A.webp
+         │
+    3. Crea entrada:
+         {
+           tema: "Energía",
+           objeto: "Anillo termocrómico",
+           categoria: "Física",
+           icono: "imagenes/objetos/Energía - Anillo termocrómico - A.webp"
+         }
+         │
+    4. Sobrescribe sistema/objetos-data.js
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ CAPA 6: INYECCIÓN DE DATOS EN EL DOM                                        │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    En memoria (JavaScript):
+
+    CURSOS = {
+      "2eso": {
+        label: "2º ESO - Física y Química",
+        temas: [
+          {
+            nombre: "El método científico",
+            cat: "metodo",
+            icono: "imagenes/2ESO/01A - Icono.webp",
+            fondo: "imagenes/2ESO/01C - Imagen.webp",
+            enlaces: [
+              {
+                label: "Ver presentación online",
+                tipo: "presentacion_online",
+                url: "https://1drv.ms/..."
+              },
+              ...
+            ]
+          },
+          ...
+        ]
+      },
+      ...
+    }
+            │
+            ▼ (En cada click de tab o ficha)
+
+    En el DOM:
+
+    <div class="temas-grid" id="grid-2eso">
+      <button class="unidad-ficha color-2eso cat-metodo selected" data-idx="0">
+        <div class="unidad-icono">
+          <img src="imagenes/2ESO/01A - Icono.webp" alt="El método científico">
+        </div>
+        <span class="unidad-numero-texto1">01</span>
+        <span class="unidad-nombre-texto2">El método científico</span>
+      </button>
+
+      <div class="modal-overlay open">
+        <div class="modal">
+          <img class="modal-bg-img" src="imagenes/2ESO/01C - Imagen.webp">
+          <div class="modal-hero-info">
+            <div class="modal-icon-wrap">
+              <img src="imagenes/2ESO/01A - Icono.webp">
+            </div>
+            <div class="modal-title">El método científico</div>
+          </div>
+          <div class="modal-links">
+            <a class="link-row" href="https://1drv.ms/...">
+              <div class="link-row-icon">
+                <img src="imagenes/menu/Ver presentacion online.webp">
+              </div>
+              <div class="link-row-text">
+                <div class="link-row-name">Ver presentación online</div>
+                <div class="link-row-type">PRESENTACIÓN</div>
+              </div>
+              <span class="link-row-arrow">→</span>
+            </a>
+            ... más enlaces
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ CAPA 7: SINCRONIZACIÓN Y ESTADO GLOBAL                                       │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    Clases de control (CSS):
+
+    .active              ◄── Elemento UI seleccionado
+    .selected            ◄── Unidad/tema activo (con ring glow)
+    .tema-gris           ◄── Tema filtrado (grayscale 100%)
+    .open                ◄── Modal abierto
+    .en-unidad           ◄── Body class cuando estás dentro de tema
+
+    Data attributes (para filtrado):
+
+    [data-filter="metodo"]     ◄── Botón filtro categría
+    [data-filter="fisica"]
+    [data-filter="quimica"]
+    [data-sort]                ◄── Ordenamiento
+    [data-pub-filter]          ◄── Filtro publicaciones
+    [data-juego-filter]        ◄── Filtro juegos
+
+
+═════════════════════════════════════════════════════════════════════════════════
+                              RESUMEN DE DEPENDENCIAS
+═════════════════════════════════════════════════════════════════════════════════
+
+CRÍTICAS (Web no funciona sin):
+  ✓ index.html / movil.html (estructura HTML + CSS)
+  ✓ sistema/temario.js (datos: CURSOS, JUEGOS, ICONOS)
+  ✓ Carpeta imagenes/[2-4]ESO,1bach,2bachF,2bachQ (iconos de temas)
+  ✓ Carpeta imagenes/menu (iconos de enlaces)
+
+IMPORTANTES (Experiencia degradada sin):
+  ✓ sistema/objetos-data.js (datos de objetos)
+  ✓ Carpeta imagenes/objetos (iconos de objetos)
+  ✓ Carpeta fuentes (degradación a fallback)
+
+OPCIONALES:
+  □ Comentarios en HTML/CSS
+  □ Archivos no utilizados
+
+═════════════════════════════════════════════════════════════════════════════════
