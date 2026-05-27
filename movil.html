@@ -81,7 +81,7 @@ header { position:relative; z-index:10; padding:12px 1rem 8px; display:flex; fle
 main { position:relative; z-index:10; padding:0; width:100%; margin:0; }
 .contenedor-grande { display:none; width:100%; min-height:0; margin:0; border:1px solid #999999; border-radius:10px; background:rgba(56,189,248,0.08); padding:0; box-sizing:border-box; }
 .contenedor-grande.active { display:flex; flex-direction:column; }
-.contenedor-grande.panel-enter { animation:panelFadeIn 0.22s ease forwards; }
+.contenedor-grande.panel-enter { animation:panelFadeIn 0.11s ease forwards; }
 
 /* Colores temáticos */
 #panel-2eso   { background:rgba(51,204,170,0.06); }
@@ -241,7 +241,8 @@ body.en-unidad .curso-sidebar {
   min-height:125px;
   height:125px;
   border-bottom:1px solid #444444 !important;
-  border-radius:0 !important;
+  border-radius:9px 9px 0 0 !important;
+  overflow:hidden !important;
   gap:0 !important;
   align-items:stretch !important;
 }
@@ -252,7 +253,7 @@ body.en-unidad .curso-sidebar {
   transition:background 0.2s; background:none; border:none; cursor:pointer; width:100%;
 }
 .sidebar-nav-unidad-btn img { width:38px; height:38px; object-fit:contain; border-radius:8px; border:1px solid #999999; background:#000000; padding:2px; transition:border-color 0.2s,box-shadow 0.2s; }
-.sidebar-nav-unidad-btn span { font-size:0.55rem; color:var(--text); text-align:center; line-height:1.2; font-family:'Roboto Condensed',sans-serif; font-weight:500; max-width:50px; height:2.4em; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; }
+.sidebar-nav-unidad-btn span { font-size:0.55rem; color:var(--text); text-align:center; line-height:1.2; font-family:'Roboto Condensed',sans-serif; font-weight:500; max-width:50px; height:2.4em; display:block; overflow:hidden; white-space:normal; }
 .sidebar-nav-unidad-btn.invisible { visibility:hidden; pointer-events:none; }
 /* Columnas laterales: flex centrado para los botones nav */
 .sidebar-nav-col {
@@ -272,7 +273,7 @@ body.en-unidad .curso-sidebar {
 #panel-4eso .sidebar-btn[onclick*="openJuegos"],
 #panel-1bach .sidebar-btn[onclick*="openJuegos"],
 #panel-2bachF .sidebar-btn[onclick*="openJuegos"],
-#panel-2bachQ .sidebar-btn[onclick*="openJuegos"] { display:none !important; }
+#panel-2bachQ .sidebar-btn[onclick*="openJuegos"] { visibility:hidden !important; pointer-events:none !important; }
 
 /* Colores temáticos del icono central */
 body.en-unidad #panel-2eso   .sidebar-unidad-icono { border-color:#55ddcc; }
@@ -351,7 +352,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 /* ── GRIDS DE UNIDADES ── */
 .temas-grid { display:grid; gap:6px; flex:1; justify-items:center; border:0; padding:0; height:auto; min-height:400px; grid-template-columns:repeat(4,1fr); }
 .unidades-grid { display:grid; column-gap:6px; row-gap:3px; flex:1; justify-items:center; border:0; padding:0; margin:0; grid-template-columns:repeat(4,1fr); grid-auto-rows:auto; }
-.contenedor-grande--publicaciones .publicaciones-grid { border:0; grid-template-columns:repeat(4,1fr); display:grid; column-gap:4px; row-gap:0px; flex:1; justify-items:stretch; align-items:start; padding:6px 4px 4px; margin:0; align-content:start; overflow:visible; height:auto; max-height:none; }
+.contenedor-grande--publicaciones .publicaciones-grid { border:0; grid-template-columns:repeat(4,1fr); display:grid; column-gap:4px; row-gap:0px; flex:1; justify-items:stretch; align-items:start; padding:6px 4px 4px; margin-top:10px; align-content:start; overflow:visible; height:auto; max-height:none; }
 .unidad-ficha,.publicacion-ficha { position:relative; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; gap:0; padding:10px 0 0 0; height:165px; min-height:165px; animation:popIn 0.6s 0s both; }
 .unidad-icono { width:85px; height:85px; border-radius:50%; border:0; position:relative; background:#000000; box-shadow:inset 0 0 0 1px #999999; padding:0; }
 .unidad-icono img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease; }
@@ -388,28 +389,28 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 .objetos-sidebar { flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:0.8rem; padding:0; }
 .objetos-sidebar-left { width:0; display:none; }
 .objetos-sidebar-right { width:50px; display:grid; grid-template-rows:auto 1fr auto; align-items:center; gap:0.8rem; }
-.objetos-grid { display:grid; column-gap:8px; row-gap:4px; justify-items:center; grid-auto-rows:auto; width:100%; flex:1; border:0; padding:0; align-content:start; grid-template-columns:repeat(3,1fr); height:auto !important; max-height:none !important; padding-top:8px; }
-#grid-objetos { grid-template-columns:repeat(3,1fr) !important; height:auto !important; max-height:none !important; }
-.objeto-ficha { position:relative; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0; padding:10px 0 4px 0; height:auto; min-height:0; min-width:0; overflow:visible; }
-.objeto-icono { width:90px; height:90px; border-radius:50%; border:0; position:relative; background:#000000; flex-shrink:0; transition:background 0.3s ease; box-shadow:inset 0 0 0 1px #999999; padding:0; }
+.objetos-grid { display:grid; column-gap:6px; row-gap:3px; justify-items:center; grid-auto-rows:auto; width:100%; flex:1; border:0; padding:0; align-content:start; grid-template-columns:repeat(4,1fr); height:auto !important; max-height:none !important; padding-top:0; margin-top:10px; }
+#grid-objetos { grid-template-columns:repeat(4,1fr) !important; height:auto !important; max-height:none !important; }
+.objeto-ficha { position:relative; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0; padding:10px 0 0 0; height:165px; min-height:165px; min-width:0; overflow:visible; }
+.objeto-icono { width:85px; height:85px; border-radius:50%; border:0; position:relative; background:#000000; flex-shrink:0; transition:background 0.3s ease; box-shadow:inset 0 0 0 1px #999999; padding:0; }
 .objeto-icono img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease; }
-.objeto-nombre-texto1 { font-family:'Saira',sans-serif; font-size:0.75rem; font-weight:600; color:var(--accent); letter-spacing:-0.02em; text-align:center; display:flex; align-items:center; justify-content:center; line-height:1.2; padding-top:0; margin-top:8px; width:100%; min-width:0; overflow:hidden; white-space:normal; height:auto; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
-.objeto-tema-texto2 { font-size:0.7rem; font-weight:500; color:#ffffff; text-align:center; line-height:1.1; font-family:'Roboto Condensed',sans-serif; margin-top:4px; width:100%; white-space:normal; min-width:0; height:auto; overflow:visible; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
+.objeto-nombre-texto1 { font-family:'Saira',sans-serif; font-size:0.75rem; font-weight:600; color:var(--accent); letter-spacing:-0.02em; text-align:center; display:flex; align-items:center; justify-content:center; line-height:1.2; padding-top:0; margin-top:8px; width:100%; min-width:0; overflow:visible; white-space:normal; height:auto; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
+.objeto-tema-texto2 { font-size:0.7rem; font-weight:500; color:#ffffff; text-align:center; line-height:1.1; font-family:'Roboto Condensed',sans-serif; margin-top:3px; width:100%; white-space:normal; min-width:0; height:30px; overflow:hidden; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
 
 /* ── PUBLICACIONES ── */
-.publicaciones-grid .publicacion-ficha { margin:0; padding:0; min-height:180px; height:180px; overflow:visible; }
+.publicaciones-grid .publicacion-ficha { margin:0; padding:0; min-height:165px; height:auto; overflow:visible; justify-content:flex-start; }
 .publicaciones-grid .publicacion-icono { width:fit-content; height:110px; min-height:110px; padding:0; margin:0 auto; }
 .publicaciones-grid .publicacion-icono img { object-fit:contain; width:auto; height:100%; transition:filter 0.5s ease,transform 0.5s ease; border:0.8px solid #000000; }
 /* Títulos en azul */
-.publicaciones-grid .publicacion-titulo { margin:5px 0 0 0; padding:2px 0 0 0; border:0; font-family:'Saira',sans-serif; font-size:0.62rem; font-weight:600; color:#38bdf8 !important; letter-spacing:-0.02em; height:45px; display:block; text-align:center; line-height:1.2; width:100%; overflow:hidden; white-space:normal; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
+.publicaciones-grid .publicacion-titulo { margin:4px 0 0 0; padding:0; border:0; font-family:'Saira',sans-serif; font-size:0.75rem; font-weight:600; color:#38bdf8 !important; letter-spacing:-0.02em; height:auto; display:block; text-align:center; line-height:1.2; width:100%; overflow:visible; white-space:normal; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
 .publicaciones-grid .unidad-nombre-texto2 { font-size:0.6rem; font-weight:500; color:#ffffff; text-align:center; line-height:1.1; height:14px; display:flex; align-items:flex-start; justify-content:center; }
 .publicaciones-grid .publicacion-ficha:nth-child(6) { grid-column:auto; }
 .publicaciones-grid .publicacion-ficha:nth-child(7) { grid-column:auto; }
 .publicaciones-grid .publicacion-ficha:nth-child(8) { grid-column:auto; }
 .publicaciones-grid .publicacion-ficha .publicacion-icono { transition:box-shadow 0.5s ease; }
 /* Sidebar publicaciones: iconos centrados horizontalmente */
-#panel-publicaciones .curso-sidebar { justify-content:center; }
-#panel-publicaciones .curso-sidebar .sidebar-mitad { justify-content:space-around; gap:0; padding:4px 0; }
+#panel-publicaciones .curso-sidebar { justify-content:center; display:grid !important; grid-template-columns:1fr 1px 1fr !important; }
+#panel-publicaciones .curso-sidebar .sidebar-mitad { justify-content:space-around; gap:0; padding:4px 0; display:flex !important; flex-direction:row !important; align-items:center !important; }
 #panel-publicaciones .curso-sidebar .sidebar-mitad .sidebar-btn { flex:1; min-width:0; padding:4px 1px; }
 #panel-publicaciones .curso-sidebar .sidebar-mitad .sidebar-btn span { max-width:100%; }
 
@@ -428,7 +429,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 .unidad-ficha.selected.vista-sub .unidad-icono img { transform:scale(1.18) !important; transition:none !important; }
 
 /* Fichas por curso */
-.unidad-2eso-ficha,.unidad-3eso-ficha,.unidad-4eso-ficha,.unidad-1bach-ficha,.unidad-2bachF-ficha,.unidad-2bachQ-ficha { height:185px; min-height:185px; max-height:185px; padding:0; justify-content:center; pointer-events:auto; position:relative; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0; overflow:visible; animation:popIn 0.6s 0s both; }
+.unidad-2eso-ficha,.unidad-3eso-ficha,.unidad-4eso-ficha,.unidad-1bach-ficha,.unidad-2bachF-ficha,.unidad-2bachQ-ficha { height:185px; min-height:185px; max-height:185px; padding:0; justify-content:center; pointer-events:auto; position:relative; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; width:100%; gap:0; overflow:visible; animation:popIn 0.3s 0s both; }
 .unidad-ficha-dentro { width:100% !important; min-width:0 !important; max-width:none !important; padding-top:10px !important; }
 .unidad-2eso-ficha   .unidad-icono { box-shadow:inset 0 0 0 5px #55ddcc !important; }
 .unidad-3eso-ficha   .unidad-icono { box-shadow:inset 0 0 0 5px #88ee66 !important; }
@@ -461,6 +462,14 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 .btn-unidad-nav img { width:38px; height:38px; object-fit:contain; border-radius:8px; border:1px solid #999999; background:#000000; padding:2px; }
 .btn-unidad-nav span { font-size:0.5rem; color:#ffffff; text-align:center; line-height:1.2; font-family:'Roboto Condensed',sans-serif; max-width:44px; height:2.4em; display:flex; align-items:flex-start; justify-content:center; }
 .btn-unidad-nav.invisible { visibility:hidden; pointer-events:none; }
+/* Grid de unidades (modo normal): mismo margen superior que objetos */
+#grid-2eso[style*="grid-template-columns"],
+#grid-3eso[style*="grid-template-columns"],
+#grid-4eso[style*="grid-template-columns"],
+#grid-1bach[style*="grid-template-columns"],
+#grid-2bachF[style*="grid-template-columns"],
+#grid-2bachQ[style*="grid-template-columns"] { margin-top:10px !important; padding-top:0 !important; padding-bottom:0 !important; }
+
 /* Grid en modo unidad/vídeo: columna flex */
 #grid-2eso[style*="display: block"],
 #grid-3eso[style*="display: block"],
@@ -476,11 +485,11 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 
 /* imagenEDiv en UNIDADES NORMALES: va al final (después de actividades), orden normal */
 .unidad-imagen {
-  flex:0 0 auto !important; width:auto !important; max-width:calc(100vw - 10px) !important;
+  flex:0 0 auto !important; width:100% !important; max-width:calc(100vw - 10px) !important;
   height:auto !important; margin:10px 0 10px 0 !important; padding:0 !important;
   align-self:center !important;
 }
-.unidad-imagen video, .unidad-imagen img { width:auto; height:auto; max-width:100%; max-height:240px; object-fit:contain; border-radius:10px; border:1px solid #999999; display:block; }
+.unidad-imagen video, .unidad-imagen img { width:100%; height:auto; max-width:100%; max-height:440px; object-fit:contain; border-radius:10px; border:1px solid #999999; display:block; }
 
 /* Botón volver (unidad-ficha-dentro): columna CENTRADA, icono 90px */
 .unidad-ficha-dentro { flex-direction:column !important; height:auto !important; min-height:0 !important; padding:8px 4px !important; justify-content:center !important; align-items:center !important; gap:4px !important; width:100% !important; cursor:pointer; }
@@ -494,8 +503,10 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 
 /* layout → columna */
 .unidad-dentro-iconos:has(.ficha-actividades--video) { display:contents !important; }
-/* btnVideo (unidad-ficha-dentro) → order 1 */
-.unidad-dentro-iconos:has(.ficha-actividades--video) .unidad-ficha-dentro { order:1; }
+/* btnTema/btnVideo/btnJuegos (unidad-ficha-dentro) → oculto en modos unidad/vídeo/juegos (lo elimina _inyectarNavUnidad) */
+.unidad-dentro-iconos:has(.ficha-actividades--unidad) .unidad-ficha-dentro,
+.unidad-dentro-iconos:has(.ficha-actividades--video) .unidad-ficha-dentro,
+.unidad-dentro-iconos:has(.ficha-actividades--juegos) .unidad-ficha-dentro { order:1; visibility:hidden !important; height:0 !important; min-height:0 !important; padding:0 !important; overflow:hidden !important; animation:none !important; }
 /* videoDiv (unidad-imagen) → order 3 */
 [id^="grid-"] > div[style*="flex-direction: row"] > .unidad-imagen { order:3; }
 /* subRowWrapper (6 iconos) → order 2 */
@@ -520,6 +531,7 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
   padding:0 !important; gap:0 !important; width:100% !important;
   align-content:center !important;
   margin-top:-5px !important;
+  animation:fadeInUp 0.175s ease forwards !important;
 }
 
 /* ── FICHA-ACTIVIDADES ── */
@@ -538,26 +550,22 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .ficha-actividades--video .objeto-ficha { gap:4px !important; }
 .ficha-actividades .objeto-nombre-texto1 { font-size:9px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:3px; }
 .ficha-actividades .objeto-tema-texto2 { font-size:9px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:1px; }
-/* 3 columnas fijas en unidades normales — independiente del var(--fa-cols) del JS */
-.ficha-actividades--unidad { grid-template-columns:repeat(3,1fr) !important; height:180px !important; min-height:180px !important; max-height:180px !important; gap:0 !important; padding:0 20px !important; align-content:space-evenly !important; grid-auto-rows:auto !important; }
-.ficha-actividades--unidad .objeto-ficha:nth-child(1),
-.ficha-actividades--unidad .objeto-ficha:nth-child(2),
-.ficha-actividades--unidad .objeto-ficha:nth-child(3) { padding-top:12px !important; }
+/* Unidades: respetar --fa-cols del JS para columnas, distribución uniforme */
+.ficha-actividades--unidad { grid-template-columns:repeat(var(--fa-cols,3),1fr) !important; height:180px !important; min-height:180px !important; max-height:180px !important; gap:4px 6px !important; padding:4px 8px !important; align-content:space-evenly !important; align-items:center !important; justify-items:center !important; grid-auto-rows:auto !important; }
+.ficha-actividades--unidad .objeto-ficha { padding:0 !important; margin:0 !important; place-self:stretch !important; justify-content:center !important; align-items:center !important; width:100% !important; height:100% !important; min-height:0 !important; display:flex !important; flex-direction:column !important; gap:0 !important; }
 .ficha-actividades--unidad .objeto-tema-texto2,.ficha-actividades--video .objeto-tema-texto2 { display:none !important; }
-.ficha-actividades--unidad .objeto-nombre-texto1,.ficha-actividades--video .objeto-nombre-texto1 { font-size:0.75rem; margin-top:4px !important; color:#ffffff !important; }
+.ficha-actividades--unidad .objeto-nombre-texto1,.ficha-actividades--video .objeto-nombre-texto1 { font-size:0.75rem; margin-top:3px !important; margin-bottom:0 !important; padding-top:0 !important; padding-bottom:0 !important; color:#ffffff !important; }
 .ficha-actividades--unidad .objeto-tema-texto2 { font-size:0.7rem !important; }
-.ficha-actividades--unidad .objeto-icono { width:38px !important; height:38px !important; min-width:38px !important; min-height:38px !important; }
-.ficha-actividades--juegos { height:180px !important; min-height:180px !important; max-height:180px !important; gap:0 !important; padding:0 20px !important; align-content:space-evenly !important; }
-.ficha-actividades--juegos .objeto-ficha:nth-child(1),
-.ficha-actividades--juegos .objeto-ficha:nth-child(2),
-.ficha-actividades--juegos .objeto-ficha:nth-child(3) { padding-top:12px !important; }
+.ficha-actividades--unidad .objeto-icono { width:38px !important; height:38px !important; min-width:38px !important; min-height:38px !important; margin:0 !important; padding:0 !important; flex-shrink:0 !important; }
+.ficha-actividades--juegos { height:180px !important; min-height:180px !important; max-height:180px !important; gap:0 !important; padding:0 15px !important; align-content:space-evenly !important; align-items:start !important; grid-auto-rows:1fr !important; }
+.ficha-actividades--juegos .objeto-ficha { padding-top:12px !important; place-self:start center !important; justify-content:flex-start !important; }
 .ficha-actividades--juegos .objeto-icono { width:38px !important; height:38px !important; min-width:38px !important; min-height:38px !important; }
-.ficha-actividades--juegos .objeto-tema-texto2 { font-size:0.75rem; color:var(--accent); font-weight:700; margin-top:4px; }
-.ficha-actividades--juegos .objeto-nombre-texto1 { font-size:0.7rem; color:#ffffff !important; margin-top:0; }
+.ficha-actividades--juegos .objeto-tema-texto2 { font-size:0.75rem; color:var(--accent); font-weight:700; margin-top:3px !important; flex:none !important; height:auto !important; }
+.ficha-actividades--juegos .objeto-nombre-texto1 { font-size:0.7rem; color:#ffffff !important; margin-top:3px !important; flex:none !important; height:auto !important; }
 .ficha-actividades .objeto-ficha.col-filtro-off { opacity:0.35; pointer-events:none; filter:grayscale(100%); }
 /* Animación de entrada en actividades de unidades y juegos */
 .ficha-actividades--unidad .objeto-ficha.anim-entrada,
-.ficha-actividades--juegos .objeto-ficha.anim-entrada { opacity:0; animation:fadeInUp 0.35s ease forwards; animation-delay:calc(var(--d,0)*0.045s); }
+.ficha-actividades--juegos .objeto-ficha.anim-entrada { opacity:0; animation:fadeInUp 0.175s ease forwards; animation-delay:calc(var(--d,0)*0.022s); }
 
 /* ── PUB-LISTADO ── */
 .pub-listado-grupo { display:flex; flex-direction:column; overflow:hidden; justify-content:flex-start; height:auto; min-height:0; }
@@ -626,15 +634,16 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .objeto-detail-close { flex-shrink:0; z-index:20; width:28px; height:28px; border-radius:50%; background:#000000; border:1px solid #999999; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; overflow:visible; }
 .objeto-detail-close img { width:100%; height:100%; object-fit:contain; }
 .objeto-detail-content { display:flex; flex-direction:column; flex:1; min-height:0; overflow:hidden; width:100%; box-sizing:border-box; height:100%; }
-.objeto-detail-side { position:relative; display:flex; flex-direction:column; overflow:hidden; flex:0 0 50%; width:100%; box-sizing:border-box; align-items:center; justify-content:center; }
-.objeto-detail-side.realidad { border-right:none; border-bottom:1px solid #999999; background:var(--surface); display:flex; flex-direction:column; align-items:center; padding-top:0 !important; }
-.objeto-detail-side.realidad .objeto-detail-title { background:rgba(56,189,248,0.18); }
-.objeto-detail-side.simulacion { display:flex; flex-direction:column; align-items:center; }
-/* Ambas barras de título: mismo color, mismo ancho */
-.objeto-detail-title { display:flex; align-items:center; justify-content:space-between; flex-shrink:0; background:rgba(56,189,248,0.18); padding:6px 8px; height:36px; font-size:0.85rem; font-weight:600; color:var(--accent); letter-spacing:0.04em; z-index:5; border-bottom:1px solid var(--border); font-family:'Saira',sans-serif; width:100%; box-sizing:border-box; margin-top:0 !important; }
+.objeto-detail-side { position:relative; display:flex; flex-direction:column; overflow:hidden; flex:0 0 50%; width:100% !important; box-sizing:border-box; align-items:stretch; justify-content:flex-start; }
+.objeto-detail-side.realidad { border-right:none; border-bottom:1px solid #999999; background:#ffffff; display:flex; flex-direction:column; align-items:stretch; padding-top:0 !important; width:100% !important; }
+/* Barra título realidad: fondo opaco igual al resultado visual del tinte sobre --surface */
+.objeto-detail-side.realidad .objeto-detail-title { background:#1f3742 !important; color:var(--accent); }
+.objeto-detail-side.simulacion { display:flex; flex-direction:column; align-items:stretch; width:100% !important; }
+/* Ambas barras de título: mismo color opaco, mismo ancho */
+.objeto-detail-title { display:flex; align-items:center; justify-content:space-between; flex-shrink:0; background:#1f3742; padding:6px 8px; height:36px; font-size:0.85rem; font-weight:600; color:var(--accent); letter-spacing:0.04em; z-index:5; border-bottom:1px solid var(--border); font-family:'Saira',sans-serif; width:100% !important; box-sizing:border-box; margin-top:0 !important; }
 .objeto-detail-title-text { flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-/* Imágenes centradas verticalmente, sin borde blanco */
-.objeto-detail-img { width:auto; height:auto; object-fit:contain; object-position:center; border:none; display:block; background:transparent; max-width:100%; max-height:calc(46vh - 36px); flex:1; margin:auto; align-self:center; }
+/* Imágenes centradas horizontal y verticalmente */
+.objeto-detail-img { width:auto; height:auto; object-fit:contain; object-position:center; border:none; display:block; background:transparent; max-width:100%; max-height:calc(46vh - 36px); flex:1; margin:auto; align-self:center; justify-self:center; min-height:0; }
 /* Modal más alto para que quepa la imagen de simulación */
 .objeto-detail { max-height:98vh !important; height:90vh !important; }
 .objeto-detail-video { position:absolute; bottom:0.6rem; left:50%; transform:translateX(-50%); z-index:6; white-space:nowrap; }
@@ -693,13 +702,17 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
   width:auto !important;
   max-width:100% !important;
   height:auto !important;
-  max-height:280px !important;
+  max-height:208px !important;
   object-fit:contain !important;
   display:block !important;
   margin:0 auto !important;
 }
 /* Textos: ocupar el ancho completo */
 #panel-publicaciones .publicaciones-grid[style*="flex-direction: row"]:not([data-vista="autor"]) > div:last-child { flex:1 !important; }
+/* Título de la publicación: tamaño similar al listado */
+#panel-publicaciones .publicaciones-grid[style*="flex-direction: row"]:not([data-vista="autor"]) > div:last-child > div:first-child {
+  font-size:0.93rem !important;
+}
 /* Botón donación / ver muestras / comprar: ancho auto */
 #panel-publicaciones .publicaciones-grid[style*="flex-direction: row"]:not([data-vista="autor"]) a.control-btn,
 #panel-publicaciones .publicaciones-grid[style*="flex-direction: row"]:not([data-vista="autor"]) button.control-btn {
@@ -707,8 +720,41 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
   align-self:flex-start !important;
 }
 
-/* ── VISTA SOBRE EL AUTOR (flex-direction:column con foto + textos): dejar como genera el JS ── */
-/* NO aplicar ningún override — el JS genera correctamente la vista columna */
+/* ── TEXTOS REDUCIDOS EN VISTAS INTERNAS DE PUBLICACIONES ── */
+/* Regla global: todo texto blanco (#ffffff) y gris (--text, --muted) dentro del grid
+   cuando está en modo vista interna (flex row o column inyectado por JS) */
+#panel-publicaciones .publicaciones-grid[style*="flex-direction"] * {
+  --_pub-fs-blanco: 0.78rem;
+  --_pub-lh: 1.5;
+}
+/* Texto blanco */
+#panel-publicaciones .publicaciones-grid[style*="flex-direction"] [style*="color:#ffffff"],
+#panel-publicaciones .publicaciones-grid[style*="flex-direction"] [style*="color: #ffffff"],
+#panel-publicaciones .publicaciones-grid[style*="flex-direction"] [style*="color:var(--text)"],
+#panel-publicaciones .publicaciones-grid[style*="flex-direction"] [style*="color: var(--text)"],
+#panel-publicaciones .publicaciones-grid[style*="flex-direction"] .pub-descripcion,
+#panel-publicaciones .publicaciones-grid[style*="flex-direction"] li,
+#panel-publicaciones .publicaciones-grid[style*="flex-direction"] p {
+  font-size:0.78rem !important;
+  line-height:1.5 !important;
+}
+/* Texto gris (--muted) */
+#panel-publicaciones .publicaciones-grid[style*="flex-direction"] [style*="color:var(--muted)"],
+#panel-publicaciones .publicaciones-grid[style*="flex-direction"] [style*="color: var(--muted)"] {
+  font-size:0.78rem !important;
+  line-height:1.5 !important;
+}
+
+/* ── VISTA SOBRE EL AUTOR: párrafos con separación y texto justificado ── */
+#panel-publicaciones .publicaciones-grid[data-vista="autor"] p {
+  margin-bottom:0.8em !important;
+  text-align:justify !important;
+}
+#panel-publicaciones .publicaciones-grid[data-vista="autor"] p:last-child {
+  margin-bottom:0 !important;
+}
+
+/* ── VISTA SOBRE EL AUTOR: dejar layout como genera el JS ── */
 /* Barra interna publicaciones: tipo de publicación a la IZQUIERDA */
 #panel-publicaciones .barra-interna > span.control-label {
   flex:1 !important;
@@ -768,6 +814,8 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 
 /* Punto 9: Barra publicaciones — sin margin extra, comparte estilo de .curso-sidebar */
 #panel-publicaciones .sidebar-pub-acciones { height:80px; min-height:80px; }
+/* Publicaciones: layout base */
+#panel-publicaciones .curso-layout { display:flex; flex-direction:column; }
 /* sidebar-btn como button (curso anterior/siguiente) */
 button.sidebar-btn { background:none; border:none; cursor:pointer; }
 /* Placeholder invisible para mantener espacio cuando falta un botón de navegación */
@@ -786,24 +834,13 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
 /* Foto autor reducida a 1/3 (~47px de los 140px originales) */
 .foto-autor-movil { height:47px !important; width:auto !important; object-fit:contain !important; display:block !important; margin:0 auto 0.5rem auto !important; border-radius:8px !important; }
 
-/* ── VER MUESTRAS: barra título más alta para "Ingeniosas..." ── */
+/* ── VER MUESTRAS: título ajustado ── */
 #overlay-muestras .objeto-detail-title {
   height:auto !important;
   min-height:36px !important;
   padding:6px 8px !important;
   white-space:normal !important;
   line-height:1.3 !important;
-}
-/* Contenedor imagen: sin espacio blanco arriba/abajo */
-#overlay-muestras .objeto-detail > div:last-child {
-  padding:0 !important;
-  align-items:stretch !important;
-}
-#overlay-muestras .objeto-detail > div:last-child > img {
-  width:100% !important;
-  height:100% !important;
-  max-height:none !important;
-  object-fit:contain !important;
 }
 
 /* ── SALA DE CONTROL ── */
@@ -916,7 +953,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
           <div class="sidebar-mitad">
             <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarAutor()">
               <img src="imagenes/menu/Sobre el autor.webp" alt="Sobre el autor">
-              <span>Sobre el autor</span>
+              <span>Sobre<br>el autor</span>
             </a>
             <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarListadoPublicaciones()">
               <img src="imagenes/menu/Listado de publicaciones.webp" alt="Listado de publicaciones">
@@ -1383,8 +1420,8 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
     const esVideo = forzarModo === 'video' || !!gridEl.querySelector('.ficha-actividades--video');
 
     // Textos de los botones
-    const txtPrev = (esJuegos || esVideo) ? 'Curso anterior' : 'Unidad anterior';
-    const txtNext = (esJuegos || esVideo) ? 'Curso siguiente' : 'Unidad siguiente';
+    const txtPrev = (esJuegos || esVideo) ? 'Curso<br>anterior' : 'Unidad anterior';
+    const txtNext = (esJuegos || esVideo) ? 'Curso<br>siguiente' : 'Unidad siguiente';
 
     // Extraer icono, número y nombre de la ficha antes de eliminarla
     const iconoEl = ficha.querySelector('.unidad-icono img');
@@ -1402,7 +1439,9 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
     const sidebar = panel ? panel.querySelector('.curso-sidebar') : null;
 
     const ORDEN_C = ['2eso','3eso','4eso','1bach','2bachF','2bachQ'];
-    const idxCurso = ORDEN_C.indexOf(curso);
+    const ORDEN_JUEGOS = ['2eso','3eso']; // únicos cursos con juegos
+    const idxCurso = esJuegos ? ORDEN_JUEGOS.indexOf(curso) : ORDEN_C.indexOf(curso);
+    const _ORDEN_ACT = esJuegos ? ORDEN_JUEGOS : ORDEN_C;
 
     // Si ya está inyectado en modo juegos/vídeo, solo actualizar botones existentes
     if (sidebar && sidebar._navUnidadInjected && (esJuegos || esVideo)) {
@@ -1412,17 +1451,17 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       const nombreDivEx = sidebar.querySelector('.sidebar-unidad-nombre');
       const iconoDivEx = sidebar.querySelector('.sidebar-unidad-icono img');
       if (btnPrevEx) {
-        const prev = ORDEN_C[idxCurso - 1];
+        const prev = _ORDEN_ACT[idxCurso - 1];
         btnPrevEx.onclick = esJuegos
-          ? () => { const c = _ORDEN_CURSOS[_ORDEN_CURSOS.indexOf(_cursoActivoId()) - 1]; c && window.openJuegos && window.openJuegos(c); }
-          : () => { const c = _ORDEN_CURSOS[_ORDEN_CURSOS.indexOf(_cursoActivoId()) - 1]; c && window.mostrarVideoTemario && window.mostrarVideoTemario(c); };
+          ? () => { if (prev) { window._suprimirAnimPanel = true; window.openJuegos && window.openJuegos(prev); setTimeout(() => { window._suprimirAnimPanel = false; }, 50); } }
+          : () => { if (prev) { window._suprimirAnimPanel = true; window.mostrarVideoTemario && window.mostrarVideoTemario(prev); setTimeout(() => { window._suprimirAnimPanel = false; }, 50); } };
         btnPrevEx.classList.toggle('invisible', !prev);
       }
       if (btnNextEx) {
-        const next = ORDEN_C[idxCurso + 1];
+        const next = _ORDEN_ACT[idxCurso + 1];
         btnNextEx.onclick = esJuegos
-          ? () => { const c = _ORDEN_CURSOS[_ORDEN_CURSOS.indexOf(_cursoActivoId()) + 1]; c && window.openJuegos && window.openJuegos(c); }
-          : () => { const c = _ORDEN_CURSOS[_ORDEN_CURSOS.indexOf(_cursoActivoId()) + 1]; c && window.mostrarVideoTemario && window.mostrarVideoTemario(c); };
+          ? () => { if (next) { window._suprimirAnimPanel = true; window.openJuegos && window.openJuegos(next); setTimeout(() => { window._suprimirAnimPanel = false; }, 50); } }
+          : () => { if (next) { window._suprimirAnimPanel = true; window.mostrarVideoTemario && window.mostrarVideoTemario(next); setTimeout(() => { window._suprimirAnimPanel = false; }, 50); } };
         btnNextEx.classList.toggle('invisible', !next);
       }
       if (numDivEx)    numDivEx.textContent    = numTxt;
@@ -1441,12 +1480,12 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       btnPrev.className = 'sidebar-nav-unidad-btn';
       btnPrev.innerHTML = '<img src="imagenes/menu/Anterior.webp" alt="' + txtPrev + '"><span>' + txtPrev + '</span>';
       if (esJuegos) {
-        const prev = ORDEN_C[idxCurso - 1];
-        btnPrev.onclick = () => { const c = _ORDEN_CURSOS[_ORDEN_CURSOS.indexOf(_cursoActivoId()) - 1]; c && window.openJuegos && window.openJuegos(c); };
+        const prev = _ORDEN_ACT[idxCurso - 1];
+        btnPrev.onclick = () => { if (prev) { window._suprimirAnimPanel = true; window.openJuegos && window.openJuegos(prev); setTimeout(() => { window._suprimirAnimPanel = false; }, 50); } };
         btnPrev.classList.toggle('invisible', !prev);
       } else if (esVideo) {
         const prev = ORDEN_C[idxCurso - 1];
-        btnPrev.onclick = () => { const c = _ORDEN_CURSOS[_ORDEN_CURSOS.indexOf(_cursoActivoId()) - 1]; c && window.mostrarVideoTemario && window.mostrarVideoTemario(c); };
+        btnPrev.onclick = () => { if (prev) { window._suprimirAnimPanel = true; window.mostrarVideoTemario && window.mostrarVideoTemario(prev); setTimeout(() => { window._suprimirAnimPanel = false; }, 50); } };
         btnPrev.classList.toggle('invisible', !prev);
       } else {
         btnPrev.onclick = () => window.unidadPrev && window.unidadPrev(curso);
@@ -1483,12 +1522,12 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       btnNext.className = 'sidebar-nav-unidad-btn';
       btnNext.innerHTML = '<img src="imagenes/menu/Siguiente.webp" alt="' + txtNext + '"><span>' + txtNext + '</span>';
       if (esJuegos) {
-        const next = ORDEN_C[idxCurso + 1];
-        btnNext.onclick = () => { const c = _ORDEN_CURSOS[_ORDEN_CURSOS.indexOf(_cursoActivoId()) + 1]; c && window.openJuegos && window.openJuegos(c); };
+        const next = _ORDEN_ACT[idxCurso + 1];
+        btnNext.onclick = () => { if (next) { window._suprimirAnimPanel = true; window.openJuegos && window.openJuegos(next); setTimeout(() => { window._suprimirAnimPanel = false; }, 50); } };
         btnNext.classList.toggle('invisible', !next);
       } else if (esVideo) {
         const next = ORDEN_C[idxCurso + 1];
-        btnNext.onclick = () => { const c = _ORDEN_CURSOS[_ORDEN_CURSOS.indexOf(_cursoActivoId()) + 1]; c && window.mostrarVideoTemario && window.mostrarVideoTemario(c); };
+        btnNext.onclick = () => { if (next) { window._suprimirAnimPanel = true; window.mostrarVideoTemario && window.mostrarVideoTemario(next); setTimeout(() => { window._suprimirAnimPanel = false; }, 50); } };
         btnNext.classList.toggle('invisible', !next);
       } else {
         btnNext.onclick = () => window.unidadNext && window.unidadNext(curso);
@@ -1592,9 +1631,17 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
     if (!sidebar || !sidebar.innerHTML.trim()) {
       _navLog('SB VACIO'); setTimeout(() => _forzarNavUnidad(cursoId, modo, intentos + 1), 50); return;
     }
-    if (sidebar.querySelector('.sidebar-nav-unidad-btn')) { _navLog('YA OK'); return; }
+    if (sidebar.querySelector('.sidebar-nav-unidad-btn')) { _navLog('YA OK'); sidebar.style.visibility = ''; return; }
     const ficha = gridEl.querySelector('.unidad-ficha-dentro');
     if (!ficha) {
+      // En modo juegos/vídeo no hay ficha — inyectar directamente sin datos de unidad
+      if (modo === 'juegos' || modo === 'video') {
+        _navLog('INYECTANDO sin ficha modo=' + modo);
+        sidebar._navUnidadInjected = false;
+        _inyectarNavUnidad(gridEl, cursoId, modo);
+        sidebar.style.visibility = '';
+        return;
+      }
       _navLog('NO FICHA sb=' + sidebar.innerHTML.substring(0,40));
       setTimeout(() => _forzarNavUnidad(cursoId, modo, intentos + 1), 50); return;
     }
@@ -1602,6 +1649,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
     delete ficha.dataset.navInjected;
     sidebar._navUnidadInjected = false;
     _inyectarNavUnidad(gridEl, cursoId, modo);
+    sidebar.style.visibility = '';
     _navLog('sb=' + sidebar.innerHTML.substring(0,50));
   }
 
@@ -1803,7 +1851,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
         <div class="sidebar-mitad">
           <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarAutor()">
             <img src="imagenes/menu/Sobre el autor.webp" alt="Sobre el autor">
-            <span>Sobre el autor</span>
+            <span>Sobre<br>el autor</span>
           </a>
           <a class="sidebar-btn" href="javascript:void(0)" onclick="mostrarListadoPublicaciones()">
             <img src="imagenes/menu/Listado de publicaciones.webp" alt="Listado de publicaciones">
@@ -2265,9 +2313,9 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
     if (existing) { existing.remove(); return; }
     const ov = document.createElement('div');
     ov.id = 'overlay-contacto-autor';
-    ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(10px);';
+    ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:9999;display:flex;align-items:center;justify-content:center;padding:0;backdrop-filter:blur(10px);';
     ov.innerHTML = `
-      <div style="background:#2a3038;border:1px solid #999999;border-radius:10px;padding:1.5rem 2rem;width:100%;max-width:300px;text-align:center;font-family:'Saira',sans-serif;">
+      <div style="background:#2a3038;border:1px solid #999999;border-radius:10px;padding:1.5rem 2rem;width:calc(100% - 2rem);max-width:300px;text-align:center;font-family:'Saira',sans-serif;flex-shrink:0;margin:auto;">
         <img src="imagenes/menu/Logotipo de editor.jpeg" alt="Logotipo" style="width:160px;height:auto;border-radius:10px;border:1px solid #999999;margin-bottom:1rem;display:block;margin-left:auto;margin-right:auto;">
         <div style="font-size:1rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.8rem;color:var(--text);">Contacto</div>
         <div style="font-size:0.9rem;font-weight:600;color:#38bdf8;margin-bottom:0.6rem;">Jacinto Javier Fernández Herrera</div>
@@ -2295,6 +2343,108 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
 
 })();
 
+// ── VER MUESTRAS: panel se ajusta a la imagen, sin espacios ─────────────────
+(function() {
+  function _fixMuestras(ov) {
+    const panel = ov.querySelector('.objeto-detail');
+    if (!panel) return;
+    // Panel: alto automático (no fijo 88vh)
+    panel.style.setProperty('height', 'auto', 'important');
+    panel.style.setProperty('max-height', '92vh', 'important');
+    // Contenedor imagen: no flex-centrar, dejar que la imagen defina el tamaño
+    const wrap = panel.querySelector('div:last-child');
+    if (wrap) {
+      wrap.style.setProperty('display', 'block', 'important');
+      wrap.style.setProperty('flex', 'none', 'important');
+      wrap.style.setProperty('background', '#1a1a1a', 'important');
+    }
+    // Imagen: ancho 100%, alto automático
+    const img = panel.querySelector('div:last-child > img');
+    if (img) {
+      img.style.setProperty('display', 'block', 'important');
+      img.style.setProperty('width', '100%', 'important');
+      img.style.setProperty('height', 'auto', 'important');
+      img.style.setProperty('max-width', '100%', 'important');
+      img.style.setProperty('max-height', 'none', 'important');
+    }
+  }
+
+  new MutationObserver((mutations) => {
+    for (const m of mutations) {
+      for (const node of m.addedNodes) {
+        if (node.id === 'overlay-muestras') {
+          setTimeout(() => _fixMuestras(node), 30);
+          const panel = node.querySelector('.objeto-detail');
+          if (panel) {
+            new MutationObserver(() => setTimeout(() => _fixMuestras(node), 30))
+              .observe(panel, { childList: true });
+          }
+        }
+      }
+    }
+  }).observe(document.body, { childList: true });
+})();
+
+// ── RUEDA DEL RATÓN: capture para evitar doble disparo ──────────────────────
+(function() {
+  let _wheelThrottle = false;
+
+  function _getEstadoGrids() {
+    try { return typeof estadoGrids !== 'undefined' ? estadoGrids : {}; } catch(e) { return {}; }
+  }
+
+  document.addEventListener('wheel', function(e) {
+    // Si overlay de muestras está visible → no interceptar nada
+    const ovMuestras = document.getElementById('overlay-muestras');
+    if (ovMuestras && ovMuestras.style.opacity !== '0' && ovMuestras.style.pointerEvents !== 'none') return;
+
+    // Fichas de publicación
+    if (window._pubActual) {
+      const pubPanel = document.getElementById('panel-publicaciones');
+      if (pubPanel && pubPanel.classList.contains('active')) {
+        e.preventDefault(); e.stopPropagation();
+        if (!_wheelThrottle) {
+          _wheelThrottle = true;
+          typeof _pubNavegar === 'function' && _pubNavegar(e.deltaY > 0 ? 1 : -1);
+          setTimeout(() => { _wheelThrottle = false; }, 350);
+        }
+        return;
+      }
+    }
+
+    // Juegos primero (verificación DOM real para evitar residuos de estadoGrids)
+    const panelActivo = document.querySelector('.contenedor-grande--curso.active');
+    if (panelActivo && panelActivo.querySelector('.ficha-actividades--juegos')) {
+      e.preventDefault(); e.stopPropagation();
+      if (!_wheelThrottle) {
+        _wheelThrottle = true;
+        const cursoId = panelActivo.id.replace('panel-', '');
+        const ORDEN_J = ['2eso','3eso','4eso','1bach','2bachF','2bachQ'];
+        const idx = ORDEN_J.indexOf(cursoId);
+        const dest = e.deltaY > 0 ? ORDEN_J[idx + 1] : ORDEN_J[idx - 1];
+        if (dest) { window._suprimirAnimPanel = true; window.openJuegos && openJuegos(dest); setTimeout(() => { window._suprimirAnimPanel = false; }, 50); }
+        setTimeout(() => { _wheelThrottle = false; }, 350);
+      }
+      return;
+    }
+
+    // Sala de vídeos (solo si no hay juegos)
+    if (panelActivo && panelActivo.querySelector('.ficha-actividades--video')) {
+      e.preventDefault(); e.stopPropagation();
+      if (!_wheelThrottle) {
+        _wheelThrottle = true;
+        const cursoId = panelActivo.id.replace('panel-', '');
+        const ORDEN_V = ['2eso','3eso','4eso','1bach','2bachF','2bachQ'];
+        const idx = ORDEN_V.indexOf(cursoId);
+        const dest = e.deltaY > 0 ? ORDEN_V[idx + 1] : ORDEN_V[idx - 1];
+        if (dest) { window._suprimirAnimPanel = true; window.mostrarVideoTemario && mostrarVideoTemario(dest); setTimeout(() => { window._suprimirAnimPanel = false; }, 50); }
+        setTimeout(() => { _wheelThrottle = false; }, 350);
+      }
+      return;
+    }
+  }, { passive: false, capture: true });
+})();
+
 // ── SWIPE PARA PAGINACIÓN ──────────────────────────────────────────────────
 (function() {
   let _swipeX = 0, _swipeY = 0;
@@ -2312,6 +2462,14 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
     if (Math.abs(dy) > Math.abs(dx)) return; // swipe vertical, ignorar
 
     const dir = dx < 0 ? 1 : -1; // izq→siguiente, der→anterior
+
+    // 0. Overlay muestras abierto → navegar imágenes
+    const ovMuestras = document.getElementById('overlay-muestras');
+    if (ovMuestras && ovMuestras.style.opacity !== '0' && ovMuestras.style.pointerEvents !== 'none') {
+      if (dir === 1) { window._muestrasIdx = (window._muestrasIdx || 0) + 1; window._muestrasRender && _muestrasRender(); }
+      else           { window._muestrasIdx = Math.max(0, (window._muestrasIdx || 0) - 1); window._muestrasRender && _muestrasRender(); }
+      return;
+    }
 
     // 1. Detalle de objeto abierto
     const objOverlay = document.getElementById('objeto-detail-overlay');

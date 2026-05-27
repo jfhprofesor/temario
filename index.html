@@ -1416,6 +1416,20 @@ main { position:relative; z-index:10; padding:0; max-width:1300px; margin:0 auto
   });
 })();
 
+// ── Patch mostrarJuegos: renombrar "Juegos" → "Juegos extra" ─────────────────
+(function() {
+  const _orig = window.mostrarJuegos;
+  if (!_orig) return;
+  window.mostrarJuegos = function() {
+    _orig.apply(this, arguments);
+    setTimeout(() => {
+      document.querySelectorAll('.unidad-ficha-dentro .unidad-numero-texto1').forEach(el => {
+        if (el.textContent.trim() === 'Juegos') el.textContent = 'Juegos extra';
+      });
+    }, 10);
+  };
+})();
+
 // ── Patch mostrarAutor: añadir botón Contacto junto al PayPal ────────────────
 (function() {
   const _origMostrarAutor = window.mostrarAutor;
