@@ -667,6 +667,8 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 
 /* ── VIDEO OVERLAY ── */
 .video-overlay { position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.92); display:flex; align-items:flex-start; justify-content:center; flex-direction:column; gap:0; }
+/* Móvil: el overlay se limita al objeto-detail (el JS ya lo posiciona) */
+#video-overlay { background:transparent !important; }
 .video-overlay-panel { display:flex; flex-direction:column; gap:0; overflow:hidden; background:transparent; width:100%; }
 #video-player { flex:1; width:100%; display:block; }
 .video-overlay-bar { display:flex; align-items:center; height:40px; padding:8px 10px 8px 16px; background:rgba(56,189,248,0.08); border:1px solid #999999; border-bottom:none; border-radius:10px 10px 0 0; box-sizing:border-box; width:100%; }
@@ -691,6 +693,7 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 /* Solo actúa sobre la vista con imagen a la izquierda (flex:0 0 280px en primer div) */
 /* Vistas internas pub (autor, listado, versiones): margin 0, padding 5px */
 #panel-publicaciones .publicaciones-grid[style*="flex-direction"] { margin:0 !important; padding:10px !important; }
+#panel-publicaciones .publicaciones-grid[style*="flex-direction"]:not([data-vista="autor"]) { padding:20px !important; }
 #panel-publicaciones .publicaciones-grid[style*="flex-direction"] .publicacion-ficha { min-height:0 !important; height:auto !important; }
 #panel-publicaciones .publicaciones-grid[style*="flex-direction"] .pub-descripcion { padding-top:2px !important; }
 /* Ocultar div de botones Amazon en fichas móvil */
@@ -775,6 +778,8 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 }
 
 /* ── VISTA SOBRE EL AUTOR: párrafos con separación y texto justificado ── */
+#panel-publicaciones .publicaciones-grid[data-vista="autor"] [style*="color:var(--text)"],
+#panel-publicaciones .publicaciones-grid[data-vista="autor"] [style*="color: var(--text)"] { padding-right:10px !important; padding-bottom:10px !important; }
 #panel-publicaciones .publicaciones-grid[data-vista="autor"] p {
   margin-bottom:0.8em !important;
   text-align:justify !important;
