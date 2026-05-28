@@ -892,6 +892,14 @@ main { position:relative; z-index:10; padding:0; max-width:1300px; margin:0 auto
 }
 </style>
 <script src="sistema/objetos-data.js"></script>
+<script>
+// Cambiar extensión B de webp a png en EXTENSION_MAP (los - B siguen siendo PNG)
+setTimeout(function() {
+  if (typeof EXTENSION_MAP !== 'undefined') {
+    Object.keys(EXTENSION_MAP).forEach(k => { if (EXTENSION_MAP[k]['B']) EXTENSION_MAP[k]['B'] = 'png'; });
+  }
+}, 0);
+</script>
 </head>
 <body>
 <div class="pin-overlay" id="pinOverlay">
