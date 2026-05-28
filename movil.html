@@ -513,6 +513,8 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 [id^="grid-"] > div[style*="flex-direction: row"]:has(.ficha-actividades--juegos) { flex-direction:column !important; align-items:stretch !important; height:auto !important; }
 [id^="grid-"] > div[style*="flex-direction: row"]:has(.ficha-actividades--juegos) > .unidad-dentro-iconos { height:auto !important; }
 [id^="grid-"] > div[style*="flex-direction: row"]:has(.ficha-actividades--juegos) > .unidad-imagen { order:2; width:100% !important; height:auto !important; margin:0 !important; }
+#grid-2eso > div[style*="flex-direction: row"]:has(.ficha-actividades--juegos) > .unidad-imagen,
+#grid-3eso > div[style*="flex-direction: row"]:has(.ficha-actividades--juegos) > .unidad-imagen { margin-bottom:0 !important; }
 /* subRowWrapper (6 iconos) → order 2 */
 .unidad-dentro-iconos:has(.ficha-actividades--video) > div { order:2; }
 
@@ -681,6 +683,9 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 
 /* ── VISTA FICHA PUBLICACIÓN (abrirFichaPublicacion: flex-direction:row con imagen + texto) ── */
 /* Solo actúa sobre la vista con imagen a la izquierda (flex:0 0 280px en primer div) */
+/* Vistas internas pub (autor, listado, versiones): margin 0, padding 5px */
+#panel-publicaciones .publicaciones-grid[style*="flex-direction"] { margin:0 !important; padding:5px !important; }
+
 #panel-publicaciones .publicaciones-grid[style*="flex-direction: row"]:not([data-vista="autor"]) {
   flex-direction:column !important;
   gap:0.8rem !important;
@@ -2391,6 +2396,20 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       }
     }
   }).observe(document.body, { childList: true });
+})();
+
+// ── PUBLICACIONES: salto de línea en título "Ingeniosas..." ─────────────────
+(function() {
+  function _fixTituloIngeniosas() {
+    document.querySelectorAll('.publicacion-titulo').forEach(el => {
+      if (el.innerHTML.includes('(1º y 2º ESO)') && !el.innerHTML.includes('<br>')) {
+        el.innerHTML = el.innerHTML.replace('(1º y 2º ESO)', '<br>(1º y 2º ESO)');
+      }
+    });
+  }
+  const grid = document.querySelector('.contenedor-grande--publicaciones');
+  if (grid) new MutationObserver(_fixTituloIngeniosas).observe(grid, { childList: true, subtree: true });
+  _fixTituloIngeniosas();
 })();
 
 // ── RUEDA DEL RATÓN: capture para evitar doble disparo ──────────────────────
