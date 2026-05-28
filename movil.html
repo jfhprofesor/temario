@@ -511,6 +511,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 [id^="grid-"] > div[style*="flex-direction: row"] > .unidad-imagen { order:3; }
 /* Juegos: layout en columna (grid arriba, vídeo abajo) */
 [id^="grid-"] > div[style*="flex-direction: row"]:has(.ficha-actividades--juegos) { flex-direction:column !important; align-items:stretch !important; height:auto !important; max-height:none !important; overflow:visible !important; }
+[id^="grid-"] > div[style*="height: 100%"]:has(.ficha-actividades--juegos) { height:auto !important; }
 [id^="grid-"] > div[style*="flex-direction: row"]:has(.ficha-actividades--juegos) > .unidad-dentro-iconos { height:auto !important; }
 [id^="grid-"] > div[style*="flex-direction: row"]:has(.ficha-actividades--juegos) > .unidad-imagen { order:2; width:100% !important; height:auto !important; margin:0 !important; }
 #grid-2eso > div[style*="flex-direction: row"]:has(.ficha-actividades--juegos) > .unidad-imagen,
@@ -522,7 +523,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 /* Sala de vídeos: quitar padding-top:10px del div raíz */
 [id^="grid-"] > div[style*="padding-top: 10px"]:has(.ficha-actividades--video) { padding-top:0 !important; }
 /* Sala de vídeos: padding sup/inf 5px en contenedor vídeo */
-[id^="grid-"] > div:has(.ficha-actividades--video) > .unidad-imagen { padding:5px 10px !important; }
+[id^="grid-"] > div:has(.ficha-actividades--video) > .unidad-imagen { padding:3px 10px !important; }
 
 .video-sala-row { display:flex; flex-direction:row; align-items:center; justify-content:center; width:100%; gap:4px; padding:0 4px; box-sizing:border-box; order:3; }
 .video-sala-row .unidad-imagen { flex:0 0 auto !important; width:auto !important; max-width:calc(100vw - 10px) !important; height:auto !important; padding:0 !important; margin:0 !important; }
@@ -901,14 +902,6 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
 }
 </style>
 <script src="sistema/objetos-data.js"></script>
-<script>
-// Cambiar extensión B de webp a png en EXTENSION_MAP (los - B siguen siendo PNG)
-setTimeout(function() {
-  if (typeof EXTENSION_MAP !== 'undefined') {
-    Object.keys(EXTENSION_MAP).forEach(k => { if (EXTENSION_MAP[k]['B']) EXTENSION_MAP[k]['B'] = 'png'; });
-  }
-}, 0);
-</script>
 </head>
 <body>
 <div class="pin-overlay" id="pinOverlay" style="display:none">
@@ -2438,7 +2431,7 @@ setTimeout(function() {
 // ── BARRA JUEGOS: cambiar etiqueta "Juegos" por "Juegos extra" ───────────────
 (function() {
   function _fixLabelJuegos() {
-    document.querySelectorAll('.barra-interna .control-label').forEach(el => {
+    document.querySelectorAll('.sidebar-unidad-num').forEach(el => {
       if (el.textContent.trim() === 'Juegos') el.textContent = 'Juegos extra';
     });
   }
@@ -2489,6 +2482,35 @@ setTimeout(function() {
 
   new MutationObserver(_fixAllGrids).observe(document.body, { childList: true, subtree: true });
   _fixAllGrids();
+})();
+
+// ── JUEGOS: quitar height:100% del div raíz para evitar solapamiento ────────
+(function() {
+  function _fixJuegosLayout() {
+    document.querySelectorAll('[id^="grid-"]').forEach(grid => {
+      const div = grid.querySelector(':scope > div[style*="flex-direction: row"]');
+      if (div && div.querySelector('.ficha-actividades--juegos')) {
+        div.style.removeProperty('height');
+        div.style.removeProperty('max-height');
+      }
+    });
+  }
+  new MutationObserver(_fixJuegosLayout).observe(document.body, { childList: true, subtree: true });
+  _fixJuegosLayout();
+})();
+
+// ── OBJETOS: forzar extensión png para imagen - B ────────────────────────────
+(function() {
+  const _origAbrirObjeto = window.abrirObjetoDetalle;
+  if (!_origAbrirObjeto) return;
+  window.abrirObjetoDetalle = function(obj) {
+    // Parchear EXTENSION_MAP para este objeto: B → png
+    if (typeof EXTENSION_MAP !== 'undefined') {
+      const key = obj.tema + '|' + obj.objeto;
+      if (EXTENSION_MAP[key]) EXTENSION_MAP[key]['B'] = 'png';
+    }
+    _origAbrirObjeto.apply(this, arguments);
+  };
 })();
 
 // ── RUEDA DEL RATÓN: capture para evitar doble disparo ──────────────────────
