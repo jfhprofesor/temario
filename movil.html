@@ -2459,6 +2459,38 @@ setTimeout(function() {
   _fixAmazonBtn();
 })();
 
+// ── GRID UNIDADES: compactar fichas en fila 1, ocultar fila 2 si vacía ────────
+(function() {
+  function _fixGridUnidad(fa) {
+    if (!fa || !fa.classList.contains('ficha-actividades--unidad')) return;
+    const btns = Array.from(fa.children).filter(el => el.tagName === 'BUTTON');
+    if (btns.length === 0) return;
+    // Recoger posiciones actuales por columna lógica (1,2,3)
+    // Reasignar: btn[0]→col1/fila1, btn[1]→col2/fila1, btn[2]→col3/fila1
+    // Si hay más botones, van a fila 2
+    btns.forEach((btn, i) => {
+      const col = (i % 3) + 1;
+      const row = Math.floor(i / 3) + 1;
+      btn.style.gridColumn = String(col);
+      btn.style.gridRow = String(row);
+    });
+    // Ocultar fila 2 si solo hay 1 fila de botones
+    const maxRow = Math.ceil(btns.length / 3);
+    if (maxRow <= 1) {
+      fa.style.setProperty('grid-template-rows', '1fr', 'important');
+    } else {
+      fa.style.removeProperty('grid-template-rows');
+    }
+  }
+
+  function _fixAllGrids() {
+    document.querySelectorAll('.ficha-actividades--unidad').forEach(_fixGridUnidad);
+  }
+
+  new MutationObserver(_fixAllGrids).observe(document.body, { childList: true, subtree: true });
+  _fixAllGrids();
+})();
+
 // ── RUEDA DEL RATÓN: capture para evitar doble disparo ──────────────────────
 (function() {
   let _wheelThrottle = false;
