@@ -523,7 +523,8 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row .btn
 body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { justify-content:center !important; }
 
 /* 6 iconos sala de vídeos: grid 3x2 */
-.ficha-actividades--video {
+.ficha-actividades--video { display:none !important; }
+.ficha-actividades--video-DISABLED {
   display:grid !important;
   grid-template-columns:repeat(3,1fr) !important;
   grid-auto-rows:1fr !important;
