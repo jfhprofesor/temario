@@ -359,7 +359,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 .tema-rectangle { width:80px; height:100px; border-radius:0; border:none; position:relative; transition:transform 0.3s ease; background:transparent; overflow:hidden; }
 .tema-rectangle img { width:100%; height:100%; object-fit:cover; }
 .unidad-numero-texto1 { font-family:'Saira',sans-serif; font-size:0.75rem; font-weight:600; color:var(--accent); letter-spacing:-0.02em; text-align:center; padding-top:0; margin-top:10px; margin-bottom:1px; width:100%; height:20px; overflow:hidden; display:flex; align-items:center; justify-content:center; line-height:1.2; white-space:nowrap; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
-.unidad-nombre-texto2 { font-size:0.7rem; font-weight:500; color:var(--text); text-align:center; line-height:1.1; font-family:'Roboto Condensed',sans-serif; margin-top:0; width:100%; height:28px; overflow:hidden; display:flex; align-items:flex-start; justify-content:center; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
+.unidad-nombre-texto2 { font-size:0.7rem; font-weight:500; color:var(--text); text-align:center; line-height:1.1; font-family:'Roboto Condensed',sans-serif; margin-top:0; width:100%; height:26px; overflow:hidden; display:flex; align-items:flex-start; justify-content:center; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
 .unidad-ficha.selected .unidad-icono { box-shadow:inset 0 0 0 5px #38bdf8,0 0 16px rgba(255,255,255,0.8); }
 .unidad-ficha.selected .unidad-numero-texto1 { color:var(--accent); font-size:0.85rem; }
 .unidad-ficha.selected .unidad-nombre-texto2 { font-weight:700; font-size:0.8rem; }
@@ -510,7 +510,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 /* videoDiv (unidad-imagen) → order 3 */
 [id^="grid-"] > div[style*="flex-direction: row"] > .unidad-imagen { order:3; }
 /* Juegos: layout en columna (grid arriba, vídeo abajo) */
-[id^="grid-"] > div[style*="flex-direction: row"]:has(.ficha-actividades--juegos) { flex-direction:column !important; align-items:stretch !important; height:auto !important; }
+[id^="grid-"] > div[style*="flex-direction: row"]:has(.ficha-actividades--juegos) { flex-direction:column !important; align-items:stretch !important; height:auto !important; max-height:none !important; overflow:visible !important; }
 [id^="grid-"] > div[style*="flex-direction: row"]:has(.ficha-actividades--juegos) > .unidad-dentro-iconos { height:auto !important; }
 [id^="grid-"] > div[style*="flex-direction: row"]:has(.ficha-actividades--juegos) > .unidad-imagen { order:2; width:100% !important; height:auto !important; margin:0 !important; }
 #grid-2eso > div[style*="flex-direction: row"]:has(.ficha-actividades--juegos) > .unidad-imagen,
@@ -521,6 +521,8 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 /* Fila video+botones: contenedor relativo */
 /* Sala de vídeos: quitar padding-top:10px del div raíz */
 [id^="grid-"] > div[style*="padding-top: 10px"]:has(.ficha-actividades--video) { padding-top:0 !important; }
+/* Sala de vídeos: padding sup/inf 5px en contenedor vídeo */
+[id^="grid-"] > div:has(.ficha-actividades--video) > .unidad-imagen { padding:5px 10px !important; }
 
 .video-sala-row { display:flex; flex-direction:row; align-items:center; justify-content:center; width:100%; gap:4px; padding:0 4px; box-sizing:border-box; order:3; }
 .video-sala-row .unidad-imagen { flex:0 0 auto !important; width:auto !important; max-width:calc(100vw - 10px) !important; height:auto !important; padding:0 !important; margin:0 !important; }
@@ -585,7 +587,7 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 #panel-publicaciones .pub-listado-grupo > div:first-child { margin-bottom:0 !important; letter-spacing:0.06em; text-transform:uppercase; cursor:default; flex-shrink:0; }
 .pub-listado-nombre { font-family:'Roboto Condensed',sans-serif; font-size:0.88rem; color:#ffffff; font-weight:500; cursor:pointer; text-decoration:none; display:block; padding:4px 0; overflow:hidden; }
 .pub-listado-meta { font-family:'Roboto Condensed',sans-serif; font-size:0.78rem; color:var(--muted); padding:4px 0; display:block; overflow:hidden; }
-.pub-listado-item { padding:3px 0 3px 20px; display:flex; align-items:center; gap:0; }
+.pub-listado-item { padding:2px 0 2px 20px; display:flex; align-items:center; gap:0; }
 .pub-listado-item-chevron { color:var(--accent); font-size:1rem; font-family:'Saira',sans-serif; font-weight:700; flex-shrink:0; width:20px; }
 
 /* ── MODAL ── */
@@ -689,8 +691,15 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 /* Vistas internas pub (autor, listado, versiones): margin 0, padding 5px */
 #panel-publicaciones .publicaciones-grid[style*="flex-direction"] { margin:0 !important; padding:10px !important; }
 #panel-publicaciones .publicaciones-grid[style*="flex-direction"] .publicacion-ficha { min-height:0 !important; height:auto !important; }
-#panel-publicaciones .publicaciones-grid[style*="flex-direction"] .pub-descripcion { padding-top:4px !important; }
-#panel-publicaciones .publicaciones-grid[style*="flex-direction"] li { margin-bottom:1px !important; }
+#panel-publicaciones .publicaciones-grid[style*="flex-direction"] .pub-descripcion { padding-top:2px !important; }
+/* Ocultar div de botones Amazon en fichas móvil */
+#panel-publicaciones .publicaciones-grid[style*="flex-direction: row"]:not([data-vista="autor"]) > div:last-child > div:last-child { display:none !important; }
+/* Botón Amazon: "Ver en" en primera línea, "Amazon" en segunda */
+.ancho-pub span { white-space:pre-line !important; }
+#panel-publicaciones .publicaciones-grid[style*="flex-direction"] li { margin-bottom:3px !important; }
+/* Versiones web: margen inferior títulos 2px */
+#panel-publicaciones .publicaciones-grid[style*="flex-direction"] div[style*="margin-bottom:0.2rem"],
+#panel-publicaciones .publicaciones-grid[style*="flex-direction"] div[style*="margin-bottom: 0.2rem"] { margin-bottom:2px !important; }
 
 #panel-publicaciones .publicaciones-grid[style*="flex-direction: row"]:not([data-vista="autor"]) {
   flex-direction:column !important;
@@ -2424,6 +2433,30 @@ setTimeout(function() {
   const grid = document.querySelector('.contenedor-grande--publicaciones');
   if (grid) new MutationObserver(_fixTituloIngeniosas).observe(grid, { childList: true, subtree: true });
   _fixTituloIngeniosas();
+})();
+
+// ── BARRA JUEGOS: cambiar etiqueta "Juegos" por "Juegos extra" ───────────────
+(function() {
+  function _fixLabelJuegos() {
+    document.querySelectorAll('.barra-interna .control-label').forEach(el => {
+      if (el.textContent.trim() === 'Juegos') el.textContent = 'Juegos extra';
+    });
+  }
+  new MutationObserver(_fixLabelJuegos).observe(document.body, { childList: true, subtree: true });
+  _fixLabelJuegos();
+})();
+
+// ── BOTÓN AMAZON: "Ver en / Amazon" en dos líneas ───────────────────────────
+(function() {
+  function _fixAmazonBtn() {
+    document.querySelectorAll('.ancho-pub span').forEach(span => {
+      if (span.textContent.trim() === 'Ver en Amazon') {
+        span.textContent = 'Ver en\nAmazon';
+      }
+    });
+  }
+  new MutationObserver(_fixAmazonBtn).observe(document.body, { childList: true, subtree: true });
+  _fixAmazonBtn();
 })();
 
 // ── RUEDA DEL RATÓN: capture para evitar doble disparo ──────────────────────
