@@ -523,7 +523,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 /* Sala de vídeos: quitar padding-top:10px del div raíz */
 [id^="grid-"] > div[style*="padding-top: 10px"]:has(.ficha-actividades--video) { padding-top:0 !important; }
 /* Sala de vídeos: padding sup/inf 5px en contenedor vídeo */
-[id^="grid-"] > div:has(.ficha-actividades--video) > .unidad-imagen { padding:3px 10px !important; }
+[id^="grid-"] > div:has(.ficha-actividades--video) > .unidad-imagen { padding:4px 10px !important; }
 
 .video-sala-row { display:flex; flex-direction:row; align-items:center; justify-content:center; width:100%; gap:4px; padding:0 4px; box-sizing:border-box; order:3; }
 .video-sala-row .unidad-imagen { flex:0 0 auto !important; width:auto !important; max-width:calc(100vw - 10px) !important; height:auto !important; padding:0 !important; margin:0 !important; }
@@ -564,17 +564,17 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .ficha-actividades .objeto-nombre-texto1 { font-size:9px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:3px; }
 .ficha-actividades .objeto-tema-texto2 { font-size:9px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:1px; }
 /* Unidades: respetar --fa-cols del JS para columnas, distribución uniforme */
-.ficha-actividades--unidad { grid-template-columns:repeat(var(--fa-cols,3),1fr) !important; height:140px !important; min-height:140px !important; max-height:140px !important; gap:10px 3px !important; padding:4px 8px !important; align-content:space-evenly !important; align-items:center !important; justify-items:stretch !important; grid-auto-rows:auto !important; }
-.ficha-actividades--unidad .objeto-ficha { padding:0 !important; margin:0 !important; place-self:stretch !important; justify-content:center !important; align-items:center !important; width:100% !important; height:100% !important; min-height:0 !important; display:flex !important; flex-direction:column !important; gap:0 !important; }
+.ficha-actividades--unidad { grid-template-columns:repeat(var(--fa-cols,3),1fr) !important; height:140px !important; min-height:140px !important; max-height:140px !important; gap:10px 3px !important; padding:5px 10px !important; align-content:space-evenly !important; align-items:center !important; justify-items:stretch !important; grid-auto-rows:auto !important; }
+.ficha-actividades--unidad .objeto-ficha { padding:0 !important; margin:0 !important; place-self:stretch !important; justify-content:center !important; align-items:center !important; width:100% !important; height:70px !important; min-height:0 !important; display:flex !important; flex-direction:column !important; gap:0 !important; }
 .ficha-actividades--unidad .objeto-tema-texto2,.ficha-actividades--video .objeto-tema-texto2 { display:none !important; }
-.ficha-actividades--unidad .objeto-nombre-texto1,.ficha-actividades--video .objeto-nombre-texto1 { font-size:0.75rem; margin-top:3px !important; margin-bottom:0 !important; padding-top:0 !important; padding-bottom:0 !important; color:#ffffff !important; }
+.ficha-actividades--unidad .objeto-nombre-texto1,.ficha-actividades--video .objeto-nombre-texto1 { font-size:0.75rem; margin-top:2px !important; margin-bottom:0 !important; padding-top:0 !important; padding-bottom:0 !important; color:#ffffff !important; height:20px !important; overflow:hidden !important; }
 .ficha-actividades--unidad .objeto-tema-texto2 { font-size:0.7rem !important; }
-.ficha-actividades--unidad .objeto-icono { width:38px !important; height:38px !important; min-width:38px !important; min-height:38px !important; margin:0 !important; padding:0 !important; flex-shrink:0 !important; }
-.ficha-actividades--juegos { height:140px !important; min-height:140px !important; max-height:140px !important; gap:10px 3px !important; padding:4px 8px !important; align-content:space-evenly !important; align-items:start !important; grid-auto-rows:1fr !important; }
-.ficha-actividades--juegos .objeto-ficha { padding-top:12px !important; place-self:start center !important; justify-content:flex-start !important; }
-.ficha-actividades--juegos .objeto-icono { width:38px !important; height:38px !important; min-width:38px !important; min-height:38px !important; }
-.ficha-actividades--juegos .objeto-tema-texto2 { font-size:0.75rem; color:var(--accent); font-weight:700; margin-top:3px !important; flex:none !important; height:auto !important; }
-.ficha-actividades--juegos .objeto-nombre-texto1 { font-size:0.7rem; color:#ffffff !important; margin-top:3px !important; flex:none !important; height:auto !important; }
+.ficha-actividades--unidad .objeto-icono { width:40px !important; height:40px !important; min-width:40px !important; min-height:40px !important; margin:0 !important; padding:0 !important; flex-shrink:0 !important; }
+.ficha-actividades--juegos { height:140px !important; min-height:140px !important; max-height:140px !important; gap:10px 3px !important; padding:5px 10px !important; align-content:space-evenly !important; align-items:start !important; grid-auto-rows:1fr !important; }
+.ficha-actividades--juegos .objeto-ficha { padding:0 !important; place-self:stretch !important; justify-content:center !important; align-items:center !important; height:70px !important; display:flex !important; flex-direction:column !important; }
+.ficha-actividades--juegos .objeto-icono { width:40px !important; height:40px !important; min-width:40px !important; min-height:40px !important; }
+.ficha-actividades--juegos .objeto-tema-texto2 { font-size:0.75rem; color:var(--accent); font-weight:700; margin-top:2px !important; flex:none !important; height:15px !important; overflow:hidden !important; }
+.ficha-actividades--juegos .objeto-nombre-texto1 { font-size:0.7rem; color:#ffffff !important; margin-top:2px !important; flex:none !important; height:15px !important; overflow:hidden !important; }
 .ficha-actividades .objeto-ficha.col-filtro-off { opacity:0.35; pointer-events:none; filter:grayscale(100%); }
 /* Animación de entrada en actividades de unidades y juegos */
 .ficha-actividades--unidad .objeto-ficha.anim-entrada,
@@ -695,7 +695,7 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 #panel-publicaciones .publicaciones-grid[style*="flex-direction"] { margin:0 !important; padding:10px !important; }
 #panel-publicaciones .publicaciones-grid[style*="flex-direction"]:not([data-vista="autor"]) { padding:20px !important; }
 #panel-publicaciones .publicaciones-grid[style*="flex-direction"] .publicacion-ficha { min-height:0 !important; height:auto !important; }
-#panel-publicaciones .publicaciones-grid[style*="flex-direction"] .pub-descripcion { padding-top:2px !important; }
+#panel-publicaciones .publicaciones-grid[style*="flex-direction"] .pub-descripcion { padding-top:0 !important; padding-bottom:0 !important; }
 /* Ocultar div de botones Amazon en fichas móvil */
 #panel-publicaciones .publicaciones-grid[style*="flex-direction: row"]:not([data-vista="autor"]) > div:last-child > div:last-child { display:none !important; }
 /* Botón Amazon: "Ver en" en primera línea, "Amazon" en segunda */
@@ -2461,11 +2461,14 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
 (function() {
   function _fixGridUnidad(fa) {
     if (!fa || !fa.classList.contains('ficha-actividades--unidad')) return;
+    // Solo aplicar en 2º ESO
+    const grid = fa.closest('[id^="grid-"]');
+    if (!grid || grid.id !== 'grid-2eso') return;
     const btns = Array.from(fa.children).filter(el => el.tagName === 'BUTTON');
     if (btns.length === 0) return;
-    // Recoger posiciones actuales por columna lógica (1,2,3)
+    // Forzar 3 columnas iguales
+    fa.style.setProperty('--fa-cols', '3');
     // Reasignar: btn[0]→col1/fila1, btn[1]→col2/fila1, btn[2]→col3/fila1
-    // Si hay más botones, van a fila 2
     btns.forEach((btn, i) => {
       const col = (i % 3) + 1;
       const row = Math.floor(i / 3) + 1;
@@ -2552,7 +2555,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       if (!_wheelThrottle) {
         _wheelThrottle = true;
         const cursoId = panelActivo.id.replace('panel-', '');
-        const ORDEN_J = ['2eso','3eso','4eso','1bach','2bachF','2bachQ'];
+        const ORDEN_J = ['2eso','3eso'];
         const idx = ORDEN_J.indexOf(cursoId);
         const dest = e.deltaY > 0 ? ORDEN_J[idx + 1] : ORDEN_J[idx - 1];
         if (dest) { window._suprimirAnimPanel = true; window.openJuegos && openJuegos(dest); setTimeout(() => { window._suprimirAnimPanel = false; }, 50); }
@@ -2635,7 +2638,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
 
       // Modo juegos
       if (cursoActivo.querySelector('.ficha-actividades--juegos')) {
-        const ORDEN_J = ['2eso','3eso','4eso','1bach','2bachF','2bachQ'];
+        const ORDEN_J = ['2eso','3eso'];
         const idxJ = ORDEN_J.indexOf(cursoId);
         const destJ = dir === 1 ? ORDEN_J[idxJ + 1] : ORDEN_J[idxJ - 1];
         if (destJ && window.openJuegos) { openJuegos(destJ); return; }
