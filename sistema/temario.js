@@ -3341,9 +3341,17 @@ function abrirObjetoDetalle(obj) {
     sideSimulacion.style.width = wB + 'px';
   }
 
+  const imagenBFallback = `imagenes/objetos/${obj.tema} - ${obj.objeto} - B.${extB}`;
   const imgATemp = new Image();
-  imgATemp.onerror = () => { imgA.style.display = 'none'; loadedA = true; ajustarAnchosVentana(); };
-  imgATemp.onload  = () => { imgA.src = imagenB; ratioA = imgATemp.naturalWidth / imgATemp.naturalHeight; loadedA = true; ajustarAnchosVentana(); };
+  imgATemp.onerror = () => {
+    if (esDesktop && imgATemp.src !== location.origin + '/' + imagenBFallback && !imgATemp.src.endsWith(imagenBFallback)) {
+      // Fallback a - B si - D no existe
+      imgATemp.src = imagenBFallback;
+    } else {
+      imgA.style.display = 'none'; loadedA = true; ajustarAnchosVentana();
+    }
+  };
+  imgATemp.onload  = () => { imgA.src = imgATemp.src; ratioA = imgATemp.naturalWidth / imgATemp.naturalHeight; loadedA = true; ajustarAnchosVentana(); };
   imgATemp.src = imagenB;
 
   const imgBTemp = new Image();
@@ -3363,38 +3371,30 @@ function abrirObjetoDetalle(obj) {
 
   const esMobil = window.location.pathname.endsWith('movil.html');
 
-  // Limpiar vídeo inline anterior si existía al abrir un objeto nuevo (solo móvil)
-  if (esMobil) {
-    const videoInlineAnterior = sideRealidad ? sideRealidad.querySelector('.objeto-detail-video-inline') : null;
-    if (videoInlineAnterior) { videoInlineAnterior.pause(); videoInlineAnterior.src = ''; videoInlineAnterior.remove(); }
-  }
+  // Limpiar vídeo inline anterior si existía al abrir un objeto nuevo
+  const videoInlineAnterior = sideRealidad ? sideRealidad.querySelector('.objeto-detail-video-inline') : null;
+  if (videoInlineAnterior) { videoInlineAnterior.pause(); videoInlineAnterior.src = ''; videoInlineAnterior.remove(); }
 
   const videoExt = VIDEO_MAP[key];
   if (videoExt) {
     const videoSrc = `imagenes/objetos/${obj.tema} - ${obj.objeto} - V.${videoExt}`;
-    if (esMobil) {
-      // MÓVIL: vídeo inline dentro del lado realidad; el botón "Ver vídeo" lo activa
-      const videoInline = document.createElement('video');
-      videoInline.className = 'objeto-detail-video-inline';
-      videoInline.src = videoSrc;
-      videoInline.controls = true;
-      videoInline.style.display = 'none';
-      sideRealidad.appendChild(videoInline);
+    // AMBAS VERSIONES: vídeo inline dentro del lado realidad
+    const videoInline = document.createElement('video');
+    videoInline.className = 'objeto-detail-video-inline';
+    videoInline.src = videoSrc;
+    videoInline.controls = true;
+    videoInline.style.display = 'none';
+    sideRealidad.appendChild(videoInline);
 
-      videoContainer.innerHTML = `<button id="_btn-ver-video-obj"><img src="imagenes/menu/Video temario.webp" alt="" style="width:20px;height:20px;object-fit:contain;"><span>Ver vídeo</span></button>`;
-      document.getElementById('_btn-ver-video-obj').onclick = function() {
-        imgA.style.display = 'none';
-        videoContainer.style.display = 'none';
-        videoInline.style.display = 'block';
-        videoInline.play();
-        if (titleRealidad) titleRealidad.textContent = `${nombre} - Vídeo en la realidad`;
-      };
-      videoInline.onended = function() { _cerrarVideoInlineObjeto(imgA, videoInline, videoContainer, titleRealidad, nombre); };
-    } else {
-      // DESKTOP: comportamiento original — abre el video-overlay encima
-      const objNombre = obj.objeto || '';
-      videoContainer.innerHTML = `<button onclick="abrirVideo('${videoSrc.replace(/'/g,"\\'")}', '${objNombre.replace(/'/g,"\\'")} - Vídeo en la realidad')"><img src="imagenes/menu/Video temario.webp" alt="" style="width:20px;height:20px;object-fit:contain;"><span>Ver vídeo</span></button>`;
-    }
+    videoContainer.innerHTML = `<button id="_btn-ver-video-obj"><img src="imagenes/menu/Video temario.webp" alt="" style="width:20px;height:20px;object-fit:contain;"><span>Ver vídeo</span></button>`;
+    document.getElementById('_btn-ver-video-obj').onclick = function() {
+      imgA.style.display = 'none';
+      videoContainer.style.display = 'none';
+      videoInline.style.display = 'block';
+      videoInline.play();
+      if (titleRealidad) titleRealidad.textContent = `${nombre} - Vídeo en la realidad`;
+    };
+    videoInline.onended = function() { _cerrarVideoInlineObjeto(imgA, videoInline, videoContainer, titleRealidad, nombre); };
   }
 
   document.getElementById('objeto-detail-overlay').classList.add('open');
