@@ -1782,11 +1782,14 @@ function abrirFichaPublicacion(pub) {
   // Guardar y reemplazar sidebar
   const sidebar = panel.querySelector('.curso-sidebar');
   if (sidebar && !sidebar.dataset.originalHtml) sidebar.dataset.originalHtml = sidebar.innerHTML;
-  if (sidebar) sidebar.innerHTML = `
-    <a class="sidebar-btn" href="javascript:void(0)" onclick="volverAPublicaciones()">
-      <img src="imagenes/menu/Volver.png" alt="Volver a las publicaciones">
-      <span>Volver a las publicaciones</span>
-    </a>`;
+  if (sidebar) {
+    sidebar.innerHTML = `
+      <a class="sidebar-btn" href="javascript:void(0)" onclick="volverAPublicaciones()">
+        <img src="imagenes/menu/Volver.png" alt="Volver a las publicaciones">
+        <span>Volver a las publicaciones</span>
+      </a>`;
+    _animarSidebarPub(sidebar);
+  }
 
   // Contenido: ficha de la publicación en el grid
   const grid = panel.querySelector('.publicaciones-grid');
@@ -1798,8 +1801,10 @@ function abrirFichaPublicacion(pub) {
   grid.style.alignItems = 'flex-start';
   grid.style.justifyContent = '';
   grid.style.gap = '0';
-  grid.style.padding = '1rem 1.5rem';
+  grid.style.padding = '20px';
   grid.style.overflowY = 'auto';
+  grid.classList.remove('slide-down-anim');
+  requestAnimationFrame(() => grid.classList.add('slide-down-anim'));
 
   let nombre = pub.nombre;
   if (nombre.startsWith('Ingeniosas')) {
@@ -2006,11 +2011,14 @@ function mostrarAutor() {
   // Guardar y reemplazar sidebar
   const sidebar = panel.querySelector('.curso-sidebar');
   if (sidebar && !sidebar.dataset.originalHtml) sidebar.dataset.originalHtml = sidebar.innerHTML;
-  if (sidebar) sidebar.innerHTML = `
-    <a class="sidebar-btn" href="javascript:void(0)" onclick="volverAPublicaciones()">
-      <img src="imagenes/menu/Volver.png" alt="Volver a las publicaciones">
-      <span>Volver a las publicaciones</span>
-    </a>`;
+  if (sidebar) {
+    sidebar.innerHTML = `
+      <a class="sidebar-btn" href="javascript:void(0)" onclick="volverAPublicaciones()">
+        <img src="imagenes/menu/Volver.png" alt="Volver a las publicaciones">
+        <span>Volver a las publicaciones</span>
+      </a>`;
+    _animarSidebarPub(sidebar);
+  }
 
   // Contenido: página del autor — foto a la izquierda, textos a la derecha
   const grid = panel.querySelector('.publicaciones-grid');
@@ -2021,8 +2029,10 @@ function mostrarAutor() {
   grid.style.flexDirection = 'row';
   grid.style.alignItems = 'stretch';
   grid.style.gap = '2rem';
-  grid.style.padding = '1rem 1.5rem';
+  grid.style.padding = '20px';
   grid.style.overflowY = 'auto';
+  grid.classList.remove('slide-down-anim');
+  requestAnimationFrame(() => grid.classList.add('slide-down-anim'));
 
   grid.innerHTML = `
     <div style="flex-shrink:0;display:flex;align-items:flex-start;padding-top:0;">
@@ -2052,11 +2062,14 @@ function _publicacionesAbrirVistaInterna(barraLabel, gridHtml) {
   if (barra) barra.innerHTML = `<span class="control-label" style="position:absolute;left:175px;top:50%;transform:translateY(-50%);">${barraLabel}</span>`;
   const sidebar = panel.querySelector('.curso-sidebar');
   if (sidebar && !sidebar.dataset.originalHtml) sidebar.dataset.originalHtml = sidebar.innerHTML;
-  if (sidebar) sidebar.innerHTML = `
-    <a class="sidebar-btn" href="javascript:void(0)" onclick="volverAPublicaciones()">
-      <img src="imagenes/menu/Volver.png" alt="Volver a las publicaciones">
-      <span>Volver a las publicaciones</span>
-    </a>`;
+  if (sidebar) {
+    sidebar.innerHTML = `
+      <a class="sidebar-btn" href="javascript:void(0)" onclick="volverAPublicaciones()">
+        <img src="imagenes/menu/Volver.png" alt="Volver a las publicaciones">
+        <span>Volver a las publicaciones</span>
+      </a>`;
+    _animarSidebarPub(sidebar);
+  }
   const grid = panel.querySelector('.publicaciones-grid');
   if (!grid) return;
   if (!grid.dataset.originalHtml) grid.dataset.originalHtml = grid.innerHTML;
@@ -2065,8 +2078,10 @@ function _publicacionesAbrirVistaInterna(barraLabel, gridHtml) {
   grid.style.flexDirection = 'column';
   grid.style.alignItems = 'stretch';
   grid.style.gap = '0.5rem';
-  grid.style.padding = '1rem 1.5rem';
+  grid.style.padding = '20px';
   grid.style.overflowY = 'auto';
+  grid.classList.remove('slide-down-anim');
+  requestAnimationFrame(() => grid.classList.add('slide-down-anim'));
   grid.innerHTML = gridHtml;
 }
 
@@ -3286,22 +3301,28 @@ function abrirObjetoDetalle(obj) {
   const extB = exts['B'] || 'webp';
   const extC = exts['C'] || 'webp';
 
-  const imagenB = `imagenes/objetos/${obj.tema} - ${obj.objeto} - B.${extB}`;
+  const esDesktop = !window.location.pathname.endsWith('movil.html');
+  const imagenB = esDesktop
+    ? `imagenes/objetos/${obj.tema} - ${obj.objeto} - D.${extB}`
+    : `imagenes/objetos/${obj.tema} - ${obj.objeto} - B.${extB}`;
   const imagenC = `imagenes/objetos/${obj.tema} - ${obj.objeto} - C.${extC}`;
 
   const imgA = document.getElementById('objeto-detail-img-a');
   const imgB = document.getElementById('objeto-detail-img-b');
   const sideRealidad   = document.querySelector('.objeto-detail-side.realidad');
   const sideSimulacion = document.querySelector('.objeto-detail-side.simulacion');
+  const titleRealidad  = sideRealidad ? sideRealidad.querySelector('.objeto-detail-title-text') : null;
+  const titleSimulacion = sideSimulacion ? sideSimulacion.querySelector('.objeto-detail-title-text') : null;
+  const nombre = obj.objeto || '';
+  if (titleRealidad)   titleRealidad.textContent  = `${nombre} - Objeto en la realidad`;
+  if (titleSimulacion) titleSimulacion.textContent = `${nombre} - Objeto en la simulación`;
 
   let ratioA = 1, ratioB = 1.42, loadedA = false, loadedB = false;
 
   function ajustarAnchosVentana() {
     if (!loadedA || !loadedB) return;
-    // Alto disponible para las imágenes = alto ventana - título (aprox 43px)
     const titleH = 43;
     const vh = window.innerHeight * 0.88 - titleH;
-    // Ancho ideal de cada columna según su ratio
     const wA = Math.round(vh * ratioA);
     const wB = Math.round(vh * ratioB);
     sideRealidad.style.width   = wA + 'px';
@@ -3323,22 +3344,72 @@ function abrirObjetoDetalle(obj) {
   };
   imgBTemp.src = imagenC;
 
-  // Botón de vídeo: solo si el objeto tiene entrada en VIDEO_MAP
+  // Botón "Ver vídeo" flotante sobre la imagen
   const videoContainer = document.getElementById('objeto-detail-video');
   videoContainer.innerHTML = '';
+  videoContainer.style.display = '';
+
+  const esMobil = window.location.pathname.endsWith('movil.html');
+
+  // Limpiar vídeo inline anterior si existía al abrir un objeto nuevo (solo móvil)
+  if (esMobil) {
+    const videoInlineAnterior = sideRealidad ? sideRealidad.querySelector('.objeto-detail-video-inline') : null;
+    if (videoInlineAnterior) { videoInlineAnterior.pause(); videoInlineAnterior.src = ''; videoInlineAnterior.remove(); }
+  }
+
   const videoExt = VIDEO_MAP[key];
   if (videoExt) {
     const videoSrc = `imagenes/objetos/${obj.tema} - ${obj.objeto} - V.${videoExt}`;
-    const objNombre = obj.objeto || '';
-    videoContainer.innerHTML = `<button onclick="abrirVideo('${videoSrc}', '${objNombre.replace(/'/g,"\\'")}')"><img src="imagenes/menu/Video temario.webp" alt="" style="width:20px;height:20px;object-fit:contain;"><span>Ver vídeo</span></button>`;
+    if (esMobil) {
+      // MÓVIL: vídeo inline dentro del lado realidad; el botón "Ver vídeo" lo activa
+      const videoInline = document.createElement('video');
+      videoInline.className = 'objeto-detail-video-inline';
+      videoInline.src = videoSrc;
+      videoInline.controls = true;
+      videoInline.style.display = 'none';
+      sideRealidad.appendChild(videoInline);
+
+      videoContainer.innerHTML = `<button id="_btn-ver-video-obj"><img src="imagenes/menu/Video temario.webp" alt="" style="width:20px;height:20px;object-fit:contain;"><span>Ver vídeo</span></button>`;
+      document.getElementById('_btn-ver-video-obj').onclick = function() {
+        imgA.style.display = 'none';
+        videoContainer.style.display = 'none';
+        videoInline.style.display = 'block';
+        videoInline.play();
+        if (titleRealidad) titleRealidad.textContent = `${nombre} - Vídeo en la realidad`;
+      };
+      videoInline.onended = function() { _cerrarVideoInlineObjeto(imgA, videoInline, videoContainer, titleRealidad, nombre); };
+    } else {
+      // DESKTOP: comportamiento original — abre el video-overlay encima
+      const objNombre = obj.objeto || '';
+      videoContainer.innerHTML = `<button onclick="abrirVideo('${videoSrc.replace(/'/g,"\\'")}', '${objNombre.replace(/'/g,"\\'")} - Vídeo en la realidad')"><img src="imagenes/menu/Video temario.webp" alt="" style="width:20px;height:20px;object-fit:contain;"><span>Ver vídeo</span></button>`;
+    }
   }
 
   document.getElementById('objeto-detail-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
+function _animarSidebarPub(sidebar) {
+  const btns = sidebar.querySelectorAll('.sidebar-btn');
+  btns.forEach((btn, i) => {
+    btn.classList.remove('anim-entrada');
+    btn.style.setProperty('--d', i);
+    requestAnimationFrame(() => btn.classList.add('anim-entrada'));
+  });
+}
+
+function _cerrarVideoInlineObjeto(imgA, videoInline, videoContainer, titleRealidad, nombre) {
+  videoInline.pause();
+  videoInline.style.display = 'none';
+  imgA.style.display = '';
+  if (videoContainer) videoContainer.style.display = '';
+  if (titleRealidad) titleRealidad.textContent = `${nombre} - Objeto en la realidad`;
+}
+
 function closeObjeto(e) {
   if (e && e.target !== document.getElementById('objeto-detail-overlay') && !e.target.classList.contains('objeto-detail-close')) return;
+  const videoInline = document.querySelector('.objeto-detail-side.realidad .objeto-detail-video-inline');
+  if (videoInline) { videoInline.pause(); videoInline.src = ''; }
   document.getElementById('objeto-detail-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
@@ -3775,4 +3846,4 @@ function medirCirculos() {
   div.textContent = msg;
 }
 
-// ══════════�
+// ══════════�

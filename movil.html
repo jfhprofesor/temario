@@ -38,6 +38,8 @@
 @keyframes bgShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 @keyframes bgPulse { 0%,100%{opacity:1} 50%{opacity:0.82} }
 @keyframes fadeInUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+@keyframes slideDownFromBar { from{transform:translateY(-100%)} to{transform:translateY(0)} }
+.slide-down-anim { animation:slideDownFromBar 0.35s ease forwards; }
 @keyframes popIn { from{opacity:0} to{opacity:1} }
 @keyframes panelFadeIn { from{opacity:0} to{opacity:1} }
 @keyframes btnActivePulse { 0%{box-shadow:0 0 0 0px currentColor} 50%{box-shadow:0 0 0 5px transparent} 100%{box-shadow:0 0 0 0px transparent} }
@@ -133,6 +135,7 @@ main { position:relative; z-index:10; padding:0; width:100%; margin:0; }
 #panel-publicaciones .barra-interna > .control-group:last-child:not(:first-child) { flex:0 0 auto; justify-content:flex-end; }
 /* Sidebar publicaciones original: normal con iconos y textos */
 #panel-publicaciones .curso-sidebar .sidebar-btn span { display:block; }
+#panel-publicaciones .pub-grid-wrapper { overflow:hidden; flex:1; min-height:0; }
 /* Sidebar publicaciones cuando JS lo reemplaza con volver: compacto, centrado */
 /* sidebar publicaciones: controlado por JS (_inyectarSidebarPublicaciones) */
 .control-group { display:flex; align-items:center; gap:0.4rem; position:static; transform:none; flex-wrap:wrap; }
@@ -358,8 +361,8 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 .unidad-icono img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease; }
 .tema-rectangle { width:80px; height:100px; border-radius:0; border:none; position:relative; transition:transform 0.3s ease; background:transparent; overflow:hidden; }
 .tema-rectangle img { width:100%; height:100%; object-fit:cover; }
-.unidad-numero-texto1 { font-family:'Saira',sans-serif; font-size:0.75rem; font-weight:600; color:var(--accent); letter-spacing:-0.02em; text-align:center; padding-top:0; margin-top:10px; margin-bottom:1px; width:100%; height:20px; overflow:hidden; display:flex; align-items:center; justify-content:center; line-height:1.2; white-space:nowrap; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
-.unidad-nombre-texto2 { font-size:0.7rem; font-weight:500; color:var(--text); text-align:center; line-height:1.1; font-family:'Roboto Condensed',sans-serif; margin-top:0; width:100%; height:26px; overflow:hidden; display:flex; align-items:flex-start; justify-content:center; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
+.unidad-numero-texto1 { font-family:'Saira',sans-serif; font-size:0.75rem; font-weight:600; color:var(--accent); letter-spacing:-0.02em; text-align:center; padding-top:0; margin-top:8px; margin-bottom:1px; width:100%; height:auto; overflow:hidden; display:flex; align-items:center; justify-content:center; line-height:1.2; white-space:nowrap; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
+.unidad-nombre-texto2 { font-size:0.7rem; font-weight:500; color:var(--text); text-align:center; line-height:1.1; font-family:'Roboto Condensed',sans-serif; margin-top:3px; width:100%; height:30px; overflow:hidden; display:flex; align-items:flex-start; justify-content:center; text-shadow:-0.5px -0.5px 0 #000,0.5px -0.5px 0 #000,-0.5px 0.5px 0 #000,0.5px 0.5px 0 #000; }
 .unidad-ficha.selected .unidad-icono { box-shadow:inset 0 0 0 5px #38bdf8,0 0 16px rgba(255,255,255,0.8); }
 .unidad-ficha.selected .unidad-numero-texto1 { color:var(--accent); font-size:0.85rem; }
 .unidad-ficha.selected .unidad-nombre-texto2 { font-weight:700; font-size:0.8rem; }
@@ -667,6 +670,10 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .objeto-detail { max-height:98vh !important; height:90vh !important; }
 .objeto-detail-video { position:absolute; bottom:0.6rem; left:50%; transform:translateX(-50%); z-index:6; white-space:nowrap; }
 .objeto-detail-video button { display:flex; align-items:center; gap:0.4rem; padding:0 6px; background:#000000; border:1px solid #999999; border-radius:6px; color:var(--text); cursor:pointer; font-size:0.78rem; font-weight:500; transition:all 0.2s; font-family:'Saira',sans-serif; height:26px; white-space:nowrap; justify-content:flex-start; }
+/* Vídeo inline dentro del lado realidad */
+.objeto-detail-video-inline { display:none; width:100%; flex:1; min-height:0; background:#000000; object-fit:contain; border:none; }
+/* Botón toggle imagen/vídeo en la barra de realidad */
+.objeto-video-toggle { flex-shrink:0; width:28px; height:28px; border-radius:50%; background:#000000; border:1px solid #999999; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; margin-right:4px; }
 
 /* ── VIDEO OVERLAY ── */
 .video-overlay { position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.92); display:flex; align-items:flex-start; justify-content:center; flex-direction:column; gap:0; }
@@ -697,6 +704,7 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 /* Vistas internas pub (autor, listado, versiones): margin 0, padding 5px */
 #panel-publicaciones .publicaciones-grid[style*="flex-direction"] { margin:0 !important; padding:10px !important; }
 #panel-publicaciones .publicaciones-grid[style*="flex-direction"]:not([data-vista="autor"]) { padding:20px !important; }
+#panel-publicaciones .publicaciones-grid[data-vista="autor"] { padding:20px !important; }
 #panel-publicaciones .publicaciones-grid[style*="flex-direction"] .publicacion-ficha { min-height:0 !important; height:auto !important; }
 #panel-publicaciones .publicaciones-grid[style*="flex-direction"] .pub-descripcion { padding-top:0 !important; padding-bottom:0 !important; }
 /* Quitar padding del div padre de pub-descripcion */
@@ -716,7 +724,7 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 #panel-publicaciones .publicaciones-grid[style*="flex-direction: row"]:not([data-vista="autor"]) {
   flex-direction:column !important;
   gap:0.8rem !important;
-  padding:0.8rem !important;
+  padding:20px !important;
   overflow-y:auto !important;
 }
 /* Todo hijo directo: resetear posicionamiento absoluto del JS */
@@ -898,6 +906,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
 .unidad-ficha.anim-entrada,.publicacion-ficha.anim-entrada,.objeto-ficha.anim-entrada { opacity:0; animation:fadeInUp 0.35s ease forwards; animation-delay:calc(var(--d,0)*0.045s); }
 .anim-flip { display:inline-block; animation:flipNum 0.3s ease; }
 .sidebar-btn.anim-entrada { opacity:1; animation:none; }
+#panel-publicaciones .sidebar-btn.anim-entrada { opacity:0; animation:fadeInUp 0.35s ease forwards; animation-delay:calc(var(--d,0)*0.07s); }
 
 /* ── AJUSTE PANTALLAS MUY PEQUEÑAS ── */
 @media(max-width:380px) {
@@ -1013,7 +1022,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
             <div class="sidebar-btn sidebar-btn-placeholder"></div>
           </div>
         </div>
-        <div class="publicaciones-grid" id="grid-publicaciones"></div>
+        <div class="pub-grid-wrapper"><div class="publicaciones-grid" id="grid-publicaciones"></div></div>
       </div>
   </div>
   <div class="contenedor-grande contenedor-grande--curso" id="panel-2eso">
