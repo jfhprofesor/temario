@@ -671,7 +671,7 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .objeto-detail-video { position:absolute; bottom:0.6rem; left:50%; transform:translateX(-50%); z-index:6; white-space:nowrap; }
 .objeto-detail-video button { display:flex; align-items:center; gap:0.4rem; padding:0 6px; background:#000000; border:1px solid #999999; border-radius:6px; color:var(--text); cursor:pointer; font-size:0.78rem; font-weight:500; transition:all 0.2s; font-family:'Saira',sans-serif; height:26px; white-space:nowrap; justify-content:flex-start; }
 /* Vídeo inline dentro del lado realidad */
-.objeto-detail-video-inline { display:none; width:100%; flex:1; min-height:0; background:#000000; object-fit:contain; border:none; }
+.objeto-detail-video-inline { display:none; width:100%; flex:1; min-height:0; max-height:calc(46vh - 36px); background:#000000; object-fit:contain; border:none; }
 /* Botón toggle imagen/vídeo en la barra de realidad */
 .objeto-video-toggle { flex-shrink:0; width:28px; height:28px; border-radius:50%; background:#000000; border:1px solid #999999; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; margin-right:4px; }
 

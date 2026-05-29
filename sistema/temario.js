@@ -3316,6 +3316,7 @@ function abrirObjetoDetalle(obj) {
 
   const imgA = document.getElementById('objeto-detail-img-a');
   const imgB = document.getElementById('objeto-detail-img-b');
+  imgA.style.display = '';
   const sideRealidad   = document.querySelector('.objeto-detail-side.realidad');
   const sideSimulacion = document.querySelector('.objeto-detail-side.simulacion');
   const titleRealidad  = sideRealidad ? sideRealidad.querySelector('.objeto-detail-title-text') : null;
