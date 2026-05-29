@@ -2829,12 +2829,16 @@ function actualizarUnidadInfo(cursoId) {
   const panelEl = document.getElementById('panel-' + cursoId);
   const temarioGrp = panelEl ? panelEl.querySelector('.barra-interna .control-group [data-sort]')?.closest('.control-group') : null;
 
+  const _esMobil = window.location.pathname.endsWith('movil.html');
+  function _mostrar(el) { if (!el) return; if (_esMobil) { el.style.opacity = '1'; el.style.pointerEvents = ''; } else { el.style.visibility = ''; } }
+  function _ocultar(el) { if (!el) return; if (_esMobil) { el.style.opacity = '0'; el.style.pointerEvents = 'none'; } else { el.style.visibility = 'hidden'; } }
+
   if (typeof estado === 'number') {
     // Dentro de una unidad: mostrar UNIDAD, ocultar PÁGINA del curso y grupo TEMARIO
-    if (cursoPagGrp)     cursoPagGrp.style.visibility    = 'hidden';
-    if (cursoFlechasGrp) cursoFlechasGrp.style.visibility = 'hidden';
-    if (temarioGrp)      temarioGrp.style.visibility     = 'hidden';
-    if (paginaEl)        paginaEl.style.visibility        = 'visible';
+    _ocultar(cursoPagGrp);
+    _ocultar(cursoFlechasGrp);
+    _ocultar(temarioGrp);
+    _mostrar(paginaEl);
     if (infoEl) {
       infoEl.textContent = (estado + 1) + ' / ' + total;
       if (infoEl._flipReady) {
@@ -2845,18 +2849,18 @@ function actualizarUnidadInfo(cursoId) {
         infoEl._flipReady = true;
       }
     }
-    if (flechasEl) flechasEl.style.visibility = 'visible';
-    if (prevBtn) { prevBtn.style.visibility = 'visible'; prevBtn.disabled = (estado === 0); }
-    if (nextBtn) { nextBtn.style.visibility = 'visible'; nextBtn.disabled = (estado === total - 1); }
+    _mostrar(flechasEl);
+    if (prevBtn) { _mostrar(prevBtn); prevBtn.disabled = (estado === 0); }
+    if (nextBtn) { _mostrar(nextBtn); nextBtn.disabled = (estado === total - 1); }
   } else {
     // Vista de temas: mostrar PÁGINA del curso y TEMARIO, ocultar UNIDAD
-    if (cursoPagGrp)     cursoPagGrp.style.visibility    = '';
-    if (cursoFlechasGrp) cursoFlechasGrp.style.visibility = '';
-    if (temarioGrp)      temarioGrp.style.visibility     = '';
-    if (paginaEl)        paginaEl.style.visibility        = 'hidden';
-    if (flechasEl)       flechasEl.style.visibility       = 'hidden';
-    if (prevBtn)         prevBtn.style.visibility          = 'hidden';
-    if (nextBtn)         nextBtn.style.visibility          = 'hidden';
+    _mostrar(cursoPagGrp);
+    _mostrar(cursoFlechasGrp);
+    _mostrar(temarioGrp);
+    _ocultar(paginaEl);
+    _ocultar(flechasEl);
+    _ocultar(prevBtn);
+    _ocultar(nextBtn);
   }
 }
 
