@@ -3315,8 +3315,19 @@ const EXTENSION_MAP = {"Cinética|Fidget spinner":{"A":"webp","B":"webp","C":"we
 // Objetos con vídeo: tema|objeto -> extensión del archivo
 const VIDEO_MAP = {"Laboratorio|Brújula":"mp4","Magnetismo|Levitación magnética":"mp4"};
 
+// Navegación entre objetos en el detalle (móvil)
+window._objetoDetalleListaActual = [];
+window._objetoDetalleIdxActual = 0;
+
+window.objetoDetalleNext = function(e) { e && e.stopPropagation(); const lista = window._objetoDetalleListaActual; const idx = window._objetoDetalleIdxActual; if (idx < lista.length - 1) abrirObjetoDetalle(lista[idx + 1]); };
+window.objetoDetallePrevious = function(e) { e && e.stopPropagation(); const lista = window._objetoDetalleListaActual; const idx = window._objetoDetalleIdxActual; if (idx > 0) abrirObjetoDetalle(lista[idx - 1]); };
+
 function abrirObjetoDetalle(obj) {
   const key = obj.tema + '|' + obj.objeto;
+  // Guardar lista y posición actual para navegación
+  const _listaNav = obtenerObjetosFiltrados();
+  window._objetoDetalleListaActual = _listaNav;
+  window._objetoDetalleIdxActual = _listaNav.findIndex(o => o.tema === obj.tema && o.objeto === obj.objeto);
   const exts = EXTENSION_MAP[key] || {};
   const extB = exts['B'] || 'webp';
   const extC = exts['C'] || 'webp';
