@@ -353,7 +353,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 .temas-grid { display:grid; gap:6px; flex:1; justify-items:center; border:0; padding:0; height:auto; min-height:400px; grid-template-columns:repeat(4,1fr); }
 .unidades-grid { display:grid; column-gap:6px; row-gap:3px; flex:1; justify-items:center; border:0; padding:0; margin:0; grid-template-columns:repeat(4,1fr); grid-auto-rows:auto; }
 .contenedor-grande--publicaciones .publicaciones-grid { border:0; grid-template-columns:repeat(4,1fr); display:grid; column-gap:4px; row-gap:0px; flex:1; justify-items:stretch; align-items:start; padding:6px 4px 4px; margin-top:20px; margin-bottom:20px; align-content:start; overflow:visible; height:auto; max-height:none; }
-.unidad-ficha,.publicacion-ficha { position:relative; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; gap:0; padding:6px 0 0 0; height:165px; min-height:165px; animation:popIn 0.6s 0s both; }
+.unidad-ficha,.publicacion-ficha { position:relative; background:none; border:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; gap:0; padding:6px 0 0 0; height:164px; min-height:164px; animation:popIn 0.6s 0s both; }
 .unidad-icono { width:85px; height:85px; border-radius:50%; border:0; position:relative; background:#000000; box-shadow:inset 0 0 0 1px #999999; padding:0; }
 .unidad-icono img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s ease; }
 .tema-rectangle { width:80px; height:100px; border-radius:0; border:none; position:relative; transition:transform 0.3s ease; background:transparent; overflow:hidden; }
@@ -486,7 +486,7 @@ body .contenedor-grande--curso .barra-interna > .control-group[style*="left:1200
 /* imagenEDiv en UNIDADES NORMALES: va al final (después de actividades), orden normal */
 .unidad-imagen {
   flex:0 0 auto !important; width:100% !important; max-width:calc(100vw - 10px) !important;
-  height:auto !important; margin:0 !important; padding:10px !important;
+  height:auto !important; margin:0 !important; padding:0 10px 10px 10px !important;
   align-self:center !important;
 }
 .unidad-imagen video, .unidad-imagen img { width:100%; height:auto; max-width:100%; max-height:440px; object-fit:contain; border-radius:10px; border:1px solid #999999; display:block; }
@@ -565,13 +565,13 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .ficha-actividades .objeto-tema-texto2 { font-size:9px; white-space:normal; line-height:1.1; flex:1; display:flex; align-items:flex-start; justify-content:center; overflow:hidden; margin-top:1px; }
 /* Unidades: respetar --fa-cols del JS para columnas, distribución uniforme */
 .ficha-actividades--unidad { grid-template-columns:repeat(var(--fa-cols,3),1fr) !important; height:140px !important; min-height:140px !important; max-height:140px !important; gap:10px 3px !important; padding:5px 10px !important; align-content:space-evenly !important; align-items:center !important; justify-items:stretch !important; grid-auto-rows:auto !important; }
-.ficha-actividades--unidad .objeto-ficha { padding:0 !important; margin:0 !important; place-self:stretch !important; justify-content:center !important; align-items:center !important; width:100% !important; height:70px !important; min-height:0 !important; display:flex !important; flex-direction:column !important; gap:0 !important; }
+.ficha-actividades--unidad .objeto-ficha { padding:0 !important; margin:0 !important; place-self:stretch !important; justify-content:center !important; align-items:center !important; width:100% !important; height:65px !important; min-height:0 !important; display:flex !important; flex-direction:column !important; gap:0 !important; }
 .ficha-actividades--unidad .objeto-tema-texto2,.ficha-actividades--video .objeto-tema-texto2 { display:none !important; }
 .ficha-actividades--unidad .objeto-nombre-texto1,.ficha-actividades--video .objeto-nombre-texto1 { font-size:0.75rem; margin-top:2px !important; margin-bottom:0 !important; padding-top:0 !important; padding-bottom:0 !important; color:#ffffff !important; height:20px !important; overflow:hidden !important; }
 .ficha-actividades--unidad .objeto-tema-texto2 { font-size:0.7rem !important; }
 .ficha-actividades--unidad .objeto-icono { width:40px !important; height:40px !important; min-width:40px !important; min-height:40px !important; margin:0 !important; padding:0 !important; flex-shrink:0 !important; }
 .ficha-actividades--juegos { height:140px !important; min-height:140px !important; max-height:140px !important; gap:10px 3px !important; padding:5px 10px !important; align-content:space-evenly !important; align-items:start !important; grid-auto-rows:1fr !important; }
-.ficha-actividades--juegos .objeto-ficha { padding:0 !important; place-self:stretch !important; justify-content:center !important; align-items:center !important; height:70px !important; display:flex !important; flex-direction:column !important; }
+.ficha-actividades--juegos .objeto-ficha { padding:0 !important; place-self:stretch !important; justify-content:center !important; align-items:center !important; height:65px !important; display:flex !important; flex-direction:column !important; }
 .ficha-actividades--juegos .objeto-icono { width:40px !important; height:40px !important; min-width:40px !important; min-height:40px !important; }
 .ficha-actividades--juegos .objeto-tema-texto2 { font-size:0.75rem; color:var(--accent); font-weight:700; margin-top:2px !important; flex:none !important; height:15px !important; overflow:hidden !important; }
 .ficha-actividades--juegos .objeto-nombre-texto1 { font-size:0.7rem; color:#ffffff !important; margin-top:2px !important; flex:none !important; height:15px !important; overflow:hidden !important; }
@@ -2519,6 +2519,80 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
     }
     _origAbrirObjeto.apply(this, arguments);
   };
+})();
+
+// ── UNIDADES/JUEGOS: sacar unidad-imagen del div raíz al curso-layout ───────
+(function() {
+  function _separarVideo(grid) {
+    const divRaiz = grid.querySelector(':scope > div[style*="flex-direction: row"]');
+    if (!divRaiz) return;
+    const hayGrid = divRaiz.querySelector('.ficha-actividades--unidad, .ficha-actividades--juegos');
+    if (!hayGrid) return;
+    const videoDiv = divRaiz.querySelector(':scope > .unidad-imagen');
+    if (!videoDiv || videoDiv._separado) return;
+    videoDiv._separado = true;
+    const layout = grid.closest('.curso-layout');
+    if (!layout) return;
+    // Mover unidad-imagen fuera del div raíz, al curso-layout después del div raíz
+    divRaiz.after(videoDiv);
+  }
+
+  function _fixAll() {
+    document.querySelectorAll('[id^="grid-"]').forEach(_separarVideo);
+  }
+
+  new MutationObserver(_fixAll).observe(document.body, { childList: true, subtree: true });
+  _fixAll();
+})();
+
+// ── UNIDADES/JUEGOS: margen inferior grid para completar 575px ───────────────
+(function() {
+  const TOTAL = 575;
+
+  function _ajustarMargen(grid) {
+    const fa = grid.querySelector('.ficha-actividades--unidad, .ficha-actividades--juegos');
+    const videoDiv = grid.closest('.curso-layout') 
+      ? grid.closest('.curso-layout').querySelector(':scope > .unidad-imagen')
+      : grid.querySelector(':scope > .unidad-imagen');
+    if (!fa || !videoDiv) return;
+
+    const video = videoDiv.querySelector('video, img');
+    if (!video) return;
+
+    function _calcular() {
+      const ancho = videoDiv.offsetWidth || videoDiv.getBoundingClientRect().width;
+      if (!ancho) return;
+      const natW = video.videoWidth || video.naturalWidth || 0;
+      const natH = video.videoHeight || video.naturalHeight || 0;
+      if (!natW || !natH) return;
+      const videoH = Math.round(ancho * natH / natW);
+      const paddingVideo = 20; // padding top+bottom del unidad-imagen
+      const gridH = fa.offsetHeight || 140;
+      const navRow = fa.closest('[id^="grid-"]')?.querySelector('.unidad-nav-row');
+      const navH = navRow ? navRow.offsetHeight : 0;
+      const usado = navH + gridH + videoH + paddingVideo;
+      const margen = Math.max(0, TOTAL - usado);
+      fa.style.marginBottom = margen + 'px';
+    }
+
+    if ((video.videoWidth || video.naturalWidth)) {
+      _calcular();
+    } else {
+      video.addEventListener('loadedmetadata', _calcular, { once: true });
+      video.addEventListener('load', _calcular, { once: true });
+    }
+  }
+
+  function _fixAll() {
+    document.querySelectorAll('[id^="grid-"]').forEach(g => {
+      if (g.querySelector('.ficha-actividades--unidad, .ficha-actividades--juegos')) {
+        _ajustarMargen(g);
+      }
+    });
+  }
+
+  new MutationObserver(_fixAll).observe(document.body, { childList: true, subtree: true });
+  _fixAll();
 })();
 
 // ── RUEDA DEL RATÓN: capture para evitar doble disparo ──────────────────────
