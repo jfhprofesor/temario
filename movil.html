@@ -585,7 +585,10 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .pub-listado-titulo { font-family:'Saira',sans-serif; font-size:0.9rem; font-weight:700; color:var(--accent); padding:0; margin-bottom:2px;
 }
 /* Título grupo listado publicaciones: quitar margin-bottom inline */
-#panel-publicaciones .pub-listado-grupo > div:first-child { margin-bottom:0 !important; letter-spacing:0.06em; text-transform:uppercase; cursor:default; flex-shrink:0; }
+#panel-publicaciones .pub-listado-grupo > div:first-child { margin-bottom:0 !important;
+}
+#panel-publicaciones div[style*="margin-bottom:0.3rem"],
+#panel-publicaciones div[style*="margin-bottom: 0.3rem"] { margin-bottom:0 !important; letter-spacing:0.06em; text-transform:uppercase; cursor:default; flex-shrink:0; }
 .pub-listado-nombre { font-family:'Roboto Condensed',sans-serif; font-size:0.88rem; color:#ffffff; font-weight:500; cursor:pointer; text-decoration:none; display:block; padding:4px 0; overflow:hidden; }
 .pub-listado-meta { font-family:'Roboto Condensed',sans-serif; font-size:0.78rem; color:var(--muted); padding:4px 0; display:block; overflow:hidden; }
 .pub-listado-item { padding:2px 0 2px 20px; display:flex; align-items:center; gap:0; }
@@ -696,14 +699,19 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 #panel-publicaciones .publicaciones-grid[style*="flex-direction"]:not([data-vista="autor"]) { padding:20px !important; }
 #panel-publicaciones .publicaciones-grid[style*="flex-direction"] .publicacion-ficha { min-height:0 !important; height:auto !important; }
 #panel-publicaciones .publicaciones-grid[style*="flex-direction"] .pub-descripcion { padding-top:0 !important; padding-bottom:0 !important; }
+/* Quitar padding del div padre de pub-descripcion */
+#panel-publicaciones .publicaciones-grid[style*="flex-direction: row"]:not([data-vista="autor"]) div[style*="padding:0.4rem"],
+#panel-publicaciones .publicaciones-grid[style*="flex-direction: row"]:not([data-vista="autor"]) div[style*="padding: 0.4rem"] { padding-top:0 !important; padding-bottom:0 !important; }
 /* Ocultar div de botones Amazon en fichas móvil */
 #panel-publicaciones .publicaciones-grid[style*="flex-direction: row"]:not([data-vista="autor"]) > div:last-child > div:last-child { display:none !important; }
-/* Botón Amazon: "Ver en" en primera línea, "Amazon" en segunda */
-.ancho-pub span { white-space:pre-line !important; }
+/* Botones pub: texto en 2 líneas */
+.ancho-pub span { white-space:pre-line !important; text-align:center !important; line-height:1.2 !important; }
 #panel-publicaciones .publicaciones-grid[style*="flex-direction"] li { margin-bottom:3px !important; }
 /* Versiones web: margen inferior títulos 2px */
 #panel-publicaciones .publicaciones-grid[style*="flex-direction"] div[style*="margin-bottom:0.2rem"],
 #panel-publicaciones .publicaciones-grid[style*="flex-direction"] div[style*="margin-bottom: 0.2rem"] { margin-bottom:2px !important; }
+/* Fichas: margen inferior del título 2px */
+#panel-publicaciones .publicaciones-grid[style*="flex-direction: row"]:not([data-vista="autor"]) > div:last-child > div:first-child { margin-bottom:2px !important; }
 
 #panel-publicaciones .publicaciones-grid[style*="flex-direction: row"]:not([data-vista="autor"]) {
   flex-direction:column !important;
@@ -2450,6 +2458,9 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
     document.querySelectorAll('.ancho-pub span').forEach(span => {
       if (span.textContent.trim() === 'Ver en Amazon') {
         span.textContent = 'Ver en\nAmazon';
+      }
+      if (span.textContent.trim() === 'Versiones web') {
+        span.textContent = 'Versiones\nweb';
       }
     });
   }
