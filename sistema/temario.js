@@ -970,7 +970,11 @@ function _navegarVideoEnSala(nuevoCursoId) {
 
   // Actualizar el reproductor de vídeo
   const videoEl = panelActivo.querySelector('video');
-  if (videoEl) videoEl.src = VIDEO_SRCS[nuevoCursoId] || '';
+  if (videoEl) {
+    videoEl.src = VIDEO_SRCS[nuevoCursoId] || '';
+    videoEl.load();
+    videoEl.play().catch(() => {});
+  }
 
   // Actualizar botón ficha (nombre del curso)
   const labelEl = panelActivo.querySelector('.unidad-nombre-texto2');
@@ -1101,6 +1105,8 @@ function mostrarVideoTemario(cursoId) {
   const barraV = document.getElementById('panel-' + cursoId)?.querySelector('.barra-interna');
   if (barraV && !barraV._prevHtml) {
     barraV._prevHtml = barraV.innerHTML;
+    // Ocultar grupos estáticos de paginación que quedarían solapados
+    barraV.querySelectorAll('[id^="curso-pagina-group-"],[id^="unidad-pagina-"],[id^="curso-flechas-group-"],[id^="unidad-flechas-"]').forEach(el => el.style.display = 'none');
     _actualizarBarraVideo(barraV, cursoId);
   }
 
@@ -1273,6 +1279,7 @@ function mostrarVideoTemario(cursoId) {
     requestAnimationFrame(() => {
       videoDiv.style.transition = 'opacity 0.8s ease';
       videoDiv.style.opacity = '1';
+      videoEl.play().catch(() => {});
     });
   });
 
@@ -1801,7 +1808,7 @@ function abrirFichaPublicacion(pub) {
   grid.style.alignItems = 'flex-start';
   grid.style.justifyContent = '';
   grid.style.gap = '0';
-  grid.style.padding = '20px';
+  grid.style.padding = window.location.pathname.endsWith('movil.html') ? '20px' : '10px 20px 20px 20px';
   grid.style.overflowY = 'auto';
   grid.classList.remove('slide-down-anim');
   requestAnimationFrame(() => grid.classList.add('slide-down-anim'));
@@ -2029,7 +2036,7 @@ function mostrarAutor() {
   grid.style.flexDirection = 'row';
   grid.style.alignItems = 'stretch';
   grid.style.gap = '2rem';
-  grid.style.padding = '20px';
+  grid.style.padding = window.location.pathname.endsWith('movil.html') ? '20px' : '10px 20px 20px 20px';
   grid.style.overflowY = 'auto';
   grid.classList.remove('slide-down-anim');
   requestAnimationFrame(() => grid.classList.add('slide-down-anim'));
@@ -2078,7 +2085,7 @@ function _publicacionesAbrirVistaInterna(barraLabel, gridHtml) {
   grid.style.flexDirection = 'column';
   grid.style.alignItems = 'stretch';
   grid.style.gap = '0.5rem';
-  grid.style.padding = '20px';
+  grid.style.padding = window.location.pathname.endsWith('movil.html') ? '20px' : '10px 20px 20px 20px';
   grid.style.overflowY = 'auto';
   grid.classList.remove('slide-down-anim');
   requestAnimationFrame(() => grid.classList.add('slide-down-anim'));
