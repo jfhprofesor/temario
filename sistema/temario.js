@@ -3383,6 +3383,9 @@ function abrirObjetoDetalle(obj) {
     videoInline.className = 'objeto-detail-video-inline';
     videoInline.src = videoSrc;
     videoInline.controls = true;
+    videoInline.playsInline = true;
+    videoInline.setAttribute('playsinline', '');
+    videoInline.setAttribute('webkit-playsinline', '');
     videoInline.style.display = 'none';
     sideRealidad.appendChild(videoInline);
 
