@@ -2213,6 +2213,11 @@ function _mostrarPinSala() {
         document.body.style.overflow = '';
         if (errEl) { errEl.textContent = ''; errEl.style.color = '#ff6666'; }
         _salaControlAutorizado = true;
+        // PIN universal: desbloquear también Classroom y botón sala en móvil
+        ['2eso','3eso','4eso','1bach','2bachF','2bachQ'].forEach(id => { _classroomAcceso[id] = '9445'; });
+        actualizarBotonesClassroom();
+        const btnSala = document.getElementById('btn-sala-control');
+        if (btnSala) btnSala.style.display = '';
         _abrirSalaControl();
       });
     } else {
