@@ -591,7 +591,7 @@ function animarSidebar(panel) {
 }
 
 // Helper: activa un panel con animación de entrada
-function activarPanel(id) {
+function activarPanel(id, _sinAnimarSidebar) {
   document.querySelectorAll('.contenedor-grande').forEach(p => {
     p.classList.remove('active', 'panel-enter');
   });
@@ -600,7 +600,7 @@ function activarPanel(id) {
   panel.classList.add('active');
   void panel.offsetWidth;
   panel.classList.add('panel-enter');
-  animarSidebar(panel);
+  if (!_sinAnimarSidebar) animarSidebar(panel);
   return panel;
 }
 
@@ -1750,10 +1750,10 @@ function _pubNavegar(delta) {
   if (idx < 0) return;
   const nuevoIdx = idx + delta;
   if (nuevoIdx < 0 || nuevoIdx >= lista.length) return;
-  abrirFichaPublicacion(lista[nuevoIdx]);
+  abrirFichaPublicacion(lista[nuevoIdx], true);
 }
 
-function abrirFichaPublicacion(pub) {
+function abrirFichaPublicacion(pub, _navegando) {
   const panel = document.getElementById('panel-publicaciones');
   if (!panel) return;
 
@@ -1797,7 +1797,7 @@ function abrirFichaPublicacion(pub) {
         <img src="imagenes/menu/Volver.png" alt="Volver a las publicaciones">
         <span>Volver a las publicaciones</span>
       </a>`;
-    _animarSidebarPub(sidebar);
+    if (!_navegando) _animarSidebarPub(sidebar);
   }
 
   // Contenido: ficha de la publicación en el grid
@@ -2341,7 +2341,7 @@ function buildGrids() {
       } else {
         const idx = _CURSOS_ORDEN.indexOf(id);
         const next = e.deltaY > 0 ? _CURSOS_ORDEN[idx + 1] : _CURSOS_ORDEN[idx - 1];
-        if (next) selectCurso(next, document.querySelector(`.curso-tab[onclick*="${next}"]`));
+        if (next) selectCurso(next, document.querySelector(`.curso-tab[onclick*="${next}"]`), true);
       }
     }, { passive: false });
 
@@ -2754,6 +2754,8 @@ function mostrarSubelementos(cursoId, temaIdx, origenBtn) {
           <img src="imagenes/menu/Volver.png" alt="Volver al curso">
           <span>Volver al curso</span>
         </a>`;
+      // Animar solo al entrar desde el grid, no al navegar prev/next
+      if (origenBtn) _animarSidebarUnidad(sidebar);
     }
   }
 
@@ -3582,6 +3584,15 @@ function abrirObjetoDetalle(obj) {
   }
 }
 
+function _animarSidebarUnidad(sidebar) {
+  const btns = sidebar.querySelectorAll('.sidebar-btn');
+  btns.forEach((btn, i) => {
+    btn.classList.remove('anim-entrada');
+    btn.style.setProperty('--d', i);
+    requestAnimationFrame(() => btn.classList.add('anim-entrada'));
+  });
+}
+
 function _animarSidebarPub(sidebar) {
   const btns = sidebar.querySelectorAll('.sidebar-btn');
   btns.forEach((btn, i) => {
@@ -3715,14 +3726,14 @@ function irAAutor() {
   mostrarAutor();
 }
 
-function selectCurso(id, btn) {
+function selectCurso(id, btn, _sinAnimar) {
   document.body.classList.remove('en-unidad');
   document.querySelectorAll('.curso-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.curso-sidebar').forEach(sb => {
     sb.classList.remove('active-2eso', 'active-3eso', 'active-4eso', 'active-1bach', 'active-2bachF', 'active-2bachQ', 'active-publicaciones', 'active-objetos');
   });
   btn.classList.add('active');
-  const panel = activarPanel('panel-'+id);
+  const panel = activarPanel('panel-'+id, _sinAnimar);
 
   // Animar contador PÁGINA del curso destino (solo si ya se visitó antes)
   const _pgInfo = panel?.querySelector('.curso-pagina-info');
