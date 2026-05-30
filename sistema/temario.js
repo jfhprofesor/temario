@@ -2355,7 +2355,7 @@ function buildGrids() {
   });
 }
 
-function mostrarSubelementos(cursoId, temaIdx, origenBtn) {
+function mostrarSubelementos(cursoId, temaIdx, origenBtn, _skipSidebar) {
   const curso = CURSOS[cursoId];
   const tema = curso.temas[temaIdx];
   const grid = document.getElementById('grid-'+cursoId);
@@ -2741,9 +2741,9 @@ function mostrarSubelementos(cursoId, temaIdx, origenBtn) {
     }
   }
 
-  // Reemplazar sidebar con botón volver al curso
+  // Reemplazar sidebar con botón volver al curso (solo si no viene de navegación prev/next en móvil)
   const panelCurso = document.getElementById('panel-'+cursoId);
-  if (panelCurso) {
+  if (panelCurso && !_skipSidebar) {
     const sidebar = panelCurso.querySelector('.curso-sidebar');
     if (sidebar && !sidebar.dataset.originalHtml) {
       sidebar.dataset.originalHtml = sidebar.innerHTML;
@@ -2960,14 +2960,48 @@ function actualizarUnidadInfo(cursoId) {
 function unidadPrev(cursoId) {
   const estado = estadoGrids[cursoId];
   if (typeof estado !== 'number' || estado <= 0) return;
-  mostrarSubelementos(cursoId, estado - 1);
+  _navegarUnidadMovil(cursoId, estado - 1);
 }
 
 function unidadNext(cursoId) {
   const estado = estadoGrids[cursoId];
   const total  = (CURSOS[cursoId]?.temas || []).length;
   if (typeof estado !== 'number' || estado >= total - 1) return;
-  mostrarSubelementos(cursoId, estado + 1);
+  _navegarUnidadMovil(cursoId, estado + 1);
+}
+
+function _navegarUnidadMovil(cursoId, nuevoIdx) {
+  const esMobil = window.location.pathname.endsWith('movil.html');
+  if (!esMobil) { mostrarSubelementos(cursoId, nuevoIdx); return; }
+
+  // En móvil: actualizar solo icono, número, nombre y flechas sin reconstruir sidebar
+  const tema = CURSOS[cursoId]?.temas[nuevoIdx];
+  if (!tema) return;
+  const total = CURSOS[cursoId].temas.length;
+
+  // Actualizar estadoGrids e infoEl
+  estadoGrids[cursoId] = nuevoIdx;
+  const infoEl = document.getElementById('unidad-info-' + cursoId);
+  if (infoEl) infoEl.textContent = (nuevoIdx + 1) + ' / ' + total;
+
+  // Actualizar icono, número y nombre en el sidebar
+  const panel = document.getElementById('panel-' + cursoId);
+  if (panel) {
+    const iconoImg = panel.querySelector('.sidebar-unidad-icono img');
+    const numDiv   = panel.querySelector('.sidebar-unidad-num');
+    const nombreDiv = panel.querySelector('.sidebar-unidad-nombre');
+    if (iconoImg) iconoImg.src = tema.icono;
+    if (numDiv)   numDiv.textContent = 'Unidad ' + (nuevoIdx + 1);
+    if (nombreDiv) nombreDiv.textContent = tema.nombre;
+    // Actualizar visibilidad flechas
+    const btnPrev = panel.querySelector('.sidebar-nav-col:first-child .sidebar-nav-unidad-btn');
+    const btnNext = panel.querySelector('.sidebar-nav-col:last-child .sidebar-nav-unidad-btn');
+    if (btnPrev) btnPrev.classList.toggle('invisible', nuevoIdx <= 0);
+    if (btnNext) btnNext.classList.toggle('invisible', nuevoIdx >= total - 1);
+  }
+
+  // Reconstruir solo el contenido del grid (imagen/vídeo + actividades), sin tocar el sidebar
+  mostrarSubelementos(cursoId, nuevoIdx, null, true);
 }
 // ────────────────────────────────────────────────────────────────────────────
 
