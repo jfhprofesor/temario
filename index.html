@@ -638,8 +638,10 @@ main { position:relative; z-index:10; padding:0; max-width:1300px; margin:0 auto
 
 /* PIN MODAL */
 .pin-overlay { display:none !important; }
+#pinSalaOverlay { display:none; position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.95); align-items:center; justify-content:center; padding:1rem; backdrop-filter:blur(10px); }
+#pinSalaOverlay.open { display:flex !important; }
 .pin-overlay-DISABLED { position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.95); display:flex; align-items:center; justify-content:center; padding:1rem; backdrop-filter:blur(10px); }
-.pin-modal { background:var(--surface); border:1px solid #999999; border-radius:10px; padding:1.5rem 2rem; width:100%; max-width:340px; text-align:center; }
+.pin-modal { background:#0d0d0d; border:1px solid #999999; border-radius:10px; padding:1.5rem 2rem; width:100%; max-width:340px; text-align:center; }
 .pin-modal h1 { font-family:'Saira',sans-serif; font-size:1.1rem; font-weight:700; color:var(--accent); margin-bottom:0.6rem; letter-spacing:0.08em; text-transform:uppercase; }
 .pin-modal p { font-family:'Roboto Condensed',sans-serif; font-size:0.85rem; color:var(--muted); margin-bottom:1rem; line-height:1.5; }
 .pin-label { font-family:'Roboto Condensed',sans-serif; font-size:0.85rem; color:var(--muted); margin-bottom:0.6rem; }
@@ -915,6 +917,23 @@ setTimeout(function() {
       <input type="text" class="pin-digit" id="pin3" maxlength="1" inputmode="numeric" autocomplete="off">
     </div>
     <button class="pin-btn" id="pinBtn">Acceder</button>
+  </div>
+</div>
+<div class="pin-overlay" id="pinSalaOverlay" style="display:none;" onclick="if(event.target===this){this.classList.remove('open');document.body.style.overflow='';}">
+  <div class="pin-modal" style="position:relative;">
+    <h1>Acceso restringido</h1>
+    <p>Introduce el PIN para acceder:</p>
+    <div class="pin-input-group">
+      <input type="text" class="pin-digit" id="pinSala0" maxlength="1" inputmode="numeric" autocomplete="off">
+      <input type="text" class="pin-digit" id="pinSala1" maxlength="1" inputmode="numeric" autocomplete="off">
+      <input type="text" class="pin-digit" id="pinSala2" maxlength="1" inputmode="numeric" autocomplete="off">
+      <input type="text" class="pin-digit" id="pinSala3" maxlength="1" inputmode="numeric" autocomplete="off">
+    </div>
+    <div id="pinSalaErr" style="color:#ff6666;font-size:0.8rem;margin-top:0.4rem;margin-bottom:0.6rem;min-height:1.2em;font-family:'Roboto Condensed',sans-serif;"></div>
+    <div style="display:flex;gap:1.5rem;justify-content:center;margin-top:0.5rem;">
+      <button onclick="document.getElementById('pinSalaOverlay').classList.remove('open');document.body.style.overflow='';" style="padding:0 1.2rem;height:34px;border-radius:6px;border:1px solid #999999;background:#000000;color:#ffffff;cursor:pointer;font-family:'Saira',sans-serif;font-size:0.85rem;font-weight:500;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#ffffff';this.style.color='#ffffff';" onmouseout="this.style.borderColor='#999999';this.style.color='#ffffff';">Cerrar</button>
+      <button class="pin-btn" id="pinSalaBtn" style="border:1px solid #000000;" onmouseover="this.style.filter='brightness(1.15)';this.style.borderColor='#ffffff';" onmouseout="this.style.filter='';this.style.borderColor='#000000';">Acceder</button>
+    </div>
   </div>
 </div>
 
@@ -1339,12 +1358,12 @@ setTimeout(function() {
   <div class="objeto-detail">
     <div class="objeto-detail-content">
       <div class="objeto-detail-side realidad">
-        <div class="objeto-detail-title">Objeto en la realidad</div>
+        <div class="objeto-detail-title"><span class="objeto-detail-title-text">Objeto en la realidad</span></div>
         <img class="objeto-detail-img" id="objeto-detail-img-a" src="" alt="Objeto en la realidad">
         <div class="objeto-detail-video" id="objeto-detail-video"></div>
       </div>
       <div class="objeto-detail-side simulacion">
-        <div class="objeto-detail-title">Objeto en la simulación<button class="objeto-detail-close" onclick="closeObjeto()"><img src="imagenes/menu/Cerrar.webp" alt="Cerrar" style="width:100%; height:100%; object-fit:contain;"></button></div>
+        <div class="objeto-detail-title" style="justify-content:flex-start;"><span class="objeto-detail-title-text">Objeto en la simulación</span><button id="objeto-nav-prev" class="objeto-detail-close" style="margin-left:auto;margin-right:6px;"onclick="(function(){const l=window._objetoDetalleListaActual,i=window._objetoDetalleIdxActual;if(i>0)abrirObjetoDetalle(l[i-1]);})()"><img src="imagenes/menu/Anterior.webp" alt="Anterior" style="width:100%;height:100%;object-fit:contain;"></button><button id="objeto-nav-next" class="objeto-detail-close" style="margin-left:0;margin-right:6px;" onclick="(function(){const l=window._objetoDetalleListaActual,i=window._objetoDetalleIdxActual;if(i<l.length-1)abrirObjetoDetalle(l[i+1]);})()"><img src="imagenes/menu/Siguiente.webp" alt="Siguiente" style="width:100%;height:100%;object-fit:contain;"></button><button class="objeto-detail-close" style="margin-left:8px;" onclick="closeObjeto()"><img src="imagenes/menu/Cerrar.webp" alt="Cerrar" style="width:100%; height:100%; object-fit:contain;"></button></div>
         <img class="objeto-detail-img" id="objeto-detail-img-b" src="" alt="Objeto en la simulación">
       </div>
     </div>

@@ -1425,13 +1425,14 @@ function pedirCodigoClassroomYAbrir(cursoId, url) {
   if (tieneAccesoClassroom(cursoId)) { window.open(url, '_blank'); return; }
   const overlay = document.createElement('div');
   overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(10px);';
-  overlay.innerHTML = `<div style="background:var(--surface);border:1px solid #999999;border-radius:10px;padding:1.5rem 2rem;width:100%;max-width:360px;text-align:center;font-family:'Saira',sans-serif;">
-    <div style="font-family:'Saira',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:0.8rem;letter-spacing:0.08em;text-transform:uppercase;">Acceso protegido</div>
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+  overlay.innerHTML = `<div style="background:#0d0d0d;border:1px solid #999999;border-radius:10px;padding:1.5rem 2rem;width:100%;max-width:340px;text-align:center;font-family:'Saira',sans-serif;">
+    <div style="font-family:'Saira',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-bottom:0.8rem;letter-spacing:0.08em;text-transform:uppercase;">Acceso restringido</div>
     <div style="font-size:0.85rem;color:var(--muted);margin-bottom:0.8rem;font-family:'Roboto Condensed',sans-serif;">Introduce el código de tu Google Classroom:</div>
     <input id="_cls_input" type="text" style="width:50%;height:38px;padding:0 0.8rem;border-radius:6px;border:1px solid #999999;background:#000000;color:#ffffff;font-size:0.95rem;font-weight:500;text-align:center;box-sizing:border-box;font-family:'Roboto Condensed',sans-serif;outline:none;" placeholder="">
-    <div id="_cls_err" style="color:#ff6666;font-size:0.8rem;margin-top:0.4rem;min-height:1.2em;font-family:'Roboto Condensed',sans-serif;"></div>
-    <div style="display:flex;gap:0.6rem;margin-top:1rem;justify-content:center;">
-      <button id="_cls_cancel" style="padding:0 1.2rem;height:34px;border-radius:6px;border:1px solid #999999;background:#000000;color:#ffffff;cursor:pointer;font-family:'Saira',sans-serif;font-size:0.85rem;font-weight:500;transition:border-color 0.2s,color 0.2s;" onmouseover="this.style.borderColor='#ffffff';this.style.color='#ffffff';" onmouseout="this.style.borderColor='#999999';this.style.color='#ffffff';">Cancelar</button>
+    <div id="_cls_err" style="color:#ff6666;font-size:0.8rem;margin-top:0.4rem;margin-bottom:0.6rem;min-height:1.2em;font-family:'Roboto Condensed',sans-serif;"></div>
+    <div style="display:flex;gap:1.5rem;margin-top:1rem;justify-content:center;">
+      <button id="_cls_cancel" style="padding:0 1.2rem;height:34px;border-radius:6px;border:1px solid #999999;background:#000000;color:#ffffff;cursor:pointer;font-family:'Saira',sans-serif;font-size:0.85rem;font-weight:500;transition:border-color 0.2s,color 0.2s;" onmouseover="this.style.borderColor='#ffffff';this.style.color='#ffffff';" onmouseout="this.style.borderColor='#999999';this.style.color='#ffffff';">Cerrar</button>
       <button id="_cls_ok" style="padding:0 1.2rem;height:34px;border-radius:6px;border:1px solid #000000;background:var(--accent);color:#000000;cursor:pointer;font-family:'Saira',sans-serif;font-size:0.85rem;font-weight:700;transition:filter 0.2s;" onmouseover="this.style.filter='brightness(1.15)';this.style.borderColor='#ffffff';" onmouseout="this.style.filter='';this.style.borderColor='#000000';">Acceder</button>
     </div>
   </div>`;
@@ -1457,6 +1458,7 @@ function pedirCodigoClassroomYAbrir(cursoId, url) {
     const cod = input.value.trim().toLowerCase();
     if (verificarCodigoClassroom(cursoId, cod)) {
       input.style.borderColor = '#44cc88';
+      errDiv.style.color = '#44cc88'; errDiv.textContent = 'Código correcto.';
       _clsBambalear(okBtn, '#44cc88', () => {
         _classroomAcceso[cursoId] = cod;
         actualizarBotonesClassroom();
@@ -1464,7 +1466,7 @@ function pedirCodigoClassroomYAbrir(cursoId, url) {
         window.open(url, '_blank');
       });
     } else {
-      errDiv.textContent = 'Código incorrecto. Inténtalo de nuevo.';
+      errDiv.textContent = 'Código incorrecto.';
       input.style.borderColor = '#ff6666';
       _clsBambalear(okBtn, '#ff6666', () => {
         okBtn.style.background = 'var(--accent)';
@@ -2158,11 +2160,91 @@ function mostrarVersionesWeb() {
   _publicacionesAbrirVistaInterna('VERSIONES WEB', html);
 }
 
+let _salaControlAutorizado = false;
+
 function openConsola() {
+  if (!_salaControlAutorizado) {
+    _mostrarPinSala();
+    return;
+  }
+  _abrirSalaControl();
+}
+
+function _abrirSalaControl() {
   document.querySelectorAll('.curso-tab').forEach(t => t.classList.remove('active'));
   const panel = activarPanel('panel-consola');
   if (panel) renderConsola();
   document.getElementById('btn-sala-control')?.classList.add('active');
+}
+
+function _mostrarPinSala() {
+  const overlay = document.getElementById('pinSalaOverlay');
+  if (!overlay) return;
+  const digits = [0,1,2,3].map(i => document.getElementById('pinSala' + i));
+  const btn = document.getElementById('pinSalaBtn');
+  digits.forEach(d => { d.value = ''; d.style.borderColor = ''; });
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => digits[0].focus(), 100);
+
+  function getPIN() { return digits.map(d => d.value).join(''); }
+
+  function bambalearSala(el, color, onDone) {
+    el.style.background = color;
+    const shake = [8,-8,6,-6,4,-4,0];
+    let i = 0;
+    const interval = setInterval(() => {
+      el.style.transform = `translateX(${shake[i]}px)`;
+      i++;
+      if (i >= shake.length) { clearInterval(interval); el.style.transform = ''; if (onDone) onDone(); }
+    }, 60);
+  }
+
+  function intentar() {
+    const btnEl = document.getElementById('pinSalaBtn');
+    const pin = getPIN();
+    if (pin === '9445') {
+      digits.forEach(d => d.style.borderColor = '#44cc88');
+      const errEl = document.getElementById('pinSalaErr');
+      if (errEl) { errEl.style.color = '#44cc88'; errEl.textContent = 'Código correcto.'; }
+      bambalearSala(btnEl, '#44cc88', () => {
+        btnEl.style.background = '';
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+        if (errEl) { errEl.textContent = ''; errEl.style.color = '#ff6666'; }
+        _salaControlAutorizado = true;
+        _abrirSalaControl();
+      });
+    } else {
+      digits.forEach(d => { d.value = ''; d.style.borderColor = '#ff6666'; });
+      const errEl = document.getElementById('pinSalaErr');
+      if (errEl) errEl.textContent = 'Código incorrecto.';
+      bambalearSala(btnEl, '#ff6666', () => {
+        btnEl.style.background = '';
+        digits[0].focus();
+        setTimeout(() => { digits.forEach(d => d.style.borderColor = ''); if (errEl) errEl.textContent = ''; }, 600);
+      });
+    }
+  }
+
+  // Limpiar listeners anteriores clonando los elementos
+  digits.forEach((d, i) => {
+    const nd = d.cloneNode(true);
+    d.parentNode.replaceChild(nd, d);
+    digits[i] = nd;
+    nd.addEventListener('input', () => {
+      nd.value = nd.value.replace(/\D/g, '').slice(-1);
+      if (nd.value && i < 3) digits[i+1].focus();
+      if (getPIN().length === 4) intentar();
+    });
+    nd.addEventListener('keydown', e => {
+      if (e.key === 'Backspace' && !nd.value && i > 0) digits[i-1].focus();
+      if (e.key === 'Escape') { overlay.classList.remove('open'); document.body.style.overflow = ''; }
+    });
+  });
+  const nb = document.getElementById('pinSalaBtn').cloneNode(true);
+  document.getElementById('pinSalaBtn').parentNode.replaceChild(nb, document.getElementById('pinSalaBtn'));
+  nb.addEventListener('click', intentar);
 }
 
 // filtros activos por curso: array de categorías grises (complementario)
@@ -3310,7 +3392,7 @@ function selectObjetos(btn) {
 }
 
 // Extensiones reales de cada objeto (generado desde los archivos en disco)
-const EXTENSION_MAP = {"Cinética|Fidget spinner":{"A":"webp","B":"webp","C":"webp"},"Cinética|Peonza":{"A":"webp","B":"webp","C":"webp"},"Dinámica|Centro de gravedad":{"A":"webp","B":"webp","C":"webp"},"Dinámica|Colgantes de los astros":{"A":"webp","B":"webp","C":"webp"},"Energía|Anillo termocrómico":{"A":"webp","B":"webp","C":"webp"},"Energía|Linterna con dinamo":{"A":"webp","B":"webp","C":"webp"},"Energía|Térmica a cinética":{"A":"webp","B":"webp","C":"webp"},"Formulación|Modelo molecular avanzado":{"A":"webp","B":"webp","C":"webp"},"Formulación|Modelo molecular básico":{"A":"webp","B":"webp","C":"webp"},"Formulación|Modelo molecular experto":{"B":"webp"},"Física nuclear|Fósil amonita":{"A":"webp","B":"webp","C":"webp"},"Física nuclear|Fósil en ámbar":{"A":"webp","B":"webp","C":"webp"},"Laboratorio|Brújula":{"A":"webp","B":"webp","C":"webp"},"Laboratorio|Jeringa":{"A":"webp","B":"webp","C":"webp"},"Laboratorio|Kit de cristalización":{"A":"webp","B":"webp","C":"webp"},"Laboratorio|Pictogramas de seguridad":{"A":"webp","B":"webp","C":"webp"},"Laboratorio|Pictogramas del alcanfor":{"A":"webp","B":"webp","C":"webp"},"Laboratorio|Pulverizadores":{"A":"webp","B":"webp","C":"webp"},"Laboratorio|Termómetro-higrómetro":{"A":"webp","B":"webp","C":"webp"},"Magnetismo|Imán y ferrita":{"A":"webp","B":"webp","C":"webp"},"Magnetismo|Levitación magnética":{"A":"webp","B":"webp","C":"webp"},"Reacciones químicas|Papel pHmetro":{"A":"webp","B":"webp","C":"webp"},"Reacciones químicas|Piedras fluorescentes":{"A":"webp","B":"webp","C":"webp"},"Reacciones químicas|Sustancias fosforescentes":{"A":"webp","B":"webp","C":"webp"},"Reacciones químicas|Tejidos naturales y sintéticos":{"A":"webp","B":"webp","C":"webp"},"Sonido|Armónica":{"A":"webp","B":"webp","C":"webp"},"Sonido|Diapasones 512 Hz y 256 Hz":{"A":"webp","B":"webp","C":"webp"},"Sustancias|Arena hidrófoba":{"A":"webp","B":"webp","C":"webp"},"Sustancias|Colorantes alimentarios":{"A":"webp","B":"webp","C":"webp"},"Sustancias|Metales identificados":{"A":"webp","B":"webp","C":"webp"},"Sustancias|Metales sin identificar":{"A":"webp","B":"webp","C":"webp"},"Óptica|Caleidoscopio":{"A":"webp","B":"webp","C":"webp"},"Óptica|Creador de hologramas":{"A":"webp","B":"webp","C":"webp"},"Óptica|Cubo de fluorita":{"A":"webp","B":"webp","C":"webp"},"Óptica|Cubo transparente":{"A":"webp","B":"webp","C":"webp"},"Óptica|Linterna radiación UV":{"A":"webp","B":"webp","C":"webp"},"Óptica|Medallones de dispersión":{"A":"webp","B":"webp","C":"webp"},"Óptica|Microscopio portátil":{"A":"webp","B":"webp","C":"webp"},"Óptica|Prisma de dispersión":{"A":"webp","B":"webp","C":"webp"},"Óptica|Puntero láser rojo":{"A":"webp","B":"webp","C":"webp"}};
+const EXTENSION_MAP = {"Cinética|Fidget spinner":{"A":"webp","B":"webp","C":"webp","D":"webp"},"Cinética|Peonza":{"A":"webp","B":"webp","C":"webp"},"Dinámica|Centro de gravedad":{"A":"webp","B":"webp","C":"webp"},"Dinámica|Colgantes de los astros":{"A":"webp","B":"webp","C":"webp"},"Energía|Anillo termocrómico":{"A":"webp","B":"webp","C":"webp"},"Energía|Linterna con dinamo":{"A":"webp","B":"webp","C":"webp"},"Energía|Térmica a cinética":{"A":"webp","B":"webp","C":"webp"},"Formulación|Modelo molecular avanzado":{"A":"webp","B":"webp","C":"webp"},"Formulación|Modelo molecular básico":{"A":"webp","B":"webp","C":"webp"},"Formulación|Modelo molecular experto":{"B":"webp"},"Física nuclear|Fósil amonita":{"A":"webp","B":"webp","C":"webp"},"Física nuclear|Fósil en ámbar":{"A":"webp","B":"webp","C":"webp"},"Laboratorio|Brújula":{"A":"webp","B":"webp","C":"webp"},"Laboratorio|Jeringa":{"A":"webp","B":"webp","C":"webp"},"Laboratorio|Kit de cristalización":{"A":"webp","B":"webp","C":"webp"},"Laboratorio|Pictogramas de seguridad":{"A":"webp","B":"webp","C":"webp"},"Laboratorio|Pictogramas del alcanfor":{"A":"webp","B":"webp","C":"webp"},"Laboratorio|Pulverizadores":{"A":"webp","B":"webp","C":"webp"},"Laboratorio|Termómetro-higrómetro":{"A":"webp","B":"webp","C":"webp"},"Magnetismo|Imán y ferrita":{"A":"webp","B":"webp","C":"webp"},"Magnetismo|Levitación magnética":{"A":"webp","B":"webp","C":"webp"},"Reacciones químicas|Papel pHmetro":{"A":"webp","B":"webp","C":"webp"},"Reacciones químicas|Piedras fluorescentes":{"A":"webp","B":"webp","C":"webp"},"Reacciones químicas|Sustancias fosforescentes":{"A":"webp","B":"webp","C":"webp"},"Reacciones químicas|Tejidos naturales y sintéticos":{"A":"webp","B":"webp","C":"webp"},"Sonido|Armónica":{"A":"webp","B":"webp","C":"webp"},"Sonido|Diapasones 512 Hz y 256 Hz":{"A":"webp","B":"webp","C":"webp"},"Sustancias|Arena hidrófoba":{"A":"webp","B":"webp","C":"webp"},"Sustancias|Colorantes alimentarios":{"A":"webp","B":"webp","C":"webp"},"Sustancias|Metales identificados":{"A":"webp","B":"webp","C":"webp"},"Sustancias|Metales sin identificar":{"A":"webp","B":"webp","C":"webp"},"Óptica|Caleidoscopio":{"A":"webp","B":"webp","C":"webp"},"Óptica|Creador de hologramas":{"A":"webp","B":"webp","C":"webp"},"Óptica|Cubo de fluorita":{"A":"webp","B":"webp","C":"webp"},"Óptica|Cubo transparente":{"A":"webp","B":"webp","C":"webp"},"Óptica|Linterna radiación UV":{"A":"webp","B":"webp","C":"webp"},"Óptica|Medallones de dispersión":{"A":"webp","B":"webp","C":"webp"},"Óptica|Microscopio portátil":{"A":"webp","B":"webp","C":"webp"},"Óptica|Prisma de dispersión":{"A":"webp","B":"webp","C":"webp"},"Óptica|Puntero láser rojo":{"A":"webp","B":"webp","C":"webp"}};
 
 // Objetos con vídeo: tema|objeto -> extensión del archivo
 const VIDEO_MAP = {"Laboratorio|Brújula":"mp4","Magnetismo|Levitación magnética":"mp4"};
@@ -3346,8 +3428,14 @@ function abrirObjetoDetalle(obj) {
   const titleRealidad  = sideRealidad ? sideRealidad.querySelector('.objeto-detail-title-text') : null;
   const titleSimulacion = sideSimulacion ? sideSimulacion.querySelector('.objeto-detail-title-text') : null;
   const nombre = obj.objeto || '';
-  if (titleRealidad)   titleRealidad.textContent  = `${nombre} - Objeto en la realidad`;
-  if (titleSimulacion) titleSimulacion.textContent = `${nombre} - Objeto en la simulación`;
+  const _esMobilTitulo = window.location.pathname.endsWith('movil.html');
+  if (!_esMobilTitulo) {
+    if (titleRealidad)   titleRealidad.textContent  = 'Objeto en la realidad';
+    if (titleSimulacion) titleSimulacion.textContent = 'Objeto en la simulación';
+  } else {
+    if (titleRealidad)   titleRealidad.textContent  = `${nombre} - Objeto en la realidad`;
+    if (titleSimulacion) titleSimulacion.textContent = `${nombre} - Objeto en la simulación`;
+  }
 
   let ratioA = 1, ratioB = 1.42, loadedA = false, loadedB = false;
 
@@ -3431,16 +3519,34 @@ function abrirObjetoDetalle(obj) {
 
     videoContainer.innerHTML = `<button id="_btn-ver-video-obj"><img src="imagenes/menu/Video temario.webp" alt="" style="width:20px;height:20px;object-fit:contain;"><span>Ver vídeo</span></button>`;
     document.getElementById('_btn-ver-video-obj').onclick = function() {
+      if (!esDesktop) {
+        // MÓVIL: abrir en video-overlay independiente, el objeto-overlay sigue abierto debajo
+        abrirVideo(videoSrc, `${nombre} - Vídeo en la realidad`);
+        return;
+      }
       imgA.style.display = 'none';
       videoContainer.style.display = 'none';
       if (esDesktop) {
-        // En desktop: mover el vídeo al objeto-detail para que ocupe ambas columnas
+        // En desktop: mover el vídeo al objeto-detail con barra superior
         const detalle = document.querySelector('.objeto-detail');
         const content = detalle ? detalle.querySelector('.objeto-detail-content') : null;
         if (content) {
           content.style.display = 'none';
+          // Crear barra superior igual a .objeto-detail-title
+          const barraVideo = document.createElement('div');
+          barraVideo.className = 'objeto-detail-title objeto-video-barra';
+          barraVideo.style.cssText = 'display:flex; align-items:center; justify-content:space-between; flex-shrink:0;';
+          barraVideo.innerHTML = `
+            <span class="objeto-detail-title-text">${nombre} - Vídeo</span>
+            <button class="objeto-detail-close" id="_btn-cerrar-video-obj"><img src="imagenes/menu/Cerrar.webp" alt="Cerrar" style="width:100%;height:100%;object-fit:contain;"></button>`;
+          detalle.appendChild(barraVideo);
           videoInline.style.cssText = 'display:block; width:100%; flex:1; min-height:0; background:#000; object-fit:contain; border:none;';
           detalle.appendChild(videoInline);
+          // Botón cerrar restaura la vista anterior
+          barraVideo.querySelector('#_btn-cerrar-video-obj').onclick = function(e) {
+            e.stopPropagation();
+            _cerrarVideoInlineObjeto(imgA, videoInline, videoContainer, titleRealidad, nombre);
+          };
         }
       } else {
         videoInline.style.display = 'block';
@@ -3451,8 +3557,29 @@ function abrirObjetoDetalle(obj) {
     videoInline.onended = function() { _cerrarVideoInlineObjeto(imgA, videoInline, videoContainer, titleRealidad, nombre); };
   }
 
-  document.getElementById('objeto-detail-overlay').classList.add('open');
+  const overlay = document.getElementById('objeto-detail-overlay');
+  overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
+
+  // Actualizar estado de flechas de navegación
+  const _lista = window._objetoDetalleListaActual;
+  const _idx = window._objetoDetalleIdxActual;
+  const btnPrev = document.getElementById('objeto-nav-prev');
+  const btnNext = document.getElementById('objeto-nav-next');
+  if (btnPrev) { btnPrev.style.opacity = _idx <= 0 ? '0.3' : '1'; btnPrev.style.pointerEvents = _idx <= 0 ? 'none' : ''; }
+  if (btnNext) { btnNext.style.opacity = _idx >= _lista.length - 1 ? '0.3' : '1'; btnNext.style.pointerEvents = _idx >= _lista.length - 1 ? 'none' : ''; }
+
+  // Rueda del ratón: navegar entre objetos
+  if (!overlay._wheelObjeto) {
+    overlay._wheelObjeto = true;
+    overlay.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const lista = window._objetoDetalleListaActual;
+      const idx = window._objetoDetalleIdxActual;
+      if (e.deltaY > 0 && idx < lista.length - 1) abrirObjetoDetalle(lista[idx + 1]);
+      else if (e.deltaY < 0 && idx > 0) abrirObjetoDetalle(lista[idx - 1]);
+    }, { passive: false });
+  }
 }
 
 function _animarSidebarPub(sidebar) {
@@ -3467,8 +3594,10 @@ function _animarSidebarPub(sidebar) {
 function _cerrarVideoInlineObjeto(imgA, videoInline, videoContainer, titleRealidad, nombre) {
   videoInline.pause();
   videoInline.style.display = 'none';
-  // En desktop: restaurar content y devolver vídeo al lado realidad
+  // En desktop: eliminar barra de vídeo, restaurar content y devolver vídeo al lado realidad
   const detalle = document.querySelector('.objeto-detail');
+  const barraVideo = detalle ? detalle.querySelector('.objeto-video-barra') : null;
+  if (barraVideo) barraVideo.remove();
   const content = detalle ? detalle.querySelector('.objeto-detail-content') : null;
   const sideRealidad = detalle ? detalle.querySelector('.objeto-detail-side.realidad') : null;
   if (content && content.style.display === 'none') {
@@ -3557,7 +3686,13 @@ function cerrarVideo() {
   player.pause();
   player.src = '';
   overlay.style.display = 'none';
-  document.body.style.overflow = '';
+  // Si el overlay de objeto sigue abierto, mantener overflow:hidden
+  const objOverlay = document.getElementById('objeto-detail-overlay');
+  if (objOverlay && objOverlay.classList.contains('open')) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
 }
 
 
