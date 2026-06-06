@@ -1509,7 +1509,13 @@ function _consolaUpdateNav() {
   const info = document.getElementById('consola-pagina-info');
   const prev = document.getElementById('consola-btn-prev');
   const next = document.getElementById('consola-btn-next');
-  if (info) info.textContent = _consolaPagina + ' / ' + _consolaTotalPaginas;
+  if (info) {
+    info.textContent = _consolaPagina + ' / ' + _consolaTotalPaginas;
+    info.classList.remove('texto-shine');
+    void info.offsetWidth;
+    info.classList.add('texto-shine');
+    info.addEventListener('animationend', () => info.classList.remove('texto-shine'), { once: true });
+  }
   if (prev) prev.disabled = _consolaPagina <= 1;
   if (next) next.disabled = _consolaPagina >= _consolaTotalPaginas;
 }
