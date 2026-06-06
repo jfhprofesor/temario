@@ -4057,7 +4057,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.header-sub'),
     document.getElementById('btn-sala-control'),
     document.querySelector('.barra-superior'),
-    document.querySelector('main'),
+    document.getElementById('panel-portada'),
   ];
   loadEls.forEach((el, i) => {
     if (!el) return;
