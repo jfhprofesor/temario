@@ -1594,11 +1594,19 @@ async function _consolaCargarEstadisticas() {
   if (elDisp && sizes?.stats) {
     let movil = 0, tablet = 0, pc = 0;
     sizes.stats.forEach(s => {
-      const w = parseInt(s.name) || 0;
-      if (w === 0) return;
-      if (w < 600)       movil  += s.count;
-      else if (w < 1024) tablet += s.count;
-      else               pc     += s.count;
+      const id = s.id || '';
+      if (id === 'phone')                          movil  += s.count;
+      else if (id === 'tablet')                    tablet += s.count;
+      else if (id === 'desktop' || id === 'desktophd') pc += s.count;
+      else {
+        // fallback por píxeles si algún día cambia la API
+        const w = parseInt(s.name) || 0;
+        if (w > 0) {
+          if (w < 600) movil += s.count;
+          else if (w < 1024) tablet += s.count;
+          else pc += s.count;
+        }
+      }
     });
     const maxD = Math.max(movil, tablet, pc);
     const filas = [
@@ -1718,12 +1726,16 @@ function renderConsola() {
     const secStyle = 'background:#1a1a2e;border-radius:8px;padding:12px 14px;';
     const titleStyle = 'font-family:Saira,sans-serif;font-size:0.7rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;';
     grid.innerHTML = `
-      <div style="display:flex;flex-direction:column;gap:10px;width:100%;height:100%;overflow:auto;">
-        <div style="${secStyle}">
+      <div style="display:flex;flex-direction:column;gap:10px;width:100%;height:100%;overflow:hidden;">
+        <div style="${secStyle}flex-shrink:0;">
           <div style="${titleStyle}">Visitas</div>
           <div id="gc-visitas" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
         </div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <div style="${secStyle}flex:1;min-height:0;overflow:auto;">
+          <div style="${titleStyle}">Países</div>
+          <div id="gc-paises" style="height:calc(100% - 24px);overflow:auto;"></div>
+        </div>
+        <div style="display:flex;gap:10px;flex-shrink:0;">
           <div style="${secStyle}flex:1;min-width:180px;">
             <div style="${titleStyle}">Origen</div>
             <div id="gc-origen"></div>
@@ -1732,10 +1744,6 @@ function renderConsola() {
             <div style="${titleStyle}">Dispositivo</div>
             <div id="gc-dispositivo"></div>
           </div>
-        </div>
-        <div style="${secStyle}">
-          <div style="${titleStyle}">Países</div>
-          <div id="gc-paises"></div>
         </div>
       </div>`;
     _consolaCargarEstadisticas();
