@@ -1511,10 +1511,9 @@ function _consolaUpdateNav() {
   const next = document.getElementById('consola-btn-next');
   if (info) {
     info.textContent = _consolaPagina + ' / ' + _consolaTotalPaginas;
-    info.classList.remove('texto-shine');
-    void info.offsetWidth;
-    info.classList.add('texto-shine');
-    info.addEventListener('animationend', () => info.classList.remove('texto-shine'), { once: true });
+    if (info._flipReady) {
+      info.classList.remove('anim-flip'); void info.offsetWidth; info.classList.add('anim-flip');
+    } else { info._flipReady = true; }
   }
   if (prev) prev.disabled = _consolaPagina <= 1;
   if (next) next.disabled = _consolaPagina >= _consolaTotalPaginas;
