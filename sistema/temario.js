@@ -1496,6 +1496,24 @@ let CLASSROOMS = [
 ];
 
 
+let _consolaPagina = 1;
+const _consolaTotalPaginas = 2;
+
+function consolaPrevPage() {
+  if (_consolaPagina > 1) { _consolaPagina--; renderConsola(); }
+}
+function consolaNextPage() {
+  if (_consolaPagina < _consolaTotalPaginas) { _consolaPagina++; renderConsola(); }
+}
+function _consolaUpdateNav() {
+  const info = document.getElementById('consola-pagina-info');
+  const prev = document.getElementById('consola-btn-prev');
+  const next = document.getElementById('consola-btn-next');
+  if (info) info.textContent = _consolaPagina + ' / ' + _consolaTotalPaginas;
+  if (prev) prev.disabled = _consolaPagina <= 1;
+  if (next) next.disabled = _consolaPagina >= _consolaTotalPaginas;
+}
+
 function renderConsola() {
   const grid = document.getElementById('grid-consola');
   if (!grid) return;
@@ -1551,8 +1569,19 @@ function renderConsola() {
   </div>`;
 
   const topRowHTML = `<div style="display:flex;flex-direction:row;gap:10px;width:100%;align-items:flex-start;">${amazonHTML}${codigoUniversalHTML}</div>`;
-  grid.innerHTML = topRowHTML + tableHTML;
+
+  if (_consolaPagina === 1) {
+    grid.innerHTML = topRowHTML + tableHTML;
+  } else {
+    // Página 2: grupo de estadísticas (contenido pendiente)
+    grid.innerHTML = `<div style="${groupStyle} width:100%; box-sizing:border-box;">
+      <div style="${titleStyle}">ESTADÍSTICAS</div>
+      <div style="color:var(--muted);font-family:Saira,sans-serif;font-size:0.85rem;">Próximamente...</div>
+    </div>`;
+  }
+
   grid.style.cssText = 'display:flex; flex-direction:column; gap:10px; width:100%; height:100%; overflow:auto;';
+  _consolaUpdateNav();
   // Medir Amazon Kindle y aplicar misma altura a Código Universal
   requestAnimationFrame(() => {
     const containers = grid.querySelectorAll(':scope > div:first-child > div');
@@ -2172,6 +2201,7 @@ function openConsola() {
 
 function _abrirSalaControl() {
   document.querySelectorAll('.curso-tab').forEach(t => t.classList.remove('active'));
+  _consolaPagina = 1;
   const panel = activarPanel('panel-consola');
   if (panel) renderConsola();
   document.getElementById('btn-sala-control')?.classList.add('active');
