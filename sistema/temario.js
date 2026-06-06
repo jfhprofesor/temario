@@ -4053,11 +4053,11 @@ function actualizarDropdownTemas() {
 document.addEventListener('DOMContentLoaded', () => {
   // Animación de carga inicial: header-logo, header-sub, barra-superior, main
   const loadEls = [
-    { el: document.querySelector('.header-logo'),        delay:  150 },
-    { el: document.querySelector('.header-sub'),         delay:  350 },
-    { el: document.getElementById('btn-sala-control'),   delay:  550 },
-    { el: document.querySelector('.barra-superior'),     delay:  750 },
-    { el: document.getElementById('panel-portada'),      delay: 1050 },
+    { el: document.querySelector('.header-logo'),        delay:  100 },
+    { el: document.querySelector('.header-sub'),         delay:  250 },
+    { el: document.getElementById('btn-sala-control'),   delay:  400 },
+    { el: document.querySelector('.barra-superior'),     delay:  550 },
+    { el: document.getElementById('panel-portada'),      delay:  750 },
   ];
   loadEls.forEach(({ el, delay }) => {
     if (!el) return;
