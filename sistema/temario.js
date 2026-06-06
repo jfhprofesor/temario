@@ -1716,7 +1716,30 @@ function renderConsola() {
   if (_consolaPagina === 1) {
     grid.innerHTML = topRowHTML + tableHTML;
   } else {
-    grid.innerHTML = `<iframe src="https://jfhprofesor.goatcounter.com/" style="width:100%;height:100%;border:none;border-radius:6px;" loading="lazy"></iframe>`;
+    const secStyle = 'background:#1a1a2e;border-radius:8px;padding:12px 14px;';
+    const titleStyle = 'font-family:Saira,sans-serif;font-size:0.7rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;';
+    grid.innerHTML = `
+      <div style="display:flex;flex-direction:column;gap:10px;width:100%;height:100%;overflow:auto;">
+        <div style="${secStyle}">
+          <div style="${titleStyle}">Visitas</div>
+          <div id="gc-visitas" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <div style="${secStyle}flex:1;min-width:180px;">
+            <div style="${titleStyle}">Origen</div>
+            <div id="gc-origen"></div>
+          </div>
+          <div style="${secStyle}flex:1;min-width:180px;">
+            <div style="${titleStyle}">Dispositivo</div>
+            <div id="gc-dispositivo"></div>
+          </div>
+        </div>
+        <div style="${secStyle}">
+          <div style="${titleStyle}">Países</div>
+          <div id="gc-paises"></div>
+        </div>
+      </div>`;
+    _consolaCargarEstadisticas();
   }
 
   grid.style.cssText = 'display:flex; flex-direction:column; gap:10px; width:100%; height:100%; overflow:auto;';
