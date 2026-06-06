@@ -1716,29 +1716,7 @@ function renderConsola() {
   if (_consolaPagina === 1) {
     grid.innerHTML = topRowHTML + tableHTML;
   } else {
-    grid.innerHTML = `<div id="gc-stats-panel" style="width:100%;height:100%;display:flex;flex-direction:column;gap:10px;overflow:auto;">
-      <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <div style="${groupStyle}flex:1;min-width:0;">
-          <div style="${titleStyle}">VISITAS</div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;" id="gc-visitas"></div>
-        </div>
-      </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <div style="${groupStyle}flex:1;min-width:0;">
-          <div style="${titleStyle}">ORIGEN</div>
-          <div id="gc-origen"></div>
-        </div>
-        <div style="${groupStyle}flex:1;min-width:0;">
-          <div style="${titleStyle}">DISPOSITIVO</div>
-          <div id="gc-dispositivo"></div>
-        </div>
-        <div style="${groupStyle}flex:2;min-width:0;">
-          <div style="${titleStyle}">PAÍSES</div>
-          <div id="gc-paises"></div>
-        </div>
-      </div>
-    </div>`;
-    _consolaCargarEstadisticas();
+    grid.innerHTML = `<iframe src="https://jfhprofesor.goatcounter.com/" style="width:100%;height:100%;border:none;border-radius:6px;" loading="lazy"></iframe>`;
   }
 
   grid.style.cssText = 'display:flex; flex-direction:column; gap:10px; width:100%; height:100%; overflow:auto;';
