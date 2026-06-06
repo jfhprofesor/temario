@@ -3903,7 +3903,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const isLocal = location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
   const btnSala = document.getElementById('btn-sala-control');
   if (isLocal && btnSala) {
-    btnSala.style.display = 'inline-flex';
+    btnSala.style.display = btnSala.classList.contains('curso-tab') ? 'inline-flex' : 'flex';
     btnSala.classList.add('page-load-hidden');
     setTimeout(() => btnSala.classList.add('page-load-anim'), 80 + 4 * 100);
   }
