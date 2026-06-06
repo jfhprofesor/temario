@@ -71,7 +71,7 @@ header { position:relative; z-index:10; padding:12px 1rem 8px; display:flex; fle
 .barra-superior { position:relative; z-index:10; display:grid; grid-template-columns:repeat(4,1fr); gap:0.25rem; padding:4px; margin:0 0 2px 0; border:1px solid #999999; border-radius:10px; background:rgba(56,189,248,0.154); width:100%; box-sizing:border-box; }
 .curso-tab { padding:3px 4px; border-radius:6px; border:1px solid #999999; background:#000000; color:#ffffff; font-family:'Saira',sans-serif; font-size:0.65rem; font-weight:500; cursor:pointer; transition:all 0.2s; white-space:normal; text-align:center; line-height:1.2; height:40px; width:100%; box-sizing:border-box; }
 .curso-tab.active { background:var(--accent); border-color:#000000; color:#000; font-weight:700; }
-.curso-tab.tab-press { animation:btnActivePulseBlack 0.4s ease-out forwards; }
+.curso-tab.tab-press, #btn-sala-control.tab-press { animation:btnActivePulseBlack 0.4s ease-out forwards; }
 .curso-tab.objetos-btn { border-radius:6px; padding:3px 4px; height:40px; width:100%; background:#000000; color:#ffffff; border:1px solid #999999; box-sizing:border-box; overflow:hidden; white-space:normal; word-break:break-word; display:flex; align-items:center; justify-content:flex-start; gap:0; }
 .objetos-btn-icono { width:20px; height:20px; object-fit:contain; flex-shrink:0; display:block; }
 .objetos-btn-texto { white-space:normal; line-height:1.2; text-align:center; flex:1; min-width:0; font-size:0.65rem; margin-left:4px; margin-right:4px; }
@@ -2800,6 +2800,14 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
     if (objPanel && objPanel.classList.contains('active')) {
       if (dir === 1) window.objetosNextPage && objetosNextPage();
       else window.objetosPrevPage && objetosPrevPage();
+      return;
+    }
+
+    // 5. Sala de control
+    const consolaPanel = document.getElementById('panel-consola');
+    if (consolaPanel && consolaPanel.classList.contains('active')) {
+      if (dir === 1) window.consolaNextPage && consolaNextPage();
+      else window.consolaPrevPage && consolaPrevPage();
       return;
     }
 

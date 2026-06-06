@@ -1582,6 +1582,18 @@ function renderConsola() {
 
   grid.style.cssText = 'display:flex; flex-direction:column; gap:10px; width:100%; height:100%; overflow:auto;';
   _consolaUpdateNav();
+
+  // Rueda del ratón para cambiar de página (desktop)
+  const panel = document.getElementById('panel-consola');
+  if (panel && !panel._consolaWheelAdded) {
+    panel._consolaWheelAdded = true;
+    panel.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      if (e.deltaY > 0) consolaNextPage();
+      else consolaPrevPage();
+    }, { passive: false });
+  }
+
   // Medir Amazon Kindle y aplicar misma altura a Código Universal
   requestAnimationFrame(() => {
     const containers = grid.querySelectorAll(':scope > div:first-child > div');
@@ -2204,7 +2216,14 @@ function _abrirSalaControl() {
   _consolaPagina = 1;
   const panel = activarPanel('panel-consola');
   if (panel) renderConsola();
-  document.getElementById('btn-sala-control')?.classList.add('active');
+  const btnSala = document.getElementById('btn-sala-control');
+  if (btnSala) {
+    btnSala.classList.add('active');
+    btnSala.classList.remove('tab-press');
+    void btnSala.offsetWidth;
+    btnSala.classList.add('tab-press');
+    btnSala.addEventListener('animationend', () => btnSala.classList.remove('tab-press'), { once: true });
+  }
 }
 
 function _mostrarPinSala() {
@@ -2215,6 +2234,13 @@ function _mostrarPinSala() {
   digits.forEach(d => { d.value = ''; d.style.borderColor = ''; });
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
+  const btnSala = document.getElementById('btn-sala-control');
+  if (btnSala) {
+    btnSala.classList.remove('tab-press');
+    void btnSala.offsetWidth;
+    btnSala.classList.add('tab-press');
+    btnSala.addEventListener('animationend', () => btnSala.classList.remove('tab-press'), { once: true });
+  }
   setTimeout(() => digits[0].focus(), 100);
 
   function getPIN() { return digits.map(d => d.value).join(''); }
