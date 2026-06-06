@@ -3899,14 +3899,6 @@ document.addEventListener('keydown', e => {
 document.addEventListener('DOMContentLoaded', () => {
   buildGrids();
 
-  // Mostrar "Sala de control" solo en versión local
-  const isLocal = location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-  const btnSala = document.getElementById('btn-sala-control');
-  if (isLocal && btnSala) {
-    btnSala.style.display = btnSala.classList.contains('curso-tab') ? 'inline-flex' : 'flex';
-    btnSala.classList.add('page-load-hidden');
-    setTimeout(() => btnSala.classList.add('page-load-anim'), 80 + 4 * 100);
-  }
 
   const btnOrden = document.getElementById('btn-orden-toggle');
   if (btnOrden) {
@@ -4063,6 +4055,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const loadEls = [
     document.querySelector('.header-logo'),
     document.querySelector('.header-sub'),
+    document.getElementById('btn-sala-control'),
     document.querySelector('.barra-superior'),
     document.querySelector('main'),
   ];
