@@ -1496,6 +1496,144 @@ let CLASSROOMS = [
 ];
 
 
+// ═══════════════════════════════════════════
+// ESTADÍSTICAS GOATCOUNTER
+// ═══════════════════════════════════════════
+const _GC_TOKEN = '1ryu9pu1hlo391jj93iykqgaq1kxsetiy5d2kyswyuekk21w2p';
+const _GC_BASE  = 'https://jfhprofesor.goatcounter.com/api/v0';
+
+async function _gcFetch(endpoint) {
+  const r = await fetch(_GC_BASE + endpoint, {
+    headers: { 'Authorization': 'Bearer ' + _GC_TOKEN }
+  });
+  if (!r.ok) return null;
+  return r.json();
+}
+
+function _gcDateRange(days) {
+  const end   = new Date(); end.setMinutes(0,0,0);
+  const start = new Date(end); start.setDate(start.getDate() - days);
+  return `start=${start.toISOString().slice(0,13)}:00:00&end=${end.toISOString().slice(0,13)}:00:00`;
+}
+
+function _gcDateRangeYear(days) {
+  // Para histórico usamos la fecha más antigua posible
+  if (days === null) return `start=2020-01-01T00:00:00&end=${new Date().toISOString().slice(0,13)}:00:00`;
+  return _gcDateRange(days);
+}
+
+function _gcSpinner() {
+  return `<span style="color:var(--muted);font-family:Saira,sans-serif;font-size:0.8rem;">Cargando...</span>`;
+}
+
+function _gcBarra(valor, max, color) {
+  const pct = max > 0 ? Math.round((valor / max) * 100) : 0;
+  return `<div style="background:#111;border-radius:3px;height:8px;width:100%;margin-top:3px;">
+    <div style="background:${color};width:${pct}%;height:100%;border-radius:3px;transition:width 0.4s;"></div>
+  </div>`;
+}
+
+async function _consolaCargarEstadisticas() {
+  const labelStyle = 'font-family:Saira,sans-serif;font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;';
+  const numStyle   = 'font-family:Saira,sans-serif;font-size:1.6rem;font-weight:700;color:var(--accent);line-height:1;';
+  const rowStyle   = 'display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;font-family:Saira,sans-serif;font-size:0.8rem;';
+
+  // ── VISITAS ──
+  const elVisitas = document.getElementById('gc-visitas');
+  if (elVisitas) elVisitas.innerHTML = _gcSpinner();
+
+  const periodos = [
+    { label: 'Hoy',       days: 1   },
+    { label: '7 días',    days: 7   },
+    { label: '30 días',   days: 30  },
+    { label: '365 días',  days: 365 },
+    { label: 'Histórico', days: null},
+  ];
+
+  const totales = await Promise.all(periodos.map(p =>
+    _gcFetch(`/stats/total?${_gcDateRangeYear(p.days)}`)
+  ));
+
+  if (elVisitas) {
+    elVisitas.innerHTML = periodos.map((p, i) => {
+      const n = totales[i]?.total ?? '—';
+      return `<div style="background:#111;border-radius:6px;padding:8px 12px;flex:1;min-width:80px;text-align:center;">
+        <div style="${numStyle}">${typeof n === 'number' ? n.toLocaleString('es-ES') : n}</div>
+        <div style="${labelStyle}margin-top:4px;">${p.label}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // ── ORIGEN ──
+  const elOrigen = document.getElementById('gc-origen');
+  if (elOrigen) elOrigen.innerHTML = _gcSpinner();
+
+  const refs = await _gcFetch(`/stats/toprefs?${_gcDateRangeYear(null)}&limit=50`);
+  if (elOrigen && refs?.stats) {
+    const google  = refs.stats.filter(r => /google/i.test(r.name)).reduce((s,r) => s+r.count, 0);
+    const directo = refs.stats.find(r => r.name === '' || r.name === '(direct)')?.count || 0;
+    const otros   = refs.stats.reduce((s,r) => s+r.count, 0) - google - directo;
+    const maxRef  = Math.max(google, directo, otros);
+    const filas   = [
+      { label: 'Google',  valor: google,  color: '#4285f4' },
+      { label: 'Directo', valor: directo, color: '#38bdf8' },
+      { label: 'Otros',   valor: otros,   color: '#888'    },
+    ];
+    elOrigen.innerHTML = filas.map(f => `
+      <div style="${rowStyle}">
+        <span style="min-width:55px;">${f.label}</span>
+        <div style="flex:1;">${_gcBarra(f.valor, maxRef, f.color)}</div>
+        <span style="min-width:35px;text-align:right;color:#fff;">${f.valor.toLocaleString('es-ES')}</span>
+      </div>`).join('');
+  } else if (elOrigen) { elOrigen.innerHTML = '<span style="color:var(--muted);font-size:0.8rem;">Sin datos</span>'; }
+
+  // ── DISPOSITIVO ──
+  const elDisp = document.getElementById('gc-dispositivo');
+  if (elDisp) elDisp.innerHTML = _gcSpinner();
+
+  const sizes = await _gcFetch(`/stats/sizes?${_gcDateRangeYear(null)}&limit=50`);
+  if (elDisp && sizes?.stats) {
+    let movil = 0, tablet = 0, pc = 0;
+    sizes.stats.forEach(s => {
+      const w = parseInt(s.name) || 0;
+      if (w === 0) return;
+      if (w < 600)       movil  += s.count;
+      else if (w < 1024) tablet += s.count;
+      else               pc     += s.count;
+    });
+    const maxD = Math.max(movil, tablet, pc);
+    const filas = [
+      { label: 'Móvil',   valor: movil,  color: '#38bdf8' },
+      { label: 'Tablet',  valor: tablet, color: '#a78bfa' },
+      { label: 'PC/Mac',  valor: pc,     color: '#34d399' },
+    ];
+    elDisp.innerHTML = filas.map(f => `
+      <div style="${rowStyle}">
+        <span style="min-width:55px;">${f.label}</span>
+        <div style="flex:1;">${_gcBarra(f.valor, maxD, f.color)}</div>
+        <span style="min-width:35px;text-align:right;color:#fff;">${f.valor.toLocaleString('es-ES')}</span>
+      </div>`).join('');
+  } else if (elDisp) { elDisp.innerHTML = '<span style="color:var(--muted);font-size:0.8rem;">Sin datos</span>'; }
+
+  // ── PAÍSES ──
+  const elPaises = document.getElementById('gc-paises');
+  if (elPaises) elPaises.innerHTML = _gcSpinner();
+
+  const locs = await _gcFetch(`/stats/locations?${_gcDateRangeYear(null)}&limit=10`);
+  if (elPaises && locs?.stats?.length) {
+    const maxP = locs.stats[0].count;
+    elPaises.innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;">` +
+      locs.stats.map(l => `
+        <div>
+          <div style="${rowStyle}margin-bottom:2px;">
+            <span style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:110px;">${l.name || 'Desconocido'}</span>
+            <span style="color:#fff;white-space:nowrap;">${l.count.toLocaleString('es-ES')}</span>
+          </div>
+          ${_gcBarra(l.count, maxP, '#38bdf8')}
+        </div>`).join('') + `</div>`;
+  } else if (elPaises) { elPaises.innerHTML = '<span style="color:var(--muted);font-size:0.8rem;">Sin datos</span>'; }
+}
+
 let _consolaPagina = 1;
 const _consolaTotalPaginas = 2;
 
@@ -1578,11 +1716,29 @@ function renderConsola() {
   if (_consolaPagina === 1) {
     grid.innerHTML = topRowHTML + tableHTML;
   } else {
-    // Página 2: grupo de estadísticas (contenido pendiente)
-    grid.innerHTML = `<div style="${groupStyle} width:100%; box-sizing:border-box;">
-      <div style="${titleStyle}">ESTADÍSTICAS</div>
-      <div style="color:var(--muted);font-family:Saira,sans-serif;font-size:0.85rem;">Próximamente...</div>
+    grid.innerHTML = `<div id="gc-stats-panel" style="width:100%;height:100%;display:flex;flex-direction:column;gap:10px;overflow:auto;">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <div style="${groupStyle}flex:1;min-width:0;">
+          <div style="${titleStyle}">VISITAS</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;" id="gc-visitas"></div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <div style="${groupStyle}flex:1;min-width:0;">
+          <div style="${titleStyle}">ORIGEN</div>
+          <div id="gc-origen"></div>
+        </div>
+        <div style="${groupStyle}flex:1;min-width:0;">
+          <div style="${titleStyle}">DISPOSITIVO</div>
+          <div id="gc-dispositivo"></div>
+        </div>
+        <div style="${groupStyle}flex:2;min-width:0;">
+          <div style="${titleStyle}">PAÍSES</div>
+          <div id="gc-paises"></div>
+        </div>
+      </div>
     </div>`;
+    _consolaCargarEstadisticas();
   }
 
   grid.style.cssText = 'display:flex; flex-direction:column; gap:10px; width:100%; height:100%; overflow:auto;';
