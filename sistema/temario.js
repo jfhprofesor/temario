@@ -1511,14 +1511,13 @@ async function _gcFetch(endpoint) {
 }
 
 function _gcDateRange(days) {
-  const end   = new Date(); end.setMinutes(0,0,0);
+  const end   = new Date();
   const start = new Date(end); start.setDate(start.getDate() - days);
-  return `start=${start.toISOString().slice(0,13)}:00:00&end=${end.toISOString().slice(0,13)}:00:00`;
+  return `start=${start.toISOString().slice(0,10)}&end=${end.toISOString().slice(0,10)}`;
 }
 
 function _gcDateRangeYear(days) {
-  // Para histórico usamos la fecha más antigua posible
-  if (days === null) return `start=2020-01-01T00:00:00&end=${new Date().toISOString().slice(0,13)}:00:00`;
+  if (days === null) return `start=2020-01-01&end=${new Date().toISOString().slice(0,10)}`;
   return _gcDateRange(days);
 }
 
