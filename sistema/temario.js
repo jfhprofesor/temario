@@ -4053,15 +4053,15 @@ function actualizarDropdownTemas() {
 document.addEventListener('DOMContentLoaded', () => {
   // Animación de carga inicial: header-logo, header-sub, barra-superior, main
   const loadEls = [
-    document.querySelector('.header-logo'),
-    document.querySelector('.header-sub'),
-    document.getElementById('btn-sala-control'),
-    document.querySelector('.barra-superior'),
-    document.getElementById('panel-portada'),
+    { el: document.querySelector('.header-logo'),        delay: 400 },
+    { el: document.querySelector('.header-sub'),         delay: 400 },
+    { el: document.getElementById('btn-sala-control'),   delay: 600 },
+    { el: document.querySelector('.barra-superior'),     delay: 600 },
+    { el: document.getElementById('panel-portada'),      delay: 800 },
   ];
-  loadEls.forEach((el, i) => {
+  loadEls.forEach(({ el, delay }) => {
     if (!el) return;
-    setTimeout(() => el.classList.add('page-load-anim'), 80 + i * 100);
+    setTimeout(() => el.classList.add('page-load-anim'), delay);
   });
 
   // Animación A: press en curso-tab al hacer click
