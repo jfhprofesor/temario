@@ -1497,154 +1497,16 @@ let CLASSROOMS = [
 
 
 // ═══════════════════════════════════════════
-// ESTADÍSTICAS GOATCOUNTER
+// ESTADÍSTICAS
 // ═══════════════════════════════════════════
-const _GC_TOKEN = '1ryu9pu1hlo391jj93iykqgaq1kxsetiy5d2kyswyuekk21w2p';
-const _GC_BASE  = 'https://jfhprofesor.goatcounter.com/api/v0';
-
-async function _gcFetch(endpoint) {
-  const r = await fetch(_GC_BASE + endpoint, {
-    headers: { 'Authorization': 'Bearer ' + _GC_TOKEN }
-  });
-  if (!r.ok) return null;
-  return r.json();
-}
-
-function _gcDateRange(days) {
-  const end   = new Date();
-  const start = new Date(end); start.setDate(start.getDate() - days);
-  return `start=${start.toISOString().slice(0,10)}&end=${end.toISOString().slice(0,10)}`;
-}
-
-function _gcDateRangeYear(days) {
-  if (days === null) return `start=2024-01-01&end=${new Date().toISOString().slice(0,10)}`;
-  return _gcDateRange(days);
-}
-
-function _gcSpinner() {
-  return `<span style="color:var(--muted);font-family:Saira,sans-serif;font-size:0.8rem;">Cargando...</span>`;
-}
-
-function _gcBarra(valor, max, color) {
-  const pct = max > 0 ? Math.round((valor / max) * 100) : 0;
-  return `<div style="background:#111;border-radius:3px;height:8px;width:100%;margin-top:3px;">
-    <div style="background:${color};width:${pct}%;height:100%;border-radius:3px;transition:width 0.4s;"></div>
-  </div>`;
-}
-
-async function _consolaCargarEstadisticas() {
-  const labelStyle = 'font-family:Saira,sans-serif;font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;';
-  const numStyle   = 'font-family:Saira,sans-serif;font-size:1.6rem;font-weight:700;color:var(--accent);line-height:1;';
-  const rowStyle   = 'display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;font-family:Saira,sans-serif;font-size:0.8rem;';
-
-  // ── VISITAS ──
-  const elVisitas = document.getElementById('gc-visitas');
-  if (elVisitas) elVisitas.innerHTML = _gcSpinner();
-
-  const periodos = [
-    { label: 'Hoy',       days: 1   },
-    { label: '7 días',    days: 7   },
-    { label: '30 días',   days: 30  },
-    { label: '365 días',  days: 365 },
-    { label: 'Histórico', days: null},
-  ];
-
-  const totales = await Promise.all(periodos.map(p =>
-    _gcFetch(`/stats/total?${_gcDateRangeYear(p.days)}`).catch(() => null)
-  ));
-
-  if (elVisitas) {
-    elVisitas.innerHTML = periodos.map((p, i) => {
-      const n = totales[i]?.total ?? '—';
-      return `<div style="background:#111;border-radius:6px;padding:8px 12px;flex:1;min-width:80px;text-align:center;">
-        <div style="${numStyle}">${typeof n === 'number' ? n.toLocaleString('es-ES') : n}</div>
-        <div style="${labelStyle}margin-top:4px;">${p.label}</div>
-      </div>`;
-    }).join('');
-  }
-
-  // ── ORIGEN ──
-  const elOrigen = document.getElementById('gc-origen');
-  if (elOrigen) elOrigen.innerHTML = _gcSpinner();
-
-  const refs = await _gcFetch(`/stats/toprefs?${_gcDateRangeYear(null)}&limit=50`).catch(() => null);
-  if (elOrigen && refs?.stats) {
-    const google  = refs.stats.filter(r => /google/i.test(r.name)).reduce((s,r) => s+r.count, 0);
-    const directo = refs.stats.find(r => r.name === '' || r.name === '(direct)')?.count || 0;
-    const otros   = refs.stats.reduce((s,r) => s+r.count, 0) - google - directo;
-    const maxRef  = Math.max(google, directo, otros);
-    const filas   = [
-      { label: 'Google',  valor: google,  color: '#4285f4' },
-      { label: 'Directo', valor: directo, color: '#38bdf8' },
-      { label: 'Otros',   valor: otros,   color: '#888'    },
-    ];
-    elOrigen.innerHTML = filas.map(f => `
-      <div style="${rowStyle}">
-        <span style="min-width:55px;">${f.label}</span>
-        <div style="flex:1;">${_gcBarra(f.valor, maxRef, f.color)}</div>
-        <span style="min-width:35px;text-align:right;color:#fff;">${f.valor.toLocaleString('es-ES')}</span>
-      </div>`).join('');
-  } else if (elOrigen) { elOrigen.innerHTML = '<span style="color:var(--muted);font-size:0.8rem;">Sin datos</span>'; }
-
-  // ── DISPOSITIVO ──
-  const elDisp = document.getElementById('gc-dispositivo');
-  if (elDisp) elDisp.innerHTML = _gcSpinner();
-
-  const sizes = await _gcFetch(`/stats/sizes?${_gcDateRangeYear(null)}&limit=50`).catch(() => null);
-  if (elDisp && sizes?.stats) {
-    let movil = 0, tablet = 0, pc = 0;
-    sizes.stats.forEach(s => {
-      const id = s.id || '';
-      if (id === 'phone')                          movil  += s.count;
-      else if (id === 'tablet')                    tablet += s.count;
-      else if (id === 'desktop' || id === 'desktophd') pc += s.count;
-      else {
-        // fallback por píxeles si algún día cambia la API
-        const w = parseInt(s.name) || 0;
-        if (w > 0) {
-          if (w < 600) movil += s.count;
-          else if (w < 1024) tablet += s.count;
-          else pc += s.count;
-        }
-      }
-    });
-    const maxD = Math.max(movil, tablet, pc);
-    const filas = [
-      { label: 'Móvil',   valor: movil,  color: '#38bdf8' },
-      { label: 'Tablet',  valor: tablet, color: '#a78bfa' },
-      { label: 'PC/Mac',  valor: pc,     color: '#34d399' },
-    ];
-    elDisp.innerHTML = filas.map(f => `
-      <div style="${rowStyle}">
-        <span style="min-width:55px;">${f.label}</span>
-        <div style="flex:1;">${_gcBarra(f.valor, maxD, f.color)}</div>
-        <span style="min-width:35px;text-align:right;color:#fff;">${f.valor.toLocaleString('es-ES')}</span>
-      </div>`).join('');
-  } else if (elDisp) { elDisp.innerHTML = '<span style="color:var(--muted);font-size:0.8rem;">Sin datos</span>'; }
-
-  // ── PAÍSES ──
-  const elPaises = document.getElementById('gc-paises');
-  if (elPaises) elPaises.innerHTML = _gcSpinner();
-
-  const locs = await _gcFetch(`/stats/locations?${_gcDateRangeYear(null)}&limit=10`).catch(() => null);
-  if (elPaises && locs?.stats?.length) {
-    const maxP = locs.stats[0].count;
-    elPaises.innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;">` +
-      locs.stats.map(l => `
-        <div>
-          <div style="${rowStyle}margin-bottom:2px;">
-            <span style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:110px;">${l.name || 'Desconocido'}</span>
-            <span style="color:#fff;white-space:nowrap;">${l.count.toLocaleString('es-ES')}</span>
-          </div>
-          ${_gcBarra(l.count, maxP, '#38bdf8')}
-        </div>`).join('') + `</div>`;
-  } else if (elPaises) { elPaises.innerHTML = '<span style="color:var(--muted);font-size:0.8rem;">Sin datos</span>'; }
-}
 
 
 function renderConsola() {
   const grid = document.getElementById('grid-consola');
   if (!grid) return;
+
+  const esMobil = window.innerWidth < 768;
+  const btnSize = esMobil ? 'width:60px;height:25px;' : 'width:250px;';
 
   const groupStyle = 'background:#20292F; border:1px solid #999999; border-radius:6px; padding:10px; display:flex; flex-direction:column; gap:6px;';
   const titleStyle = 'font-family:Saira,sans-serif;font-size:0.85rem;font-weight:700;color:var(--accent);letter-spacing:0.08em;margin-bottom:2px;';
@@ -1659,13 +1521,13 @@ function renderConsola() {
 
   const estadisticasHTML = `<div style="${groupStyle} flex:1; box-sizing:border-box;">
     <div style="${titleStyle}">ESTADÍSTICAS</div>
-    <button class="control-btn control-btn-filter" style="width:100%;" onclick="window.open('https://jfhprofesor.goatcounter.com','_blank')"><img src="imagenes/menu/Estadisticas.png" alt=""><span>Ver estadísticas</span></button>
+    <button class="control-btn control-btn-filter" style="${btnSize}" onclick="window.open('https://jfhprofesor.goatcounter.com','_blank')"><img src="imagenes/menu/Estadisticas.png" alt=""><span>Ver estadísticas</span></button>
   </div>`;
 
   const amazonHTML = `<div style="${groupStyle} flex:1; box-sizing:border-box;">
     <div style="${titleStyle}">AMAZON KINDLE</div>
-    <button class="control-btn control-btn-filter" style="width:100%;" onclick="window.open('https://kdpreports.amazon.com/royalties','_blank')"><img src="imagenes/menu/Amazon.webp" alt=""><span>Ventas</span></button>
-    <button class="control-btn control-btn-filter" style="width:100%;" onclick="window.open('https://kdp.amazon.com/es_ES/bookshelf','_blank')"><img src="imagenes/menu/Amazon.webp" alt=""><span>Administrar</span></button>
+    <button class="control-btn control-btn-filter" style="${btnSize}" onclick="window.open('https://kdpreports.amazon.com/royalties','_blank')"><img src="imagenes/menu/Amazon.webp" alt=""><span>Ventas</span></button>
+    <button class="control-btn control-btn-filter" style="${btnSize}" onclick="window.open('https://kdp.amazon.com/es_ES/bookshelf','_blank')"><img src="imagenes/menu/Amazon.webp" alt=""><span>Administrar</span></button>
   </div>`;
 
   let tableHTML = `<div style="${groupStyle}">
@@ -2207,10 +2069,7 @@ function mostrarAutor() {
         <p>Siempre he sentido una gran pasión por el mundo de la edición digital y la creación de contenidos educativos. A lo largo de los años he desarrollado un estilo propio basado en el cuidado visual, la claridad de los materiales y la búsqueda constante de nuevas formas de transmitir conocimientos de manera atractiva y accesible. Mi trabajo combina diseño, organización y creatividad, con el objetivo de transformar cada recurso en una experiencia útil y moderna para el alumnado.</p>
         <p>Como editor digital independiente, he trabajado en la elaboración y publicación de distintos materiales didácticos, entre ellos libros de texto, cuadernos de formulación y fichas de lectura orientadas a diferentes niveles educativos.</p>
       </div>
-      <a href="https://www.paypal.com/paypalme/jfhprofesor" target="_blank" rel="noopener" class="control-btn control-btn-filter ancho-pub" style="text-decoration:none;margin-top:0.5rem;width:fit-content;align-self:flex-start;">
-        <img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" alt="PayPal" style="width:24px;height:24px;object-fit:contain;">
-        <span>Invítame a un café</span>
-      </a>
+      <button class="control-btn control-btn-filter" onclick="_mostrarContactoAutor()" style="width:155px;margin-top:0.5rem;"><img src="imagenes/menu/Correo.png" alt=""><span>Contacto</span></button>
     </div>`;
 }
 
@@ -2313,7 +2172,7 @@ function mostrarVersionesWeb() {
   _publicacionesAbrirVistaInterna('VERSIONES WEB', html);
 }
 
-let _salaControlAutorizado = true; // TODO: restaurar a false cuando termine el desarrollo
+let _salaControlAutorizado = false;
 
 function openConsola() {
   if (!_salaControlAutorizado) {
@@ -3774,8 +3633,13 @@ function abrirObjetoDetalle(obj) {
   const _idx = window._objetoDetalleIdxActual;
   const btnPrev = document.getElementById('objeto-nav-prev');
   const btnNext = document.getElementById('objeto-nav-next');
-  if (btnPrev) { btnPrev.style.opacity = _idx <= 0 ? '0.3' : '1'; btnPrev.style.pointerEvents = _idx <= 0 ? 'none' : ''; }
-  if (btnNext) { btnNext.style.opacity = _idx >= _lista.length - 1 ? '0.3' : '1'; btnNext.style.pointerEvents = _idx >= _lista.length - 1 ? 'none' : ''; }
+  if (btnPrev) { btnPrev.style.visibility = _idx <= 0 ? 'hidden' : ''; btnPrev.style.pointerEvents = _idx <= 0 ? 'none' : ''; }
+  if (btnNext) { btnNext.style.visibility = _idx >= _lista.length - 1 ? 'hidden' : ''; btnNext.style.pointerEvents = _idx >= _lista.length - 1 ? 'none' : ''; }
+
+  const btnPrevNav = document.getElementById('btn-prev-objeto');
+  const btnNextNav = document.getElementById('btn-next-objeto');
+  if (btnPrevNav) { btnPrevNav.style.visibility = _idx <= 0 ? 'hidden' : ''; btnPrevNav.style.pointerEvents = _idx <= 0 ? 'none' : ''; }
+  if (btnNextNav) { btnNextNav.style.visibility = _idx >= _lista.length - 1 ? 'hidden' : ''; btnNextNav.style.pointerEvents = _idx >= _lista.length - 1 ? 'none' : ''; }
 
   // Rueda del ratón: navegar entre objetos
   if (!overlay._wheelObjeto) {
