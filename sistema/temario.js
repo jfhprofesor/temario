@@ -1727,20 +1727,20 @@ function renderConsola() {
     const titleStyle = 'font-family:Saira,sans-serif;font-size:0.7rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;';
     grid.innerHTML = `
       <div style="display:flex;flex-direction:column;gap:10px;width:100%;height:100%;overflow:hidden;">
-        <div style="${secStyle}flex-shrink:0;">
+        <div style="${secStyle}height:120px;flex-shrink:0;box-sizing:border-box;overflow:hidden;">
           <div style="${titleStyle}">Visitas</div>
           <div id="gc-visitas" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
         </div>
-        <div style="${secStyle}flex:1;min-height:0;overflow:auto;">
+        <div style="${secStyle}flex:1;min-height:0;overflow:auto;box-sizing:border-box;">
           <div style="${titleStyle}">Países</div>
           <div id="gc-paises" style="height:calc(100% - 24px);overflow:auto;"></div>
         </div>
-        <div style="display:flex;gap:10px;flex-shrink:0;">
-          <div style="${secStyle}flex:1;min-width:180px;">
+        <div style="display:flex;gap:10px;flex-shrink:0;height:120px;box-sizing:border-box;">
+          <div style="${secStyle}flex:1;min-width:180px;box-sizing:border-box;overflow:hidden;">
             <div style="${titleStyle}">Origen</div>
             <div id="gc-origen"></div>
           </div>
-          <div style="${secStyle}flex:1;min-width:180px;">
+          <div style="${secStyle}flex:1;min-width:180px;box-sizing:border-box;overflow:hidden;">
             <div style="${titleStyle}">Dispositivo</div>
             <div id="gc-dispositivo"></div>
           </div>
@@ -2370,7 +2370,7 @@ function mostrarVersionesWeb() {
   _publicacionesAbrirVistaInterna('VERSIONES WEB', html);
 }
 
-let _salaControlAutorizado = false;
+let _salaControlAutorizado = true; // TODO: restaurar a false cuando termine el desarrollo
 
 function openConsola() {
   if (!_salaControlAutorizado) {

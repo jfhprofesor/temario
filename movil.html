@@ -2795,19 +2795,19 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
       return;
     }
 
-    // 4. Panel objetos
-    const objPanel = document.getElementById('panel-objetos');
-    if (objPanel && objPanel.classList.contains('active')) {
-      if (dir === 1) window.objetosNextPage && objetosNextPage();
-      else window.objetosPrevPage && objetosPrevPage();
-      return;
-    }
-
-    // 5. Sala de control
+    // 4. Sala de control
     const consolaPanel = document.getElementById('panel-consola');
     if (consolaPanel && consolaPanel.classList.contains('active')) {
       if (dir === 1) window.consolaNextPage && consolaNextPage();
       else window.consolaPrevPage && consolaPrevPage();
+      return;
+    }
+
+    // 5. Panel objetos
+    const objPanel = document.getElementById('panel-objetos');
+    if (objPanel && objPanel.classList.contains('active')) {
+      if (dir === 1) window.objetosNextPage && objetosNextPage();
+      else window.objetosPrevPage && objetosPrevPage();
       return;
     }
 
