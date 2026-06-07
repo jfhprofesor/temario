@@ -1651,21 +1651,21 @@ function renderConsola() {
   const inputStyle = 'width:100%;background:#111;border:1px solid #444;border-radius:4px;color:#fff;padding:2px 4px;font-size:0.75rem;font-family:Saira,sans-serif;box-sizing:border-box;height:24px;';
 
   const codigoUniversalHTML = `<div style="${groupStyle} flex:1; box-sizing:border-box; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start;">
-    <div style="${titleStyle}">CÓDIGO UNIVERSAL</div>
-    <div id="codigo-universal-cuadro" style="background:#000000; border:1px solid #999999; border-radius:4px; padding:10px; margin:0; display:inline-flex; align-items:center; justify-content:center; height:66px; width:120px; box-sizing:border-box;">
+    <div style="${titleStyle}">CÓDIGO</div>
+    <div id="codigo-universal-cuadro" style="background:#000000; border:1px solid #999999; border-radius:4px; padding:10px; margin:0; display:inline-flex; align-items:center; justify-content:center; height:66px; width:100%; box-sizing:border-box;">
       <div id="codigo-universal-texto" style="font-family:Saira,sans-serif;font-size:1.4rem;font-weight:700;color:var(--accent);letter-spacing:0.15em;text-align:center;margin:0;padding:0;user-select:text;cursor:text;">9445</div>
     </div>
   </div>`;
 
   const estadisticasHTML = `<div style="${groupStyle} flex:1; box-sizing:border-box;">
     <div style="${titleStyle}">ESTADÍSTICAS</div>
-    <button class="control-btn control-btn-filter" style="width:250px;" onclick="window.open('https://jfhprofesor.goatcounter.com','_blank')"><img src="imagenes/menu/Estadisticas.png" alt=""><span>Ver estadísticas</span></button>
+    <button class="control-btn control-btn-filter" style="width:100%;" onclick="window.open('https://jfhprofesor.goatcounter.com','_blank')"><img src="imagenes/menu/Estadisticas.png" alt=""><span>Ver estadísticas</span></button>
   </div>`;
 
   const amazonHTML = `<div style="${groupStyle} flex:1; box-sizing:border-box;">
     <div style="${titleStyle}">AMAZON KINDLE</div>
-    <button class="control-btn control-btn-filter" style="width:250px;" onclick="window.open('https://kdpreports.amazon.com/royalties','_blank')"><img src="imagenes/menu/Amazon.webp" alt=""><span>Ventas</span></button>
-    <button class="control-btn control-btn-filter" style="width:250px;" onclick="window.open('https://kdp.amazon.com/es_ES/bookshelf','_blank')"><img src="imagenes/menu/Amazon.webp" alt=""><span>Administrar publicaciones</span></button>
+    <button class="control-btn control-btn-filter" style="width:100%;" onclick="window.open('https://kdpreports.amazon.com/royalties','_blank')"><img src="imagenes/menu/Amazon.webp" alt=""><span>Ventas</span></button>
+    <button class="control-btn control-btn-filter" style="width:100%;" onclick="window.open('https://kdp.amazon.com/es_ES/bookshelf','_blank')"><img src="imagenes/menu/Amazon.webp" alt=""><span>Administrar</span></button>
   </div>`;
 
   let tableHTML = `<div style="${groupStyle}">
@@ -1701,7 +1701,7 @@ function renderConsola() {
   </tr></tbody></table>
   </div>`;
 
-  const topRowHTML = `<div style="display:flex;flex-direction:row;gap:10px;width:100%;align-items:flex-start;">${amazonHTML}${codigoUniversalHTML}${estadisticasHTML}</div>`;
+  const topRowHTML = `<div style="display:flex;flex-direction:row;gap:10px;width:100%;align-items:stretch;">${amazonHTML}${codigoUniversalHTML}${estadisticasHTML}</div>`;
 
   grid.innerHTML = topRowHTML + tableHTML;
   grid.style.cssText = 'display:flex; flex-direction:column; gap:10px; width:100%; height:100%; overflow:auto;';
