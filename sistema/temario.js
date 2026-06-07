@@ -1641,28 +1641,6 @@ async function _consolaCargarEstadisticas() {
   } else if (elPaises) { elPaises.innerHTML = '<span style="color:var(--muted);font-size:0.8rem;">Sin datos</span>'; }
 }
 
-let _consolaPagina = 1;
-const _consolaTotalPaginas = 2;
-
-function consolaPrevPage() {
-  if (_consolaPagina > 1) { _consolaPagina--; renderConsola(); }
-}
-function consolaNextPage() {
-  if (_consolaPagina < _consolaTotalPaginas) { _consolaPagina++; renderConsola(); }
-}
-function _consolaUpdateNav() {
-  const info = document.getElementById('consola-pagina-info');
-  const prev = document.getElementById('consola-btn-prev');
-  const next = document.getElementById('consola-btn-next');
-  if (info) {
-    info.textContent = _consolaPagina + ' / ' + _consolaTotalPaginas;
-    if (info._flipReady) {
-      info.classList.remove('anim-flip'); void info.offsetWidth; info.classList.add('anim-flip');
-    } else { info._flipReady = true; }
-  }
-  if (prev) prev.disabled = _consolaPagina <= 1;
-  if (next) next.disabled = _consolaPagina >= _consolaTotalPaginas;
-}
 
 function renderConsola() {
   const grid = document.getElementById('grid-consola');
@@ -1672,14 +1650,19 @@ function renderConsola() {
   const titleStyle = 'font-family:Saira,sans-serif;font-size:0.85rem;font-weight:700;color:var(--accent);letter-spacing:0.08em;margin-bottom:2px;';
   const inputStyle = 'width:100%;background:#111;border:1px solid #444;border-radius:4px;color:#fff;padding:2px 4px;font-size:0.75rem;font-family:Saira,sans-serif;box-sizing:border-box;height:24px;';
 
-  const codigoUniversalHTML = `<div style="${groupStyle} width:calc(50% - 5px); box-sizing:border-box; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start;">
+  const codigoUniversalHTML = `<div style="${groupStyle} flex:1; box-sizing:border-box; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start;">
     <div style="${titleStyle}">CÓDIGO UNIVERSAL</div>
     <div id="codigo-universal-cuadro" style="background:#000000; border:1px solid #999999; border-radius:4px; padding:10px; margin:0; display:inline-flex; align-items:center; justify-content:center; height:66px; width:120px; box-sizing:border-box;">
       <div id="codigo-universal-texto" style="font-family:Saira,sans-serif;font-size:1.4rem;font-weight:700;color:var(--accent);letter-spacing:0.15em;text-align:center;margin:0;padding:0;user-select:text;cursor:text;">9445</div>
     </div>
   </div>`;
 
-  const amazonHTML = `<div style="${groupStyle} width:calc(50% - 5px); box-sizing:border-box;">
+  const estadisticasHTML = `<div style="${groupStyle} flex:1; box-sizing:border-box; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start; height:106px;">
+    <div style="${titleStyle}">ESTADÍSTICAS</div>
+    <button class="control-btn control-btn-filter" style="width:200px;padding-right:5px;" onclick="window.open('https://jfhprofesor.goatcounter.com','_blank')"><img src="imagenes/menu/Estadisticas.webp" onerror="this.style.display='none'" alt=""><span>Ver estadísticas</span></button>
+  </div>`;
+
+  const amazonHTML = `<div style="${groupStyle} flex:1; box-sizing:border-box;">
     <div style="${titleStyle}">AMAZON KINDLE</div>
     <button class="control-btn control-btn-filter" style="width:250px;" onclick="window.open('https://kdpreports.amazon.com/royalties','_blank')"><img src="imagenes/menu/Amazon.webp" alt=""><span>Ventas</span></button>
     <button class="control-btn control-btn-filter" style="width:250px;" onclick="window.open('https://kdp.amazon.com/es_ES/bookshelf','_blank')"><img src="imagenes/menu/Amazon.webp" alt=""><span>Administrar publicaciones</span></button>
@@ -1718,50 +1701,10 @@ function renderConsola() {
   </tr></tbody></table>
   </div>`;
 
-  const topRowHTML = `<div style="display:flex;flex-direction:row;gap:10px;width:100%;align-items:flex-start;">${amazonHTML}${codigoUniversalHTML}</div>`;
+  const topRowHTML = `<div style="display:flex;flex-direction:row;gap:10px;width:100%;align-items:flex-start;">${amazonHTML}${codigoUniversalHTML}${estadisticasHTML}</div>`;
 
-  if (_consolaPagina === 1) {
-    grid.innerHTML = topRowHTML + tableHTML;
-  } else {
-    const secStyle = 'background:#1a1a2e;border-radius:8px;padding:12px 14px;';
-    const titleStyle = 'font-family:Saira,sans-serif;font-size:0.7rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;';
-    grid.innerHTML = `
-      <div style="display:flex;flex-direction:column;gap:10px;width:100%;height:100%;overflow:hidden;">
-        <div style="${secStyle}height:120px;flex-shrink:0;box-sizing:border-box;overflow:hidden;">
-          <div style="${titleStyle}">Visitas</div>
-          <div id="gc-visitas" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
-        </div>
-        <div style="${secStyle}flex:1;min-height:0;overflow:auto;box-sizing:border-box;">
-          <div style="${titleStyle}">Países</div>
-          <div id="gc-paises" style="height:calc(100% - 24px);overflow:auto;"></div>
-        </div>
-        <div style="display:flex;gap:10px;flex-shrink:0;height:120px;box-sizing:border-box;">
-          <div style="${secStyle}flex:1;min-width:180px;box-sizing:border-box;overflow:hidden;">
-            <div style="${titleStyle}">Origen</div>
-            <div id="gc-origen"></div>
-          </div>
-          <div style="${secStyle}flex:1;min-width:180px;box-sizing:border-box;overflow:hidden;">
-            <div style="${titleStyle}">Dispositivo</div>
-            <div id="gc-dispositivo"></div>
-          </div>
-        </div>
-      </div>`;
-    _consolaCargarEstadisticas();
-  }
-
+  grid.innerHTML = topRowHTML + tableHTML;
   grid.style.cssText = 'display:flex; flex-direction:column; gap:10px; width:100%; height:100%; overflow:auto;';
-  _consolaUpdateNav();
-
-  // Rueda del ratón para cambiar de página (desktop)
-  const panel = document.getElementById('panel-consola');
-  if (panel && !panel._consolaWheelAdded) {
-    panel._consolaWheelAdded = true;
-    panel.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      if (e.deltaY > 0) consolaNextPage();
-      else consolaPrevPage();
-    }, { passive: false });
-  }
 
   // Medir Amazon Kindle y aplicar misma altura a Código Universal
   requestAnimationFrame(() => {
@@ -2382,7 +2325,6 @@ function openConsola() {
 
 function _abrirSalaControl() {
   document.querySelectorAll('.curso-tab').forEach(t => t.classList.remove('active'));
-  _consolaPagina = 1;
   const panel = activarPanel('panel-consola');
   if (panel) renderConsola();
   const btnSala = document.getElementById('btn-sala-control');
