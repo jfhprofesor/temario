@@ -1657,9 +1657,9 @@ function renderConsola() {
     </div>
   </div>`;
 
-  const estadisticasHTML = `<div style="${groupStyle} flex:1; box-sizing:border-box; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start; height:106px;">
+  const estadisticasHTML = `<div style="${groupStyle} flex:1; box-sizing:border-box;">
     <div style="${titleStyle}">ESTADÍSTICAS</div>
-    <button class="control-btn control-btn-filter" style="width:200px;padding-right:5px;" onclick="window.open('https://jfhprofesor.goatcounter.com','_blank')"><img src="imagenes/menu/Estadisticas.webp" onerror="this.style.display='none'" alt=""><span>Ver estadísticas</span></button>
+    <button class="control-btn control-btn-filter" style="width:250px;" onclick="window.open('https://jfhprofesor.goatcounter.com','_blank')"><img src="imagenes/menu/Estadisticas.png" alt=""><span>Ver estadísticas</span></button>
   </div>`;
 
   const amazonHTML = `<div style="${groupStyle} flex:1; box-sizing:border-box;">
