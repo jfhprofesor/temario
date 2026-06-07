@@ -1506,7 +1506,8 @@ function renderConsola() {
   if (!grid) return;
 
   const esMobil = window.location.pathname.endsWith('movil.html');
-  const btnSize = esMobil ? 'width:60px!important;height:25px;' : 'width:250px;';
+  const btnSize = esMobil ? 'width:60px;height:25px;' : 'width:250px;';
+  const btnClass = esMobil ? 'control-btn control-btn-filter control-btn-consola' : 'control-btn control-btn-filter';
 
   const groupStyle = 'background:#20292F; border:1px solid #999999; border-radius:6px; padding:10px; display:flex; flex-direction:column; gap:6px;';
   const titleStyle = 'font-family:Saira,sans-serif;font-size:0.85rem;font-weight:700;color:var(--accent);letter-spacing:0.08em;margin-bottom:2px;';
@@ -1521,13 +1522,13 @@ function renderConsola() {
 
   const estadisticasHTML = `<div style="${groupStyle} flex:1; box-sizing:border-box;">
     <div style="${titleStyle}">ESTADÍSTICAS</div>
-    <button class="control-btn control-btn-filter" style="${btnSize}" onclick="window.open('https://jfhprofesor.goatcounter.com','_blank')"><img src="imagenes/menu/Estadisticas.png" alt=""><span>Ver estadísticas</span></button>
+    <button class="${btnClass}" style="${btnSize}" onclick="window.open('https://jfhprofesor.goatcounter.com','_blank')"><img src="imagenes/menu/Estadisticas.png" alt=""><span>Ver estadísticas</span></button>
   </div>`;
 
   const amazonHTML = `<div style="${groupStyle} flex:1; box-sizing:border-box;">
     <div style="${titleStyle}">AMAZON KINDLE</div>
-    <button class="control-btn control-btn-filter" style="${btnSize}" onclick="window.open('https://kdpreports.amazon.com/royalties','_blank')"><img src="imagenes/menu/Amazon.webp" alt=""><span>Ventas</span></button>
-    <button class="control-btn control-btn-filter" style="${btnSize}" onclick="window.open('https://kdp.amazon.com/es_ES/bookshelf','_blank')"><img src="imagenes/menu/Amazon.webp" alt=""><span>Administrar</span></button>
+    <button class="${btnClass}" style="${btnSize}" onclick="window.open('https://kdpreports.amazon.com/royalties','_blank')"><img src="imagenes/menu/Amazon.webp" alt=""><span>Ventas</span></button>
+    <button class="${btnClass}" style="${btnSize}" onclick="window.open('https://kdp.amazon.com/es_ES/bookshelf','_blank')"><img src="imagenes/menu/Amazon.webp" alt=""><span>Administrar</span></button>
   </div>`;
 
   let tableHTML = `<div style="${groupStyle}">
