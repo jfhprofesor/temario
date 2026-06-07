@@ -1517,7 +1517,7 @@ function _gcDateRange(days) {
 }
 
 function _gcDateRangeYear(days) {
-  if (days === null) return `start=2020-01-01&end=${new Date().toISOString().slice(0,10)}`;
+  if (days === null) return `start=2024-01-01&end=${new Date().toISOString().slice(0,10)}`;
   return _gcDateRange(days);
 }
 
@@ -1550,7 +1550,7 @@ async function _consolaCargarEstadisticas() {
   ];
 
   const totales = await Promise.all(periodos.map(p =>
-    _gcFetch(`/stats/total?${_gcDateRangeYear(p.days)}`)
+    _gcFetch(`/stats/total?${_gcDateRangeYear(p.days)}`).catch(() => null)
   ));
 
   if (elVisitas) {
@@ -1567,7 +1567,7 @@ async function _consolaCargarEstadisticas() {
   const elOrigen = document.getElementById('gc-origen');
   if (elOrigen) elOrigen.innerHTML = _gcSpinner();
 
-  const refs = await _gcFetch(`/stats/toprefs?${_gcDateRangeYear(null)}&limit=50`);
+  const refs = await _gcFetch(`/stats/toprefs?${_gcDateRangeYear(null)}&limit=50`).catch(() => null);
   if (elOrigen && refs?.stats) {
     const google  = refs.stats.filter(r => /google/i.test(r.name)).reduce((s,r) => s+r.count, 0);
     const directo = refs.stats.find(r => r.name === '' || r.name === '(direct)')?.count || 0;
@@ -1590,7 +1590,7 @@ async function _consolaCargarEstadisticas() {
   const elDisp = document.getElementById('gc-dispositivo');
   if (elDisp) elDisp.innerHTML = _gcSpinner();
 
-  const sizes = await _gcFetch(`/stats/sizes?${_gcDateRangeYear(null)}&limit=50`);
+  const sizes = await _gcFetch(`/stats/sizes?${_gcDateRangeYear(null)}&limit=50`).catch(() => null);
   if (elDisp && sizes?.stats) {
     let movil = 0, tablet = 0, pc = 0;
     sizes.stats.forEach(s => {
@@ -1626,7 +1626,7 @@ async function _consolaCargarEstadisticas() {
   const elPaises = document.getElementById('gc-paises');
   if (elPaises) elPaises.innerHTML = _gcSpinner();
 
-  const locs = await _gcFetch(`/stats/locations?${_gcDateRangeYear(null)}&limit=10`);
+  const locs = await _gcFetch(`/stats/locations?${_gcDateRangeYear(null)}&limit=10`).catch(() => null);
   if (elPaises && locs?.stats?.length) {
     const maxP = locs.stats[0].count;
     elPaises.innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;">` +
