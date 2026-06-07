@@ -1506,7 +1506,7 @@ function renderConsola() {
   if (!grid) return;
 
   const esMobil = window.location.pathname.endsWith('movil.html');
-  const btnSize = esMobil ? 'width:60px;height:25px;' : 'width:250px;';
+  const btnSize = esMobil ? 'width:60px!important;height:25px;' : 'width:250px;';
 
   const groupStyle = 'background:#20292F; border:1px solid #999999; border-radius:6px; padding:10px; display:flex; flex-direction:column; gap:6px;';
   const titleStyle = 'font-family:Saira,sans-serif;font-size:0.85rem;font-weight:700;color:var(--accent);letter-spacing:0.08em;margin-bottom:2px;';
