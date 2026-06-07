@@ -870,7 +870,7 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
   flex:1 !important;
   justify-content:center !important;
 }
-.control-btn-consola { flex:0 0 60px !important; width:60px !important; height:25px !important; }
+#grid-consola .control-btn-filter { flex:none !important; width:100% !important; box-sizing:border-box !important; }
 
 /* Punto 9: Barra publicaciones — sin margin extra, comparte estilo de .curso-sidebar */
 #panel-publicaciones .sidebar-pub-acciones { height:80px; min-height:80px; }
@@ -1254,7 +1254,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
         <span class="control-label">SALA DE CONTROL</span>
       </div>
     </div>
-    <div class="curso-layout">
+    <div class="curso-layout" style="padding:10px 0;">
       <div id="grid-consola" style="display:flex; flex-direction:row; gap:15px; flex:1; height:100%; overflow:hidden;"></div>
     </div>
   </div>
@@ -1997,7 +1997,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
         const botonesAmazon = document.querySelectorAll('#grid-consola .control-btn-filter');
         botonesAmazon.forEach(b => {
           b.classList.remove('anim-entrada');
-          b.style.cssText += ';animation:none !important;transition:none !important;opacity:1 !important;width:180px !important;min-width:0 !important;flex-direction:row !important;justify-content:flex-start !important;align-items:center !important;gap:8px !important;padding:0 3px !important;position:relative !important;';
+          b.style.cssText += ';animation:none !important;transition:none !important;opacity:1 !important;width:100% !important;box-sizing:border-box !important;flex-direction:row !important;justify-content:flex-start !important;align-items:center !important;gap:8px !important;padding:0 8px !important;position:relative !important;';
           const img = b.querySelector('img');
           if (img) img.style.cssText += ';position:static !important;transform:none !important;top:auto !important;left:auto !important;flex-shrink:0 !important;width:20px !important;height:20px !important;';
           const span = b.querySelector('span');

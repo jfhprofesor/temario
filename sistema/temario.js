@@ -1506,27 +1506,28 @@ function renderConsola() {
   if (!grid) return;
 
   const esMobil = window.location.pathname.endsWith('movil.html');
-  const btnSize = esMobil ? 'width:60px;height:25px;' : 'width:250px;';
+  const btnSize = esMobil ? 'width:100%;box-sizing:border-box;' : 'width:250px;';
   const btnClass = esMobil ? 'control-btn control-btn-filter control-btn-consola' : 'control-btn control-btn-filter';
 
-  const groupStyle = 'background:#20292F; border:1px solid #999999; border-radius:6px; padding:10px; display:flex; flex-direction:column; gap:6px;';
+  const groupStyle = 'background:#20292F; border:1px solid #999999; border-radius:6px; padding:10px; display:flex; flex-direction:column; gap:6px; overflow:hidden;';
+  const topGroupExtra = esMobil ? ' height:100px;' : '';
   const titleStyle = 'font-family:Saira,sans-serif;font-size:0.85rem;font-weight:700;color:var(--accent);letter-spacing:0.08em;margin-bottom:2px;';
   const inputStyle = 'width:100%;background:#111;border:1px solid #444;border-radius:4px;color:#fff;padding:2px 4px;font-size:0.75rem;font-family:Saira,sans-serif;box-sizing:border-box;height:24px;';
 
-  const codigoUniversalHTML = `<div style="${groupStyle} flex:1; box-sizing:border-box; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start;">
-    <div style="${titleStyle}">CÓDIGO</div>
+  const codigoUniversalHTML = `<div style="${groupStyle}${topGroupExtra} flex:1; min-width:0; box-sizing:border-box; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start; overflow:hidden;">
+    <div style="${titleStyle}">${esMobil ? 'CÓDIGO' : 'CÓDIGO UNIVERSAL'}</div>
     <div id="codigo-universal-cuadro" style="background:#000000; border:1px solid #999999; border-radius:4px; padding:10px; margin:0; display:inline-flex; align-items:center; justify-content:center; height:66px; width:100%; box-sizing:border-box;">
       <div id="codigo-universal-texto" style="font-family:Saira,sans-serif;font-size:1.4rem;font-weight:700;color:var(--accent);letter-spacing:0.15em;text-align:center;margin:0;padding:0;user-select:text;cursor:text;">9445</div>
     </div>
   </div>`;
 
-  const estadisticasHTML = `<div style="${groupStyle} flex:1; box-sizing:border-box;">
-    <div style="${titleStyle}">ESTADÍSTICAS</div>
-    <button class="${btnClass}" style="${btnSize}" onclick="window.open('https://jfhprofesor.goatcounter.com','_blank')"><img src="imagenes/menu/Estadisticas.png" alt=""><span>Ver estadísticas</span></button>
+  const estadisticasHTML = `<div style="${groupStyle}${topGroupExtra} flex:1; min-width:0; box-sizing:border-box; overflow:hidden;">
+    <div style="${titleStyle}">${esMobil ? 'ESTADÍSTICAS' : 'ESTADÍSTICAS GOAT'}</div>
+    <button class="${btnClass}" style="${btnSize}" onclick="window.open('https://jfhprofesor.goatcounter.com','_blank')"><img src="imagenes/menu/Estadisticas.png" alt=""><span>Estadísticas</span></button>
   </div>`;
 
-  const amazonHTML = `<div style="${groupStyle} flex:1; box-sizing:border-box;">
-    <div style="${titleStyle}">AMAZON KINDLE</div>
+  const amazonHTML = `<div style="${groupStyle}${topGroupExtra} flex:1; min-width:0; box-sizing:border-box; overflow:hidden;">
+    <div style="${titleStyle}">${esMobil ? 'KINDLE' : 'AMAZON KINDLE'}</div>
     <button class="${btnClass}" style="${btnSize}" onclick="window.open('https://kdpreports.amazon.com/royalties','_blank')"><img src="imagenes/menu/Amazon.webp" alt=""><span>Ventas</span></button>
     <button class="${btnClass}" style="${btnSize}" onclick="window.open('https://kdp.amazon.com/es_ES/bookshelf','_blank')"><img src="imagenes/menu/Amazon.webp" alt=""><span>Administrar</span></button>
   </div>`;
