@@ -1505,7 +1505,7 @@ function renderConsola() {
   const grid = document.getElementById('grid-consola');
   if (!grid) return;
 
-  const esMobil = window.innerWidth < 768;
+  const esMobil = window.location.pathname.endsWith('movil.html');
   const btnSize = esMobil ? 'width:60px;height:25px;' : 'width:250px;';
 
   const groupStyle = 'background:#20292F; border:1px solid #999999; border-radius:6px; padding:10px; display:flex; flex-direction:column; gap:6px;';
