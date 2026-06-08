@@ -2717,6 +2717,9 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
 
     const dir = dx < 0 ? 1 : -1; // izq→siguiente, der→anterior
 
+    // Sala de Control abierta → no swipe
+    if (document.getElementById('panel-consola')?.classList.contains('active')) return;
+
     // 0. Overlay muestras abierto → navegar imágenes
     const ovMuestras = document.getElementById('overlay-muestras');
     if (ovMuestras && ovMuestras.style.opacity !== '0' && ovMuestras.style.pointerEvents !== 'none') {
