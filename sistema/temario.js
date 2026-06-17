@@ -3123,6 +3123,25 @@ const temarioReal = {
   '2bachF':[7, 10, 13],
   '2bachQ':[11]
 };
+function _toggleTemarioMovil(cursoId, btn) {
+  // Solo funciona si el curso tiene temarioReal definido
+  if (!temarioReal[cursoId]) return;
+  temarioState[cursoId] = temarioState[cursoId] === 'Real' ? 'Todo' : 'Real';
+  aplicarTemarioState(cursoId);
+  _actualizarBtnTemarioMovil(cursoId);
+}
+
+function _actualizarBtnTemarioMovil(cursoId) {
+  const btn = document.getElementById('btn-temario-' + cursoId);
+  if (!btn) return;
+  const esReal = temarioState[cursoId] === 'Real';
+  const span = btn.querySelector('span');
+  if (span) span.innerHTML = esReal ? 'Temario<br>real' : 'Temario<br>completo';
+  btn.style.opacity = esReal ? '1' : '';
+  const img = btn.querySelector('img');
+  if (img) img.style.filter = esReal ? 'brightness(1.3)' : '';
+}
+
 function aplicarTemarioState(cursoId) {
   const grid = document.getElementById('grid-' + cursoId);
   if (!grid) return;

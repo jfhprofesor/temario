@@ -880,6 +880,8 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 button.sidebar-btn { background:none; border:none; cursor:pointer; }
 /* Placeholder invisible para mantener espacio cuando falta un botón de navegación */
 .sidebar-btn-placeholder { visibility:hidden; pointer-events:none; width:calc(38px + 0.6rem); min-width:calc(38px + 0.6rem); height:calc(38px + 2.4em + 0.2rem + 8px); }
+/* Botón temario móvil: oculto en cursos sin temarioReal */
+#btn-temario-2eso { visibility:hidden; pointer-events:none; }
 
 /* Sidebar publicaciones con botones acción: fila horizontal volver + acciones */
 .sidebar-pub-acciones {
@@ -1072,7 +1074,10 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
           </div>
           <div class="sidebar-separador"></div>
           <div class="sidebar-mitad">
-            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+            <button class="sidebar-btn" id="btn-temario-2eso" onclick="_toggleTemarioMovil('2eso', this)">
+              <img src="imagenes/menu/Libro de texto.webp" alt="Temario">
+              <span>Temario<br>completo</span>
+            </button>
             <button class="sidebar-btn" style="visibility:hidden;pointer-events:none;">
               <img src="imagenes/menu/Anterior.webp" alt="Curso anterior">
               <span>Curso<br>anterior</span>
@@ -1106,7 +1111,10 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
           </div>
           <div class="sidebar-separador"></div>
           <div class="sidebar-mitad">
-            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+            <button class="sidebar-btn" id="btn-temario-3eso" onclick="_toggleTemarioMovil('3eso', this)">
+              <img src="imagenes/menu/Libro de texto.webp" alt="Temario">
+              <span>Temario<br>completo</span>
+            </button>
             <button class="sidebar-btn" onclick="selectCurso('2eso',document.querySelector('.curso-tab[onclick*=\'2eso\']'),true)">
               <img src="imagenes/menu/Anterior.webp" alt="Curso anterior">
               <span>Curso<br>anterior</span>
@@ -1137,7 +1145,10 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
           </div>
           <div class="sidebar-separador"></div>
           <div class="sidebar-mitad">
-            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+            <button class="sidebar-btn" id="btn-temario-4eso" onclick="_toggleTemarioMovil('4eso', this)">
+              <img src="imagenes/menu/Libro de texto.webp" alt="Temario">
+              <span>Temario<br>completo</span>
+            </button>
             <button class="sidebar-btn" onclick="selectCurso('3eso',document.querySelector('.curso-tab[onclick*=\'3eso\']'),true)">
               <img src="imagenes/menu/Anterior.webp" alt="Curso anterior">
               <span>Curso<br>anterior</span>
@@ -1171,7 +1182,10 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
           </div>
           <div class="sidebar-separador"></div>
           <div class="sidebar-mitad">
-            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+            <button class="sidebar-btn" id="btn-temario-1bach" onclick="_toggleTemarioMovil('1bach', this)">
+              <img src="imagenes/menu/Libro de texto.webp" alt="Temario">
+              <span>Temario<br>completo</span>
+            </button>
             <button class="sidebar-btn" onclick="selectCurso('4eso',document.querySelector('.curso-tab[onclick*=\'4eso\']'),true)">
               <img src="imagenes/menu/Anterior.webp" alt="Curso anterior">
               <span>Curso<br>anterior</span>
@@ -1202,7 +1216,10 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
           </div>
           <div class="sidebar-separador"></div>
           <div class="sidebar-mitad">
-            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+            <button class="sidebar-btn" id="btn-temario-2bachF" onclick="_toggleTemarioMovil('2bachF', this)">
+              <img src="imagenes/menu/Libro de texto.webp" alt="Temario">
+              <span>Temario<br>completo</span>
+            </button>
             <button class="sidebar-btn" onclick="selectCurso('1bach',document.querySelector('.curso-tab[onclick*=\'1bach\']'),true)">
               <img src="imagenes/menu/Anterior.webp" alt="Curso anterior">
               <span>Curso<br>anterior</span>
@@ -1233,7 +1250,10 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
           </div>
           <div class="sidebar-separador"></div>
           <div class="sidebar-mitad">
-            <div class="sidebar-btn sidebar-btn-placeholder"></div>
+            <button class="sidebar-btn" id="btn-temario-2bachQ" onclick="_toggleTemarioMovil('2bachQ', this)">
+              <img src="imagenes/menu/Libro de texto.webp" alt="Temario">
+              <span>Temario<br>completo</span>
+            </button>
             <button class="sidebar-btn" onclick="selectCurso('2bachF',document.querySelector('.curso-tab[onclick*=\'2bachF\']'),true)">
               <img src="imagenes/menu/Anterior.webp" alt="Curso anterior">
               <span>Curso<br>anterior</span>
