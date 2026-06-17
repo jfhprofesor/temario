@@ -821,6 +821,22 @@ function mostrarJuegos(cursoId) {
       `;
     }
 
+    // Limpiar grupos de juegos en cualquier otro panel que los tenga todavía
+    document.querySelectorAll('#juegos-curso-group, #juegos-flechas-group').forEach(el => {
+      const otroPanel = el.closest('[id^="panel-"]');
+      if (otroPanel && otroPanel.id !== 'panel-' + cursoId) {
+        // Restaurar visibilidad de los grupos nativos de ese panel
+        const otraBarra = otroPanel.querySelector('.barra-interna');
+        if (otraBarra) {
+          const cp = otraBarra.querySelector('[id^="curso-pagina-group-"]');
+          const cf = otraBarra.querySelector('[id^="curso-flechas-group-"]');
+          if (cp) cp.style.visibility = '';
+          if (cf) cf.style.visibility = '';
+        }
+        el.remove();
+      }
+    });
+
     // Añadir o actualizar grupos PÁGINA y flechas en la barra interna
     const barraJ = panelJ.querySelector('.barra-interna');
     if (barraJ) {
