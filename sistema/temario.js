@@ -2880,10 +2880,6 @@ function volverATemas(cursoId) {
     const gJ2 = barraJuegos.querySelector('#juegos-flechas-group');
     if (gJ1) gJ1.remove();
     if (gJ2) gJ2.remove();
-    const unidadPagEl = barraJuegos.querySelector('[id^="unidad-pagina-"]');
-    const unidadFlechasEl = barraJuegos.querySelector('[id^="unidad-flechas-"]');
-    if (unidadPagEl) unidadPagEl.style.visibility = '';
-    if (unidadFlechasEl) unidadFlechasEl.style.visibility = '';
     // Restaurar grupos estáticos PÁGINA y flechas del curso
     const cursoPagEl = barraJuegos.querySelector('[id^="curso-pagina-group-"]');
     const cursoFlechasEl = barraJuegos.querySelector('[id^="curso-flechas-group-"]');
@@ -3258,6 +3254,11 @@ function mostrarPagina() {
           requestAnimationFrame(() => requestAnimationFrame(() => {
             iconImg.style.transform = 'scale(1)';
             iconImg.style.opacity = '1';
+            setTimeout(() => {
+              iconImg.style.transform = '';
+              iconImg.style.transition = '';
+              iconImg.style.opacity = '';
+            }, 300);
           }));
         }
         // Textos: blur in
