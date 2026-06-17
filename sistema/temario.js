@@ -2325,9 +2325,12 @@ function renderTemaGrid(cursoId, soloFiltro) {
   grid.style.gridTemplateColumns = '';
 
   const total = curso.temas.length;
+  const grisIdxsR2 = temarioReal[cursoId] || [];
   curso.temas.forEach((tema, idxReal) => {
     const btn = document.createElement('button');
-    const esGris = tema.cat && !visibles.includes(tema.cat);
+    const esGrisFiltro = tema.cat && !visibles.includes(tema.cat);
+    const esGrisTemario = temarioState[cursoId] === 'Real' && grisIdxsR2.includes(idxReal + 1);
+    const esGris = esGrisFiltro || esGrisTemario;
     btn.className = `unidad-ficha anim-entrada color-${cursoId}${tema.cat ? ' cat-'+tema.cat : ''}${esGris ? ' tema-gris' : ''}`;
     btn.style.setProperty('--d', idxReal);
     btn.onclick = function() { mostrarSubelementos(cursoId, idxReal, this); };
@@ -3137,9 +3140,8 @@ function _actualizarBtnTemarioMovil(cursoId) {
   const esReal = temarioState[cursoId] === 'Real';
   const span = btn.querySelector('span');
   if (span) span.innerHTML = esReal ? 'Temario<br>real' : 'Temario<br>completo';
-  btn.style.opacity = esReal ? '1' : '';
   const img = btn.querySelector('img');
-  if (img) img.style.filter = esReal ? 'brightness(1.3)' : '';
+  if (img) img.src = esReal ? 'imagenes/menu/Lecturas.webp' : 'imagenes/menu/Libro de texto.webp';
 }
 
 function aplicarTemarioState(cursoId) {
