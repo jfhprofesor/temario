@@ -2942,10 +2942,16 @@ function volverATemas(cursoId) {
 
   renderTemaGrid(cursoId);
 
-  // Móvil: resetear temario a 'Todo' al volver (después de restaurar el sidebar)
-  if (window.location.pathname.endsWith('movil.html') && temarioState[cursoId] === 'Real') {
+  // Móvil: resetear temario a 'Todo' siempre al volver
+  if (window.location.pathname.endsWith('movil.html')) {
     temarioState[cursoId] = 'Todo';
-    _actualizarBtnTemarioMovil(cursoId);
+    const _btnTem = document.getElementById('btn-temario-' + cursoId);
+    if (_btnTem) {
+      const _span = _btnTem.querySelector('span');
+      const _img  = _btnTem.querySelector('img');
+      if (_span) _span.innerHTML = 'Temario<br>completo';
+      if (_img)  _img.src = 'imagenes/menu/Libro de texto.webp';
+    }
   }
 }
 
