@@ -2002,6 +2002,19 @@ function volverAPublicaciones() {
   if (sidebar && sidebar.dataset.originalHtml) {
     sidebar.innerHTML = sidebar.dataset.originalHtml;
     delete sidebar.dataset.originalHtml;
+    // Móvil: resetear botón temario al estado inicial
+    if (window.location.pathname.endsWith('movil.html')) {
+      const _cid = panel?.id?.replace('panel-','') || cursoId || id;
+      if (_cid) {
+        temarioState[_cid] = 'Todo';
+        const _bt = document.getElementById('btn-temario-' + _cid);
+        if (_bt) {
+          const _s = _bt.querySelector('span'); const _i = _bt.querySelector('img');
+          if (_s) _s.innerHTML = 'Temario<br>completo';
+          if (_i) _i.src = 'imagenes/menu/Libro de texto.webp';
+        }
+      }
+    }
   }
 
   // Restaurar grid
@@ -3146,18 +3159,14 @@ function _toggleTemarioMovil(cursoId, btn) {
 }
 
 function _actualizarBtnTemarioMovil(cursoId) {
+  // Busca el botón tanto en el DOM vivo como en el sidebar restaurado
   const btn = document.getElementById('btn-temario-' + cursoId);
   if (!btn) return;
   const esReal = temarioState[cursoId] === 'Real';
-  const span = btn.querySelector('span');
-  if (span) span.innerHTML = esReal ? 'Temario<br>real' : 'Temario<br>completo';
-  const img = btn.querySelector('img');
-  if (img) img.src = esReal ? 'imagenes/menu/Lecturas.webp' : 'imagenes/menu/Libro de texto.webp';
-  // Actualizar originalHtml del sidebar para que la restauración use el estado correcto
-  const sidebar = btn.closest('.curso-sidebar');
-  if (sidebar && sidebar.dataset.originalHtml) {
-    sidebar.dataset.originalHtml = sidebar.innerHTML;
-  }
+  const img  = btn.querySelector('.btn-temario-ico');
+  const span = btn.querySelector('.btn-temario-txt');
+  if (img)  img.src           = esReal ? 'imagenes/menu/Lecturas.webp' : 'imagenes/menu/Libro de texto.webp';
+  if (span) span.innerHTML    = esReal ? 'Temario<br>real' : 'Temario<br>completo';
 }
 
 function aplicarTemarioState(cursoId) {
@@ -3872,6 +3881,19 @@ function selectCurso(id, btn, _sinAnimar) {
   if (sidebar && sidebar.dataset.originalHtml) {
     sidebar.innerHTML = sidebar.dataset.originalHtml;
     delete sidebar.dataset.originalHtml;
+    // Móvil: resetear botón temario al estado inicial
+    if (window.location.pathname.endsWith('movil.html')) {
+      const _cid = panel?.id?.replace('panel-','') || cursoId || id;
+      if (_cid) {
+        temarioState[_cid] = 'Todo';
+        const _bt = document.getElementById('btn-temario-' + _cid);
+        if (_bt) {
+          const _s = _bt.querySelector('span'); const _i = _bt.querySelector('img');
+          if (_s) _s.innerHTML = 'Temario<br>completo';
+          if (_i) _i.src = 'imagenes/menu/Libro de texto.webp';
+        }
+      }
+    }
   }
   sidebar?.classList.add('active-'+id);
 
