@@ -3147,6 +3147,11 @@ function _actualizarBtnTemarioMovil(cursoId) {
   if (span) span.innerHTML = esReal ? 'Temario<br>real' : 'Temario<br>completo';
   const img = btn.querySelector('img');
   if (img) img.src = esReal ? 'imagenes/menu/Lecturas.webp' : 'imagenes/menu/Libro de texto.webp';
+  // Actualizar originalHtml del sidebar para que la restauración use el estado correcto
+  const sidebar = btn.closest('.curso-sidebar');
+  if (sidebar && sidebar.dataset.originalHtml) {
+    sidebar.dataset.originalHtml = sidebar.innerHTML;
+  }
 }
 
 function aplicarTemarioState(cursoId) {
