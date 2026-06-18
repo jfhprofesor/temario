@@ -3863,6 +3863,18 @@ function irAAutor() {
 
 function selectCurso(id, btn, _sinAnimar) {
   document.body.classList.remove('en-unidad');
+  // Móvil: resetear botón temario de todos los cursos al cambiar
+  if (window.location.pathname.endsWith('movil.html')) {
+    ['2eso','3eso','4eso','1bach','2bachF','2bachQ'].forEach(cid => {
+      temarioState[cid] = 'Todo';
+      const _bt = document.getElementById('btn-temario-' + cid);
+      if (_bt) {
+        const _s = _bt.querySelector('span'), _i = _bt.querySelector('img');
+        if (_s) _s.innerHTML = 'Temario<br>completo';
+        if (_i) _i.src = 'imagenes/menu/Libro de texto.webp';
+      }
+    });
+  }
   document.querySelectorAll('.curso-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.curso-sidebar').forEach(sb => {
     sb.classList.remove('active-2eso', 'active-3eso', 'active-4eso', 'active-1bach', 'active-2bachF', 'active-2bachQ', 'active-publicaciones', 'active-objetos');
