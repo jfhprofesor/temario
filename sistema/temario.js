@@ -2888,6 +2888,11 @@ function volverATemas(cursoId) {
   estadoGrids[cursoId] = null;
   document.body.classList.remove('en-unidad');
   limpiarDebugUnidad();
+  // Móvil: resetear temario a 'Todo' al volver
+  if (window.location.pathname.endsWith('movil.html') && temarioState[cursoId] === 'Real') {
+    temarioState[cursoId] = 'Todo';
+    _actualizarBtnTemarioMovil(cursoId);
+  }
 
   // Eliminar grupos de juegos y restaurar grupos nativos
   const barraJuegos = document.getElementById('panel-' + cursoId)?.querySelector('.barra-interna');
