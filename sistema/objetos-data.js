@@ -235,7 +235,19 @@ const OBJETOS = [
     "objeto": "Termómetro-higrómetro",
     "categoria": "Método científico",
     "icono": "imagenes/objetos/Laboratorio - Termómetro-higrómetro - A.webp"
+  },
+  {
+    "tema": "Cinética",
+    "objeto": "Esfera giratoria",
+    "categoria": "Física",
+    "icono": "imagenes/objetos/Cinética - Esfera giratoria - A.webp"
+  },
+  {
+    "tema": "Sonido",
+    "objeto": "Ocarina",
+    "categoria": "Física",
+    "icono": "imagenes/objetos/Sonido - Ocarina - A.webp"
   }
 ].sort((a,b) => a.objeto.localeCompare(b.objeto));
 
-console.log('✓ OBJETOS cargado: 39 objetos');
+console.log('✓ OBJETOS cargado: 41 objetos');
