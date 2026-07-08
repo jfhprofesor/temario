@@ -102,7 +102,7 @@ const OBJETOS = [
     "tema": "Magnetismo",
     "objeto": "Imanes de neodimio",
     "categoria": "Física",
-    "icono": "imagenes/objetos/Magnetismo - Imanes de neodimio - A.png"
+    "icono": "imagenes/objetos/Magnetismo - Imanes de neodimio - A.webp"
   },
   {
     "tema": "Laboratorio",
@@ -222,7 +222,7 @@ const OBJETOS = [
     "tema": "Óptica",
     "objeto": "Puntero láser verde",
     "categoria": "Física",
-    "icono": "imagenes/objetos/Óptica - Puntero láser verde - A.png"
+    "icono": "imagenes/objetos/Óptica - Puntero láser verde - A.webp"
   },
   {
     "tema": "Reacciones químicas",
