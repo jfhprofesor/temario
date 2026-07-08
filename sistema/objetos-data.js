@@ -99,6 +99,12 @@ const OBJETOS = [
     "icono": "imagenes/objetos/Magnetismo - Imán y ferrita - A.webp"
   },
   {
+    "tema": "Magnetismo",
+    "objeto": "Imanes de neodimio",
+    "categoria": "Física",
+    "icono": "imagenes/objetos/Magnetismo - Imanes de neodimio - A.png"
+  },
+  {
     "tema": "Laboratorio",
     "objeto": "Jeringa",
     "categoria": "Método científico",
@@ -133,6 +139,12 @@ const OBJETOS = [
     "objeto": "Medallones de dispersión",
     "categoria": "Física",
     "icono": "imagenes/objetos/Óptica - Medallones de dispersión - A.webp"
+  },
+  {
+    "tema": "Sustancias",
+    "objeto": "Líquidos transparentes",
+    "categoria": "Química",
+    "icono": "imagenes/objetos/Sustancias - Líquidos transparentes - A.webp"
   },
   {
     "tema": "Sustancias",
@@ -201,16 +213,16 @@ const OBJETOS = [
     "icono": "imagenes/objetos/Óptica - Prisma de dispersión - A.webp"
   },
   {
-    "tema": "Laboratorio",
-    "objeto": "Pulverizadores",
-    "categoria": "Método científico",
-    "icono": "imagenes/objetos/Laboratorio - Pulverizadores - A.webp"
-  },
-  {
     "tema": "Óptica",
     "objeto": "Puntero láser rojo",
     "categoria": "Física",
     "icono": "imagenes/objetos/Óptica - Puntero láser rojo - A.webp"
+  },
+  {
+    "tema": "Óptica",
+    "objeto": "Puntero láser verde",
+    "categoria": "Física",
+    "icono": "imagenes/objetos/Óptica - Puntero láser verde - A.png"
   },
   {
     "tema": "Reacciones químicas",
@@ -250,4 +262,4 @@ const OBJETOS = [
   }
 ].sort((a,b) => a.objeto.localeCompare(b.objeto));
 
-console.log('✓ OBJETOS cargado: 41 objetos');
+console.log('✓ OBJETOS cargado: 43 objetos');
