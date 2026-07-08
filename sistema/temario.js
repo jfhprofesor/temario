@@ -3584,6 +3584,7 @@ function abrirObjetoDetalle(obj) {
   const imagenBFallback = `imagenes/objetos/${obj.tema} - ${obj.objeto} - B.${extB}`;
   const imgATemp = new Image();
   imgATemp.onerror = () => {
+    console.error('[OBJETO] onerror imgA:', imgATemp.src);
     if (esDesktop && imgATemp.src !== location.origin + '/' + imagenBFallback && !imgATemp.src.endsWith(imagenBFallback)) {
       // Fallback a - B si - D no existe
       imgATemp.src = imagenBFallback;
@@ -3591,7 +3592,8 @@ function abrirObjetoDetalle(obj) {
       imgA.style.display = 'none'; loadedA = true; ajustarAnchosVentana();
     }
   };
-  imgATemp.onload  = () => { imgA.src = imgATemp.src; ratioA = imgATemp.naturalWidth / imgATemp.naturalHeight; loadedA = true; ajustarAnchosVentana(); };
+  imgATemp.onload  = () => { console.log('[OBJETO] onload imgA:', imgATemp.src); imgA.src = imgATemp.src; ratioA = imgATemp.naturalWidth / imgATemp.naturalHeight; loadedA = true; ajustarAnchosVentana(); };
+  console.log('[OBJETO] cargando imgA:', imagenB, 'esDesktop:', esDesktop);
   imgATemp.src = imagenB;
 
   const imgBTemp = new Image();
