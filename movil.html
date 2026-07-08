@@ -671,7 +671,7 @@ body.en-unidad [id^="grid-"]:has(.ficha-actividades--video) .unidad-nav-row { ju
 .objeto-detail-title { display:flex; align-items:center; justify-content:space-between; flex-shrink:0; background:#1f3742; padding:6px 8px; height:36px; font-size:0.85rem; font-weight:600; color:var(--accent); letter-spacing:0.04em; z-index:5; border-bottom:1px solid var(--border); font-family:'Saira',sans-serif; width:100% !important; box-sizing:border-box; margin-top:0 !important; }
 .objeto-detail-title-text { flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 /* Imágenes centradas horizontal y verticalmente */
-.objeto-detail-img { width:auto; height:auto; object-fit:contain; object-position:center; border:none; display:block; background:transparent; max-width:100%; max-height:calc(40vh - 36px); flex:1; margin:auto; align-self:center; justify-self:center; min-height:0; }
+.objeto-detail-img { width:100%; height:100%; object-fit:contain; object-position:center; border:none; display:block; background:transparent; max-height:calc(40vh - 36px); flex:1; min-height:0; }
 /* Modal más alto para que quepa la imagen de simulación */
 .objeto-detail { max-height:98vh !important; height:90vh !important; }
 .objeto-detail-video { position:absolute; bottom:0.6rem; left:50%; transform:translateX(-50%); z-index:6; white-space:nowrap; }
@@ -935,7 +935,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
   .temas-grid,.unidades-grid,.publicaciones-grid { grid-template-columns:repeat(3,1fr); }
 }
 </style>
-<script src="sistema/objetos-data.js?v=3"></script>
+<script src="sistema/objetos-data.js?v=4"></script>
 </head>
 <body>
 <div class="pin-overlay" id="pinOverlay" style="display:none" onclick="if(event.target===this){this.style.display='none';document.body.style.overflow='';}">
@@ -1349,7 +1349,7 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
     <div class="modal-links" id="modal-links"></div>
   </div>
 </div>
-<script src="sistema/temario.js?v=3"></script>
+<script src="sistema/temario.js?v=4"></script>
 <script>
 // ── Parche rutas WebP para PUB_PANEL_DATA ─────────────────────────────────
 (function() {
@@ -2571,19 +2571,6 @@ button.sidebar-btn { background:none; border:none; cursor:pointer; }
   _fixJuegosLayout();
 })();
 
-// ── OBJETOS: forzar extensión png para imagen - B ────────────────────────────
-(function() {
-  const _origAbrirObjeto = window.abrirObjetoDetalle;
-  if (!_origAbrirObjeto) return;
-  window.abrirObjetoDetalle = function(obj) {
-    // Parchear EXTENSION_MAP para este objeto: B → png
-    if (typeof EXTENSION_MAP !== 'undefined') {
-      const key = obj.tema + '|' + obj.objeto;
-      if (EXTENSION_MAP[key]) EXTENSION_MAP[key]['B'] = 'png';
-    }
-    _origAbrirObjeto.apply(this, arguments);
-  };
-})();
 
 // ── UNIDADES/JUEGOS: sacar unidad-imagen del div raíz al curso-layout ───────
 (function() {
