@@ -207,6 +207,12 @@ const OBJETOS = [
     "icono": "imagenes/objetos/Reacciones químicas - Piedras fluorescentes - A.webp"
   },
   {
+    "tema": "Sustancias",
+    "objeto": "Plastilina fosforescente",
+    "categoria": "Química",
+    "icono": "imagenes/objetos/Sustancias - Plastilina fosforescente - A.webp"
+  },
+  {
     "tema": "Óptica",
     "objeto": "Prisma de dispersión",
     "categoria": "Física",
